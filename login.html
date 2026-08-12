@@ -4,16 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Login | SIMPLE-KS Aplikasi</title>
+<title>Login | SIMPEL-KS Aplikasi</title>
 
 <meta name="description"
-      content="SIMPLE-KS - Sistem Monitoring & Penilaian Efektifitas Administrasi Kepala Sekolah">
+content="SIMPEL-KS - Sistem Monitoring & Penilaian Efektifitas Administrasi Kepala Sekolah">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -36,21 +38,34 @@
 body{
     font-family:'Inter',sans-serif;
     min-height:100vh;
-    background:
-        radial-gradient(circle at 10% 10%, rgba(37,99,235,.12), transparent 30%),
-        radial-gradient(circle at 90% 90%, rgba(14,165,233,.10), transparent 30%),
-        #f8fafc;
     color:var(--text);
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(37,99,235,.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(14,165,233,.10),
+            transparent 30%
+        ),
+        #f8fafc;
 }
 
-/* ================================
+
+/* ==================================================
    HEADER
-================================ */
+================================================== */
 
 .header{
     height:76px;
-    background:rgba(255,255,255,.94);
+
+    background:rgba(255,255,255,.95);
+
     backdrop-filter:blur(12px);
+
     border-bottom:1px solid rgba(226,232,240,.9);
 
     display:flex;
@@ -58,6 +73,7 @@ body{
     justify-content:space-between;
 
     padding:0 6%;
+
     position:relative;
     z-index:10;
 }
@@ -71,8 +87,11 @@ body{
 .logo{
     width:48px;
     height:48px;
+
     object-fit:contain;
+
     border-radius:12px;
+
     background:#fff;
 }
 
@@ -84,15 +103,20 @@ body{
 .brand-title{
     font-size:20px;
     font-weight:800;
+
     color:var(--secondary);
+
     letter-spacing:-.5px;
 }
 
 .brand-subtitle{
     font-size:10px;
     font-weight:600;
+
     color:var(--muted);
+
     text-transform:uppercase;
+
     letter-spacing:1px;
 }
 
@@ -102,9 +126,11 @@ body{
     gap:7px;
 
     padding:8px 13px;
+
     border-radius:30px;
 
     background:#eff6ff;
+
     color:#1d4ed8;
 
     font-size:12px;
@@ -114,14 +140,19 @@ body{
 .status-dot{
     width:7px;
     height:7px;
+
     background:#22c55e;
+
     border-radius:50%;
-    box-shadow:0 0 0 4px rgba(34,197,94,.12);
+
+    box-shadow:
+        0 0 0 4px rgba(34,197,94,.12);
 }
 
-/* ================================
+
+/* ==================================================
    MAIN
-================================ */
+================================================== */
 
 .main{
     min-height:calc(100vh - 76px);
@@ -135,7 +166,7 @@ body{
 
 .login-wrapper{
     width:100%;
-    max-width:1040px;
+    max-width:1050px;
 
     display:grid;
     grid-template-columns:1.05fr .95fr;
@@ -151,9 +182,10 @@ body{
         0 4px 15px rgba(15,23,42,.04);
 }
 
-/* ================================
+
+/* ==================================================
    LEFT PANEL
-================================ */
+================================================== */
 
 .info-panel{
     position:relative;
@@ -175,6 +207,7 @@ body{
 
 .info-panel::before{
     content:"";
+
     position:absolute;
 
     width:350px;
@@ -190,6 +223,7 @@ body{
 
 .info-panel::after{
     content:"";
+
     position:absolute;
 
     width:260px;
@@ -222,13 +256,17 @@ body{
 
     margin-bottom:25px;
 
-    box-shadow:0 12px 30px rgba(0,0,0,.12);
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.12);
 }
 
 .info-panel h1{
     font-size:34px;
+
     line-height:1.15;
+
     letter-spacing:-1px;
+
     margin-bottom:16px;
 }
 
@@ -238,26 +276,35 @@ body{
 
 .info-panel p{
     font-size:14px;
+
     line-height:1.8;
+
     color:#dbeafe;
+
     max-width:430px;
 }
 
 .feature-list{
     list-style:none;
+
     margin-top:35px;
 
     display:flex;
+
     flex-direction:column;
+
     gap:15px;
 }
 
 .feature{
     display:flex;
+
     align-items:center;
+
     gap:13px;
 
     font-size:13px;
+
     font-weight:500;
 
     color:#eff6ff;
@@ -270,6 +317,7 @@ body{
     border-radius:10px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -278,15 +326,18 @@ body{
     font-size:16px;
 }
 
-/* ================================
+
+/* ==================================================
    LOGIN PANEL
-================================ */
+================================================== */
 
 .login-panel{
     padding:55px 50px;
 
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
 }
 
@@ -296,6 +347,7 @@ body{
 
 .login-heading h2{
     font-size:27px;
+
     font-weight:800;
 
     color:var(--secondary);
@@ -305,29 +357,39 @@ body{
 
 .login-heading p{
     font-size:13px;
+
     color:var(--muted);
+
     line-height:1.6;
 }
 
-/* ================================
-   ROLE SELECTION
-================================ */
+
+/* ==================================================
+   ROLE
+================================================== */
 
 .role-title{
     font-size:12px;
+
     font-weight:700;
+
     color:#475569;
+
     margin-bottom:12px;
 }
 
 .role-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:10px;
 }
 
 .role-btn{
     border:1px solid var(--border);
+
     background:#fff;
 
     border-radius:14px;
@@ -343,13 +405,17 @@ body{
 
 .role-btn:hover{
     border-color:#93c5fd;
+
     background:#eff6ff;
+
     transform:translateY(-2px);
 }
 
 .role-btn.active{
     border-color:var(--primary);
+
     background:#eff6ff;
+
     color:var(--primary);
 
     box-shadow:
@@ -365,6 +431,7 @@ body{
     border-radius:12px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -379,12 +446,14 @@ body{
 
 .role-name{
     font-size:11px;
+
     font-weight:700;
 }
 
-/* ================================
+
+/* ==================================================
    LOGIN FORM
-================================ */
+================================================== */
 
 .login-form{
     margin-top:25px;
@@ -399,19 +468,24 @@ body{
 }
 
 @keyframes fadeUp{
+
     from{
         opacity:0;
         transform:translateY(10px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
 .selected-role{
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
     padding:11px 13px;
@@ -427,10 +501,13 @@ body{
 
 .selected-role-left{
     display:flex;
+
     align-items:center;
+
     gap:9px;
 
     font-size:12px;
+
     font-weight:700;
 }
 
@@ -443,21 +520,30 @@ body{
     background:#dbeafe;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 }
 
 .change-role{
     border:none;
+
     background:none;
 
     color:var(--primary);
 
     font-size:11px;
+
     font-weight:700;
 
     cursor:pointer;
 }
+
+
+/* ==================================================
+   FORM
+================================================== */
 
 .form-group{
     margin-bottom:16px;
@@ -467,6 +553,7 @@ body{
     display:block;
 
     font-size:12px;
+
     font-weight:700;
 
     color:#334155;
@@ -505,6 +592,7 @@ body{
     padding:0 43px;
 
     font-family:inherit;
+
     font-size:13px;
 
     color:var(--text);
@@ -530,6 +618,7 @@ body{
     transform:translateY(-50%);
 
     border:none;
+
     background:none;
 
     cursor:pointer;
@@ -539,9 +628,16 @@ body{
     font-size:16px;
 }
 
+
+/* ==================================================
+   OPTIONS
+================================================== */
+
 .form-options{
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
     margin:3px 0 20px;
@@ -549,10 +645,13 @@ body{
 
 .remember{
     display:flex;
+
     align-items:center;
+
     gap:7px;
 
     font-size:11px;
+
     color:#64748b;
 }
 
@@ -562,10 +661,18 @@ body{
 
 .forgot{
     color:var(--primary);
+
     font-size:11px;
+
     font-weight:600;
+
     text-decoration:none;
 }
+
+
+/* ==================================================
+   BUTTON
+================================================== */
 
 .login-button{
     width:100%;
@@ -573,19 +680,22 @@ body{
     height:49px;
 
     border:none;
+
     border-radius:12px;
 
-    background:linear-gradient(
-        135deg,
-        #2563eb,
-        #1d4ed8
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
 
     color:#fff;
 
     font-family:inherit;
 
     font-size:13px;
+
     font-weight:700;
 
     cursor:pointer;
@@ -596,7 +706,7 @@ body{
     transition:.25s;
 }
 
-.login-button:hover{
+.login-button:hover:not(:disabled){
     transform:translateY(-2px);
 
     box-shadow:
@@ -607,26 +717,16 @@ body{
     transform:translateY(0);
 }
 
-.login-button.loading{
-    pointer-events:none;
-    opacity:.75;
+.login-button:disabled{
+    cursor:not-allowed;
+
+    opacity:.7;
 }
 
-.login-note{
-    text-align:center;
 
-    margin-top:17px;
-
-    font-size:10px;
-
-    color:#94a3b8;
-
-    line-height:1.6;
-}
-
-/* ================================
+/* ==================================================
    ALERT
-================================ */
+================================================== */
 
 .alert{
     display:none;
@@ -648,19 +748,44 @@ body{
 
 .alert.error{
     background:#fef2f2;
+
     color:#b91c1c;
+
     border:1px solid #fecaca;
 }
 
 .alert.info{
     background:#eff6ff;
+
     color:#1d4ed8;
+
     border:1px solid #bfdbfe;
 }
 
-/* ================================
-   FOOTER
-================================ */
+.alert.success{
+    background:#f0fdf4;
+
+    color:#15803d;
+
+    border:1px solid #bbf7d0;
+}
+
+
+/* ==================================================
+   NOTE
+================================================== */
+
+.login-note{
+    text-align:center;
+
+    margin-top:17px;
+
+    font-size:10px;
+
+    color:#94a3b8;
+
+    line-height:1.6;
+}
 
 .footer{
     text-align:center;
@@ -672,14 +797,16 @@ body{
     font-size:10px;
 }
 
-/* ================================
+
+/* ==================================================
    RESPONSIVE
-================================ */
+================================================== */
 
 @media(max-width:850px){
 
     .login-wrapper{
         grid-template-columns:1fr;
+
         max-width:550px;
     }
 
@@ -693,12 +820,14 @@ body{
 
     .feature-list{
         display:grid;
+
         grid-template-columns:1fr 1fr;
     }
 
     .login-panel{
         padding:40px 35px;
     }
+
 }
 
 @media(max-width:520px){
@@ -742,6 +871,7 @@ body{
 
     .feature-list{
         grid-template-columns:1fr;
+
         margin-top:25px;
     }
 
@@ -760,436 +890,520 @@ body{
     .role-btn{
         padding:12px 5px;
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- =========================================
+
+<!-- ==================================================
      HEADER
-========================================= -->
+================================================== -->
 
 <header class="header">
 
     <div class="brand">
 
-        <!--
-        GANTI URL LOGO DI SINI
-        dengan file logo SD yang ada di repository GitHub Anda.
-        -->
-
         <img
             class="logo"
-            id="headerLogo"
-            src="https://raw.githubusercontent.com/bajangan118-tech/simple-ks/main/assets/logo-sd.png"
+            src="assets/logo-sd.png"
             alt="Logo Sekolah"
             onerror="this.style.display='none';"
         >
 
         <div class="brand-text">
+
             <div class="brand-title">
-                SIMPLE-KS Aplikasi
+                SIMPEL-KS Aplikasi
             </div>
 
             <div class="brand-subtitle">
                 Sistem Administrasi Sekolah
             </div>
+
         </div>
 
     </div>
 
+
     <div class="header-badge">
+
         <span class="status-dot"></span>
+
         Sistem Aktif
+
     </div>
 
 </header>
 
 
-<!-- =========================================
+
+<!-- ==================================================
      MAIN
-========================================= -->
+================================================== -->
 
 <main class="main">
 
-    <div class="login-wrapper">
+<div class="login-wrapper">
 
-        <!-- =================================
-             LEFT INFO
-        ================================== -->
 
-        <section class="info-panel">
+<!-- ==================================================
+     INFO
+================================================== -->
 
-            <div class="info-content">
+<section class="info-panel">
 
-                <img
-                    class="big-logo"
-                    src="https://raw.githubusercontent.com/bajangan118-tech/simple-ks/main/assets/logo-sd.png"
-                    alt="Logo Sekolah"
-                    onerror="this.style.display='none';"
-                >
+<div class="info-content">
 
-                <h1>
-                    Selamat Datang di
-                    <span>SIMPLE-KS</span>
-                </h1>
 
-                <p>
-                    Sistem Monitoring & Penilaian Efektifitas Administrasi
-                    Kepala Sekolah untuk membantu pengelolaan administrasi
-                    sekolah secara cepat, tertib, dan berbasis data.
-                </p>
+<img
+    class="big-logo"
+    src="assets/logo-sd.png"
+    alt="Logo Sekolah"
+    onerror="this.style.display='none';"
+>
 
-                <ul class="feature-list">
 
-                    <li class="feature">
-                        <span class="feature-icon">📊</span>
-                        Dashboard monitoring sekolah
-                    </li>
+<h1>
 
-                    <li class="feature">
-                        <span class="feature-icon">✓</span>
-                        Validasi administrasi guru
-                    </li>
+    Selamat Datang di
 
-                    <li class="feature">
-                        <span class="feature-icon">📁</span>
-                        Pengelolaan dokumen digital
-                    </li>
+    <span>
+        SIMPEL-KS
+    </span>
 
-                    <li class="feature">
-                        <span class="feature-icon">🔐</span>
-                        Akses berdasarkan hak pengguna
-                    </li>
+</h1>
 
-                </ul>
 
-            </div>
+<p>
 
-        </section>
+    Sistem Monitoring & Penilaian Efektifitas
+    Administrasi Kepala Sekolah untuk membantu
+    pengelolaan administrasi sekolah secara cepat,
+    tertib, dan berbasis data.
 
+</p>
 
-        <!-- =================================
-             LOGIN
-        ================================== -->
 
-        <section class="login-panel">
+<ul class="feature-list">
 
-            <div class="login-heading">
 
-                <h2>
-                    Masuk ke Aplikasi
-                </h2>
+<li class="feature">
 
-                <p>
-                    Pilih jenis pengguna untuk melanjutkan
-                    ke sistem SIMPLE-KS.
-                </p>
+    <span class="feature-icon">
+        📊
+    </span>
 
-            </div>
+    Dashboard monitoring sekolah
 
+</li>
 
-            <!-- ROLE -->
 
-            <div class="role-title">
-                PILIH AKSES PENGGUNA
-            </div>
+<li class="feature">
 
-            <div class="role-grid">
+    <span class="feature-icon">
+        ✓
+    </span>
 
-                <button
-                    type="button"
-                    class="role-btn"
-                    data-role="kepsek"
-                    onclick="selectRole('kepsek')"
-                >
+    Validasi administrasi guru
 
-                    <div class="role-icon">
-                        👨‍💼
-                    </div>
+</li>
 
-                    <div class="role-name">
-                        Kepala Sekolah
-                    </div>
 
-                </button>
+<li class="feature">
 
+    <span class="feature-icon">
+        📁
+    </span>
 
-                <button
-                    type="button"
-                    class="role-btn"
-                    data-role="guru"
-                    onclick="selectRole('guru')"
-                >
+    Dokumen digital terintegrasi Google Drive
 
-                    <div class="role-icon">
-                        👨‍🏫
-                    </div>
+</li>
 
-                    <div class="role-name">
-                        Guru
-                    </div>
 
-                </button>
+<li class="feature">
 
+    <span class="feature-icon">
+        🔐
+    </span>
 
-                <button
-                    type="button"
-                    class="role-btn"
-                    data-role="admin"
-                    onclick="selectRole('admin')"
-                >
+    Akses berdasarkan hak pengguna
 
-                    <div class="role-icon">
-                        ⚙️
-                    </div>
+</li>
 
-                    <div class="role-name">
-                        Admin
-                    </div>
 
-                </button>
+</ul>
 
-            </div>
 
+</div>
 
-            <!-- LOGIN FORM -->
+</section>
 
-            <form
-                id="loginForm"
-                class="login-form"
-                onsubmit="handleLogin(event)"
-            >
 
-                <div class="selected-role">
 
-                    <div class="selected-role-left">
+<!-- ==================================================
+     LOGIN
+================================================== -->
 
-                        <span
-                            class="selected-role-icon"
-                            id="selectedRoleIcon"
-                        >
-                            👨‍💼
-                        </span>
+<section class="login-panel">
 
-                        <span id="selectedRoleName">
-                            Kepala Sekolah
-                        </span>
 
-                    </div>
+<div class="login-heading">
 
-                    <button
-                        type="button"
-                        class="change-role"
-                        onclick="changeRole()"
-                    >
-                        Ganti
-                    </button>
+<h2>
+    Masuk ke Aplikasi
+</h2>
 
-                </div>
+<p>
+    Pilih jenis pengguna untuk melanjutkan
+    ke sistem SIMPEL-KS.
+</p>
 
+</div>
 
-                <!-- ALERT -->
 
-                <div
-                    id="alert"
-                    class="alert"
-                ></div>
 
+<div class="role-title">
 
-                <!-- USERNAME -->
+    PILIH AKSES PENGGUNA
 
-                <div class="form-group">
+</div>
 
-                    <label for="username">
-                        Username
-                    </label>
 
-                    <div class="input-wrapper">
+<div class="role-grid">
 
-                        <span class="input-icon">
-                            👤
-                        </span>
 
-                        <input
-                            type="text"
-                            id="username"
-                            class="form-input"
-                            placeholder="Masukkan username"
-                            autocomplete="username"
-                            required
-                        >
+<button
+    type="button"
+    class="role-btn"
+    data-role="kepsek"
+    onclick="selectRole('kepsek')"
+>
 
-                    </div>
-
-                </div>
-
-
-                <!-- PASSWORD -->
-
-                <div class="form-group">
-
-                    <label for="password">
-                        Sandi
-                    </label>
-
-                    <div class="input-wrapper">
-
-                        <span class="input-icon">
-                            🔒
-                        </span>
-
-                        <input
-                            type="password"
-                            id="password"
-                            class="form-input"
-                            placeholder="Masukkan sandi"
-                            autocomplete="current-password"
-                            required
-                        >
-
-                        <button
-                            type="button"
-                            class="password-toggle"
-                            onclick="togglePassword()"
-                            aria-label="Tampilkan sandi"
-                        >
-                            👁
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- OPTIONS -->
-
-                <div class="form-options">
-
-                    <label class="remember">
-
-                        <input
-                            type="checkbox"
-                            id="remember"
-                        >
-
-                        Ingat saya
-
-                    </label>
-
-                    <a
-                        href="#"
-                        class="forgot"
-                        onclick="forgotPassword(event)"
-                    >
-                        Lupa sandi?
-                    </a>
-
-                </div>
-
-
-                <!-- LOGIN -->
-
-                <button
-                    type="submit"
-                    class="login-button"
-                    id="loginButton"
-                >
-                    Masuk ke Sistem
-                </button>
-
-
-                <div class="login-note">
-
-                    Akses sistem dilindungi.
-                    Gunakan akun yang telah diberikan
-                    oleh administrator sekolah.
-
-                </div>
-
-            </form>
-
-
-            <div class="footer">
-
-                SIMPLE-KS © 2026
-                <br>
-                Sistem Monitoring & Penilaian Efektifitas Administrasi
-
-            </div>
-
-        </section>
-
+    <div class="role-icon">
+        👨‍💼
     </div>
+
+    <div class="role-name">
+        Kepala Sekolah
+    </div>
+
+</button>
+
+
+<button
+    type="button"
+    class="role-btn"
+    data-role="guru"
+    onclick="selectRole('guru')"
+>
+
+    <div class="role-icon">
+        👨‍🏫
+    </div>
+
+    <div class="role-name">
+        Guru
+    </div>
+
+</button>
+
+
+<button
+    type="button"
+    class="role-btn"
+    data-role="admin"
+    onclick="selectRole('admin')"
+>
+
+    <div class="role-icon">
+        ⚙️
+    </div>
+
+    <div class="role-name">
+        Admin
+    </div>
+
+</button>
+
+
+</div>
+
+
+
+<!-- ==================================================
+     LOGIN FORM
+================================================== -->
+
+<form
+    id="loginForm"
+    class="login-form"
+    onsubmit="handleLogin(event)"
+>
+
+
+<div class="selected-role">
+
+
+<div class="selected-role-left">
+
+<span
+    class="selected-role-icon"
+    id="selectedRoleIcon"
+>
+    👨‍💼
+</span>
+
+
+<span id="selectedRoleName">
+    Kepala Sekolah
+</span>
+
+
+</div>
+
+
+<button
+    type="button"
+    class="change-role"
+    onclick="changeRole()"
+>
+    Ganti
+</button>
+
+
+</div>
+
+
+
+<div
+    id="alert"
+    class="alert"
+></div>
+
+
+
+<!-- USERNAME -->
+
+<div class="form-group">
+
+<label for="username">
+    Username
+</label>
+
+
+<div class="input-wrapper">
+
+<span class="input-icon">
+    👤
+</span>
+
+
+<input
+    type="text"
+    id="username"
+    class="form-input"
+    placeholder="Masukkan username"
+    autocomplete="username"
+    required
+>
+
+</div>
+
+</div>
+
+
+
+<!-- PASSWORD -->
+
+<div class="form-group">
+
+<label for="password">
+    Sandi
+</label>
+
+
+<div class="input-wrapper">
+
+<span class="input-icon">
+    🔒
+</span>
+
+
+<input
+    type="password"
+    id="password"
+    class="form-input"
+    placeholder="Masukkan sandi"
+    autocomplete="current-password"
+    required
+>
+
+
+<button
+    type="button"
+    class="password-toggle"
+    onclick="togglePassword()"
+>
+    👁
+</button>
+
+
+</div>
+
+</div>
+
+
+
+<!-- OPTIONS -->
+
+<div class="form-options">
+
+
+<label class="remember">
+
+<input
+    type="checkbox"
+    id="remember"
+>
+
+Ingat saya
+
+</label>
+
+
+<a
+    href="#"
+    class="forgot"
+    onclick="forgotPassword(event)"
+>
+    Lupa sandi?
+</a>
+
+
+</div>
+
+
+
+<!-- LOGIN BUTTON -->
+
+<button
+    type="submit"
+    class="login-button"
+    id="loginButton"
+>
+    Masuk ke Sistem
+</button>
+
+
+
+<div class="login-note">
+
+    Akses sistem dilindungi.
+    Gunakan akun yang telah diberikan
+    oleh administrator sekolah.
+
+</div>
+
+
+</form>
+
+
+
+<div class="footer">
+
+    SIMPEL-KS © 2026
+
+    <br>
+
+    Sistem Monitoring & Penilaian Efektifitas Administrasi
+
+</div>
+
+
+</section>
+
+</div>
 
 </main>
 
 
+
 <script>
 
-/* =========================================
-   KONFIGURASI
-========================================= */
+/* ==================================================
+   GOOGLE APPS SCRIPT API
+================================================== */
 
-const CONFIG = {
+const API_URL =
+    "https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec";
 
-    /* Halaman Kepala Sekolah */
-    kepsekUrl:
+
+/* ==================================================
+   HALAMAN TUJUAN
+================================================== */
+
+const PAGE_CONFIG = {
+
+    KEPSEK:
         "https://bajangan118-tech.github.io/simple-ks/ks.html#",
 
-    /* Halaman Guru - nanti kita buat */
-    guruUrl:
+    GURU:
         "https://bajangan118-tech.github.io/simple-ks/guru.html",
 
-    /* Halaman Admin - nanti kita buat */
-    adminUrl:
+    ADMIN:
         "https://bajangan118-tech.github.io/simple-ks/admin.html"
 
 };
 
 
-/* =========================================
+/* ==================================================
    STATE
-========================================= */
+================================================== */
 
 let selectedRole = null;
 
 
-/* =========================================
+/* ==================================================
    PILIH ROLE
-========================================= */
+================================================== */
 
 function selectRole(role){
 
     selectedRole = role;
 
-    /* Reset semua tombol */
 
     document
         .querySelectorAll(".role-btn")
-        .forEach(button => {
+        .forEach(function(button){
 
-            button.classList.remove("active");
+            button.classList.remove(
+                "active"
+            );
 
         });
 
 
-    /* Aktifkan tombol yang dipilih */
-
     const selectedButton =
         document.querySelector(
-            `.role-btn[data-role="${role}"]`
+            '.role-btn[data-role="' +
+            role +
+            '"]'
         );
+
 
     if(selectedButton){
 
-        selectedButton.classList.add("active");
+        selectedButton.classList.add(
+            "active"
+        );
 
     }
 
-
-    /* Data role */
 
     const roleData = {
 
@@ -1211,33 +1425,42 @@ function selectRole(role){
     };
 
 
-    const data = roleData[role];
+    const data =
+        roleData[role];
 
 
-    document.getElementById(
-        "selectedRoleName"
-    ).textContent = data.name;
+    document
+        .getElementById(
+            "selectedRoleName"
+        )
+        .textContent =
+        data.name;
 
 
-    document.getElementById(
-        "selectedRoleIcon"
-    ).textContent = data.icon;
+    document
+        .getElementById(
+            "selectedRoleIcon"
+        )
+        .textContent =
+        data.icon;
 
 
-    /* Tampilkan form */
+    document
+        .getElementById(
+            "loginForm"
+        )
+        .classList.add("show");
 
-    const form =
-        document.getElementById("loginForm");
 
-    form.classList.add("show");
+    clearAlert();
 
 
-    /* Fokus username */
-
-    setTimeout(() => {
+    setTimeout(function(){
 
         document
-            .getElementById("username")
+            .getElementById(
+                "username"
+            )
             .focus();
 
     },300);
@@ -1245,9 +1468,9 @@ function selectRole(role){
 }
 
 
-/* =========================================
+/* ==================================================
    GANTI ROLE
-========================================= */
+================================================== */
 
 function changeRole(){
 
@@ -1256,16 +1479,22 @@ function changeRole(){
 
     document
         .querySelectorAll(".role-btn")
-        .forEach(button => {
+        .forEach(function(button){
 
-            button.classList.remove("active");
+            button.classList.remove(
+                "active"
+            );
 
         });
 
 
     document
-        .getElementById("loginForm")
-        .classList.remove("show");
+        .getElementById(
+            "loginForm"
+        )
+        .classList.remove(
+            "show"
+        );
 
 
     clearAlert();
@@ -1273,41 +1502,53 @@ function changeRole(){
 }
 
 
-/* =========================================
+/* ==================================================
    PASSWORD
-========================================= */
+================================================== */
 
 function togglePassword(){
 
     const password =
-        document.getElementById("password");
+        document.getElementById(
+            "password"
+        );
+
 
     const button =
-        document.querySelector(".password-toggle");
+        document.querySelector(
+            ".password-toggle"
+        );
 
 
-    if(password.type === "password"){
+    if(
+        password.type ===
+        "password"
+    ){
 
-        password.type = "text";
+        password.type =
+            "text";
 
-        button.textContent = "🙈";
+        button.textContent =
+            "🙈";
 
     }else{
 
-        password.type = "password";
+        password.type =
+            "password";
 
-        button.textContent = "👁";
+        button.textContent =
+            "👁";
 
     }
 
 }
 
 
-/* =========================================
+/* ==================================================
    LOGIN
-========================================= */
+================================================== */
 
-function handleLogin(event){
+async function handleLogin(event){
 
     event.preventDefault();
 
@@ -1326,20 +1567,25 @@ function handleLogin(event){
 
     const username =
         document
-            .getElementById("username")
-            .value
-            .trim();
+        .getElementById(
+            "username"
+        )
+        .value
+        .trim();
+
 
     const password =
         document
-            .getElementById("password")
-            .value;
+        .getElementById(
+            "password"
+        )
+        .value;
 
 
-    if(!username || !password){
+    if(!username){
 
         showAlert(
-            "Username dan sandi wajib diisi.",
+            "Username wajib diisi.",
             "error"
         );
 
@@ -1348,125 +1594,325 @@ function handleLogin(event){
     }
 
 
-    /*
-       ===================================================
-       VERSI SEKARANG
+    if(!password){
 
-       Form login sudah siap.
+        showAlert(
+            "Sandi wajib diisi.",
+            "error"
+        );
 
-       Untuk keamanan sebenarnya,
-       validasi username/password sebaiknya dilakukan
-       melalui Google Apps Script + Google Sheets.
+        return;
 
-       Setelah backend dibuat, bagian ini akan diganti
-       dengan proses autentikasi server.
-       ===================================================
-    */
+    }
 
 
     const button =
-        document.getElementById("loginButton");
+        document.getElementById(
+            "loginButton"
+        );
 
 
-    button.classList.add("loading");
+    button.disabled =
+        true;
+
 
     button.textContent =
-        "Memeriksa akun...";
+        "Memverifikasi akun...";
 
 
-    setTimeout(() => {
+    clearAlert();
 
-        /* ============================
-           KEPALA SEKOLAH
-        ============================ */
 
-        if(selectedRole === "kepsek"){
+    try{
 
-            /*
-             * Sementara:
-             * username dan password dianggap
-             * valid untuk menguji navigasi.
-             *
-             * NANTI diganti dengan autentikasi
-             * Google Apps Script.
-             */
+        const response =
+            await fetch(
+                API_URL,
+                {
 
-            localStorage.setItem(
-                "simpleks_role",
-                "KEPSEK"
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+                    },
+
+                    body:JSON.stringify({
+
+                        action:"login",
+
+                        username:
+                            username,
+
+                        password:
+                            password,
+
+                        role:
+                            selectedRole
+                            .toUpperCase()
+
+                    })
+
+                }
             );
 
-            localStorage.setItem(
-                "simpleks_username",
-                username
+
+        if(!response.ok){
+
+            throw new Error(
+                "Server HTTP " +
+                response.status
             );
 
-            localStorage.setItem(
-                "simpleks_login",
-                new Date().toISOString()
+        }
+
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            "SIMPEL-KS LOGIN:",
+            result
+        );
+
+
+        if(
+            !result.success
+        ){
+
+            showAlert(
+                result.message ||
+                "Login gagal.",
+                "error"
             );
 
-
-            window.location.href =
-                CONFIG.kepsekUrl;
+            resetLoginButton();
 
             return;
 
         }
 
 
-        /* ============================
-           GURU
-        ============================ */
+        const user =
+            result.user;
 
-        if(selectedRole === "guru"){
 
-            showAlert(
-                "Halaman Guru belum diaktifkan. Modul Guru akan kita hubungkan setelah backend login selesai.",
-                "info"
+        /* =========================================
+           SIMPAN SESSION
+        ========================================= */
+
+        sessionStorage.setItem(
+            "simpelks_logged_in",
+            "true"
+        );
+
+        sessionStorage.setItem(
+            "simpelks_user_id",
+            user.user_id || ""
+        );
+
+        sessionStorage.setItem(
+            "simpelks_username",
+            user.username || ""
+        );
+
+        sessionStorage.setItem(
+            "simpelks_nama",
+            user.nama || ""
+        );
+
+        sessionStorage.setItem(
+            "simpelks_role",
+            user.role || ""
+        );
+
+        sessionStorage.setItem(
+            "simpelks_email",
+            user.email || ""
+        );
+
+        sessionStorage.setItem(
+            "simpelks_guru_id",
+            user.guru_id || ""
+        );
+
+        sessionStorage.setItem(
+            "simpelks_jabatan",
+            user.jabatan || ""
+        );
+
+        sessionStorage.setItem(
+            "simpelks_login_time",
+            new Date().toISOString()
+        );
+
+
+        /* =========================================
+           INGAT USERNAME
+        ========================================= */
+
+        const remember =
+            document
+            .getElementById(
+                "remember"
+            )
+            .checked;
+
+
+        if(remember){
+
+            localStorage.setItem(
+                "simpelks_last_username",
+                username
+            );
+
+        }else{
+
+            localStorage.removeItem(
+                "simpelks_last_username"
             );
 
         }
 
 
-        /* ============================
-           ADMIN
-        ============================ */
+        /* =========================================
+           PESAN BERHASIL
+        ========================================= */
 
-        if(selectedRole === "admin"){
+        showAlert(
+            "Login berhasil. Mengarahkan ke dashboard...",
+            "success"
+        );
 
-            showAlert(
-                "Halaman Admin belum diaktifkan. Modul Admin akan kita hubungkan setelah backend login selesai.",
-                "info"
-            );
-
-        }
-
-
-        button.classList.remove("loading");
 
         button.textContent =
-            "Masuk ke Sistem";
+            "Login Berhasil ✓";
 
-    },800);
+
+        /* =========================================
+           REDIRECT BERDASARKAN ROLE
+        ========================================= */
+
+        let destination;
+
+
+        if(
+            user.role ===
+            "KEPSEK"
+        ){
+
+            destination =
+                PAGE_CONFIG.KEPSEK;
+
+        }
+
+        else if(
+            user.role ===
+            "GURU"
+        ){
+
+            destination =
+                PAGE_CONFIG.GURU;
+
+        }
+
+        else if(
+            user.role ===
+            "ADMIN"
+        ){
+
+            destination =
+                PAGE_CONFIG.ADMIN;
+
+        }
+
+        else{
+
+            throw new Error(
+                "Role pengguna tidak dikenal."
+            );
+
+        }
+
+
+        setTimeout(function(){
+
+            window.location.href =
+                destination;
+
+        },700);
+
+
+    }catch(error){
+
+        console.error(
+            "LOGIN ERROR:",
+            error
+        );
+
+
+        showAlert(
+
+            "Tidak dapat terhubung ke server login. " +
+            "Pastikan Web App Google Apps Script sudah di-deploy sebagai Web App dan aksesnya dapat digunakan.",
+
+            "error"
+
+        );
+
+
+        resetLoginButton();
+
+    }
 
 }
 
 
-/* =========================================
-   ALERT
-========================================= */
+/* ==================================================
+   RESET BUTTON
+================================================== */
 
-function showAlert(message,type){
+function resetLoginButton(){
+
+    const button =
+        document.getElementById(
+            "loginButton"
+        );
+
+
+    button.disabled =
+        false;
+
+
+    button.textContent =
+        "Masuk ke Sistem";
+
+}
+
+
+/* ==================================================
+   ALERT
+================================================== */
+
+function showAlert(
+    message,
+    type
+){
 
     const alert =
-        document.getElementById("alert");
+        document.getElementById(
+            "alert"
+        );
 
 
-    alert.textContent = message;
+    alert.textContent =
+        message;
+
 
     alert.className =
-        "alert show " + type;
+        "alert show " +
+        type;
 
 }
 
@@ -1474,19 +1920,24 @@ function showAlert(message,type){
 function clearAlert(){
 
     const alert =
-        document.getElementById("alert");
+        document.getElementById(
+            "alert"
+        );
+
+
+    alert.textContent =
+        "";
+
 
     alert.className =
         "alert";
 
-    alert.textContent = "";
-
 }
 
 
-/* =========================================
+/* ==================================================
    LUPA PASSWORD
-========================================= */
+================================================== */
 
 function forgotPassword(event){
 
@@ -1494,22 +1945,28 @@ function forgotPassword(event){
 
 
     showAlert(
+
         "Untuk keamanan, silakan hubungi Admin sekolah untuk melakukan reset sandi.",
+
         "info"
+
     );
 
 }
 
 
-/* =========================================
-   ENTER KEY
-========================================= */
+/* ==================================================
+   ESCAPE
+================================================== */
 
 document.addEventListener(
     "keydown",
     function(event){
 
-        if(event.key === "Escape"){
+        if(
+            event.key ===
+            "Escape"
+        ){
 
             changeRole();
 
@@ -1519,30 +1976,39 @@ document.addEventListener(
 );
 
 
-/* =========================================
-   CEK LOGIN SEBELUMNYA
-========================================= */
+/* ==================================================
+   LOAD
+================================================== */
 
 window.addEventListener(
     "load",
     function(){
 
-        const role =
+        /*
+         * Isi username terakhir
+         * jika "Ingat saya" digunakan.
+         */
+
+        const lastUsername =
             localStorage.getItem(
-                "simpleks_role"
+                "simpelks_last_username"
             );
 
 
-        /*
-         * Jangan otomatis mengarahkan pengguna
-         * ke dashboard.
-         *
-         * Halaman login tetap menjadi pintu masuk
-         * utama.
-         */
+        if(lastUsername){
+
+            document
+                .getElementById(
+                    "username"
+                )
+                .value =
+                lastUsername;
+
+        }
+
 
         console.log(
-            "SIMPLE-KS Login siap."
+            "SIMPEL-KS Login siap."
         );
 
     }
@@ -1552,4 +2018,3 @@ window.addEventListener(
 
 </body>
 </html>
-```
