@@ -2139,256 +2139,6 @@ td strong{
 }
 
 
-/* =========================================================
-   DATA GURU - DINAMIS DARI GOOGLE SHEETS
-   Hanya digunakan oleh section-guru
-========================================================= */
-
-.guru-kpi-grid{
-    margin-bottom:22px;
-}
-
-.guru-action-group{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.guru-filter-area{
-    border-bottom:1px solid var(--border);
-}
-
-.guru-filter-grid{
-    display:grid;
-    grid-template-columns:minmax(240px,1fr) 190px auto;
-    gap:10px;
-    align-items:center;
-}
-
-.guru-search-box{
-    position:relative;
-}
-
-.guru-search-box > i{
-    position:absolute;
-    left:12px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#94a3b8;
-    font-size:12px;
-    z-index:2;
-}
-
-.guru-search-box .form-control{
-    padding-left:35px;
-}
-
-.guru-loading{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    padding:25px 20px;
-    color:var(--muted);
-    font-size:11px;
-    border-bottom:1px solid #f1f5f9;
-}
-
-.guru-spinner{
-    width:20px;
-    height:20px;
-    border:3px solid #dbeafe;
-    border-top-color:var(--primary);
-    border-radius:50%;
-    animation:guruSpin .7s linear infinite;
-}
-
-@keyframes guruSpin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-.guru-error{
-    margin:15px 20px;
-    padding:12px 14px;
-    border-radius:10px;
-    border:1px solid #fecaca;
-    background:#fef2f2;
-    color:#b91c1c;
-    font-size:11px;
-}
-
-.guru-table-wrapper{
-    overflow-x:auto;
-}
-
-.guru-table-wrapper table{
-    min-width:950px;
-}
-
-.guru-table-wrapper th{
-    white-space:nowrap;
-}
-
-.guru-table-wrapper td{
-    vertical-align:middle;
-}
-
-.guru-no{
-    text-align:center;
-    color:#64748b;
-    font-weight:700;
-}
-
-.guru-name{
-    color:var(--dark);
-    font-weight:700;
-    line-height:1.4;
-}
-
-.guru-nip{
-    color:#64748b;
-    font-family:monospace;
-    font-size:10px;
-    white-space:nowrap;
-}
-
-.guru-gol{
-    font-weight:700;
-    color:#475569;
-    white-space:nowrap;
-}
-
-.guru-status{
-    display:inline-flex;
-    align-items:center;
-    gap:5px;
-    padding:5px 9px;
-    border-radius:20px;
-    font-size:9px;
-    font-weight:800;
-    white-space:nowrap;
-}
-
-.guru-status.aktif{
-    background:var(--success-bg);
-    color:var(--success);
-}
-
-.guru-status.nonaktif{
-    background:var(--danger-bg);
-    color:var(--danger);
-}
-
-.guru-admin{
-    min-width:135px;
-}
-
-.guru-admin-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:8px;
-    margin-bottom:5px;
-}
-
-.guru-admin-percent{
-    font-size:10px;
-    font-weight:800;
-    color:var(--dark);
-}
-
-.guru-admin-label{
-    font-size:9px;
-    color:var(--muted);
-    font-weight:600;
-}
-
-.guru-admin-bar{
-    width:100%;
-    height:6px;
-    border-radius:20px;
-    background:#e2e8f0;
-    overflow:hidden;
-}
-
-.guru-admin-progress{
-    height:100%;
-    border-radius:20px;
-    transition:width .3s ease;
-}
-
-.guru-admin-progress.complete{
-    background:var(--success);
-}
-
-.guru-admin-progress.review{
-    background:var(--warning);
-}
-
-.guru-admin-progress.incomplete{
-    background:var(--danger);
-}
-
-.guru-admin-text{
-    display:inline-flex;
-    align-items:center;
-    gap:5px;
-    padding:5px 9px;
-    border-radius:20px;
-    font-size:9px;
-    font-weight:800;
-}
-
-.guru-admin-text.complete{
-    background:var(--success-bg);
-    color:var(--success);
-}
-
-.guru-admin-text.review{
-    background:var(--warning-bg);
-    color:var(--warning);
-}
-
-.guru-admin-text.incomplete{
-    background:var(--danger-bg);
-    color:var(--danger);
-}
-
-.guru-admin-text.neutral{
-    background:#f1f5f9;
-    color:#64748b;
-}
-
-.guru-table-footer{
-    padding:12px 20px;
-    border-top:1px solid var(--border);
-    color:var(--muted);
-    font-size:10px;
-}
-
-.guru-empty-state{
-    padding:35px 20px;
-}
-
-.guru-empty-state i{
-    font-size:32px;
-}
-
-@media(max-width:700px){
-
-    .guru-filter-grid{
-        grid-template-columns:1fr;
-    }
-
-    .guru-action-group .btn{
-        padding:8px 10px;
-    }
-
-}
-
-
 </style>
 
 </head>
@@ -2777,8 +2527,8 @@ td strong{
 
         </div>
 
-        <div class="kpi-value">
-            24
+        <div class="kpi-value" id="dashboardTotalGuru">
+            0
         </div>
 
         <div class="kpi-label">
@@ -2803,8 +2553,8 @@ td strong{
 
         </div>
 
-        <div class="kpi-value">
-            87.8%
+        <div class="kpi-value" id="dashboardAdministrasi">
+            0%
         </div>
 
         <div class="kpi-label">
@@ -2828,8 +2578,8 @@ td strong{
 
         </div>
 
-        <div class="kpi-value">
-            7
+        <div class="kpi-value" id="dashboardDokumenRevisi">
+            0
         </div>
 
         <div class="kpi-label">
@@ -2854,8 +2604,8 @@ td strong{
 
         </div>
 
-        <div class="kpi-value">
-            3
+        <div class="kpi-value" id="dashboardGuruBelumLengkap">
+            0
         </div>
 
         <div class="kpi-label">
@@ -2898,14 +2648,14 @@ td strong{
             <div class="completeness">
 
 
-                <div class="circle-progress">
+                <div class="circle-progress" id="dashboardCircleProgress">
 
                     <div class="circle-inner">
 
                         <div>
 
-                            <strong>
-                                87.8%
+                            <strong id="dashboardCirclePercent">
+                                0%
                             </strong>
 
                             <span>
@@ -2932,8 +2682,8 @@ td strong{
 
                         </div>
 
-                        <span class="status-number">
-                            18 Guru
+                        <span class="status-number" id="dashboardGuruLengkap">
+                            0 Guru
                         </span>
 
                     </div>
@@ -2949,8 +2699,8 @@ td strong{
 
                         </div>
 
-                        <span class="status-number">
-                            3 Guru
+                        <span class="status-number" id="dashboardGuruRevisi">
+                            0 Guru
                         </span>
 
                     </div>
@@ -2966,8 +2716,8 @@ td strong{
 
                         </div>
 
-                        <span class="status-number">
-                            3 Guru
+                        <span class="status-number" id="dashboardGuruBelumLengkapDetail">
+                            0 Guru
                         </span>
 
                     </div>
@@ -2983,8 +2733,8 @@ td strong{
 
                         </div>
 
-                        <span class="status-number">
-                            421
+                        <span class="status-number" id="dashboardDokumenTerverifikasi">
+                            0
                         </span>
 
                     </div>
@@ -4204,6 +3954,7 @@ td strong{
 <section class="page-section"
          id="section-guru">
 
+```
 <div class="welcome">
 
     <div>
@@ -4221,217 +3972,23 @@ td strong{
 </div>
 
 
-<!-- STATISTIK DATA GURU -->
-
-<div class="kpi-grid guru-kpi-grid">
-
-    <div class="kpi">
-
-        <div class="kpi-top">
-
-            <div class="kpi-icon blue">
-                <i class="fa-solid fa-users"></i>
-            </div>
-
-        </div>
-
-        <div class="kpi-value"
-             id="guruTotal">
-            0
-        </div>
-
-        <div class="kpi-label">
-            Total Guru & Tendik
-        </div>
-
-    </div>
-
-
-    <div class="kpi">
-
-        <div class="kpi-top">
-
-            <div class="kpi-icon green">
-                <i class="fa-solid fa-user-check"></i>
-            </div>
-
-        </div>
-
-        <div class="kpi-value"
-             id="guruAktif">
-            0
-        </div>
-
-        <div class="kpi-label">
-            Guru Aktif
-        </div>
-
-    </div>
-
-
-    <div class="kpi">
-
-        <div class="kpi-top">
-
-            <div class="kpi-icon red">
-                <i class="fa-solid fa-user-xmark"></i>
-            </div>
-
-        </div>
-
-        <div class="kpi-value"
-             id="guruTidakAktif">
-            0
-        </div>
-
-        <div class="kpi-label">
-            Tidak Aktif
-        </div>
-
-    </div>
-
-
-    <div class="kpi">
-
-        <div class="kpi-top">
-
-            <div class="kpi-icon yellow">
-                <i class="fa-solid fa-clipboard-check"></i>
-            </div>
-
-        </div>
-
-        <div class="kpi-value"
-             id="guruAdministrasiRata">
-            0%
-        </div>
-
-        <div class="kpi-label">
-            Rata-rata Administrasi
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- DATA GURU -->
-
 <div class="card">
 
     <div class="card-header">
 
-        <div>
+        <h3>
+            Daftar Guru & Tendik
+        </h3>
 
-            <h3>
-                Daftar Guru & Tendik
-            </h3>
-
-            <span id="guruDataInfo">
-                Memuat data dari Google Spreadsheet...
-            </span>
-
-        </div>
-
-
-        <div class="guru-action-group">
-
-            <button class="btn btn-light"
-                    type="button"
-                    onclick="loadDataGuru()">
-
-                <i class="fa-solid fa-rotate"></i>
-                Refresh
-
-            </button>
-
-        </div>
+        <button class="btn btn-primary">
+            <i class="fa-solid fa-user-plus"></i>
+            Tambah Guru
+        </button>
 
     </div>
 
 
-    <!-- FILTER DATA GURU -->
-
-    <div class="card-body guru-filter-area">
-
-        <div class="guru-filter-grid">
-
-            <div class="guru-search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    id="guruSearch"
-                    class="form-control"
-                    placeholder="Cari nama atau NIP..."
-                    oninput="filterDataGuru()"
-                    autocomplete="off">
-
-            </div>
-
-
-            <select
-                id="guruStatusFilter"
-                class="form-control"
-                onchange="filterDataGuru()">
-
-                <option value="">
-                    Semua Status
-                </option>
-
-                <option value="AKTIF">
-                    Aktif
-                </option>
-
-                <option value="TIDAK AKTIF">
-                    Tidak Aktif
-                </option>
-
-            </select>
-
-
-            <button
-                class="btn btn-light"
-                type="button"
-                onclick="resetFilterGuru()">
-
-                <i class="fa-solid fa-filter-circle-xmark"></i>
-                Reset
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- LOADING -->
-
-    <div id="guruLoading"
-         class="guru-loading">
-
-        <div class="guru-spinner"></div>
-
-        <span>
-            Mengambil data guru dari Google Spreadsheet...
-        </span>
-
-    </div>
-
-
-    <!-- ERROR -->
-
-    <div id="guruError"
-         class="guru-error"
-         style="display:none;">
-
-    </div>
-
-
-    <!-- TABLE -->
-
-    <div class="table-wrapper guru-table-wrapper">
+    <div class="table-wrapper">
 
         <table>
 
@@ -4440,31 +3997,23 @@ td strong{
                 <tr>
 
                     <th>
-                        NO
+                        Nama
                     </th>
 
                     <th>
-                        NAMA
+                        NIP/NUPTK
                     </th>
 
                     <th>
-                        NIP
+                        Jabatan
                     </th>
 
                     <th>
-                        GOL / RUANG
+                        Status
                     </th>
 
                     <th>
-                        JABATAN
-                    </th>
-
-                    <th>
-                        STATUS
-                    </th>
-
-                    <th>
-                        ADMINISTRASI
+                        Administrasi
                     </th>
 
                 </tr>
@@ -4472,26 +4021,90 @@ td strong{
             </thead>
 
 
-            <tbody id="guruTableBody">
+            <tbody>
 
                 <tr>
 
-                    <td colspan="7">
+                    <td>
+                        <strong>
+                            Ahmad Santoso, S.Pd.
+                        </strong>
+                    </td>
 
-                        <div class="empty-state guru-empty-state">
+                    <td>
+                        198xxxxxxxxx
+                    </td>
 
-                            <i class="fa-solid fa-users"></i>
+                    <td>
+                        Guru Kelas
+                    </td>
 
-                            <h3>
-                                Memuat Data Guru
-                            </h3>
+                    <td>
+                        ASN
+                    </td>
 
-                            <p>
-                                Sistem sedang mengambil data dari sheet DATA_GURU.
-                            </p>
+                    <td>
+                        <span class="status-badge status-complete">
+                            100%
+                        </span>
+                    </td>
 
-                        </div>
+                </tr>
 
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            Siti Rahma, S.Pd.
+                        </strong>
+                    </td>
+
+                    <td>
+                        198xxxxxxxxx
+                    </td>
+
+                    <td>
+                        Guru Kelas
+                    </td>
+
+                    <td>
+                        ASN
+                    </td>
+
+                    <td>
+                        <span class="status-badge status-review">
+                            95.8%
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            Budi Santoso, S.Pd.
+                        </strong>
+                    </td>
+
+                    <td>
+                        198xxxxxxxxx
+                    </td>
+
+                    <td>
+                        Guru PJOK
+                    </td>
+
+                    <td>
+                        PPPK
+                    </td>
+
+                    <td>
+                        <span class="status-badge status-complete">
+                            91.7%
+                        </span>
                     </td>
 
                 </tr>
@@ -4502,21 +4115,10 @@ td strong{
 
     </div>
 
-
-    <!-- TABLE FOOTER -->
-
-    <div class="guru-table-footer">
-
-        <span id="guruTableInfo">
-            Menampilkan 0 data
-        </span>
-
-    </div>
-
 </div>
+```
 
 </section>
-
 
 <!-- ======================================================
      SECTION 4 ADMINISTRASI
@@ -6577,765 +6179,186 @@ document.addEventListener(
 );
 
 
+
 /* =========================================================
-   DATA GURU
-   Sumber: Google Spreadsheet -> sheet DATA_GURU
+   DASHBOARD KEPALA SEKOLAH - DATA GOOGLE SHEETS
+   Sumber:
+   DATA_GURU + VALIDASI_DOKUMEN
 ========================================================= */
 
-const DATA_GURU_API =
-    "https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec";
-
-let DATA_GURU_ROWS = [];
-let DATA_GURU_FILTERED = [];
+const SIMPEL_KS_API =
+    'https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec';
 
 
-/* ---------------------------------------------------------
-   LOAD DATA GURU
---------------------------------------------------------- */
-
-async function loadDataGuru(){
-
-    const loading =
-        document.getElementById("guruLoading");
-
-    const error =
-        document.getElementById("guruError");
-
-    const tbody =
-        document.getElementById("guruTableBody");
-
-    const info =
-        document.getElementById("guruDataInfo");
-
-    if(!loading || !tbody){
-        return;
-    }
-
-    loading.style.display = "flex";
-
-    if(error){
-        error.style.display = "none";
-        error.textContent = "";
-    }
-
-    tbody.innerHTML = `
-        <tr>
-            <td colspan="7">
-                <div class="empty-state guru-empty-state">
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                    <h3>Memuat Data Guru</h3>
-                    <p>Mohon tunggu...</p>
-                </div>
-            </td>
-        </tr>
-    `;
-
-    if(info){
-        info.textContent =
-            "Mengambil data dari Google Spreadsheet...";
-    }
+async function loadDashboardKS(){
 
     try{
 
-        const url =
-            DATA_GURU_API +
-            "?action=getDataGuru&_=" +
-            Date.now();
-
-        const response =
-            await fetch(
-                url,
-                {
-                    method:"GET",
-                    cache:"no-store",
-                    redirect:"follow"
-                }
-            );
+        const response = await fetch(
+            SIMPEL_KS_API + '?action=getDashboardKS',
+            {
+                method:'GET',
+                cache:'no-store'
+            }
+        );
 
         if(!response.ok){
+            throw new Error('Server dashboard tidak dapat diakses.');
+        }
+
+        const result = await response.json();
+
+        if(!result.success){
             throw new Error(
-                "Server mengembalikan HTTP " +
-                response.status
+                result.message ||
+                'Data Dashboard Kepala Sekolah gagal dimuat.'
             );
         }
 
-        const result =
-            await response.json();
+        const totalGuru = Number(result.totalGuru || 0);
+        const administrasi = Number(result.kelengkapanAdministrasi || 0);
+        const revisi = Number(result.dokumenPerluRevisi || 0);
+        const belumLengkap = Number(result.guruBelumLengkap || 0);
 
-        if(!result || !result.success){
+        setDashboardText('dashboardTotalGuru', totalGuru);
+        setDashboardText(
+            'dashboardAdministrasi',
+            formatDashboardPercent(administrasi)
+        );
+        setDashboardText('dashboardDokumenRevisi', revisi);
+        setDashboardText('dashboardGuruBelumLengkap', belumLengkap);
 
-            throw new Error(
-                (result && result.message) ||
-                "Data guru tidak dapat diambil."
-            );
+        /* Lingkaran kelengkapan */
+        const circle = document.getElementById(
+            'dashboardCircleProgress'
+        );
 
+        if(circle){
+            const degree = Math.max(
+                0,
+                Math.min(100, administrasi)
+            ) * 3.6;
+
+            circle.style.background =
+                'conic-gradient(#16a34a 0deg ' +
+                degree + 'deg, #e2e8f0 ' +
+                degree + 'deg 360deg)';
         }
 
-        DATA_GURU_ROWS =
-            Array.isArray(result.data)
-                ? result.data
-                : [];
+        setDashboardText(
+            'dashboardCirclePercent',
+            formatDashboardPercent(administrasi)
+        );
 
-        DATA_GURU_FILTERED =
-            [...DATA_GURU_ROWS];
+        /*
+         * Ringkasan status guru.
+         * Endpoint saat ini menyediakan revisi dan belum lengkap.
+         * Guru lengkap dihitung dari total dikurangi keduanya.
+         */
+        const guruLengkap = Math.max(
+            0,
+            totalGuru - revisi - belumLengkap
+        );
 
-        updateGuruStatistics(result);
+        setDashboardText(
+            'dashboardGuruLengkap',
+            guruLengkap + ' Guru'
+        );
 
-        renderDataGuru();
+        setDashboardText(
+            'dashboardGuruRevisi',
+            revisi + ' Guru'
+        );
 
-        if(info){
+        setDashboardText(
+            'dashboardGuruBelumLengkapDetail',
+            belumLengkap + ' Guru'
+        );
 
-            info.textContent =
-                "Terhubung • Sheet DATA_GURU • " +
-                DATA_GURU_ROWS.length +
-                " data";
+        /*
+         * Jumlah dokumen terverifikasi belum dihitung oleh
+         * endpoint dashboard. Biarkan 0 sampai data validasi
+         * terverifikasi tersedia secara resmi.
+         */
+        if(result.dokumenTerverifikasi !== undefined){
+            setDashboardText(
+                'dashboardDokumenTerverifikasi',
+                result.dokumenTerverifikasi
+            );
+        }
 
+        /* Badge Data Guru di sidebar */
+        const badge = document.querySelector(
+            '#menuGuru .menu-badge'
+        );
+
+        if(badge){
+            badge.textContent = totalGuru;
         }
 
     }
-    catch(errorObject){
+    catch(error){
 
         console.error(
-            "SIMPEL-KS DATA_GURU:",
-            errorObject
+            'SIMPEL-KS Dashboard:',
+            error
         );
 
-        DATA_GURU_ROWS = [];
-        DATA_GURU_FILTERED = [];
+        /* Jangan merusak tampilan jika API gagal. */
+        const status = document.getElementById(
+            'dashboardDataStatus'
+        );
 
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7">
-                    <div class="empty-state guru-empty-state">
-                        <i class="fa-solid fa-triangle-exclamation"
-                           style="color:#dc2626;"></i>
-
-                        <h3>
-                            Data Guru Tidak Dapat Dimuat
-                        </h3>
-
-                        <p>
-                            Periksa koneksi Web App Google Apps Script
-                            dan sheet DATA_GURU.
-                        </p>
-                    </div>
-                </td>
-            </tr>
-        `;
-
-        if(error){
-
-            error.innerHTML =
-                "<strong>Gagal mengambil data:</strong> " +
-                escapeGuruHTML(
-                    errorObject.message ||
-                    "Kesalahan tidak diketahui."
-                );
-
-            error.style.display = "block";
-
+        if(status){
+            status.textContent =
+                'Gagal memperbarui data dashboard';
+            status.style.color = '#dc2626';
         }
+    }
+}
 
-        if(info){
-            info.textContent =
-                "Koneksi data gagal";
+
+function setDashboardText(id,value){
+
+    const element = document.getElementById(id);
+
+    if(element){
+        element.textContent = value;
+    }
+}
+
+
+function formatDashboardPercent(value){
+
+    const number = Number(value);
+
+    if(!Number.isFinite(number)){
+        return '0%';
+    }
+
+    const rounded = Math.round(number * 10) / 10;
+
+    return rounded.toLocaleString(
+        'id-ID',
+        {
+            minimumFractionDigits:
+                Number.isInteger(rounded) ? 0 : 1,
+            maximumFractionDigits:1
         }
-
-        updateGuruStatistics({
-            total:0,
-            aktif:0,
-            tidak_aktif:0
-        });
-
-    }
-    finally{
-
-        loading.style.display = "none";
-
-    }
-
+    ) + '%';
 }
 
 
-/* ---------------------------------------------------------
-   STATISTIK
---------------------------------------------------------- */
-
-function updateGuruStatistics(result){
-
-    const total =
-        Number(result.total || 0);
-
-    const aktif =
-        Number(result.aktif || 0);
-
-    const tidakAktif =
-        Number(result.tidak_aktif || 0);
-
-    const totalElement =
-        document.getElementById("guruTotal");
-
-    const aktifElement =
-        document.getElementById("guruAktif");
-
-    const nonaktifElement =
-        document.getElementById("guruTidakAktif");
-
-    if(totalElement){
-        totalElement.textContent = total;
-    }
-
-    if(aktifElement){
-        aktifElement.textContent = aktif;
-    }
-
-    if(nonaktifElement){
-        nonaktifElement.textContent = tidakAktif;
-    }
-
-    let totalAdministrasi = 0;
-    let jumlahAdministrasi = 0;
-
-    DATA_GURU_ROWS.forEach(function(guru){
-
-        const value =
-            parseAdministrasiPercent(
-                guru.administrasi
-            );
-
-        if(value !== null){
-
-            totalAdministrasi += value;
-            jumlahAdministrasi++;
-
-        }
-
-    });
-
-    const rata =
-        jumlahAdministrasi
-            ? totalAdministrasi / jumlahAdministrasi
-            : 0;
-
-    const rataElement =
-        document.getElementById(
-            "guruAdministrasiRata"
-        );
-
-    if(rataElement){
-
-        rataElement.textContent =
-            formatPercent(rata);
-
-    }
-
+/* Jalankan setelah seluruh halaman siap */
+if(document.readyState === 'loading'){
+    document.addEventListener(
+        'DOMContentLoaded',
+        loadDashboardKS
+    );
 }
-
-
-/* ---------------------------------------------------------
-   RENDER
---------------------------------------------------------- */
-
-function renderDataGuru(){
-
-    const tbody =
-        document.getElementById(
-            "guruTableBody"
-        );
-
-    const tableInfo =
-        document.getElementById(
-            "guruTableInfo"
-        );
-
-    if(!tbody){
-        return;
-    }
-
-    if(!DATA_GURU_FILTERED.length){
-
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7">
-
-                    <div class="empty-state guru-empty-state">
-
-                        <i class="fa-solid fa-users-slash"></i>
-
-                        <h3>
-                            Data Guru Tidak Ditemukan
-                        </h3>
-
-                        <p>
-                            Tidak ada data yang sesuai
-                            dengan pencarian atau filter.
-                        </p>
-
-                    </div>
-
-                </td>
-            </tr>
-        `;
-
-        if(tableInfo){
-            tableInfo.textContent =
-                "Menampilkan 0 data";
-        }
-
-        return;
-    }
-
-    tbody.innerHTML =
-        DATA_GURU_FILTERED
-            .map(function(guru,index){
-
-                return renderGuruRow(
-                    guru,
-                    index
-                );
-
-            })
-            .join("");
-
-    if(tableInfo){
-
-        tableInfo.textContent =
-            "Menampilkan " +
-            DATA_GURU_FILTERED.length +
-            " dari " +
-            DATA_GURU_ROWS.length +
-            " data";
-
-    }
-
+else{
+    loadDashboardKS();
 }
-
-
-/* ---------------------------------------------------------
-   BARIS GURU
---------------------------------------------------------- */
-
-function renderGuruRow(guru,index){
-
-    const no =
-        guru.no ||
-        (index + 1);
-
-    const nama =
-        guru.nama ||
-        "-";
-
-    const nip =
-        guru.nip ||
-        "-";
-
-    const gol =
-        guru.gol_ruang ||
-        "-";
-
-    const jabatan =
-        guru.jabatan ||
-        "-";
-
-    const statusRaw =
-        String(
-            guru.status || ""
-        )
-        .trim()
-        .toUpperCase();
-
-    const statusAktif =
-        statusRaw === "AKTIF";
-
-    const statusClass =
-        statusAktif
-            ? "aktif"
-            : "nonaktif";
-
-    const statusText =
-        statusRaw ||
-        "-";
-
-    return `
-        <tr>
-
-            <td class="guru-no">
-                ${escapeGuruHTML(no)}
-            </td>
-
-            <td>
-                <div class="guru-name">
-                    ${escapeGuruHTML(nama)}
-                </div>
-            </td>
-
-            <td>
-                <span class="guru-nip">
-                    ${escapeGuruHTML(nip)}
-                </span>
-            </td>
-
-            <td>
-                <span class="guru-gol">
-                    ${escapeGuruHTML(gol)}
-                </span>
-            </td>
-
-            <td>
-                ${escapeGuruHTML(jabatan)}
-            </td>
-
-            <td>
-                <span class="guru-status ${statusClass}">
-
-                    <i class="fa-solid ${
-                        statusAktif
-                            ? "fa-circle-check"
-                            : "fa-circle-xmark"
-                    }"></i>
-
-                    ${escapeGuruHTML(statusText)}
-
-                </span>
-            </td>
-
-            <td>
-                ${renderGuruAdministrasi(
-                    guru.administrasi
-                )}
-            </td>
-
-        </tr>
-    `;
-
-}
-
-
-/* ---------------------------------------------------------
-   ADMINISTRASI
---------------------------------------------------------- */
-
-function renderGuruAdministrasi(value){
-
-    const raw =
-        String(
-            value ?? ""
-        ).trim();
-
-    if(!raw){
-
-        return `
-            <span class="guru-admin-text neutral">
-                Belum diisi
-            </span>
-        `;
-
-    }
-
-    const percent =
-        parseAdministrasiPercent(raw);
-
-    if(percent !== null){
-
-        let cls = "incomplete";
-
-        if(percent >= 90){
-            cls = "complete";
-        }
-        else if(percent >= 75){
-            cls = "review";
-        }
-
-        return `
-            <div class="guru-admin">
-
-                <div class="guru-admin-top">
-
-                    <span class="guru-admin-label">
-                        Kelengkapan
-                    </span>
-
-                    <span class="guru-admin-percent">
-                        ${formatPercent(percent)}
-                    </span>
-
-                </div>
-
-                <div class="guru-admin-bar">
-
-                    <div
-                        class="guru-admin-progress ${cls}"
-                        style="width:${percent}%;">
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-
-    }
-
-    const normalized =
-        raw.toUpperCase();
-
-    if(
-        normalized.includes("LENGKAP") &&
-        !normalized.includes("BELUM")
-    ){
-
-        return `
-            <span class="guru-admin-text complete">
-                <i class="fa-solid fa-circle-check"></i>
-                ${escapeGuruHTML(raw)}
-            </span>
-        `;
-
-    }
-
-    if(
-        normalized.includes("REVISI") ||
-        normalized.includes("PERLU")
-    ){
-
-        return `
-            <span class="guru-admin-text review">
-                <i class="fa-solid fa-pen"></i>
-                ${escapeGuruHTML(raw)}
-            </span>
-        `;
-
-    }
-
-    if(
-        normalized.includes("BELUM") ||
-        normalized.includes("KURANG")
-    ){
-
-        return `
-            <span class="guru-admin-text incomplete">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                ${escapeGuruHTML(raw)}
-            </span>
-        `;
-
-    }
-
-    return `
-        <span class="guru-admin-text neutral">
-            ${escapeGuruHTML(raw)}
-        </span>
-    `;
-
-}
-
-
-/* ---------------------------------------------------------
-   PARSE PERSENTASE ADMINISTRASI
---------------------------------------------------------- */
-
-function parseAdministrasiPercent(value){
-
-    if(value === null || value === undefined){
-        return null;
-    }
-
-    const text =
-        String(value)
-            .trim()
-            .replace(",", ".");
-
-    if(!text){
-        return null;
-    }
-
-    const number =
-        parseFloat(
-            text.replace("%","")
-        );
-
-    if(
-        !Number.isFinite(number) ||
-        number < 0 ||
-        number > 100
-    ){
-        return null;
-    }
-
-    return number;
-
-}
-
-
-/* ---------------------------------------------------------
-   FILTER
---------------------------------------------------------- */
-
-function filterDataGuru(){
-
-    const searchElement =
-        document.getElementById(
-            "guruSearch"
-        );
-
-    const statusElement =
-        document.getElementById(
-            "guruStatusFilter"
-        );
-
-    const search =
-        searchElement
-            ? searchElement.value
-                .trim()
-                .toLowerCase()
-            : "";
-
-    const status =
-        statusElement
-            ? statusElement.value
-                .trim()
-                .toUpperCase()
-            : "";
-
-    DATA_GURU_FILTERED =
-        DATA_GURU_ROWS.filter(
-            function(guru){
-
-                const nama =
-                    String(
-                        guru.nama || ""
-                    ).toLowerCase();
-
-                const nip =
-                    String(
-                        guru.nip || ""
-                    ).toLowerCase();
-
-                const guruStatus =
-                    String(
-                        guru.status || ""
-                    )
-                    .trim()
-                    .toUpperCase();
-
-                const cocokSearch =
-                    !search ||
-                    nama.includes(search) ||
-                    nip.includes(search);
-
-                const cocokStatus =
-                    !status ||
-                    guruStatus === status;
-
-                return (
-                    cocokSearch &&
-                    cocokStatus
-                );
-
-            }
-        );
-
-    renderDataGuru();
-
-}
-
-
-/* ---------------------------------------------------------
-   RESET FILTER
---------------------------------------------------------- */
-
-function resetFilterGuru(){
-
-    const search =
-        document.getElementById(
-            "guruSearch"
-        );
-
-    const status =
-        document.getElementById(
-            "guruStatusFilter"
-        );
-
-    if(search){
-        search.value = "";
-    }
-
-    if(status){
-        status.value = "";
-    }
-
-    DATA_GURU_FILTERED =
-        [...DATA_GURU_ROWS];
-
-    renderDataGuru();
-
-}
-
-
-/* ---------------------------------------------------------
-   HTML ESCAPE
---------------------------------------------------------- */
-
-function escapeGuruHTML(value){
-
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-
-/* ---------------------------------------------------------
-   FORMAT PERSENTASE
---------------------------------------------------------- */
-
-function formatPercent(value){
-
-    const rounded =
-        Math.round(
-            Number(value) * 10
-        ) / 10;
-
-    return (
-        Number.isInteger(rounded)
-            ? rounded.toString()
-            : rounded.toFixed(1)
-    ) + "%";
-
-}
-
-
-/* ---------------------------------------------------------
-   LOAD SAAT MENU DATA GURU DIBUKA
-   Memakai showSection yang sudah ada.
---------------------------------------------------------- */
-
-const originalShowSection =
-    window.showSection;
-
-window.showSection =
-    function(section){
-
-        originalShowSection(section);
-
-        if(section === "guru"){
-
-            /*
-             * Hanya load ulang saat data belum tersedia.
-             * Jika sudah ada, data tetap tampil.
-             */
-            if(!DATA_GURU_ROWS.length){
-
-                loadDataGuru();
-
-            }
-
-        }
-
-    };
-
 
 </script>
 
