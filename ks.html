@@ -5120,27 +5120,39 @@ function parseAdmin(v){if(v==null)return null;const s=String(v).trim().replace("
 function rowsOf(r){if(Array.isArray(r))return r;if(r&&Array.isArray(r.data))return r.data;if(r&&Array.isArray(r.rows))return r.rows;if(r&&Array.isArray(r.records))return r.records;return []}
 async function api(action){const u=DATA_GURU_API+"?action="+encodeURIComponent(action)+"&_="+Date.now();const r=await fetch(u,{method:"GET",cache:"no-store",redirect:"follow"});if(!r.ok)throw Error("HTTP "+r.status);const j=await r.json();if(j&&j.success===false)throw Error(j.message||"Gagal mengambil data");return j}
 function validStatus(v){
-    const s=String(v??"").trim().toUpperCase();
+    const s=String(v??"").trim().toUpperCase().replace(/[_-]+/g," ");
     if(!s) return "menunggu";
-    if(s.includes("REVISI")||s.includes("DITOLAK")||s.includes("TOLAK")||s.includes("KEMBALI")) return "revisi";
-    if(s.includes("TERVERIFIKASI")||s.includes("DISETUJUI")||s.includes("SETUJU")||s==="VALID"||s==="SELESAI") return "valid";
+    if(
+        s.includes("REVISI") ||
+        s.includes("DITOLAK") ||
+        s.includes("TOLAK") ||
+        s.includes("KEMBALI") ||
+        s.includes("PERLU DIREVISI")
+    ) return "revisi";
+    if(
+        s.includes("TERVERIFIKASI") ||
+        s.includes("DISETUJUI") ||
+        s.includes("SETUJU") ||
+        s==="VALID" ||
+        s==="SELESAI" ||
+        s==="DISETUJUI / VALID"
+    ) return "valid";
     return "menunggu";
 }
 function adminStats(){let sum=0,n=0,l=0,r=0,b=0;DATA_GURU_ROWS.forEach(g=>{const raw=gf(g,["administrasi","ADMINISTRASI","Administrasi"]),p=parseAdmin(raw),s=String(raw).toUpperCase();if(p!==null){sum+=p;n++;if(p>=100)l++;else if(p>=75)r++;else b++}else if(s.includes("LENGKAP")&&!s.includes("BELUM"))l++;else if(s.includes("REVISI")||s.includes("PERLU"))r++;else b++});return{total:DATA_GURU_ROWS.length,avg:n?sum/n:0,lengkap:l,revisi:r,belum:b}}
 function getEmploymentType(g){
     /*
-     * DATA_GURU:
-     * NO | NAMA | NIP | GOL. RUANG | JABATAN | STATUS | ADMINISTRASI
-     *
-     * Karena STATUS adalah kolom yang tersedia pada struktur sheet,
-     * gunakan STATUS sebagai sumber PNS / PPPK / Honorer.
-     * Tetap pertahankan dukungan untuk nama field lama bila tersedia.
-     */
+       DATA_GURU yang digunakan aplikasi:
+       NO | NAMA | NIP | GOL. RUANG | JABATAN | STATUS | ADMINISTRASI
+       Kolom STATUS dipakai sebagai sumber status kepegawaian bila
+       nilainya memuat PNS / PPPK / HONORER. Jika tidak, fungsi tetap
+       mencoba nama kolom alternatif tanpa mengarang data.
+    */
     return String(gf(g,[
         "status_kepegawaian","STATUS_KEPEGAWAIAN","Status Kepegawaian",
-        "kepegawaian","KEPEGAWAIAN","jenis_kepegawaian","JENIS_KEPEGAWAIAN",
-        "Jenis Kepegawaian","jenis_status","JENIS_STATUS",
-        "status","STATUS","Status"
+        "kepegawaian","KEPEGAWAIAN","jenis_kepegawaian",
+        "JENIS_KEPEGAWAIAN","Jenis Kepegawaian","jenis_status",
+        "JENIS_STATUS","status","STATUS","Status"
     ])||"").trim().toUpperCase();
 }
 function updateGuruUI(){
@@ -5197,9 +5209,10 @@ function filterDataGuru(){const q=(document.getElementById("guruSearch")?.value|
 function resetFilterGuru(){const q=document.getElementById("guruSearch"),s=document.getElementById("guruStatusFilter");if(q)q.value="";if(s)s.value="";DATA_GURU_FILTERED=[...DATA_GURU_ROWS];renderGuru()}
 async function loadValidasiDokumen(){
     const t=document.getElementById("validasiTable");
-    if(t)t.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Validasi</h3><p>Mengambil data dari sheet VALIDASI_DOKUMEN...</p></div></td></tr>';
+    if(t)t.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Validasi</h3><p>Mengambil data langsung dari sheet VALIDASI_DOKUMEN...</p></div></td></tr>';
 
     try{
+        /* Endpoint ini membaca seluruh baris VALIDASI_DOKUMEN dari Apps Script. */
         const j=await api("getValidasiDokumen");
         VALIDASI_DOKUMEN_ROWS=rowsOf(j).map(r=>({
             idValidasi:gf(r,["ID_VALIDASI","id_validasi","ID Validasi","id"]),
