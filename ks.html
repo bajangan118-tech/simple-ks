@@ -2153,6 +2153,7 @@ td strong{
 
 <aside class="sidebar" id="sidebar">
 
+```
 <div class="sidebar-header">
 
     <div class="logo-box">
@@ -2384,6 +2385,7 @@ td strong{
     </button>
 
 </div>
+```
 
 </aside>
 
@@ -2400,6 +2402,7 @@ td strong{
 
 <header class="top-header">
 
+```
 <div class="header-left">
 
 
@@ -2457,6 +2460,7 @@ td strong{
 
 
 </div>
+```
 
 </header>
 
@@ -2470,6 +2474,7 @@ td strong{
 <section class="page-section active-section"
          id="section-dashboard">
 
+```
 <div class="welcome">
 
     <div>
@@ -2502,44 +2507,116 @@ td strong{
 </div>
 
 
-<!-- KPI UTAMA — DATA DINAMIS DARI GOOGLE SPREADSHEET -->
+<!-- KPI -->
+
 <div class="kpi-grid">
-    <div class="kpi">
-        <div class="kpi-top">
-            <div class="kpi-icon blue"><i class="fa-solid fa-users"></i></div>
-            <span class="kpi-percent" id="dashboardGuruBreakdown">PNS 0 • PPPK 0 • Honorer 0</span>
-        </div>
-        <div class="kpi-value" id="dashboardGuruTotal">0</div>
-        <div class="kpi-label">Total Guru / Tendik</div>
-    </div>
+
 
     <div class="kpi">
+
         <div class="kpi-top">
-            <div class="kpi-icon green"><i class="fa-solid fa-circle-check"></i></div>
-            <span class="kpi-percent up">ADMINISTRASI</span>
+
+            <div class="kpi-icon blue">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <span class="kpi-percent up">
+                <i class="fa-solid fa-arrow-up"></i>
+                4.2%
+            </span>
+
         </div>
-        <div class="kpi-value" id="dashboardAdministrasiRata">0%</div>
-        <div class="kpi-label">Persentase Kelengkapan Administrasi</div>
+
+        <div class="kpi-value" id="dashboardGuruTotal">
+            0
+        </div>
+
+        <div class="kpi-label">
+            Total Guru & Tendik
+        </div>
+
     </div>
 
-    <div class="kpi">
-        <div class="kpi-top">
-            <div class="kpi-icon yellow"><i class="fa-solid fa-file-circle-exclamation"></i></div>
-            <span class="kpi-percent" id="dashboardValidasiInfo">VALIDASI_DOKUMEN</span>
-        </div>
-        <div class="kpi-value" id="dashboardDokumenMenunggu">0</div>
-        <div class="kpi-label">Dokumen Perlu Validasi</div>
-    </div>
 
     <div class="kpi">
+
         <div class="kpi-top">
-            <div class="kpi-icon red"><i class="fa-solid fa-chart-line"></i></div>
-            <span class="kpi-percent">KUMULATIF</span>
+
+            <div class="kpi-icon green">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <span class="kpi-percent up">
+                <i class="fa-solid fa-arrow-up"></i>
+                6.8%
+            </span>
+
         </div>
-        <div class="kpi-value" id="dashboardPredikatKinerja">Perlu Pembinaan</div>
-        <div class="kpi-label">Predikat Kinerja Sekolah</div>
+
+        <div class="kpi-value" id="dashboardAdministrasiRata">
+            0%
+        </div>
+
+        <div class="kpi-label">
+            Kelengkapan Administrasi
+        </div>
+
     </div>
+
+
+    <div class="kpi">
+
+        <div class="kpi-top">
+
+            <div class="kpi-icon yellow">
+                <i class="fa-solid fa-file-pen"></i>
+            </div>
+
+            <span class="kpi-percent">
+                Perlu Tindak Lanjut
+            </span>
+
+        </div>
+
+        <div class="kpi-value" id="dashboardDokumenRevisi">
+            0
+        </div>
+
+        <div class="kpi-label">
+            Dokumen Perlu Revisi
+        </div>
+
+    </div>
+
+
+    <div class="kpi">
+
+        <div class="kpi-top">
+
+            <div class="kpi-icon red">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <span class="kpi-percent down">
+                <i class="fa-solid fa-arrow-down"></i>
+                2.1%
+            </span>
+
+        </div>
+
+        <div class="kpi-value" id="dashboardGuruBelumLengkap">
+            0
+        </div>
+
+        <div class="kpi-label">
+            Guru Belum Lengkap
+        </div>
+
+    </div>
+
+
 </div>
+
 
 <!-- EXECUTIVE -->
 
@@ -2672,25 +2749,170 @@ td strong{
     </div>
 
 
-    <!-- TOP 5 DINAMIS DARI VALIDASI_DOKUMEN -->
+    <!-- TOP 5 -->
 
     <div class="card">
 
         <div class="card-header">
 
-            <h3>Guru Paling Tertib</h3>
+            <h3>
+                Guru Paling Tertib
+            </h3>
 
-            <span>Top 5 • VALIDASI_DOKUMEN</span>
+            <span>
+                Top 5
+            </span>
 
         </div>
 
-        <div class="card-body" id="dashboardTop5">
 
-            <div class="empty-state">
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                <h3>Memuat Ranking</h3>
-                <p>Mengambil data dari sheet VALIDASI_DOKUMEN...</p>
+        <div class="card-body">
+
+
+            <div class="ranking-item">
+
+                <div class="rank top">
+                    1
+                </div>
+
+                <div class="teacher-avatar">
+                    AS
+                </div>
+
+                <div class="teacher-name">
+
+                    <strong>
+                        Ahmad Santoso
+                    </strong>
+
+                    <span>
+                        Guru Kelas
+                    </span>
+
+                </div>
+
+                <div class="score">
+                    100%
+                </div>
+
             </div>
+
+
+            <div class="ranking-item">
+
+                <div class="rank top">
+                    2
+                </div>
+
+                <div class="teacher-avatar">
+                    SR
+                </div>
+
+                <div class="teacher-name">
+
+                    <strong>
+                        Siti Rahma
+                    </strong>
+
+                    <span>
+                        Guru Kelas
+                    </span>
+
+                </div>
+
+                <div class="score">
+                    98%
+                </div>
+
+            </div>
+
+
+            <div class="ranking-item">
+
+                <div class="rank">
+                    3
+                </div>
+
+                <div class="teacher-avatar">
+                    BS
+                </div>
+
+                <div class="teacher-name">
+
+                    <strong>
+                        Budi Santoso
+                    </strong>
+
+                    <span>
+                        Guru PJOK
+                    </span>
+
+                </div>
+
+                <div class="score">
+                    96%
+                </div>
+
+            </div>
+
+
+            <div class="ranking-item">
+
+                <div class="rank">
+                    4
+                </div>
+
+                <div class="teacher-avatar">
+                    DW
+                </div>
+
+                <div class="teacher-name">
+
+                    <strong>
+                        Dewi Wulandari
+                    </strong>
+
+                    <span>
+                        Guru Kelas
+                    </span>
+
+                </div>
+
+                <div class="score">
+                    95%
+                </div>
+
+            </div>
+
+
+            <div class="ranking-item">
+
+                <div class="rank">
+                    5
+                </div>
+
+                <div class="teacher-avatar">
+                    RH
+                </div>
+
+                <div class="teacher-name">
+
+                    <strong>
+                        Rina Handayani
+                    </strong>
+
+                    <span>
+                        Guru Kelas
+                    </span>
+
+                </div>
+
+                <div class="score">
+                    94%
+                </div>
+
+            </div>
+
 
         </div>
 
@@ -2700,7 +2922,7 @@ td strong{
 </div>
 
 
-<!-- TREND + BOTTOM 5 -->
+<!-- TREND -->
 
 <div class="dashboard-grid">
 
@@ -2709,16 +2931,23 @@ td strong{
 
         <div class="card-header">
 
-            <h3>Tren Kelengkapan Administrasi</h3>
+            <h3>
+                Tren Kelengkapan Administrasi
+            </h3>
 
-            <span id="dashboardTrendInfo">6 Bulan Terakhir • VALIDASI_DOKUMEN</span>
+            <span>
+                6 Bulan Terakhir
+            </span>
 
         </div>
+
 
         <div class="card-body">
 
             <div style="height:260px;">
+
                 <canvas id="trendChart"></canvas>
+
             </div>
 
         </div>
@@ -2726,25 +2955,175 @@ td strong{
     </div>
 
 
-    <!-- BOTTOM 5 DINAMIS DARI VALIDASI_DOKUMEN -->
+    <!-- BOTTOM 5 -->
 
     <div class="card">
 
         <div class="card-header">
 
-            <h3>Perlu Pembinaan</h3>
+            <h3>
+                Perlu Pembinaan
+            </h3>
 
-            <span>Bottom 5 • VALIDASI_DOKUMEN</span>
+            <span>
+                Bottom 5
+            </span>
 
         </div>
 
-        <div class="card-body" id="dashboardBottom5">
 
-            <div class="empty-state">
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                <h3>Memuat Ranking</h3>
-                <p>Mengambil data dari sheet VALIDASI_DOKUMEN...</p>
+        <div class="card-body">
+
+
+            <div class="ranking-item">
+
+                <div class="rank">
+                    1
+                </div>
+
+                <div class="teacher-avatar">
+                    FN
+                </div>
+
+                <div class="teacher-name">
+
+                    <strong>
+                        Fajar Nugroho
+                    </strong>
+
+                    <span>
+                        63% kelengkapan
+                    </span>
+
+                </div>
+
+                <div class="score"
+                     style="color:#dc2626;">
+                    63%
+                </div>
+
             </div>
+
+
+            <div class="ranking-item">
+
+                <div class="rank">
+                    2
+                </div>
+
+                <div class="teacher-avatar">
+                    MA
+                </div>
+
+                <div class="teacher-name">
+
+                    <strong>
+                        Maya Anggraini
+                    </strong>
+
+                    <span>
+                        68% kelengkapan
+                    </span>
+
+                </div>
+
+                <div class="score"
+                     style="color:#dc2626;">
+                    68%
+                </div>
+
+            </div>
+
+
+            <div class="ranking-item">
+
+                <div class="rank">
+                    3
+                </div>
+
+                <div class="teacher-avatar">
+                    HS
+                </div>
+
+                <div class="teacher-name">
+
+                    <strong>
+                        Hendra Saputra
+                    </strong>
+
+                    <span>
+                        71% kelengkapan
+                    </span>
+
+                </div>
+
+                <div class="score"
+                     style="color:#d97706;">
+                    71%
+                </div>
+
+            </div>
+
+
+            <div class="ranking-item">
+
+                <div class="rank">
+                    4
+                </div>
+
+                <div class="teacher-avatar">
+                    LW
+                </div>
+
+                <div class="teacher-name">
+
+                    <strong>
+                        Lina Wati
+                    </strong>
+
+                    <span>
+                        74% kelengkapan
+                    </span>
+
+                </div>
+
+                <div class="score"
+                     style="color:#d97706;">
+                    74%
+                </div>
+
+            </div>
+
+
+            <div class="ranking-item">
+
+                <div class="rank">
+                    5
+                </div>
+
+                <div class="teacher-avatar">
+                    RP
+                </div>
+
+                <div class="teacher-name">
+
+                    <strong>
+                        Rudi Pratama
+                    </strong>
+
+                    <span>
+                        76% kelengkapan
+                    </span>
+
+                </div>
+
+                <div class="score"
+                     style="color:#d97706;">
+                    76%
+                </div>
+
+            </div>
+
 
         </div>
 
@@ -3021,6 +3400,7 @@ td strong{
     </span>
 
 </div>
+```
 
 </section>
 
@@ -3032,6 +3412,7 @@ td strong{
 <section class="page-section"
          id="section-validasi">
 
+```
 <div class="welcome">
 
     <div>
@@ -3211,6 +3592,7 @@ td strong{
 <section class="page-section"
          id="section-kinerja">
 
+```
 <div class="welcome">
 
     <div>
@@ -3250,6 +3632,7 @@ td strong{
     </div>
 
 </div>
+```
 
 </section>
 
@@ -3260,6 +3643,7 @@ td strong{
 <section class="page-section"
          id="section-pembinaan">
 
+```
 <div class="welcome">
 
     <div>
@@ -3390,6 +3774,7 @@ td strong{
     </div>
 
 </div>
+```
 
 </section>
 
@@ -3400,6 +3785,7 @@ td strong{
 <section class="page-section"
          id="section-supervisi">
 
+```
 <div class="welcome">
 
     <div>
@@ -3499,6 +3885,7 @@ td strong{
     </div>
 
 </div>
+```
 
 </section>
 
@@ -3509,6 +3896,7 @@ td strong{
 <section class="page-section"
          id="section-laporan">
 
+```
 <div class="welcome">
 
     <div>
@@ -3616,6 +4004,7 @@ td strong{
     </div>
 
 </div>
+```
 
 </section>
 
@@ -3626,6 +4015,7 @@ td strong{
 <section class="page-section"
          id="section-grafik">
 
+```
 <div class="welcome">
 
     <div>
@@ -3682,27 +4072,54 @@ td strong{
         <div class="card-body">
 
             <div class="status-row">
-                <span>Menunggu Validasi</span>
-                <strong id="statValidasiMenunggu">0</strong>
+
+                <span>
+                    Guru Lengkap
+                </span>
+
+                <strong>
+                    18
+                </strong>
+
             </div>
+
 
             <div class="status-row">
-                <span>Terverifikasi / Disetujui</span>
-                <strong id="statValidasiValid">0</strong>
+
+                <span>
+                    Perlu Revisi
+                </span>
+
+                <strong>
+                    3
+                </strong>
+
             </div>
+
 
             <div class="status-row">
-                <span>Perlu Revisi / Ditolak</span>
-                <strong id="statValidasiRevisi">0</strong>
+
+                <span>
+                    Belum Lengkap
+                </span>
+
+                <strong>
+                    3
+                </strong>
+
             </div>
+
 
             <div class="status-row">
-                <span>Total Dokumen</span>
-                <strong id="statValidasiTotal">0</strong>
-            </div>
 
-            <div style="height:220px;margin-top:18px;">
-                <canvas id="statusValidasiChart"></canvas>
+                <span>
+                    Dokumen
+                </span>
+
+                <strong>
+                    440
+                </strong>
+
             </div>
 
         </div>
@@ -3711,6 +4128,7 @@ td strong{
 
 
 </div>
+```
 
 </section>
 
@@ -3721,6 +4139,7 @@ td strong{
 <section class="page-section"
          id="section-audit">
 
+```
 <div class="welcome">
 
     <div>
@@ -3846,6 +4265,7 @@ td strong{
     </div>
 
 </div>
+```
 
 </section>
 
@@ -3856,6 +4276,7 @@ td strong{
 <section class="page-section"
          id="section-pengaturan">
 
+```
 <div class="welcome">
 
     <div>
@@ -3986,6 +4407,7 @@ td strong{
     </div>
 
 </div>
+```
 
 </section>
 
@@ -3993,8 +4415,10 @@ td strong{
 
 <footer class="footer">
 
+```
 SIMPEL-KS © 2026 • Sistem Monitoring & Penilaian
 Efektifitas Administrasi Kepala Sekolah
+```
 
 </footer>
 
@@ -4009,6 +4433,7 @@ Efektifitas Administrasi Kepala Sekolah
 <div class="modal"
      id="validationModal">
 
+```
 <div class="modal-box">
 
 
@@ -4117,6 +4542,7 @@ Efektifitas Administrasi Kepala Sekolah
 
 
 </div>
+```
 
 </div>
 
@@ -4442,251 +4868,245 @@ updateDate();
    CHART DASHBOARD
 ========================================================= */
 
-let trendChart=null;
-let statistikChart=null;
-let statusValidasiChart=null;
+let trendChart;
 
-function monthLabel(d){
-    const months=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-    return months[d.getMonth()];
-}
-
-function parseSheetDate(value){
-    if(value instanceof Date && !isNaN(value)) return value;
-    const s=String(value??"").trim();
-    if(!s) return null;
-    let d=new Date(s);
-    if(!isNaN(d)) return d;
-    let m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
-    if(m){
-        d=new Date(Number(m[3]),Number(m[2])-1,Number(m[1]));
-        return isNaN(d)?null:d;
-    }
-    m=s.match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})$/);
-    if(m){
-        d=new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));
-        return isNaN(d)?null:d;
-    }
-    return null;
-}
-
-function statusClass(status){
-    if(status==="valid") return "complete";
-    if(status==="revisi") return "incomplete";
-    return "review";
-}
-
-function teacherValidationRanking(){
-    const map=new Map();
-
-    VALIDASI_DOKUMEN_ROWS.forEach(r=>{
-        const guru=String(r.guru||"").trim();
-        if(!guru || guru==="-") return;
-
-        if(!map.has(guru)){
-            map.set(guru,{guru,total:0,valid:0,revisi:0,menunggu:0});
-        }
-
-        const x=map.get(guru);
-        x.total++;
-
-        if(r.status==="valid") x.valid++;
-        else if(r.status==="revisi") x.revisi++;
-        else x.menunggu++;
-    });
-
-    return Array.from(map.values()).map(x=>({
-        ...x,
-        score:x.total ? (x.valid/x.total)*100 : 0
-    }));
-}
-
-function initials(name){
-    const parts=String(name||"").trim().split(/\s+/).filter(Boolean);
-    if(!parts.length) return "-";
-    if(parts.length===1) return parts[0].slice(0,2).toUpperCase();
-    return (parts[0][0]+parts[parts.length-1][0]).toUpperCase();
-}
-
-function rankingHTML(item,index,bottom=false){
-    const color=bottom ? (item.score<70 ? "#dc2626" : "#d97706") : "";
-    return `
-        <div class="ranking-item">
-            <div class="rank ${index<2&&!bottom?"top":""}">${index+1}</div>
-            <div class="teacher-avatar">${esc(initials(item.guru))}</div>
-            <div class="teacher-name">
-                <strong>${esc(item.guru)}</strong>
-                <span>${item.valid} terverifikasi • ${item.total} dokumen</span>
-            </div>
-            <div class="score" ${color?`style="color:${color};"`:""}>${pct(item.score)}</div>
-        </div>`;
-}
-
-function renderDashboardRanking(){
-    const top=document.getElementById("dashboardTop5");
-    const bottom=document.getElementById("dashboardBottom5");
-    if(!top || !bottom) return;
-
-    const ranking=teacherValidationRanking();
-
-    if(!ranking.length){
-        const empty=`
-            <div class="empty-state">
-                <i class="fa-solid fa-users-slash"></i>
-                <h3>Belum Ada Data Guru</h3>
-                <p>Belum ada data pada sheet VALIDASI_DOKUMEN.</p>
-            </div>`;
-        top.innerHTML=empty;
-        bottom.innerHTML=empty;
-        return;
-    }
-
-    const sorted=[...ranking].sort((a,b)=>b.score-a.score || b.valid-a.valid || b.total-a.total || a.guru.localeCompare(b.guru));
-    const low=[...ranking].sort((a,b)=>a.score-b.score || a.valid-b.valid || a.total-b.total || a.guru.localeCompare(b.guru));
-
-    top.innerHTML=sorted.slice(0,5).map((x,i)=>rankingHTML(x,i,false)).join("");
-    bottom.innerHTML=low.slice(0,5).map((x,i)=>rankingHTML(x,i,true)).join("");
-}
-
-function lastSixMonths(){
-    const now=new Date();
-    now.setDate(1);
-    const result=[];
-    for(let i=5;i>=0;i--){
-        const d=new Date(now.getFullYear(),now.getMonth()-i,1);
-        result.push(d);
-    }
-    return result;
-}
-
-function monthlyValidationTrend(){
-    const months=lastSixMonths();
-    return months.map(m=>{
-        const key=m.getFullYear()+"-"+String(m.getMonth()+1).padStart(2,"0");
-        const rows=VALIDASI_DOKUMEN_ROWS.filter(r=>{
-            const d=parseSheetDate(r.tanggalValidasi);
-            return d && d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")===key;
-        });
-        const valid=rows.filter(r=>r.status==="valid").length;
-        return rows.length ? Math.round(valid/rows.length*1000)/10 : 0;
-    });
-}
 
 function createTrendChart(){
-    const canvas=document.getElementById("trendChart");
-    if(!canvas || typeof Chart==="undefined") return;
 
-    if(trendChart) trendChart.destroy();
-    const months=lastSixMonths();
+    const canvas =
+        document.getElementById(
+            "trendChart"
+        );
 
-    trendChart=new Chart(canvas,{
-        type:"line",
-        data:{
-            labels:months.map(monthLabel),
-            datasets:[{
-                label:"Kelengkapan",
-                data:monthlyValidationTrend(),
-                borderColor:"#2563eb",
-                backgroundColor:"rgba(37,99,235,.08)",
-                fill:true,
-                tension:.4,
-                pointRadius:4
-            }]
-        },
-        options:{
-            responsive:true,
-            maintainAspectRatio:false,
-            plugins:{legend:{display:false}},
-            scales:{
-                y:{min:0,max:100,ticks:{font:{size:9}},grid:{color:"#f1f5f9"}},
-                x:{ticks:{font:{size:9}},grid:{display:false}}
+
+    if(!canvas) return;
+
+
+    trendChart =
+        new Chart(
+
+            canvas,
+
+            {
+
+                type:"line",
+
+                data:{
+
+                    labels:[
+
+                        "Maret",
+                        "April",
+                        "Mei",
+                        "Juni",
+                        "Juli",
+                        "Agustus"
+
+                    ],
+
+                    datasets:[
+
+                        {
+
+                            label:
+                            "Kelengkapan",
+
+                            data:[
+
+                                72,
+                                75,
+                                77,
+                                81,
+                                84,
+                                87.8
+
+                            ],
+
+                            borderColor:
+                            "#2563eb",
+
+                            backgroundColor:
+                            "rgba(37,99,235,.08)",
+
+                            fill:true,
+
+                            tension:.4,
+
+                            pointRadius:4
+
+                        }
+
+                    ]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false,
+
+                    plugins:{
+
+                        legend:{
+                            display:false
+                        }
+
+                    },
+
+                    scales:{
+
+                        y:{
+
+                            min:60,
+
+                            max:100,
+
+                            ticks:{
+                                font:{
+                                    size:9
+                                }
+                            },
+
+                            grid:{
+                                color:"#f1f5f9"
+                            }
+
+                        },
+
+                        x:{
+
+                            ticks:{
+                                font:{
+                                    size:9
+                                }
+                            },
+
+                            grid:{
+                                display:false
+                            }
+
+                        }
+
+                    }
+
+                }
+
             }
-        }
-    });
+
+        );
+
 }
 
-function createStatistikChart(){
-    const canvas=document.getElementById("statistikChart");
-    if(!canvas || typeof Chart==="undefined") return;
-
-    if(statistikChart) statistikChart.destroy();
-    const months=lastSixMonths();
-
-    statistikChart=new Chart(canvas,{
-        type:"bar",
-        data:{
-            labels:months.map(monthLabel),
-            datasets:[{
-                label:"Kelengkapan Administrasi",
-                data:monthlyValidationTrend(),
-                backgroundColor:"#2563eb"
-            }]
-        },
-        options:{
-            responsive:true,
-            maintainAspectRatio:false,
-            plugins:{legend:{display:false}},
-            scales:{y:{beginAtZero:true,min:0,max:100}}
-        }
-    });
-}
-
-function createStatusValidasiChart(){
-    const canvas=document.getElementById("statusValidasiChart");
-    if(!canvas || typeof Chart==="undefined") return;
-
-    const m=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="menunggu").length;
-    const v=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="valid").length;
-    const r=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;
-
-    if(statusValidasiChart) statusValidasiChart.destroy();
-
-    statusValidasiChart=new Chart(canvas,{
-        type:"doughnut",
-        data:{
-            labels:["Menunggu Validasi","Terverifikasi / Disetujui","Perlu Revisi / Ditolak"],
-            datasets:[{
-                data:[m,v,r],
-                backgroundColor:["#d97706","#16a34a","#dc2626"],
-                borderWidth:2,
-                borderColor:"#ffffff"
-            }]
-        },
-        options:{
-            responsive:true,
-            maintainAspectRatio:false,
-            cutout:"62%",
-            plugins:{
-                legend:{position:"bottom",labels:{font:{size:9},boxWidth:12}}
-            }
-        }
-    });
-}
-
-function updateDashboardValidationFeatures(){
-    renderDashboardRanking();
-    createTrendChart();
-    createStatistikChart();
-    createStatusValidasiChart();
-
-    const m=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="menunggu").length;
-    const v=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="valid").length;
-    const r=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;
-    txt("statValidasiMenunggu",m);
-    txt("statValidasiValid",v);
-    txt("statValidasiRevisi",r);
-    txt("statValidasiTotal",VALIDASI_DOKUMEN_ROWS.length);
-    txt("dashboardDokumenMenunggu",m);
-    txt("dashboardDokumenRevisi",r);
-    txt("dashboardDokumenTerverifikasi",v);
-
-    const info=document.getElementById("dashboardTrendInfo");
-    if(info) info.textContent="6 Bulan Terakhir • VALIDASI_DOKUMEN • "+VALIDASI_DOKUMEN_ROWS.length+" dokumen";
-}
 
 createTrendChart();
+
+
+/* =========================================================
+   CHART STATISTIK
+========================================================= */
+
+let statistikChart;
+
+
+function createStatistikChart(){
+
+    const canvas =
+        document.getElementById(
+            "statistikChart"
+        );
+
+
+    if(!canvas) return;
+
+
+    statistikChart =
+        new Chart(
+
+            canvas,
+
+            {
+
+                type:"bar",
+
+                data:{
+
+                    labels:[
+
+                        "Maret",
+                        "April",
+                        "Mei",
+                        "Juni",
+                        "Juli",
+                        "Agustus"
+
+                    ],
+
+                    datasets:[
+
+                        {
+
+                            label:
+                            "Kelengkapan Administrasi",
+
+                            data:[
+
+                                72,
+                                75,
+                                77,
+                                81,
+                                84,
+                                87.8
+
+                            ],
+
+                            backgroundColor:
+                            "#2563eb"
+
+                        }
+
+                    ]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false,
+
+                    plugins:{
+
+                        legend:{
+                            display:false
+                        }
+
+                    },
+
+                    scales:{
+
+                        y:{
+
+                            beginAtZero:false,
+
+                            min:60,
+
+                            max:100
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        );
+
+}
+
+
 createStatistikChart();
-createStatusValidasiChart();
 
 
 /* =========================================================
@@ -5119,137 +5539,16 @@ function pct(v){const n=Number(v);if(!Number.isFinite(n))return "0%";const x=Mat
 function parseAdmin(v){if(v==null)return null;const s=String(v).trim().replace(",",".");if(!s)return null;const n=parseFloat(s.replace("%",""));return Number.isFinite(n)&&n>=0&&n<=100?n:null}
 function rowsOf(r){if(Array.isArray(r))return r;if(r&&Array.isArray(r.data))return r.data;if(r&&Array.isArray(r.rows))return r.rows;if(r&&Array.isArray(r.records))return r.records;return []}
 async function api(action){const u=DATA_GURU_API+"?action="+encodeURIComponent(action)+"&_="+Date.now();const r=await fetch(u,{method:"GET",cache:"no-store",redirect:"follow"});if(!r.ok)throw Error("HTTP "+r.status);const j=await r.json();if(j&&j.success===false)throw Error(j.message||"Gagal mengambil data");return j}
-function validStatus(v){
-    const s=String(v??"").trim().toUpperCase().replace(/[_-]+/g," ");
-    if(!s) return "menunggu";
-    if(
-        s.includes("REVISI") ||
-        s.includes("DITOLAK") ||
-        s.includes("TOLAK") ||
-        s.includes("KEMBALI") ||
-        s.includes("PERLU DIREVISI")
-    ) return "revisi";
-    if(
-        s.includes("TERVERIFIKASI") ||
-        s.includes("DISETUJUI") ||
-        s.includes("SETUJU") ||
-        s==="VALID" ||
-        s==="SELESAI" ||
-        s==="DISETUJUI / VALID"
-    ) return "valid";
-    return "menunggu";
-}
+function validStatus(v){const s=String(v??"").trim().toUpperCase();if(s.includes("REVISI")||s.includes("KEMBALI"))return"revisi";if(s.includes("VALID")||s.includes("TERVERIFIKASI")||s.includes("DISETUJUI")||s.includes("SETUJU"))return"valid";return"menunggu"}
 function adminStats(){let sum=0,n=0,l=0,r=0,b=0;DATA_GURU_ROWS.forEach(g=>{const raw=gf(g,["administrasi","ADMINISTRASI","Administrasi"]),p=parseAdmin(raw),s=String(raw).toUpperCase();if(p!==null){sum+=p;n++;if(p>=100)l++;else if(p>=75)r++;else b++}else if(s.includes("LENGKAP")&&!s.includes("BELUM"))l++;else if(s.includes("REVISI")||s.includes("PERLU"))r++;else b++});return{total:DATA_GURU_ROWS.length,avg:n?sum/n:0,lengkap:l,revisi:r,belum:b}}
-function getEmploymentType(g){
-    /*
-       DATA_GURU yang digunakan aplikasi:
-       NO | NAMA | NIP | GOL. RUANG | JABATAN | STATUS | ADMINISTRASI
-       Kolom STATUS dipakai sebagai sumber status kepegawaian bila
-       nilainya memuat PNS / PPPK / HONORER. Jika tidak, fungsi tetap
-       mencoba nama kolom alternatif tanpa mengarang data.
-    */
-    return String(gf(g,[
-        "status_kepegawaian","STATUS_KEPEGAWAIAN","Status Kepegawaian",
-        "kepegawaian","KEPEGAWAIAN","jenis_kepegawaian",
-        "JENIS_KEPEGAWAIAN","Jenis Kepegawaian","jenis_status",
-        "JENIS_STATUS","status","STATUS","Status"
-    ])||"").trim().toUpperCase();
-}
-function updateGuruUI(){
-    const a=adminStats();
-    const menunggu=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="menunggu").length;
-    const revisi=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;
-    const valid=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="valid").length;
-    const aktif=DATA_GURU_ROWS.filter(g=>String(gf(g,["status","STATUS","Status"])).toUpperCase()==="AKTIF").length;
-    const pns=DATA_GURU_ROWS.filter(g=>getEmploymentType(g).includes("PNS")&&!getEmploymentType(g).includes("PPPK")).length;
-    const pppk=DATA_GURU_ROWS.filter(g=>getEmploymentType(g).includes("PPPK")).length;
-    const honorer=DATA_GURU_ROWS.filter(g=>{const x=getEmploymentType(g);return x.includes("HONOR")||x.includes("NON ASN")||x.includes("NON-ASN");}).length;
-
-    txt("guruTotal",a.total);
-    txt("guruAktif",aktif);
-    txt("guruTidakAktif",a.total-aktif);
-    txt("guruAdministrasiRata",pct(a.avg));
-
-    txt("dashboardGuruTotal",a.total);
-    txt("dashboardGuruBreakdown",`PNS ${pns} • PPPK ${pppk} • Honorer ${honorer}`);
-    txt("dashboardAdministrasiRata",pct(a.avg));
-    txt("dashboardDokumenMenunggu",menunggu);
-    txt("dashboardDokumenRevisi",revisi);
-    txt("dashboardDokumenTerverifikasi",valid);
-    txt("dashboardGuruBelumLengkap",a.belum);
-    txt("dashboardGuruLengkap",a.lengkap+" Guru");
-    txt("dashboardGuruPerluRevisi",a.revisi+" Guru");
-    txt("dashboardGuruBelumLengkapDetail",a.belum+" Guru");
-    txt("dashboardCirclePercent",pct(a.avg));
-
-    let predikat="Perlu Pembinaan";
-    if(a.total===0 || a.avg===0) predikat="Perlu Pembinaan";
-    else if(a.avg>=90) predikat="Sangat Baik";
-    else if(a.avg>=75) predikat="Baik";
-    else if(a.avg>=60) predikat="Cukup";
-    txt("dashboardPredikatKinerja",predikat);
-
-    txt("adminTotalGuru",a.total);
-    txt("adminGuruLengkap",a.lengkap);
-    txt("adminGuruPerluRevisi",a.revisi+a.belum);
-    txt("adminRataRata",pct(a.avg));
-    txt("guruMenuBadge",a.total);
-    txt("validasiMenuBadge",revisi);
-
-    const c=document.querySelector("#section-dashboard .circle-progress");
-    if(c){
-        const d=Math.max(0,Math.min(100,a.avg))*3.6;
-        c.style.background=`conic-gradient(#16a34a 0deg ${d}deg,#e2e8f0 ${d}deg 360deg)`;
-    }
-}
-
+function updateGuruUI(){const a=adminStats(),rv=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;txt("guruTotal",a.total);txt("guruAktif",DATA_GURU_ROWS.filter(g=>String(gf(g,["status","STATUS","Status"])).toUpperCase()==="AKTIF").length);txt("guruTidakAktif",a.total-DATA_GURU_ROWS.filter(g=>String(gf(g,["status","STATUS","Status"])).toUpperCase()==="AKTIF").length);txt("guruAdministrasiRata",pct(a.avg));txt("dashboardGuruTotal",a.total);txt("dashboardAdministrasiRata",pct(a.avg));txt("dashboardGuruBelumLengkap",a.belum);txt("dashboardGuruLengkap",a.lengkap+" Guru");txt("dashboardGuruPerluRevisi",a.revisi+" Guru");txt("dashboardGuruBelumLengkapDetail",a.belum+" Guru");txt("dashboardDokumenRevisi",rv);txt("dashboardCirclePercent",pct(a.avg));txt("adminTotalGuru",a.total);txt("adminGuruLengkap",a.lengkap);txt("adminGuruPerluRevisi",a.revisi+a.belum);txt("adminRataRata",pct(a.avg));txt("guruMenuBadge",a.total);txt("validasiMenuBadge",rv);const c=document.querySelector("#section-dashboard .circle-progress");if(c){const d=Math.max(0,Math.min(100,a.avg))*3.6;c.style.background=`conic-gradient(#16a34a 0deg ${d}deg,#e2e8f0 ${d}deg 360deg)`}}
 async function loadDataGuru(){const l=document.getElementById("guruLoading"),e=document.getElementById("guruError"),t=document.getElementById("guruTableBody");if(l)l.style.display="flex";if(e)e.style.display="none";if(t)t.innerHTML='<tr><td colspan="7"><div class="empty-state guru-empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Guru</h3><p>Mengambil data dari sheet DATA_GURU...</p></div></td></tr>';try{const j=await api("getDataGuru");DATA_GURU_ROWS=rowsOf(j);DATA_GURU_FILTERED=[...DATA_GURU_ROWS];renderGuru();updateGuruUI();const i=document.getElementById("guruDataInfo");if(i)i.textContent="Terhubung • Sheet DATA_GURU • "+DATA_GURU_ROWS.length+" data"}catch(x){DATA_GURU_ROWS=[];DATA_GURU_FILTERED=[];renderGuru();updateGuruUI();if(e){e.innerHTML="<strong>Gagal mengambil data:</strong> "+esc(x.message);e.style.display="block"}}finally{if(l)l.style.display="none"}}
 function renderGuru(){const t=document.getElementById("guruTableBody"),i=document.getElementById("guruTableInfo");if(!t)return;if(!DATA_GURU_FILTERED.length){t.innerHTML='<tr><td colspan="7"><div class="empty-state guru-empty-state"><i class="fa-solid fa-users-slash"></i><h3>Data Guru Tidak Ditemukan</h3><p>Tidak ada data yang sesuai.</p></div></td></tr>';if(i)i.textContent="Menampilkan 0 data";return}t.innerHTML=DATA_GURU_FILTERED.map((g,n)=>{const no=gf(g,["no","NO","No"])||n+1,nm=gf(g,["nama","NAMA","Nama"])||"-",nip=gf(g,["nip","NIP","Nip"])||"-",gol=gf(g,["gol_ruang","GOL. RUANG","GOL RUANG","Gol. Ruang"])||"-",jab=gf(g,["jabatan","JABATAN","Jabatan"])||"-",st=String(gf(g,["status","STATUS","Status"])).trim().toUpperCase(),act=st==="AKTIF",ad=gf(g,["administrasi","ADMINISTRASI","Administrasi"]),p=parseAdmin(ad);let ah;if(p!==null){const cl=p>=100?"complete":p>=75?"review":"incomplete";ah='<div class="guru-admin"><div class="guru-admin-top"><span class="guru-admin-label">Kelengkapan</span><span class="guru-admin-percent">'+pct(p)+'</span></div><div class="guru-admin-bar"><div class="guru-admin-progress '+cl+'" style="width:'+Math.max(0,Math.min(100,p))+'%;"></div></div></div>'}else ah='<span class="guru-admin-text '+(String(ad).toUpperCase().includes("LENGKAP")?"complete":"incomplete")+'">'+esc(ad||"Belum diisi")+'</span>';return '<tr><td class="guru-no">'+esc(no)+'</td><td><div class="guru-name">'+esc(nm)+'</div></td><td><span class="guru-nip">'+esc(nip)+'</span></td><td><span class="guru-gol">'+esc(gol)+'</span></td><td>'+esc(jab)+'</td><td><span class="guru-status '+(act?"aktif":"nonaktif")+'"><i class="fa-solid '+(act?"fa-circle-check":"fa-circle-xmark")+'"></i>'+esc(st||"-")+'</span></td><td>'+ah+'</td></tr>'}).join("");if(i)i.textContent="Menampilkan "+DATA_GURU_FILTERED.length+" dari "+DATA_GURU_ROWS.length+" data"}
 function filterDataGuru(){const q=(document.getElementById("guruSearch")?.value||"").toLowerCase().trim(),s=(document.getElementById("guruStatusFilter")?.value||"").toUpperCase();DATA_GURU_FILTERED=DATA_GURU_ROWS.filter(g=>{const n=String(gf(g,["nama","NAMA","Nama"])).toLowerCase(),p=String(gf(g,["nip","NIP","Nip"])).toLowerCase(),st=String(gf(g,["status","STATUS","Status"])).toUpperCase();return(!q||n.includes(q)||p.includes(q))&&(!s||st===s)});renderGuru()}
 function resetFilterGuru(){const q=document.getElementById("guruSearch"),s=document.getElementById("guruStatusFilter");if(q)q.value="";if(s)s.value="";DATA_GURU_FILTERED=[...DATA_GURU_ROWS];renderGuru()}
-async function loadValidasiDokumen(){
-    const t=document.getElementById("validasiTable");
-    if(t)t.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Validasi</h3><p>Mengambil data langsung dari sheet VALIDASI_DOKUMEN...</p></div></td></tr>';
-
-    try{
-        /* Endpoint ini membaca seluruh baris VALIDASI_DOKUMEN dari Apps Script. */
-        const j=await api("getValidasiDokumen");
-        VALIDASI_DOKUMEN_ROWS=rowsOf(j).map(r=>({
-            idValidasi:gf(r,["ID_VALIDASI","id_validasi","ID Validasi","id"]),
-            tanggalValidasi:gf(r,["TANGGAL_VALIDASI","tanggal_validasi","Tanggal Validasi","tanggal"]),
-            guru:gf(r,["NAMA_GURU","nama_guru","Nama Guru","NAMA","nama","guru","GURU"])||"-",
-            dokumen:gf(r,["JENIS_DOKUMEN","jenis_dokumen","Jenis Dokumen","DOKUMEN","dokumen","jenis","JENIS"])||"-",
-            status:validStatus(gf(r,["STATUS","status","Status"])),
-            statusRaw:gf(r,["STATUS","status","Status"]),
-            ket:gf(r,["CATATAN","catatan","Catatan","KETERANGAN","keterangan"])||"-",
-            deadline:gf(r,["TANGGAL_DEADLINE","tanggal_deadline","Tanggal Deadline"]),
-            selesai:gf(r,["TANGGAL_SELESAI","tanggal_selesai","Tanggal Selesai"]),
-            validator:gf(r,["VALIDATOR","validator","Validator"]),
-            aksiTerakhir:gf(r,["AKSI_TERAKHIR","aksi_terakhir","Aksi Terakhir"]),
-            fileId:gf(r,["FILE_ID","file_id","fileId"]),
-            fileUrl:gf(r,["FILE_URL","file_url","fileUrl","url","URL"])
-        }));
-
-        VALIDASI_DOKUMEN_FILTERED=[...VALIDASI_DOKUMEN_ROWS];
-        renderValidasi();
-        updateValidasiUI();
-        updateDashboardValidationFeatures();
-
-        const i=document.getElementById("validasiDataInfo");
-        if(i)i.textContent="Terhubung • Sheet VALIDASI_DOKUMEN • "+VALIDASI_DOKUMEN_ROWS.length+" dokumen";
-    }catch(x){
-        VALIDASI_DOKUMEN_ROWS=[];
-        VALIDASI_DOKUMEN_FILTERED=[];
-        renderValidasi();
-        updateValidasiUI();
-        updateDashboardValidationFeatures();
-        const i=document.getElementById("validasiDataInfo");
-        if(i)i.textContent="Koneksi VALIDASI_DOKUMEN gagal";
-        console.error(x);
-    }
-}
+async function loadValidasiDokumen(){const t=document.getElementById("validasiTable");if(t)t.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Validasi</h3><p>Mengambil data dari sheet VALIDASI_DOKUMEN...</p></div></td></tr>';try{const j=await api("getValidasiDokumen");VALIDASI_DOKUMEN_ROWS=rowsOf(j).map(r=>({guru:gf(r,["guru","GURU","nama_guru","NAMA_GURU","nama","NAMA","Nama Guru"])||"-",dokumen:gf(r,["dokumen","DOKUMEN","jenis_dokumen","JENIS_DOKUMEN","jenis","JENIS","Jenis Dokumen"])||"-",tanggal:gf(r,["tanggal_upload","TANGGAL_UPLOAD","tanggal","TANGGAL","Tanggal Upload"])||"-",status:validStatus(gf(r,["status","STATUS","Status"])),ket:gf(r,["keterangan","KETERANGAN","catatan","CATATAN"])||"-",fileId:gf(r,["file_id","FILE_ID","fileId"]),fileUrl:gf(r,["file_url","FILE_URL","url","URL"])}));VALIDASI_DOKUMEN_FILTERED=[...VALIDASI_DOKUMEN_ROWS];renderValidasi();updateValidasiUI();const i=document.getElementById("validasiDataInfo");if(i)i.textContent="Terhubung • Sheet VALIDASI_DOKUMEN • "+VALIDASI_DOKUMEN_ROWS.length+" dokumen"}catch(x){VALIDASI_DOKUMEN_ROWS=[];VALIDASI_DOKUMEN_FILTERED=[];renderValidasi();updateValidasiUI();const i=document.getElementById("validasiDataInfo");if(i)i.textContent="Koneksi VALIDASI_DOKUMEN gagal";console.error(x)}}
 function updateValidasiUI(){const m=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="menunggu").length,v=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="valid").length,r=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;txt("validasiMenunggu",m);txt("validasiTerverifikasi",v);txt("validasiRevisi",r);txt("validasiTotal",VALIDASI_DOKUMEN_ROWS.length);txt("dashboardDokumenRevisi",r);txt("dashboardDokumenTerverifikasi",v);txt("validasiMenuBadge",r)}
-function renderValidasi(){const t=document.getElementById("validasiTable");if(!t)return;if(!VALIDASI_DOKUMEN_FILTERED.length){t.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-folder-open"></i><h3>Tidak Ada Data Validasi</h3><p>Belum ada data dari sheet VALIDASI_DOKUMEN.</p></div></td></tr>';return}t.innerHTML=VALIDASI_DOKUMEN_FILTERED.map(r=>{const q=r.status==="valid"?["status-complete","fa-check","TERVERIFIKASI"]:r.status==="revisi"?["status-incomplete","fa-rotate-left","REVISI"]:["status-review","fa-clock","MENUNGGU"];return '<tr data-guru="'+esc(r.guru)+'" data-status="'+r.status+'" data-jenis="'+esc(r.dokumen)+'"><td><strong>'+esc(r.guru)+'</strong></td><td>'+esc(r.dokumen)+'</td><td>'+esc(r.tanggalValidasi)+'</td><td><span class="status-badge '+q[0]+'"><i class="fa-solid '+q[1]+'"></i>'+q[2]+'</span></td><td>'+esc(r.ket)+'</td><td><button class="action-btn" title="Periksa" onclick="openValidation("+JSON.stringify(r.guru)+","+JSON.stringify(r.dokumen)+")"><i class="fa-solid fa-eye"></i></button></td></tr>'}).join("")}
+function renderValidasi(){const t=document.getElementById("validasiTable");if(!t)return;if(!VALIDASI_DOKUMEN_FILTERED.length){t.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-folder-open"></i><h3>Tidak Ada Data Validasi</h3><p>Belum ada data dari sheet VALIDASI_DOKUMEN.</p></div></td></tr>';return}t.innerHTML=VALIDASI_DOKUMEN_FILTERED.map(r=>{const q=r.status==="valid"?["status-complete","fa-check","TERVERIFIKASI"]:r.status==="revisi"?["status-incomplete","fa-rotate-left","REVISI"]:["status-review","fa-clock","MENUNGGU"];return '<tr data-guru="'+esc(r.guru)+'" data-status="'+r.status+'" data-jenis="'+esc(r.dokumen)+'"><td><strong>'+esc(r.guru)+'</strong></td><td>'+esc(r.dokumen)+'</td><td>'+esc(r.tanggal)+'</td><td><span class="status-badge '+q[0]+'"><i class="fa-solid '+q[1]+'"></i>'+q[2]+'</span></td><td>'+esc(r.ket)+'</td><td><button class="action-btn" title="Periksa" onclick="openValidation("+JSON.stringify(r.guru)+","+JSON.stringify(r.dokumen)+")"><i class="fa-solid fa-eye"></i></button></td></tr>'}).join("")}
 function filterDokumen(){const g=document.getElementById("filterGuru")?.value||"",s=document.getElementById("filterStatus")?.value||"",j=document.getElementById("filterJenis")?.value||"";VALIDASI_DOKUMEN_FILTERED=VALIDASI_DOKUMEN_ROWS.filter(r=>(!g||r.guru===g)&&(!s||r.status===s)&&(!j||j==="Semua Jenis Dokumen"||r.dokumen===j));renderValidasi();if(!VALIDASI_DOKUMEN_FILTERED.length)alert("Tidak ada dokumen yang sesuai dengan filter.")}
 function refreshValidasi(){loadDataGuru();loadValidasiDokumen()}
 function exportValidasi(){alert("Ekspor laporan validasi.\n\nPada versi terintegrasi tersedia pilihan:\n• Excel (.xlsx)\n• PDF\n• Rekap per guru\n• Rekap per jenis administrasi")}
