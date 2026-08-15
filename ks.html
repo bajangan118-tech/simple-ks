@@ -5128,7 +5128,20 @@ function validStatus(v){
 }
 function adminStats(){let sum=0,n=0,l=0,r=0,b=0;DATA_GURU_ROWS.forEach(g=>{const raw=gf(g,["administrasi","ADMINISTRASI","Administrasi"]),p=parseAdmin(raw),s=String(raw).toUpperCase();if(p!==null){sum+=p;n++;if(p>=100)l++;else if(p>=75)r++;else b++}else if(s.includes("LENGKAP")&&!s.includes("BELUM"))l++;else if(s.includes("REVISI")||s.includes("PERLU"))r++;else b++});return{total:DATA_GURU_ROWS.length,avg:n?sum/n:0,lengkap:l,revisi:r,belum:b}}
 function getEmploymentType(g){
-    return String(gf(g,["status_kepegawaian","STATUS_KEPEGAWAIAN","Status Kepegawaian","kepegawaian","KEPEGAWAIAN","jenis_kepegawaian","JENIS_KEPEGAWAIAN","Jenis Kepegawaian","jenis_status","JENIS_STATUS"])||"").trim().toUpperCase();
+    /*
+     * DATA_GURU:
+     * NO | NAMA | NIP | GOL. RUANG | JABATAN | STATUS | ADMINISTRASI
+     *
+     * Karena STATUS adalah kolom yang tersedia pada struktur sheet,
+     * gunakan STATUS sebagai sumber PNS / PPPK / Honorer.
+     * Tetap pertahankan dukungan untuk nama field lama bila tersedia.
+     */
+    return String(gf(g,[
+        "status_kepegawaian","STATUS_KEPEGAWAIAN","Status Kepegawaian",
+        "kepegawaian","KEPEGAWAIAN","jenis_kepegawaian","JENIS_KEPEGAWAIAN",
+        "Jenis Kepegawaian","jenis_status","JENIS_STATUS",
+        "status","STATUS","Status"
+    ])||"").trim().toUpperCase();
 }
 function updateGuruUI(){
     const a=adminStats();
