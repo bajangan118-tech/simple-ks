@@ -1,809 +1,5280 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIMPEL-KS - Dashboard Eksekutif Kepala Sekolah</title>
-  
-  <!-- Google Fonts & Font Awesome Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <style>
-    /* ==========================================================================
-       1. STYLES & VARIABLES (CSS ROOT)
-       ========================================================================== */
-    :root {
-      --primary-color: #1e3c72;
-      --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-      --accent-color: #3b82f6;
-      --success-color: #10b981;
-      --warning-color: #f59e0b;
-      --danger-color: #ef4444;
-      --info-color: #06b6d4;
-      --bg-body: #f8fafc;
-      --bg-card: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      --sidebar-width: 260px;
-      --header-height: 70px;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --transition: all 0.3s ease;
+<meta charset="UTF-8">
+
+<meta name="viewport"
+   content="width=device-width, initial-scale=1.0">
+
+<title>SIMPEL-KS | Dashboard Kepala Sekolah</title>
+
+<meta name="description"
+   content="SIMPEL-KS - Sistem Monitoring & Penilaian Efektifitas Administrasi Kepala Sekolah">
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+
+    --sidebar:#0f172a;
+    --sidebar-hover:#1e293b;
+
+    --success:#16a34a;
+    --success-bg:#dcfce7;
+
+    --warning:#d97706;
+    --warning-bg:#fef3c7;
+
+    --danger:#dc2626;
+    --danger-bg:#fee2e2;
+
+    --info:#0284c7;
+    --info-bg:#e0f2fe;
+
+    --dark:#0f172a;
+    --text:#334155;
+    --muted:#64748b;
+
+    --bg:#f1f5f9;
+    --white:#ffffff;
+
+    --border:#e2e8f0;
+
+    --shadow:
+        0 8px 30px rgba(15,23,42,.07);
+
+    --radius:16px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Inter',sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    overflow-x:hidden;
+
+}
+
+button,
+input,
+select,
+textarea{
+
+    font-family:inherit;
+
+}
+
+button{
+
+    cursor:pointer;
+
+}
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+
+    width:260px;
+
+    background:var(--sidebar);
+
+    color:white;
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
+    bottom:0;
+
+    z-index:1000;
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:.3s;
+
+}
+
+
+.sidebar-header{
+
+    height:78px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:0 20px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+
+.logo-box{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:11px;
+
+    background:#2563eb;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:18px;
+
+}
+
+
+.logo-text strong{
+
+    display:block;
+
+    font-family:'Poppins';
+
+    font-size:17px;
+
+}
+
+
+.logo-text span{
+
+    font-size:9px;
+
+    color:#94a3b8;
+
+}
+
+
+.sidebar-profile{
+
+    padding:18px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+
+.profile-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+}
+
+
+.profile-avatar{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+    display:grid;
+
+    place-items:center;
+
+    font-weight:800;
+
+}
+
+
+.profile-name strong{
+
+    display:block;
+
+    font-size:13px;
+
+}
+
+
+.profile-name span{
+
+    font-size:10px;
+
+    color:#94a3b8;
+
+}
+
+
+.sidebar-menu{
+
+    flex:1;
+
+    padding:15px 10px;
+
+    overflow-y:auto;
+
+}
+
+
+.menu-title{
+
+    padding:10px 12px;
+
+    color:#64748b;
+
+    text-transform:uppercase;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1.2px;
+
+}
+
+
+.menu-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px;
+
+    margin:3px 0;
+
+    border-radius:10px;
+
+    color:#cbd5e1;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    transition:.2s;
+
+}
+
+
+.menu-item i{
+
+    width:20px;
+
+    text-align:center;
+
+    font-size:14px;
+
+}
+
+
+.menu-item:hover{
+
+    background:var(--sidebar-hover);
+
+    color:white;
+
+}
+
+
+.menu-item.active{
+
+    background:var(--primary);
+
+    color:white;
+
+    box-shadow:
+        0 6px 18px rgba(37,99,235,.3);
+
+}
+
+
+.menu-badge{
+
+    margin-left:auto;
+
+    background:#ef4444;
+
+    color:white;
+
+    padding:3px 7px;
+
+    border-radius:20px;
+
+    font-size:9px;
+
+}
+
+
+.sidebar-footer{
+
+    padding:12px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+
+.logout{
+
+    width:100%;
+
+    border:0;
+
+    background:#1e293b;
+
+    color:#cbd5e1;
+
+    padding:11px;
+
+    border-radius:9px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+
+.logout:hover{
+
+    background:#334155;
+
+    color:white;
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+
+    margin-left:260px;
+
+    width:calc(100% - 260px);
+
+    min-height:100vh;
+
+}
+
+
+/* =========================================================
+   TOP HEADER
+========================================================= */
+
+.top-header{
+
+    height:78px;
+
+    background:white;
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 30px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:500;
+
+}
+
+
+.header-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+
+.page-title h1{
+
+    font-family:'Poppins';
+
+    font-size:21px;
+
+    color:var(--dark);
+
+}
+
+
+.page-title p{
+
+    font-size:11px;
+
+    color:var(--muted);
+
+}
+
+
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.icon-button{
+
+    width:38px;
+
+    height:38px;
+
+    border:1px solid var(--border);
+
+    background:white;
+
+    border-radius:10px;
+
+    display:grid;
+
+    place-items:center;
+
+    color:var(--muted);
+
+    position:relative;
+
+}
+
+
+.icon-button:hover{
+
+    color:var(--primary);
+
+    background:#eff6ff;
+
+}
+
+
+.notification-dot{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:#ef4444;
+
+    position:absolute;
+
+    top:7px;
+
+    right:7px;
+
+    border:2px solid white;
+
+}
+
+
+.mobile-toggle{
+
+    display:none;
+
+    border:0;
+
+    background:#eff6ff;
+
+    color:var(--primary);
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:9px;
+
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content{
+
+    padding:28px;
+
+}
+
+
+.page-section{
+
+    display:none;
+
+    animation:fadeIn .25s ease;
+
+}
+
+
+.page-section.active-section{
+
+    display:block;
+
+}
+
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(5px);
+
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
     }
 
-    body {
-      background-color: var(--bg-body);
-      color: var(--text-main);
-      display: flex;
-      min-height: 100vh;
-      overflow-x: hidden;
+}
+
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
+.welcome{
+
+    background:
+        linear-gradient(
+            120deg,
+            #1d4ed8,
+            #2563eb,
+            #0284c7
+        );
+
+    color:white;
+
+    border-radius:var(--radius);
+
+    padding:27px 30px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    margin-bottom:22px;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+
+.welcome:after{
+
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+
+    height:260px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    right:-70px;
+
+    top:-100px;
+
+}
+
+
+.welcome h2{
+
+    font-family:'Poppins';
+
+    font-size:23px;
+
+    margin-bottom:5px;
+
+}
+
+
+.welcome p{
+
+    color:#dbeafe;
+
+    font-size:12px;
+
+}
+
+
+.welcome-date{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:right;
+
+}
+
+
+.welcome-date strong{
+
+    display:block;
+
+    font-size:14px;
+
+}
+
+
+.welcome-date span{
+
+    font-size:11px;
+
+    color:#dbeafe;
+
+}
+
+
+/* =========================================================
+   KPI
+========================================================= */
+
+.kpi-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:16px;
+
+    margin-bottom:22px;
+
+}
+
+
+.kpi{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.kpi-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+}
+
+
+.kpi-icon{
+
+    width:43px;
+
+    height:43px;
+
+    border-radius:12px;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:17px;
+
+}
+
+
+.kpi-icon.blue{
+
+    background:#dbeafe;
+
+    color:#2563eb;
+
+}
+
+
+.kpi-icon.green{
+
+    background:var(--success-bg);
+
+    color:var(--success);
+
+}
+
+
+.kpi-icon.yellow{
+
+    background:var(--warning-bg);
+
+    color:var(--warning);
+
+}
+
+
+.kpi-icon.red{
+
+    background:var(--danger-bg);
+
+    color:var(--danger);
+
+}
+
+
+.kpi-percent{
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+
+.up{
+
+    color:var(--success);
+
+}
+
+
+.down{
+
+    color:var(--danger);
+
+}
+
+
+.kpi-value{
+
+    font-family:'Poppins';
+
+    font-size:29px;
+
+    font-weight:800;
+
+    color:var(--dark);
+
+}
+
+
+.kpi-label{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    margin-top:2px;
+
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.card-header{
+
+    padding:19px 20px;
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.card-header h3{
+
+    font-family:'Poppins';
+
+    font-size:14px;
+
+    color:var(--dark);
+
+}
+
+
+.card-header span{
+
+    font-size:10px;
+
+    color:var(--muted);
+
+}
+
+
+.card-body{
+
+    padding:20px;
+
+}
+
+
+/* =========================================================
+   DASHBOARD GRID
+========================================================= */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1.5fr 1fr;
+
+    gap:20px;
+
+    margin-bottom:22px;
+
+}
+
+
+/* =========================================================
+   COMPLETENESS
+========================================================= */
+
+.completeness{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+
+.circle-progress{
+
+    width:135px;
+
+    height:135px;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            #16a34a 0deg 316deg,
+            #e2e8f0 316deg 360deg
+        );
+
+    display:grid;
+
+    place-items:center;
+
+    flex:none;
+
+}
+
+
+.circle-inner{
+
+    width:105px;
+
+    height:105px;
+
+    border-radius:50%;
+
+    background:white;
+
+    display:grid;
+
+    place-items:center;
+
+    text-align:center;
+
+}
+
+
+.circle-inner strong{
+
+    display:block;
+
+    font-family:'Poppins';
+
+    font-size:27px;
+
+    color:var(--dark);
+
+}
+
+
+.circle-inner span{
+
+    font-size:9px;
+
+    color:var(--muted);
+
+}
+
+
+.status-list{
+
+    flex:1;
+
+}
+
+
+.status-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:9px 0;
+
+}
+
+
+.status-name{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+}
+
+
+.status-dot{
+
+    width:9px;
+
+    height:9px;
+
+    border-radius:50%;
+
+}
+
+
+.dot-green{
+
+    background:#16a34a;
+
+}
+
+
+.dot-yellow{
+
+    background:#f59e0b;
+
+}
+
+
+.dot-red{
+
+    background:#dc2626;
+
+}
+
+
+.status-number{
+
+    font-size:11px;
+
+    font-weight:800;
+
+}
+
+
+/* =========================================================
+   RANKING
+========================================================= */
+
+.ranking-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:10px 0;
+
+    border-bottom:1px solid #f1f5f9;
+
+}
+
+
+.ranking-item:last-child{
+
+    border-bottom:0;
+
+}
+
+
+.rank{
+
+    width:25px;
+
+    height:25px;
+
+    border-radius:8px;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    background:#f1f5f9;
+
+}
+
+
+.rank.top{
+
+    background:#fef3c7;
+
+    color:#b45309;
+
+}
+
+
+.teacher-avatar{
+
+    width:34px;
+
+    height:34px;
+
+    border-radius:50%;
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:11px;
+
+    font-weight:800;
+
+}
+
+
+.teacher-name{
+
+    flex:1;
+
+}
+
+
+.teacher-name strong{
+
+    display:block;
+
+    font-size:11px;
+
+    color:var(--dark);
+
+}
+
+
+.teacher-name span{
+
+    font-size:9px;
+
+    color:var(--muted);
+
+}
+
+
+.score{
+
+    font-size:12px;
+
+    font-weight:800;
+
+    color:var(--success);
+
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-wrapper{
+
+    overflow-x:auto;
+
+}
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+th{
+
+    background:#f8fafc;
+
+    color:#64748b;
+
+    text-align:left;
+
+    font-size:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.4px;
+
+    padding:12px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+
+td{
+
+    padding:13px 12px;
+
+    border-bottom:1px solid #f1f5f9;
+
+    font-size:11px;
+
+}
+
+
+td strong{
+
+    color:var(--dark);
+
+}
+
+
+.status-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    font-size:9px;
+
+    font-weight:800;
+
+}
+
+
+.status-complete{
+
+    background:var(--success-bg);
+
+    color:var(--success);
+
+}
+
+
+.status-review{
+
+    background:var(--warning-bg);
+
+    color:var(--warning);
+
+}
+
+
+.status-incomplete{
+
+    background:var(--danger-bg);
+
+    color:var(--danger);
+
+}
+
+
+.action-btn{
+
+    width:30px;
+
+    height:30px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:#eff6ff;
+
+    color:var(--primary);
+
+}
+
+
+.action-btn:hover{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn{
+
+    border:0;
+
+    border-radius:9px;
+
+    padding:9px 13px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+}
+
+
+.btn-primary{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+
+.btn-primary:hover{
+
+    background:var(--primary-dark);
+
+}
+
+
+.btn-light{
+
+    background:#f1f5f9;
+
+    color:#475569;
+
+}
+
+
+.btn-light:hover{
+
+    background:#e2e8f0;
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.filter-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+
+}
+
+
+.form-control{
+
+    width:100%;
+
+    padding:10px 11px;
+
+    border:1px solid var(--border);
+
+    border-radius:9px;
+
+    background:white;
+
+    color:var(--text);
+
+    font-size:11px;
+
+    outline:none;
+
+}
+
+
+.form-control:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.08);
+
+}
+
+
+/* =========================================================
+   DEADLINE
+========================================================= */
+
+.bottom-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1.5fr 1fr;
+
+    gap:20px;
+
+}
+
+
+.deadline-item{
+
+    display:flex;
+
+    gap:13px;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #f1f5f9;
+
+}
+
+
+.deadline-item:last-child{
+
+    border-bottom:0;
+
+}
+
+
+.deadline-date{
+
+    width:45px;
+
+    height:45px;
+
+    background:#eff6ff;
+
+    color:var(--primary);
+
+    border-radius:10px;
+
+    display:grid;
+
+    place-items:center;
+
+    text-align:center;
+
+}
+
+
+.deadline-date strong{
+
+    display:block;
+
+    font-size:15px;
+
+}
+
+
+.deadline-date span{
+
+    font-size:8px;
+
+    font-weight:800;
+
+}
+
+
+.deadline-content{
+
+    flex:1;
+
+}
+
+
+.deadline-content strong{
+
+    display:block;
+
+    font-size:11px;
+
+    color:var(--dark);
+
+}
+
+
+.deadline-content span{
+
+    display:block;
+
+    font-size:9px;
+
+    color:var(--muted);
+
+    margin-top:3px;
+
+}
+
+
+.deadline-alert{
+
+    color:var(--danger)!important;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================================
+   AUDIT
+========================================================= */
+
+.audit-item{
+
+    display:flex;
+
+    gap:11px;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #f1f5f9;
+
+}
+
+
+.audit-item:last-child{
+
+    border-bottom:0;
+
+}
+
+
+.audit-icon{
+
+    width:32px;
+
+    height:32px;
+
+    border-radius:9px;
+
+    background:#eff6ff;
+
+    color:var(--primary);
+
+    display:grid;
+
+    place-items:center;
+
+    flex:none;
+
+}
+
+
+.audit-content{
+
+    flex:1;
+
+}
+
+
+.audit-content strong{
+
+    display:block;
+
+    font-size:10px;
+
+    color:var(--dark);
+
+}
+
+
+.audit-content p{
+
+    font-size:9px;
+
+    color:var(--muted);
+
+}
+
+
+.audit-time{
+
+    font-size:8px;
+
+    color:#94a3b8;
+
+}
+
+
+/* =========================================================
+   MOTTO
+========================================================= */
+
+.motto{
+
+    margin-top:22px;
+
+    background:#0f172a;
+
+    color:white;
+
+    padding:22px;
+
+    border-radius:var(--radius);
+
+    text-align:center;
+
+}
+
+
+.motto i{
+
+    color:#60a5fa;
+
+    font-size:20px;
+
+    margin-bottom:8px;
+
+}
+
+
+.motto p{
+
+    font-family:'Poppins';
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+
+.motto span{
+
+    display:block;
+
+    color:#94a3b8;
+
+    font-size:9px;
+
+    margin-top:5px;
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-state{
+
+    padding:55px 20px;
+
+    text-align:center;
+
+}
+
+
+.empty-state i{
+
+    font-size:42px;
+
+    color:#cbd5e1;
+
+    margin-bottom:15px;
+
+}
+
+
+.empty-state h3{
+
+    color:var(--dark);
+
+    font-family:'Poppins';
+
+    font-size:16px;
+
+    margin-bottom:5px;
+
+}
+
+
+.empty-state p{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+
+    padding:20px 28px;
+
+    color:#94a3b8;
+
+    font-size:10px;
+
+    text-align:center;
+
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.sidebar-overlay{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(15,23,42,.5);
+
+    z-index:900;
+
+}
+
+
+.sidebar-overlay.show{
+
+    display:block;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+    .kpi-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
     }
 
-    /* ==========================================================================
-       2. LAYOUT: SIDEBAR & HEADER
-       ========================================================================== */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: #0f172a;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 1000;
-      transition: var(--transition);
+    .filter-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
     }
 
-    .sidebar-brand {
-      height: var(--header-height);
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      gap: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+@media(max-width:950px){
+
+    .sidebar{
+
+        transform:translateX(-100%);
+
     }
 
-    .sidebar-brand i {
-      font-size: 1.5rem;
-      color: var(--accent-color);
+    .sidebar.open{
+
+        transform:translateX(0);
+
     }
 
-    .sidebar-brand h1 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+    .main{
+
+        margin-left:0;
+
+        width:100%;
+
     }
 
-    .sidebar-menu {
-      list-style: none;
-      padding: 20px 12px;
-      overflow-y: auto;
-      flex: 1;
+    .mobile-toggle{
+
+        display:block;
+
     }
 
-    .menu-item {
-      margin-bottom: 4px;
+    .dashboard-grid,
+    .bottom-grid{
+
+        grid-template-columns:1fr;
+
     }
 
-    .menu-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      color: #94a3b8;
-      text-decoration: none;
-      border-radius: var(--radius-sm);
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: var(--transition);
+}
+
+
+@media(max-width:650px){
+
+    .content{
+
+        padding:16px;
+
     }
 
-    .menu-link:hover, .menu-link.active {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.1);
+    .top-header{
+
+        padding:0 16px;
+
     }
 
-    .menu-link.active {
-      background: var(--accent-color);
+    .page-title h1{
+
+        font-size:17px;
+
     }
 
-    .main-wrapper {
-      margin-left: var(--sidebar-width);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      transition: var(--transition);
+    .page-title p{
+
+        display:none;
+
     }
 
-    .top-header {
-      height: var(--header-height);
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 32px;
-      position: sticky;
-      top: 0;
-      z-index: 900;
+    .welcome{
+
+        padding:22px;
+
+        align-items:flex-start;
+
+        flex-direction:column;
+
     }
 
-    .header-user {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .welcome-date{
+
+        text-align:left;
+
     }
 
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--primary-gradient);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
+    .kpi-grid{
+
+        grid-template-columns:1fr 1fr;
+
+        gap:10px;
+
     }
 
-    .user-info h4 { font-size: 0.95rem; font-weight: 600; }
-    .user-info p { font-size: 0.75rem; color: var(--text-muted); }
+    .kpi{
 
-    .content-container {
-      padding: 32px;
-      flex: 1;
+        padding:15px;
+
     }
 
-    .content-section {
-      display: none;
+    .kpi-value{
+
+        font-size:23px;
+
     }
 
-    .content-section.active {
-      display: block;
+    .completeness{
+
+        flex-direction:column;
+
+        align-items:center;
+
     }
 
-    /* ==========================================================================
-       3. DASHBOARD EKSEKUTIF COMPONENTS
-       ========================================================================== */
-    .welcome-banner {
-      background: var(--primary-gradient);
-      color: #fff;
-      padding: 28px 32px;
-      border-radius: var(--radius-lg);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 28px;
-      box-shadow: var(--shadow-md);
+    .status-list{
+
+        width:100%;
+
     }
 
-    .welcome-text h2 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.6rem;
-      margin-bottom: 6px;
+    .filter-grid{
+
+        grid-template-columns:1fr;
+
     }
 
-    .welcome-text p {
-      opacity: 0.9;
-      font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(15,23,42,.6);
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    z-index:2000;
+
+}
+
+
+.modal.show{
+
+    display:flex;
+
+}
+
+
+.modal-box{
+
+    width:100%;
+
+    max-width:650px;
+
+    background:white;
+
+    border-radius:18px;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.2);
+
+    overflow:hidden;
+
+    animation:modalIn .2s ease;
+
+}
+
+
+@keyframes modalIn{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.96);
+
     }
 
-    .btn-refresh {
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition);
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
     }
 
-    .btn-refresh:hover {
-      background: rgba(255, 255, 255, 0.35);
-    }
+}
 
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-bottom: 28px;
-    }
 
-    .kpi-card {
-      background: var(--bg-card);
-      padding: 20px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      box-shadow: var(--shadow-sm);
-    }
+.modal-header{
 
-    .kpi-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      color: #fff;
-    }
+    padding:18px 20px;
 
-    .bg-blue { background: var(--accent-color); }
-    .bg-green { background: var(--success-color); }
-    .bg-amber { background: var(--warning-color); }
-    .bg-purple { background: #8b5cf6; }
+    border-bottom:1px solid var(--border);
 
-    .kpi-details span { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
-    .kpi-details h3 { font-size: 1.6rem; font-weight: 700; color: var(--text-main); margin: 2px 0; }
-    .kpi-details small { font-size: 0.75rem; color: var(--text-muted); }
+    display:flex;
 
-    .analytics-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
+    justify-content:space-between;
 
-    .card-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 24px;
-      box-shadow: var(--shadow-sm);
-    }
+    align-items:center;
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+}
 
-    .card-header h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
 
-    /* Gauge & Circular Chart */
-    .gauge-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 0;
-    }
+.modal-header h3{
 
-    .circle-gauge {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: conic-gradient(var(--success-color) 0%, #e2e8f0 0%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      transition: background 1s ease;
-    }
+    font-family:'Poppins';
 
-    .circle-gauge::before {
-      content: '';
-      position: absolute;
-      width: 118px;
-      height: 118px;
-      border-radius: 50%;
-      background: var(--bg-card);
-    }
+    color:var(--dark);
 
-    .gauge-value {
-      position: relative;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
+    font-size:15px;
 
-    .ranking-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
+}
 
-    .ranking-list {
-      list-style: none;
-    }
 
-    .ranking-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
+.modal-close{
 
-    .ranking-item:last-child { border-bottom: none; }
+    border:0;
 
-    .guru-info { display: flex; flex-direction: column; }
-    .guru-info .nama { font-weight: 600; font-size: 0.9rem; color: var(--text-main); }
-    .guru-info .sub { font-size: 0.78rem; color: var(--text-muted); }
+    background:#f1f5f9;
 
-    .badge-percent {
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
-    .badge-high { background: #d1fae5; color: #065f46; }
-    .badge-low { background: #fee2e2; color: #991b1b; }
+    width:32px;
 
-    /* Custom Table Styles */
-    .table-responsive {
-      width: 100%;
-      overflow-x: auto;
-    }
+    height:32px;
 
-    .custom-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.88rem;
-    }
+    border-radius:8px;
 
-    .custom-table th {
-      background: #f1f5f9;
-      padding: 12px 16px;
-      font-weight: 600;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--border-color);
-    }
+    color:#64748b;
 
-    .custom-table td {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--border-color);
-    }
+}
 
-    .badge-status {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-    .badge-pending { background: #fef3c7; color: #92400e; }
-    .badge-approved { background: #d1fae5; color: #065f46; }
-    .badge-rejected { background: #fee2e2; color: #991b1b; }
 
-    /* Skeleton Loading State */
-    .skeleton-line {
-      height: 16px;
-      background: #e2e8f0;
-      border-radius: 4px;
-      margin-bottom: 8px;
-      animation: pulse 1.5s infinite ease-in-out;
-    }
+.modal-body{
 
-    @keyframes pulse {
-      0% { opacity: 0.6; }
-      50% { opacity: 1; }
-      100% { opacity: 0.6; }
-    }
+    padding:20px;
 
-    /* Responsive Breakdown */
-    @media (max-width: 992px) {
-      .analytics-grid, .ranking-grid { grid-template-columns: 1fr; }
-      .sidebar { transform: translateX(-100%); }
-      .main-wrapper { margin-left: 0; }
-    }
-  </style>
+}
+
+
+.modal-footer{
+
+    padding:15px 20px;
+
+    border-top:1px solid var(--border);
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:8px;
+
+}
+
+
+.document-preview{
+
+    background:#f8fafc;
+
+    border:1px dashed #cbd5e1;
+
+    border-radius:12px;
+
+    padding:35px;
+
+    text-align:center;
+
+}
+
+
+.document-preview i{
+
+    font-size:45px;
+
+    color:#ef4444;
+
+    margin-bottom:12px;
+
+}
+
+
+.document-preview strong{
+
+    display:block;
+
+    color:var(--dark);
+
+    font-size:13px;
+
+}
+
+
+.document-preview span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:4px;
+
+}
+
+
+</style>
+
 </head>
+
 <body>
 
-  <!-- ==========================================================================
-       SIDEBAR NAVIGATION
-       ========================================================================== -->
-  <aside class="sidebar">
-    <div class="sidebar-brand">
-      <i class="fa-solid fa-school-flag"></i>
-      <h1>SIMPEL-KS</h1>
+<div class="app">
+
+<!-- ======================================================
+     SIDEBAR
+====================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+```
+<div class="sidebar-header">
+
+    <div class="logo-box">
+
+        <i class="fa-solid fa-school"></i>
+
     </div>
-    <ul class="sidebar-menu">
-      <li class="menu-item">
-        <a href="#dashboard" class="menu-link active" onclick="switchSection('dashboard', this)">
-          <i class="fa-solid fa-chart-line"></i> Dashboard
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="#guru" class="menu-link" onclick="switchSection('guru', this)">
-          <i class="fa-solid fa-users"></i> Data Guru
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="#validasi" class="menu-link" onclick="switchSection('validasi', this)">
-          <i class="fa-solid fa-file-circle-check"></i> Validasi Dokumen
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="#kinerja" class="menu-link" onclick="switchSection('kinerja', this)">
-          <i class="fa-solid fa-award"></i> Kinerja Guru
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="#laporan" class="menu-link" onclick="switchSection('laporan', this)">
-          <i class="fa-solid fa-print"></i> Laporan
-        </a>
-      </li>
-    </ul>
-  </aside>
 
-  <!-- ==========================================================================
-       MAIN CONTENT WRAPPER
-       ========================================================================== -->
-  <div class="main-wrapper">
-    <header class="top-header">
-      <div class="header-title">
-        <h3 id="currentSectionTitle">Dashboard Eksekutif</h3>
-      </div>
-      <div class="header-user">
-        <div class="user-avatar">KS</div>
-        <div class="user-info">
-          <h4>Kepala Sekolah</h4>
-          <p>NIP. 197508241999031002</p>
-        </div>
-      </div>
-    </header>
+    <div class="logo-text">
 
-    <main class="content-container">
-      
-      <!-- ==========================================================================
-           SECTION 1: DASHBOARD EKSEKUTIF (UDPATED REAL-TIME WITH VALIDASI_DOKUMEN)
-           ========================================================================== -->
-      <section id="dashboard" class="content-section active">
-        
-        <!-- Welcome Banner -->
-        <div class="welcome-banner">
-          <div class="welcome-text">
-            <h2>Selamat Datang, Kepala Sekolah! 👋</h2>
-            <p>Pantau ketercapaian administrasi dan validasi berkas guru secara real-time.</p>
-          </div>
-          <button class="btn-refresh" onclick="loadDashboardData()">
-            <i class="fa-solid fa-rotate" id="refreshIcon"></i> Refresh Data
-          </button>
+        <strong>
+            SIMPEL-KS
+        </strong>
+
+        <span>
+            SISTEM ADMINISTRASI SEKOLAH
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="sidebar-profile">
+
+    <div class="profile-box">
+
+        <div class="profile-avatar">
+            KS
         </div>
 
-        <!-- KPI Cards Grid -->
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <div class="kpi-icon bg-blue"><i class="fa-solid fa-users"></i></div>
-            <div class="kpi-details">
-              <span>Total Guru & Tendik</span>
-              <h3 id="kpiTotalGuru">0</h3>
-              <small>Terdaftar di database</small>
-            </div>
-          </div>
+        <div class="profile-name">
 
-          <div class="kpi-card">
-            <div class="kpi-icon bg-green"><i class="fa-solid fa-chart-pie"></i></div>
-            <div class="kpi-details">
-              <span>Rata-Rata Kelengkapan</span>
-              <h3 id="kpiAvgKelengkapan">0%</h3>
-              <small>Capaian Administrasi</small>
-            </div>
-          </div>
+            <strong>
+                Kepala Sekolah
+            </strong>
 
-          <div class="kpi-card">
-            <div class="kpi-icon bg-amber"><i class="fa-solid fa-clock-rotate-left"></i></div>
-            <div class="kpi-details">
-              <span>Antrean Validasi</span>
-              <h3 id="kpiPendingValidasi">0</h3>
-              <small>Dokumen perlu diperiksa</small>
-            </div>
-          </div>
+            <span>
+                Administrator Pimpinan
+            </span>
 
-          <div class="kpi-card">
-            <div class="kpi-icon bg-purple"><i class="fa-solid fa-award"></i></div>
-            <div class="kpi-details">
-              <span>Predikat Sekolah</span>
-              <h3 id="kpiPredikatSekolah">-</h3>
-              <small>Status Kumulatif</small>
-            </div>
-          </div>
         </div>
 
-        <!-- Analytics Grid -->
-        <div class="analytics-grid">
-          <div class="card-box">
-            <div class="card-header">
-              <h3><i class="fa-solid fa-circle-notch text-blue"></i> Capaian Administrasi</h3>
-            </div>
-            <div class="gauge-wrapper">
-              <div class="circle-gauge" id="circleGauge">
-                <span class="gauge-value" id="gaugeValueText">0%</span>
-              </div>
-              <p style="margin-top: 16px; font-size: 0.85rem; color: var(--text-muted); text-align: center;">
-                Target kelengkapan semester aktif
-              </p>
-            </div>
-          </div>
+    </div>
 
-          <div class="card-box">
-            <div class="card-header">
-              <h3><i class="fa-solid fa-chart-line text-blue"></i> Tren Administrasi Bulanan</h3>
+</div>
+
+
+<nav class="sidebar-menu">
+
+
+    <div class="menu-title">
+        Dashboard
+    </div>
+
+
+    <a href="#"
+       class="menu-item active"
+       id="menuDashboard"
+       onclick="showSection('dashboard');return false;">
+
+        <i class="fa-solid fa-gauge-high"></i>
+
+        Dashboard Eksekutif
+
+    </a>
+
+
+    <div class="menu-title">
+        Monitoring
+    </div>
+
+
+    <a href="#"
+       class="menu-item"
+       id="menuGuru"
+       onclick="showSection('guru');return false;">
+
+        <i class="fa-solid fa-users"></i>
+
+        Data Guru
+
+        <span class="menu-badge" id="guruMenuBadge">
+            0
+        </span>
+
+    </a>
+
+
+    <a href="#"
+       class="menu-item"
+       id="menuAdministrasi"
+       onclick="showSection('administrasi');return false;">
+
+        <i class="fa-solid fa-folder-open"></i>
+
+        Administrasi Guru
+
+    </a>
+
+
+    <a href="#"
+       class="menu-item"
+       id="menuValidasi"
+       onclick="showSection('validasi');return false;">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        Validasi Dokumen
+
+        <span class="menu-badge" id="validasiMenuBadge">
+            0
+        </span>
+
+    </a>
+
+
+    <a href="#"
+       class="menu-item"
+       id="menuKinerja"
+       onclick="showSection('kinerja');return false;">
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        Monitoring Kinerja
+
+    </a>
+
+
+    <div class="menu-title">
+        Pembinaan
+    </div>
+
+
+    <a href="#"
+       class="menu-item"
+       id="menuPembinaan"
+       onclick="showSection('pembinaan');return false;">
+
+        <i class="fa-solid fa-comments"></i>
+
+        Catatan Pembinaan
+
+    </a>
+
+
+    <a href="#"
+       class="menu-item"
+       id="menuSupervisi"
+       onclick="showSection('supervisi');return false;">
+
+        <i class="fa-solid fa-calendar-check"></i>
+
+        Jadwal Supervisi
+
+    </a>
+
+
+    <div class="menu-title">
+        Laporan
+    </div>
+
+
+    <a href="#"
+       class="menu-item"
+       id="menuLaporan"
+       onclick="showSection('laporan');return false;">
+
+        <i class="fa-solid fa-file-lines"></i>
+
+        Laporan Sekolah
+
+    </a>
+
+
+    <a href="#"
+       class="menu-item"
+       id="menuGrafik"
+       onclick="showSection('grafik');return false;">
+
+        <i class="fa-solid fa-chart-column"></i>
+
+        Grafik & Statistik
+
+    </a>
+
+
+    <a href="#"
+       class="menu-item"
+       id="menuAudit"
+       onclick="showSection('audit');return false;">
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+
+        Audit Trail
+
+    </a>
+
+
+    <div class="menu-title">
+        Sistem
+    </div>
+
+
+    <a href="#"
+       class="menu-item"
+       id="menuPengaturan"
+       onclick="showSection('pengaturan');return false;">
+
+        <i class="fa-solid fa-gear"></i>
+
+        Pengaturan
+
+    </a>
+
+
+</nav>
+
+
+<div class="sidebar-footer">
+
+    <button class="logout"
+            onclick="logout()">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Keluar
+
+    </button>
+
+</div>
+```
+
+</aside>
+
+<div class="sidebar-overlay"
+     id="sidebarOverlay"
+     onclick="closeSidebar()">
+</div>
+
+<!-- ======================================================
+     MAIN
+====================================================== -->
+
+<main class="main">
+
+<header class="top-header">
+
+```
+<div class="header-left">
+
+
+    <button class="mobile-toggle"
+            onclick="toggleSidebar()">
+
+        <i class="fa-solid fa-bars"></i>
+
+    </button>
+
+
+    <div class="page-title">
+
+        <h1 id="pageTitle">
+            Dashboard Kepala Sekolah
+        </h1>
+
+        <p id="pageSubtitle">
+            Monitoring Administrasi & Efektivitas Sekolah
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<div class="header-right">
+
+
+    <button class="icon-button"
+            title="Cari">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+    </button>
+
+
+    <button class="icon-button"
+            title="Notifikasi">
+
+        <i class="fa-regular fa-bell"></i>
+
+        <span class="notification-dot"></span>
+
+    </button>
+
+
+    <button class="icon-button"
+            title="Profil">
+
+        <i class="fa-solid fa-user"></i>
+
+    </button>
+
+
+</div>
+```
+
+</header>
+
+<div class="content">
+
+<!-- ======================================================
+     SECTION 1
+     DASHBOARD
+====================================================== -->
+
+<section class="page-section active-section"
+         id="section-dashboard">
+
+```
+<div class="welcome">
+
+    <div>
+
+        <h2>
+            Selamat Datang, Kepala Sekolah 👋
+        </h2>
+
+        <p>
+            Pantau ketertiban administrasi guru
+            dan efektivitas pengelolaan sekolah
+            dari satu dashboard.
+        </p>
+
+    </div>
+
+
+    <div class="welcome-date">
+
+        <strong id="currentDate">
+            Memuat tanggal...
+        </strong>
+
+        <span>
+            Tahun Pelajaran 2026/2027
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- KPI -->
+
+<div class="kpi-grid">
+
+
+    <div class="kpi">
+
+        <div class="kpi-top">
+
+            <div class="kpi-icon blue">
+                <i class="fa-solid fa-users"></i>
             </div>
-            <div style="height: 220px; position: relative;">
-              <canvas id="trendChart"></canvas>
-            </div>
-          </div>
+
+            <span class="kpi-percent up">
+                <i class="fa-solid fa-arrow-up"></i>
+                4.2%
+            </span>
+
         </div>
 
-        <!-- Ranking Board -->
-        <div class="ranking-grid">
-          <div class="card-box">
-            <div class="card-header">
-              <h3><i class="fa-solid fa-trophy text-amber"></i> Top 5 Kelengkapan Tertinggi</h3>
-            </div>
-            <ul class="ranking-list" id="top5List">
-              <li class="ranking-item"><div class="skeleton-line" style="width: 100%;"></div></li>
-            </ul>
-          </div>
-
-          <div class="card-box">
-            <div class="card-header">
-              <h3><i class="fa-solid fa-triangle-exclamation text-amber"></i> Perlu Pembinaan / Tindak Lanjut</h3>
-            </div>
-            <ul class="ranking-list" id="bottom5List">
-              <li class="ranking-item"><div class="skeleton-line" style="width: 100%;"></div></li>
-            </ul>
-          </div>
+        <div class="kpi-value" id="dashboardGuruTotal">
+            0
         </div>
 
-        <!-- REAL-TIME DATA SHEET VALIDASI_DOKUMEN -->
-        <div class="card-box">
-          <div class="card-header">
-            <h3><i class="fa-solid fa-file-signature text-blue"></i> Antrean & Status Validasi Dokumen Terbaru</h3>
-            <span class="badge-status badge-pending" id="pendingCountBadge">0 Antrean Menunggu</span>
-          </div>
-          <div class="table-responsive">
-            <table class="custom-table">
-              <thead>
+        <div class="kpi-label">
+            Total Guru & Tendik
+        </div>
+
+    </div>
+
+
+    <div class="kpi">
+
+        <div class="kpi-top">
+
+            <div class="kpi-icon green">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <span class="kpi-percent up">
+                <i class="fa-solid fa-arrow-up"></i>
+                6.8%
+            </span>
+
+        </div>
+
+        <div class="kpi-value" id="dashboardAdministrasiRata">
+            0%
+        </div>
+
+        <div class="kpi-label">
+            Kelengkapan Administrasi
+        </div>
+
+    </div>
+
+
+    <div class="kpi">
+
+        <div class="kpi-top">
+
+            <div class="kpi-icon yellow">
+                <i class="fa-solid fa-file-pen"></i>
+            </div>
+
+            <span class="kpi-percent">
+                Perlu Tindak Lanjut
+            </span>
+
+        </div>
+
+        <div class="kpi-value" id="dashboardDokumenRevisi">
+            0
+        </div>
+
+        <div class="kpi-label">
+            Dokumen Perlu Revisi
+        </div>
+
+    </div>
+
+
+    <div class="kpi">
+
+        <div class="kpi-top">
+
+            <div class="kpi-icon red">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <span class="kpi-percent down">
+                <i class="fa-solid fa-arrow-down"></i>
+                2.1%
+            </span>
+
+        </div>
+
+        <div class="kpi-value" id="dashboardGuruBelumLengkap">
+            0
+        </div>
+
+        <div class="kpi-label">
+            Guru Belum Lengkap
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- EXECUTIVE -->
+
+<div class="dashboard-grid">
+
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h3>
+                    Kelengkapan Administrasi Sekolah
+                </h3>
+
+                <span>
+                    Update terakhir: Hari ini
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-body">
+
+
+            <div class="completeness">
+
+
+                <div class="circle-progress">
+
+                    <div class="circle-inner">
+
+                        <div>
+
+                            <strong id="dashboardCirclePercent">
+                                0%
+                            </strong>
+
+                            <span>
+                                KELENGKAPAN
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="status-list">
+
+
+                    <div class="status-row">
+
+                        <div class="status-name">
+
+                            <span class="status-dot dot-green"></span>
+
+                            Lengkap
+
+                        </div>
+
+                        <span class="status-number" id="dashboardGuruLengkap">
+                            0 Guru
+                        </span>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <div class="status-name">
+
+                            <span class="status-dot dot-yellow"></span>
+
+                            Perlu Revisi
+
+                        </div>
+
+                        <span class="status-number" id="dashboardGuruPerluRevisi">
+                            0 Guru
+                        </span>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <div class="status-name">
+
+                            <span class="status-dot dot-red"></span>
+
+                            Belum Lengkap
+
+                        </div>
+
+                        <span class="status-number" id="dashboardGuruBelumLengkapDetail">
+                            0 Guru
+                        </span>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <div class="status-name">
+
+                            <span class="status-dot dot-green"></span>
+
+                            Dokumen Terverifikasi
+
+                        </div>
+
+                        <span class="status-number" id="dashboardDokumenTerverifikasi">
+                            0
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOP 5 DINAMIS DARI VALIDASI_DOKUMEN -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Guru Paling Tertib</h3>
+
+            <span>Top 5 • VALIDASI_DOKUMEN</span>
+
+        </div>
+
+        <div class="card-body" id="dashboardTop5">
+
+            <div class="empty-state">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <h3>Memuat Ranking</h3>
+                <p>Mengambil data dari sheet VALIDASI_DOKUMEN...</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- TREND + BOTTOM 5 -->
+
+<div class="dashboard-grid">
+
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Tren Kelengkapan Administrasi</h3>
+
+            <span id="dashboardTrendInfo">6 Bulan Terakhir • VALIDASI_DOKUMEN</span>
+
+        </div>
+
+        <div class="card-body">
+
+            <div style="height:260px;">
+                <canvas id="trendChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOTTOM 5 DINAMIS DARI VALIDASI_DOKUMEN -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Perlu Pembinaan</h3>
+
+            <span>Bottom 5 • VALIDASI_DOKUMEN</span>
+
+        </div>
+
+        <div class="card-body" id="dashboardBottom5">
+
+            <div class="empty-state">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <h3>Memuat Ranking</h3>
+                <p>Mengambil data dari sheet VALIDASI_DOKUMEN...</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- DEADLINE -->
+
+<div class="bottom-grid">
+
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>
+                Deadline Administrasi
+            </h3>
+
+            <button class="btn btn-light">
+                Lihat Semua
+            </button>
+
+        </div>
+
+
+        <div class="card-body">
+
+
+            <div class="deadline-item">
+
+                <div class="deadline-date">
+
+                    <div>
+
+                        <strong>
+                            19
+                        </strong>
+
+                        <span>
+                            AGT
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="deadline-content">
+
+                    <strong>
+                        Pengumpulan Modul Ajar
+                    </strong>
+
+                    <span>
+                        21 guru belum mengumpulkan
+                    </span>
+
+                    <span class="deadline-alert">
+                        H-7 • Perlu perhatian
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="deadline-item">
+
+                <div class="deadline-date">
+
+                    <div>
+
+                        <strong>
+                            25
+                        </strong>
+
+                        <span>
+                            AGT
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="deadline-content">
+
+                    <strong>
+                        Administrasi Penilaian
+                    </strong>
+
+                    <span>
+                        Pengumpulan nilai dan jurnal
+                    </span>
+
+                    <span>
+                        H-13
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="deadline-item">
+
+                <div class="deadline-date">
+
+                    <div>
+
+                        <strong>
+                            31
+                        </strong>
+
+                        <span>
+                            AGT
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="deadline-content">
+
+                    <strong>
+                        Perangkat Pembelajaran
+                    </strong>
+
+                    <span>
+                        Kelengkapan administrasi semester
+                    </span>
+
+                    <span>
+                        H-19
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- AUDIT RINGKAS -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>
+                Aktivitas Terbaru
+            </h3>
+
+            <button class="btn btn-light"
+                    onclick="showSection('audit')">
+
+                Semua
+
+            </button>
+
+        </div>
+
+
+        <div class="card-body">
+
+
+            <div class="audit-item">
+
+                <div class="audit-icon">
+
+                    <i class="fa-solid fa-check"></i>
+
+                </div>
+
+                <div class="audit-content">
+
+                    <strong>
+                        Dokumen divalidasi
+                    </strong>
+
+                    <p>
+                        Ahmad Santoso
+                    </p>
+
+                </div>
+
+                <span class="audit-time">
+                    09:42
+                </span>
+
+            </div>
+
+
+            <div class="audit-item">
+
+                <div class="audit-icon">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                </div>
+
+                <div class="audit-content">
+
+                    <strong>
+                        Dokumen dikembalikan
+                    </strong>
+
+                    <p>
+                        Siti Rahma
+                    </p>
+
+                </div>
+
+                <span class="audit-time">
+                    09:15
+                </span>
+
+            </div>
+
+
+            <div class="audit-item">
+
+                <div class="audit-icon">
+
+                    <i class="fa-solid fa-upload"></i>
+
+                </div>
+
+                <div class="audit-content">
+
+                    <strong>
+                        Dokumen diunggah
+                    </strong>
+
+                    <p>
+                        Budi Santoso
+                    </p>
+
+                </div>
+
+                <span class="audit-time">
+                    08:51
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<div class="motto">
+
+    <i class="fa-solid fa-quote-left"></i>
+
+    <p>
+        "Dari Meja Kepsek, Tertibnya Satu Sekolah"
+    </p>
+
+    <span>
+        SIMPEL-KS • Sistem Monitoring & Penilaian Efektifitas Administrasi
+    </span>
+
+</div>
+```
+
+</section>
+
+<!-- ======================================================
+     SECTION 2
+     VALIDASI DOKUMEN
+====================================================== -->
+
+<section class="page-section"
+         id="section-validasi">
+
+```
+<div class="welcome">
+
+    <div>
+
+        <h2>
+            Validasi Dokumen Guru
+        </h2>
+
+        <p>
+            Periksa, validasi, tolak, atau berikan
+            catatan terhadap administrasi guru.
+        </p>
+
+    </div>
+
+
+    <div class="welcome-date">
+
+        <strong>
+            7 Dokumen Menunggu
+        </strong>
+
+        <span>
+            Perlu tindakan Kepala Sekolah
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- FILTER -->
+
+<div class="card"
+     style="margin-bottom:22px;">
+
+    <div class="card-body">
+
+        <div class="filter-grid">
+
+
+            <select class="form-control"
+                    id="filterGuru">
+
+                <option value="">
+                    Semua Guru
+                </option>
+
+                <option>
+                    Ahmad Santoso
+                </option>
+
+                <option>
+                    Siti Rahma
+                </option>
+
+                <option>
+                    Budi Santoso
+                </option>
+
+                <option>
+                    Fajar Nugroho
+                </option>
+
+            </select>
+
+
+            <select class="form-control"
+                    id="filterStatus">
+
+                <option value="">
+                    Semua Status
+                </option>
+
+                <option value="menunggu">
+                    Menunggu Validasi
+                </option>
+
+                <option value="revisi">
+                    Perlu Revisi
+                </option>
+
+                <option value="valid">
+                    Terverifikasi
+                </option>
+
+            </select>
+
+
+            <select class="form-control"
+                    id="filterJenis">
+
+                <option>
+                    Semua Jenis Dokumen
+                </option>
+
+                <option>
+                    Modul Ajar
+                </option>
+
+                <option>
+                    Jurnal Mengajar
+                </option>
+
+                <option>
+                    Program Semester
+                </option>
+
+                <option>
+                    Administrasi Penilaian
+                </option>
+
+            </select>
+
+
+            <button class="btn btn-primary"
+                    onclick="filterDokumen()">
+
+                <i class="fa-solid fa-filter"></i>
+
+                Terapkan Filter
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- KPI VALIDASI -->
+<div class="kpi-grid">
+<div class="kpi"><div class="kpi-top"><div class="kpi-icon yellow"><i class="fa-solid fa-hourglass-half"></i></div></div><div class="kpi-value" id="validasiMenunggu">0</div><div class="kpi-label">Menunggu Validasi</div></div>
+<div class="kpi"><div class="kpi-top"><div class="kpi-icon green"><i class="fa-solid fa-circle-check"></i></div></div><div class="kpi-value" id="validasiTerverifikasi">0</div><div class="kpi-label">Dokumen Terverifikasi</div></div>
+<div class="kpi"><div class="kpi-top"><div class="kpi-icon red"><i class="fa-solid fa-rotate-left"></i></div></div><div class="kpi-value" id="validasiRevisi">0</div><div class="kpi-label">Perlu Revisi</div></div>
+<div class="kpi"><div class="kpi-top"><div class="kpi-icon blue"><i class="fa-solid fa-folder-open"></i></div></div><div class="kpi-value" id="validasiTotal">0</div><div class="kpi-label">Total Dokumen</div></div>
+</div>
+<div class="card"><div class="card-header"><div><h3>Monitoring Administrasi Guru</h3><span id="validasiDataInfo">Mengambil data dari sheet VALIDASI_DOKUMEN...</span></div><div><button class="btn btn-light" onclick="refreshValidasi()"><i class="fa-solid fa-rotate"></i> Refresh</button><button class="btn btn-primary" onclick="exportValidasi()"><i class="fa-solid fa-file-excel"></i> Ekspor</button></div></div><div class="table-wrapper"><table><thead><tr><th>Guru</th><th>Dokumen</th><th>Tanggal Upload</th><th>Status</th><th>Keterangan</th><th>Aksi</th></tr></thead><tbody id="validasiTable"><tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Validasi</h3><p>Mengambil data dari sheet VALIDASI_DOKUMEN...</p></div></td></tr></tbody></table></div></div>
+</section>
+
+<!-- ======================================================
+     SECTION 3 DATA GURU
+====================================================== -->
+<section class="page-section" id="section-guru">
+<div class="welcome"><div><h2>Data Guru & Tendik</h2><p>Database tenaga pendidik dan tenaga kependidikan sekolah.</p></div></div>
+<div class="kpi-grid guru-kpi-grid">
+<div class="kpi"><div class="kpi-top"><div class="kpi-icon blue"><i class="fa-solid fa-users"></i></div></div><div class="kpi-value" id="guruTotal">0</div><div class="kpi-label">Total Guru & Tendik</div></div>
+<div class="kpi"><div class="kpi-top"><div class="kpi-icon green"><i class="fa-solid fa-user-check"></i></div></div><div class="kpi-value" id="guruAktif">0</div><div class="kpi-label">Guru Aktif</div></div>
+<div class="kpi"><div class="kpi-top"><div class="kpi-icon red"><i class="fa-solid fa-user-xmark"></i></div></div><div class="kpi-value" id="guruTidakAktif">0</div><div class="kpi-label">Tidak Aktif</div></div>
+<div class="kpi"><div class="kpi-top"><div class="kpi-icon yellow"><i class="fa-solid fa-clipboard-check"></i></div></div><div class="kpi-value" id="guruAdministrasiRata">0%</div><div class="kpi-label">Rata-rata Administrasi</div></div>
+</div>
+<div class="card"><div class="card-header"><div><h3>Daftar Guru & Tendik</h3><span id="guruDataInfo">Memuat data dari Google Spreadsheet...</span></div><div><button class="btn btn-light" type="button" onclick="loadDataGuru()"><i class="fa-solid fa-rotate"></i> Refresh</button></div></div>
+<div class="card-body guru-filter-area"><div class="guru-filter-grid"><div class="guru-search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="guruSearch" class="form-control" placeholder="Cari nama atau NIP..." oninput="filterDataGuru()" autocomplete="off"></div><select id="guruStatusFilter" class="form-control" onchange="filterDataGuru()"><option value="">Semua Status</option><option value="AKTIF">Aktif</option><option value="TIDAK AKTIF">Tidak Aktif</option></select><button class="btn btn-light" type="button" onclick="resetFilterGuru()"><i class="fa-solid fa-filter-circle-xmark"></i> Reset</button></div></div>
+<div id="guruLoading" class="guru-loading"><div class="guru-spinner"></div><span>Mengambil data guru dari Google Spreadsheet...</span></div><div id="guruError" class="guru-error" style="display:none;"></div>
+<div class="table-wrapper guru-table-wrapper"><table><thead><tr><th>NO</th><th>NAMA</th><th>NIP</th><th>GOL / RUANG</th><th>JABATAN</th><th>STATUS</th><th>ADMINISTRASI</th></tr></thead><tbody id="guruTableBody"><tr><td colspan="7"><div class="empty-state guru-empty-state"><i class="fa-solid fa-users"></i><h3>Memuat Data Guru</h3><p>Sistem sedang mengambil data dari sheet DATA_GURU.</p></div></td></tr></tbody></table></div><div class="guru-table-footer"><span id="guruTableInfo">Menampilkan 0 data</span></div></div>
+</section>
+
+<!-- ======================================================
+     SECTION 4 ADMINISTRASI
+====================================================== -->
+<section class="page-section" id="section-administrasi">
+<div class="welcome"><div><h2>Administrasi Guru</h2><p>Monitoring kelengkapan seluruh administrasi guru.</p></div></div>
+<div class="card"><div class="card-header"><div><h3>Kelengkapan Administrasi</h3><span>Sumber: sheet DATA_GURU kolom ADMINISTRASI</span></div><button class="btn btn-light" onclick="loadDataGuru()"><i class="fa-solid fa-rotate"></i> Refresh</button></div><div class="card-body"><div class="filter-grid">
+<div class="kpi"><div class="kpi-icon blue"><i class="fa-solid fa-users"></i></div><div class="kpi-value" id="adminTotalGuru">0</div><div class="kpi-label">Guru & Tendik</div></div>
+<div class="kpi"><div class="kpi-icon green"><i class="fa-solid fa-circle-check"></i></div><div class="kpi-value" id="adminGuruLengkap">0</div><div class="kpi-label">Administrasi Lengkap</div></div>
+<div class="kpi"><div class="kpi-icon yellow"><i class="fa-solid fa-rotate-left"></i></div><div class="kpi-value" id="adminGuruPerluRevisi">0</div><div class="kpi-label">Belum Lengkap</div></div>
+<div class="kpi"><div class="kpi-icon red"><i class="fa-solid fa-chart-line"></i></div><div class="kpi-value" id="adminRataRata">0%</div><div class="kpi-label">Rata-rata Administrasi</div></div>
+</div></div></div>
+</section>
+
+<!-- ======================================================
+     SECTION 5 KINERJA
+====================================================== -->
+
+<section class="page-section"
+         id="section-kinerja">
+
+```
+<div class="welcome">
+
+    <div>
+
+        <h2>
+            Monitoring Kinerja
+        </h2>
+
+        <p>
+            Ringkasan kinerja dan keteraturan administrasi guru.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <h3>
+                Monitoring Kinerja
+            </h3>
+
+            <p>
+                Modul penilaian kinerja akan terhubung
+                dengan data administrasi dan supervisi.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ======================================================
+     SECTION 6 PEMBINAAN
+====================================================== -->
+
+<section class="page-section"
+         id="section-pembinaan">
+
+```
+<div class="welcome">
+
+    <div>
+
+        <h2>
+            Catatan Pembinaan
+        </h2>
+
+        <p>
+            Catatan digital pembinaan dan tindak lanjut guru.
+        </p>
+
+    </div>
+
+
+    <button class="btn btn-light"
+            onclick="buatCatatan()">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Tambah Catatan
+
+    </button>
+
+</div>
+
+
+<div class="card">
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
                 <tr>
-                  <th>Tanggal</th>
-                  <th>Nama Guru</th>
-                  <th>Jenis Dokumen</th>
-                  <th>Status Validasi</th>
-                  <th>Validator</th>
-                  <th>Aksi Terakhir</th>
+
+                    <th>
+                        Tanggal
+                    </th>
+
+                    <th>
+                        Guru
+                    </th>
+
+                    <th>
+                        Catatan
+                    </th>
+
+                    <th>
+                        Tindak Lanjut
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
                 </tr>
-              </thead>
-              <tbody id="recentValidasiTableBody">
+
+            </thead>
+
+
+            <tbody>
+
                 <tr>
-                  <td colspan="6" style="text-align: center; padding: 20px; color: var(--text-muted);">
-                    <i class="fa-solid fa-spinner fa-spin"></i> Memuat data dari sheet VALIDASI_DOKUMEN...
-                  </td>
+
+                    <td>
+                        12-08-2026
+                    </td>
+
+                    <td>
+                        Fajar Nugroho
+                    </td>
+
+                    <td>
+                        Kelengkapan administrasi penilaian
+                        masih perlu diperbaiki.
+                    </td>
+
+                    <td>
+                        Pendampingan
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge status-review">
+                            Dipantau
+                        </span>
+
+                    </td>
+
                 </tr>
-              </tbody>
-            </table>
-          </div>
+
+
+                <tr>
+
+                    <td>
+                        08-08-2026
+                    </td>
+
+                    <td>
+                        Maya Anggraini
+                    </td>
+
+                    <td>
+                        Perangkat pembelajaran perlu
+                        diperbarui.
+                    </td>
+
+                    <td>
+                        Revisi
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge status-complete">
+                            Selesai
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ======================================================
+     SECTION 7 SUPERVISI
+====================================================== -->
+
+<section class="page-section"
+         id="section-supervisi">
+
+```
+<div class="welcome">
+
+    <div>
+
+        <h2>
+            Jadwal Supervisi
+        </h2>
+
+        <p>
+            Kelola jadwal supervisi akademik dan administrasi guru.
+        </p>
+
+    </div>
+
+
+    <button class="btn btn-light"
+            onclick="buatSupervisi()">
+
+        <i class="fa-solid fa-calendar-plus"></i>
+
+        Jadwalkan Supervisi
+
+    </button>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+        <div class="deadline-item">
+
+            <div class="deadline-date">
+
+                <strong>
+                    18
+                </strong>
+
+                <span>
+                    AGT
+                </span>
+
+            </div>
+
+            <div class="deadline-content">
+
+                <strong>
+                    Supervisi Akademik - Kelas IV
+                </strong>
+
+                <span>
+                    Guru: Ahmad Santoso • 08.00 WIB
+                </span>
+
+                <span>
+                    Observasi pembelajaran
+                </span>
+
+            </div>
+
         </div>
 
-      </section>
 
-      <!-- SECTION LAINNYA (PLACEHOLDER) -->
-      <section id="guru" class="content-section">
-        <div class="card-box"><h3>Modul Data Guru</h3><p>Fitur Manajemen Data Guru.</p></div>
-      </section>
-      <section id="validasi" class="content-section">
-        <div class="card-box"><h3>Modul Validasi Dokumen</h3><p>Fitur pemeriksaan dan persetujuan berkas.</p></div>
-      </section>
-      <section id="kinerja" class="content-section">
-        <div class="card-box"><h3>Modul Kinerja Guru</h3><p>Fitur Penilaian Kinerja Guru (PKG).</p></div>
-      </section>
-      <section id="laporan" class="content-section">
-        <div class="card-box"><h3>Modul Laporan</h3><p>Fitur cetak dan ekspor laporan.</p></div>
-      </section>
+        <div class="deadline-item">
 
-    </main>
-  </div>
+            <div class="deadline-date">
 
-  <!-- ==========================================================================
-       JAVASCRIPT LOGIC & API INTEGRATION
-       ========================================================================== -->
-  <script>
-    // URL Web App Endpoint Google Apps Script
-    const API_URL = "https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec";
+                <strong>
+                    22
+                </strong>
 
-    let trendChartInstance = null;
+                <span>
+                    AGT
+                </span>
 
-    document.addEventListener("DOMContentLoaded", () => {
-      loadDashboardData();
+            </div>
+
+            <div class="deadline-content">
+
+                <strong>
+                    Supervisi Administrasi
+                </strong>
+
+                <span>
+                    Guru: Siti Rahma • 09.00 WIB
+                </span>
+
+                <span>
+                    Pemeriksaan perangkat pembelajaran
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ======================================================
+     SECTION 8 LAPORAN
+====================================================== -->
+
+<section class="page-section"
+         id="section-laporan">
+
+```
+<div class="welcome">
+
+    <div>
+
+        <h2>
+            Laporan Sekolah
+        </h2>
+
+        <p>
+            Rekapitulasi administrasi dan kinerja sekolah.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="kpi-grid">
+
+
+    <div class="kpi">
+
+        <div class="kpi-icon blue">
+            <i class="fa-solid fa-file-pdf"></i>
+        </div>
+
+        <div class="kpi-value">
+            PDF
+        </div>
+
+        <div class="kpi-label">
+            Laporan Sekolah
+        </div>
+
+    </div>
+
+
+    <div class="kpi">
+
+        <div class="kpi-icon green">
+            <i class="fa-solid fa-file-excel"></i>
+        </div>
+
+        <div class="kpi-value">
+            XLS
+        </div>
+
+        <div class="kpi-label">
+            Rekap Administrasi
+        </div>
+
+    </div>
+
+
+    <div class="kpi">
+
+        <div class="kpi-icon yellow">
+            <i class="fa-solid fa-chart-column"></i>
+        </div>
+
+        <div class="kpi-value">
+            87.8%
+        </div>
+
+        <div class="kpi-label">
+            Kelengkapan
+        </div>
+
+    </div>
+
+
+    <div class="kpi">
+
+        <div class="kpi-icon red">
+            <i class="fa-solid fa-file-shield"></i>
+        </div>
+
+        <div class="kpi-value">
+            8 SNP
+        </div>
+
+        <div class="kpi-label">
+            Rekap Akreditasi
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+        <button class="btn btn-primary"
+                onclick="generateReport()">
+
+            <i class="fa-solid fa-file-export"></i>
+
+            Generate Laporan
+
+        </button>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ======================================================
+     SECTION 9 GRAFIK
+====================================================== -->
+
+<section class="page-section"
+         id="section-grafik">
+
+```
+<div class="welcome">
+
+    <div>
+
+        <h2>
+            Grafik & Statistik
+        </h2>
+
+        <p>
+            Analisis perkembangan administrasi sekolah.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="dashboard-grid">
+
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>
+                Tren Administrasi
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div style="height:320px;">
+
+                <canvas id="statistikChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>
+                Statistik Sekolah
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="status-row">
+                <span>Menunggu Validasi</span>
+                <strong id="statValidasiMenunggu">0</strong>
+            </div>
+
+            <div class="status-row">
+                <span>Terverifikasi / Disetujui</span>
+                <strong id="statValidasiValid">0</strong>
+            </div>
+
+            <div class="status-row">
+                <span>Perlu Revisi / Ditolak</span>
+                <strong id="statValidasiRevisi">0</strong>
+            </div>
+
+            <div class="status-row">
+                <span>Total Dokumen</span>
+                <strong id="statValidasiTotal">0</strong>
+            </div>
+
+            <div style="height:220px;margin-top:18px;">
+                <canvas id="statusValidasiChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+```
+
+</section>
+
+<!-- ======================================================
+     SECTION 10 AUDIT
+====================================================== -->
+
+<section class="page-section"
+         id="section-audit">
+
+```
+<div class="welcome">
+
+    <div>
+
+        <h2>
+            Audit Trail
+        </h2>
+
+        <p>
+            Rekam jejak seluruh aktivitas sistem.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+
+        <div class="audit-item">
+
+            <div class="audit-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <div class="audit-content">
+
+                <strong>
+                    Kepsek memvalidasi dokumen
+                </strong>
+
+                <p>
+                    Ahmad Santoso - Modul Ajar
+                </p>
+
+            </div>
+
+            <span class="audit-time">
+                09:42
+            </span>
+
+        </div>
+
+
+        <div class="audit-item">
+
+            <div class="audit-icon">
+                <i class="fa-solid fa-pen"></i>
+            </div>
+
+            <div class="audit-content">
+
+                <strong>
+                    Dokumen dikembalikan untuk revisi
+                </strong>
+
+                <p>
+                    Siti Rahma - Jurnal Mengajar
+                </p>
+
+            </div>
+
+            <span class="audit-time">
+                09:15
+            </span>
+
+        </div>
+
+
+        <div class="audit-item">
+
+            <div class="audit-icon">
+                <i class="fa-solid fa-upload"></i>
+            </div>
+
+            <div class="audit-content">
+
+                <strong>
+                    Guru mengunggah dokumen
+                </strong>
+
+                <p>
+                    Budi Santoso - Program Semester
+                </p>
+
+            </div>
+
+            <span class="audit-time">
+                08:51
+            </span>
+
+        </div>
+
+
+        <div class="audit-item">
+
+            <div class="audit-icon">
+                <i class="fa-solid fa-comment"></i>
+            </div>
+
+            <div class="audit-content">
+
+                <strong>
+                    Catatan pembinaan dibuat
+                </strong>
+
+                <p>
+                    Fajar Nugroho
+                </p>
+
+            </div>
+
+            <span class="audit-time">
+                Kemarin
+            </span>
+
+        </div>
+
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ======================================================
+     SECTION 11 PENGATURAN
+====================================================== -->
+
+<section class="page-section"
+         id="section-pengaturan">
+
+```
+<div class="welcome">
+
+    <div>
+
+        <h2>
+            Pengaturan Sistem
+        </h2>
+
+        <p>
+            Konfigurasi SIMPEL-KS dan profil sekolah.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-body">
+
+
+        <div class="filter-grid">
+
+
+            <div>
+
+                <label style="
+                    font-size:10px;
+                    font-weight:700;
+                    display:block;
+                    margin-bottom:5px;
+                ">
+                    Nama Sekolah
+                </label>
+
+                <input class="form-control"
+                       value="SDN Nama Sekolah">
+
+            </div>
+
+
+            <div>
+
+                <label style="
+                    font-size:10px;
+                    font-weight:700;
+                    display:block;
+                    margin-bottom:5px;
+                ">
+                    Tahun Pelajaran
+                </label>
+
+                <select class="form-control">
+
+                    <option>
+                        2026/2027
+                    </option>
+
+                    <option>
+                        2027/2028
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label style="
+                    font-size:10px;
+                    font-weight:700;
+                    display:block;
+                    margin-bottom:5px;
+                ">
+                    Nama Kepala Sekolah
+                </label>
+
+                <input class="form-control"
+                       value="Kepala Sekolah">
+
+            </div>
+
+
+            <div>
+
+                <label style="
+                    font-size:10px;
+                    font-weight:700;
+                    display:block;
+                    margin-bottom:5px;
+                ">
+                    Status Sistem
+                </label>
+
+                <select class="form-control">
+
+                    <option>
+                        Aktif
+                    </option>
+
+                    <option>
+                        Maintenance
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <br>
+
+
+        <button class="btn btn-primary"
+                onclick="simpanPengaturan()">
+
+            <i class="fa-solid fa-save"></i>
+
+            Simpan Pengaturan
+
+        </button>
+
+
+    </div>
+
+</div>
+```
+
+</section>
+
+</div>
+
+<footer class="footer">
+
+```
+SIMPEL-KS © 2026 • Sistem Monitoring & Penilaian
+Efektifitas Administrasi Kepala Sekolah
+```
+
+</footer>
+
+</main>
+
+</div>
+
+<!-- ======================================================
+     MODAL VALIDASI
+====================================================== -->
+
+<div class="modal"
+     id="validationModal">
+
+```
+<div class="modal-box">
+
+
+    <div class="modal-header">
+
+        <h3>
+            Pemeriksaan Dokumen
+        </h3>
+
+        <button class="modal-close"
+                onclick="closeModal()">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+
+    <div class="modal-body">
+
+
+        <div id="validationInfo"
+             style="
+                margin-bottom:15px;
+                font-size:11px;
+             ">
+        </div>
+
+
+        <div class="document-preview">
+
+            <i class="fa-solid fa-file-pdf"></i>
+
+            <strong id="documentName">
+                Dokumen Guru
+            </strong>
+
+            <span>
+                File akan dibuka dari Google Drive
+                pada versi terintegrasi.
+            </span>
+
+
+            <br>
+
+
+            <button class="btn btn-primary"
+                    onclick="previewDriveFile()">
+
+                <i class="fa-solid fa-eye"></i>
+
+                Buka Dokumen
+
+            </button>
+
+        </div>
+
+
+        <br>
+
+
+        <label style="
+            display:block;
+            font-size:10px;
+            font-weight:700;
+            margin-bottom:6px;
+        ">
+            Catatan Kepala Sekolah
+        </label>
+
+
+        <textarea id="catatanValidasi"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Tuliskan catatan validasi atau revisi..."></textarea>
+
+
+    </div>
+
+
+    <div class="modal-footer">
+
+
+        <button class="btn btn-light"
+                onclick="requestRevision()">
+
+            <i class="fa-solid fa-rotate-left"></i>
+
+            Minta Revisi
+
+        </button>
+
+
+        <button class="btn btn-primary"
+                onclick="approveDocument()">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Setujui Dokumen
+
+        </button>
+
+
+    </div>
+
+
+</div>
+```
+
+</div>
+
+<script>
+
+/* =========================================================
+   DATA SISTEM
+========================================================= */
+
+let currentValidation = {
+
+    guru:"",
+    dokumen:""
+
+};
+
+
+/* =========================================================
+   NAVIGASI SECTION DINAMIS
+========================================================= */
+
+const sectionTitles = {
+
+    dashboard:{
+
+        title:"Dashboard Kepala Sekolah",
+
+        subtitle:
+        "Monitoring Administrasi & Efektivitas Sekolah"
+
+    },
+
+    validasi:{
+
+        title:"Validasi Dokumen",
+
+        subtitle:
+        "Pemeriksaan & Validasi Administrasi Guru"
+
+    },
+
+    guru:{
+
+        title:"Data Guru & Tendik",
+
+        subtitle:
+        "Database tenaga pendidik dan kependidikan"
+
+    },
+
+    administrasi:{
+
+        title:"Administrasi Guru",
+
+        subtitle:
+        "Monitoring kelengkapan administrasi guru"
+
+    },
+
+    kinerja:{
+
+        title:"Monitoring Kinerja",
+
+        subtitle:
+        "Monitoring kinerja dan efektivitas guru"
+
+    },
+
+    pembinaan:{
+
+        title:"Catatan Pembinaan",
+
+        subtitle:
+        "Pembinaan dan tindak lanjut guru"
+
+    },
+
+    supervisi:{
+
+        title:"Jadwal Supervisi",
+
+        subtitle:
+        "Supervisi akademik dan administrasi"
+
+    },
+
+    laporan:{
+
+        title:"Laporan Sekolah",
+
+        subtitle:
+        "Laporan dan rekapitulasi sekolah"
+
+    },
+
+    grafik:{
+
+        title:"Grafik & Statistik",
+
+        subtitle:
+        "Analisis data administrasi sekolah"
+
+    },
+
+    audit:{
+
+        title:"Audit Trail",
+
+        subtitle:
+        "Rekam jejak aktivitas sistem"
+
+    },
+
+    pengaturan:{
+
+        title:"Pengaturan Sistem",
+
+        subtitle:
+        "Konfigurasi SIMPEL-KS"
+
+    }
+
+};
+
+
+function showSection(section){
+
+    /* SEMBUNYIKAN SEMUA SECTION */
+
+    document
+    .querySelectorAll(".page-section")
+    .forEach(item => {
+
+        item.classList.remove(
+            "active-section"
+        );
+
     });
 
-    // Swtich Section Navigation
-    function switchSection(sectionId, element) {
-      document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-      document.querySelectorAll('.menu-link').forEach(link => link.classList.remove('active'));
 
-      document.getElementById(sectionId).classList.add('active');
-      element.classList.add('active');
-      document.getElementById('currentSectionTitle').textContent = element.innerText.trim();
+    /* TAMPILKAN SECTION PILIHAN */
+
+    const target =
+        document.getElementById(
+            "section-" + section
+        );
+
+
+    if(target){
+
+        target.classList.add(
+            "active-section"
+        );
+
     }
 
-    // Load Data Dashboard Eksekutif dari Backend GAS
-    async function loadDashboardData() {
-      const refreshIcon = document.getElementById("refreshIcon");
-      if (refreshIcon) refreshIcon.classList.add("fa-spin");
 
-      try {
-        const response = await fetch(`${API_URL}?action=getDashboardSummary`);
-        const result = await response.json();
+    /* UPDATE MENU */
 
-        if (result.status === "success" && result.data) {
-          renderDashboardUI(result.data);
-        } else {
-          console.error("Gagal memuat data:", result.message);
+    document
+    .querySelectorAll(".menu-item")
+    .forEach(item => {
+
+        item.classList.remove("active");
+
+    });
+
+
+    const menu =
+        document.getElementById(
+            "menu" +
+            section.charAt(0).toUpperCase() +
+            section.slice(1)
+        );
+
+
+    if(menu){
+
+        menu.classList.add("active");
+
+    }
+
+
+    /* UPDATE HEADER */
+
+    if(sectionTitles[section]){
+
+        document.getElementById(
+            "pageTitle"
+        ).textContent =
+            sectionTitles[section].title;
+
+
+        document.getElementById(
+            "pageSubtitle"
+        ).textContent =
+            sectionTitles[section].subtitle;
+
+    }
+
+
+    /* TUTUP SIDEBAR HP */
+
+    if(window.innerWidth <= 950){
+
+        closeSidebar();
+
+    }
+
+
+    /* KEMBALI KE ATAS */
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =========================================================
+   SIDEBAR MOBILE
+========================================================= */
+
+function toggleSidebar(){
+
+    document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+
+    document
+    .getElementById("sidebarOverlay")
+    .classList.toggle("show");
+
+}
+
+
+function closeSidebar(){
+
+    document
+    .getElementById("sidebar")
+    .classList.remove("open");
+
+
+    document
+    .getElementById("sidebarOverlay")
+    .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   TANGGAL
+========================================================= */
+
+function updateDate(){
+
+    const element =
+        document.getElementById(
+            "currentDate"
+        );
+
+
+    if(!element) return;
+
+
+    const now =
+        new Date();
+
+
+    const days = [
+
+        "Minggu",
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu"
+
+    ];
+
+
+    const months = [
+
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember"
+
+    ];
+
+
+    element.textContent =
+
+        days[now.getDay()] +
+        ", " +
+        now.getDate() +
+        " " +
+        months[now.getMonth()] +
+        " " +
+        now.getFullYear();
+
+}
+
+
+updateDate();
+
+
+/* =========================================================
+   CHART DASHBOARD
+========================================================= */
+
+let trendChart=null;
+let statistikChart=null;
+let statusValidasiChart=null;
+
+function monthLabel(d){
+    const months=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+    return months[d.getMonth()];
+}
+
+function parseSheetDate(value){
+    if(value instanceof Date && !isNaN(value)) return value;
+    const s=String(value??"").trim();
+    if(!s) return null;
+    let d=new Date(s);
+    if(!isNaN(d)) return d;
+    let m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
+    if(m){
+        d=new Date(Number(m[3]),Number(m[2])-1,Number(m[1]));
+        return isNaN(d)?null:d;
+    }
+    m=s.match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})$/);
+    if(m){
+        d=new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));
+        return isNaN(d)?null:d;
+    }
+    return null;
+}
+
+function statusClass(status){
+    if(status==="valid") return "complete";
+    if(status==="revisi") return "incomplete";
+    return "review";
+}
+
+function teacherValidationRanking(){
+    const map=new Map();
+
+    VALIDASI_DOKUMEN_ROWS.forEach(r=>{
+        const guru=String(r.guru||"").trim();
+        if(!guru || guru==="-") return;
+
+        if(!map.has(guru)){
+            map.set(guru,{guru,total:0,valid:0,revisi:0,menunggu:0});
         }
-      } catch (error) {
-        console.error("Error fetching dashboard summary:", error);
-      } finally {
-        if (refreshIcon) refreshIcon.classList.remove("fa-spin");
-      }
+
+        const x=map.get(guru);
+        x.total++;
+
+        if(r.status==="valid") x.valid++;
+        else if(r.status==="revisi") x.revisi++;
+        else x.menunggu++;
+    });
+
+    return Array.from(map.values()).map(x=>({
+        ...x,
+        score:x.total ? (x.valid/x.total)*100 : 0
+    }));
+}
+
+function initials(name){
+    const parts=String(name||"").trim().split(/\s+/).filter(Boolean);
+    if(!parts.length) return "-";
+    if(parts.length===1) return parts[0].slice(0,2).toUpperCase();
+    return (parts[0][0]+parts[parts.length-1][0]).toUpperCase();
+}
+
+function rankingHTML(item,index,bottom=false){
+    const color=bottom ? (item.score<70 ? "#dc2626" : "#d97706") : "";
+    return `
+        <div class="ranking-item">
+            <div class="rank ${index<2&&!bottom?"top":""}">${index+1}</div>
+            <div class="teacher-avatar">${esc(initials(item.guru))}</div>
+            <div class="teacher-name">
+                <strong>${esc(item.guru)}</strong>
+                <span>${item.valid} terverifikasi • ${item.total} dokumen</span>
+            </div>
+            <div class="score" ${color?`style="color:${color};"`:""}>${pct(item.score)}</div>
+        </div>`;
+}
+
+function renderDashboardRanking(){
+    const top=document.getElementById("dashboardTop5");
+    const bottom=document.getElementById("dashboardBottom5");
+    if(!top || !bottom) return;
+
+    const ranking=teacherValidationRanking();
+
+    if(!ranking.length){
+        const empty=`
+            <div class="empty-state">
+                <i class="fa-solid fa-users-slash"></i>
+                <h3>Belum Ada Data Guru</h3>
+                <p>Belum ada data pada sheet VALIDASI_DOKUMEN.</p>
+            </div>`;
+        top.innerHTML=empty;
+        bottom.innerHTML=empty;
+        return;
     }
 
-    // Render Data JSON ke Element UI
-    function renderDashboardUI(data) {
-      // 1. Update KPI
-      document.getElementById("kpiTotalGuru").textContent = data.kpi.totalGuru || 0;
-      document.getElementById("kpiAvgKelengkapan").textContent = `${data.kpi.avgKelengkapan || 0}%`;
-      document.getElementById("kpiPendingValidasi").textContent = data.kpi.pendingValidasi || 0;
-      document.getElementById("kpiPredikatSekolah").textContent = data.kpi.predikatSekolah || "-";
+    const sorted=[...ranking].sort((a,b)=>b.score-a.score || b.valid-a.valid || b.total-a.total || a.guru.localeCompare(b.guru));
+    const low=[...ranking].sort((a,b)=>a.score-b.score || a.valid-b.valid || a.total-b.total || a.guru.localeCompare(b.guru));
 
-      // 2. Update Gauge Circle
-      const percent = data.kpi.avgKelengkapan || 0;
-      document.getElementById("gaugeValueText").textContent = `${percent}%`;
-      document.getElementById("circleGauge").style.background = 
-        `conic-gradient(var(--success-color) ${percent}%, #e2e8f0 ${percent}% 100%)`;
+    top.innerHTML=sorted.slice(0,5).map((x,i)=>rankingHTML(x,i,false)).join("");
+    bottom.innerHTML=low.slice(0,5).map((x,i)=>rankingHTML(x,i,true)).join("");
+}
 
-      // 3. Render Top 5 Guru
-      const top5Container = document.getElementById("top5List");
-      if (data.ranking && data.ranking.top5 && data.ranking.top5.length > 0) {
-        top5Container.innerHTML = data.ranking.top5.map((guru, i) => `
-          <li class="ranking-item">
-            <div class="guru-info">
-              <span class="nama">${i + 1}. ${guru.nama}</span>
-              <span class="sub">${guru.jabatan || 'Guru'} | NIP. ${guru.nip || '-'}</span>
-            </div>
-            <span class="badge-percent badge-high">${guru.percent}%</span>
-          </li>
-        `).join('');
-      } else {
-        top5Container.innerHTML = `<li class="ranking-item"><span class="sub">Belum ada data guru.</span></li>`;
-      }
-
-      // 4. Render Bottom 5 Guru
-      const bottom5Container = document.getElementById("bottom5List");
-      if (data.ranking && data.ranking.bottom5 && data.ranking.bottom5.length > 0) {
-        bottom5Container.innerHTML = data.ranking.bottom5.map((guru, i) => `
-          <li class="ranking-item">
-            <div class="guru-info">
-              <span class="nama">${i + 1}. ${guru.nama}</span>
-              <span class="sub">${guru.jabatan || 'Guru'} | NIP. ${guru.nip || '-'}</span>
-            </div>
-            <span class="badge-percent badge-low">${guru.percent}%</span>
-          </li>
-        `).join('');
-      } else {
-        bottom5Container.innerHTML = `<li class="ranking-item"><span class="sub">Belum ada data guru.</span></li>`;
-      }
-
-      // 5. Render Tabel Real-Time Sheet VALIDASI_DOKUMEN
-      const recentTable = document.getElementById("recentValidasiTableBody");
-      document.getElementById("pendingCountBadge").textContent = `${data.validasiStats.pending || 0} Antrean Menunggu`;
-
-      if (data.recentValidations && data.recentValidations.length > 0) {
-        recentTable.innerHTML = data.recentValidations.map(item => {
-          let statusClass = 'badge-pending';
-          let st = (item.status || '').toString().toUpperCase();
-
-          if (st.includes('DISETUJUI') || st.includes('APPROVED')) statusClass = 'badge-approved';
-          if (st.includes('DITOLAK') || st.includes('REVISI')) statusClass = 'badge-rejected';
-
-          return `
-            <tr>
-              <td>${formatDate(item.tanggalValidasi)}</td>
-              <td><strong>${item.namaGuru || '-'}</strong></td>
-              <td>${item.jenisDokumen || '-'}</td>
-              <td><span class="badge-status ${statusClass}">${item.status || 'Pending'}</span></td>
-              <td>${item.validator || '-'}</td>
-              <td><small style="color: var(--text-muted);">${item.aksiTerakhir || '-'}</small></td>
-            </tr>
-          `;
-        }).join('');
-      } else {
-        recentTable.innerHTML = `
-          <tr>
-            <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 16px;">
-              Belum ada riwayat berkas di sheet VALIDASI_DOKUMEN.
-            </td>
-          </tr>
-        `;
-      }
-
-      // 6. Render Chart Tren
-      renderTrendChart(data.trend.labels, data.trend.values);
+function lastSixMonths(){
+    const now=new Date();
+    now.setDate(1);
+    const result=[];
+    for(let i=5;i>=0;i--){
+        const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+        result.push(d);
     }
+    return result;
+}
 
-    // Render Grafik Chart.js
-    function renderTrendChart(labels, values) {
-      const ctx = document.getElementById('trendChart').getContext('2d');
+function monthlyValidationTrend(){
+    const months=lastSixMonths();
+    return months.map(m=>{
+        const key=m.getFullYear()+"-"+String(m.getMonth()+1).padStart(2,"0");
+        const rows=VALIDASI_DOKUMEN_ROWS.filter(r=>{
+            const d=parseSheetDate(r.tanggalValidasi);
+            return d && d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")===key;
+        });
+        const valid=rows.filter(r=>r.status==="valid").length;
+        return rows.length ? Math.round(valid/rows.length*1000)/10 : 0;
+    });
+}
 
-      if (trendChartInstance) {
-        trendChartInstance.destroy();
-      }
+function createTrendChart(){
+    const canvas=document.getElementById("trendChart");
+    if(!canvas || typeof Chart==="undefined") return;
 
-      trendChartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: labels && labels.length ? labels : ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
-          datasets: [{
-            label: 'Capaian Administrasi (%)',
-            data: values && values.length ? values : [65, 70, 75, 80, 85, 90],
-            borderColor: '#3b82f6',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-            fill: true,
-            tension: 0.35,
-            pointRadius: 4
-          }]
+    if(trendChart) trendChart.destroy();
+    const months=lastSixMonths();
+
+    trendChart=new Chart(canvas,{
+        type:"line",
+        data:{
+            labels:months.map(monthLabel),
+            datasets:[{
+                label:"Kelengkapan",
+                data:monthlyValidationTrend(),
+                borderColor:"#2563eb",
+                backgroundColor:"rgba(37,99,235,.08)",
+                fill:true,
+                tension:.4,
+                pointRadius:4
+            }]
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: { beginAtZero: true, max: 100 }
-          }
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            plugins:{legend:{display:false}},
+            scales:{
+                y:{min:0,max:100,ticks:{font:{size:9}},grid:{color:"#f1f5f9"}},
+                x:{ticks:{font:{size:9}},grid:{display:false}}
+            }
         }
-      });
+    });
+}
+
+function createStatistikChart(){
+    const canvas=document.getElementById("statistikChart");
+    if(!canvas || typeof Chart==="undefined") return;
+
+    if(statistikChart) statistikChart.destroy();
+    const months=lastSixMonths();
+
+    statistikChart=new Chart(canvas,{
+        type:"bar",
+        data:{
+            labels:months.map(monthLabel),
+            datasets:[{
+                label:"Kelengkapan Administrasi",
+                data:monthlyValidationTrend(),
+                backgroundColor:"#2563eb"
+            }]
+        },
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            plugins:{legend:{display:false}},
+            scales:{y:{beginAtZero:true,min:0,max:100}}
+        }
+    });
+}
+
+function createStatusValidasiChart(){
+    const canvas=document.getElementById("statusValidasiChart");
+    if(!canvas || typeof Chart==="undefined") return;
+
+    const m=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="menunggu").length;
+    const v=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="valid").length;
+    const r=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;
+
+    if(statusValidasiChart) statusValidasiChart.destroy();
+
+    statusValidasiChart=new Chart(canvas,{
+        type:"doughnut",
+        data:{
+            labels:["Menunggu Validasi","Terverifikasi / Disetujui","Perlu Revisi / Ditolak"],
+            datasets:[{
+                data:[m,v,r],
+                backgroundColor:["#d97706","#16a34a","#dc2626"],
+                borderWidth:2,
+                borderColor:"#ffffff"
+            }]
+        },
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            cutout:"62%",
+            plugins:{
+                legend:{position:"bottom",labels:{font:{size:9},boxWidth:12}}
+            }
+        }
+    });
+}
+
+function updateDashboardValidationFeatures(){
+    renderDashboardRanking();
+    createTrendChart();
+    createStatistikChart();
+    createStatusValidasiChart();
+
+    const m=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="menunggu").length;
+    const v=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="valid").length;
+    const r=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;
+    txt("statValidasiMenunggu",m);
+    txt("statValidasiValid",v);
+    txt("statValidasiRevisi",r);
+    txt("statValidasiTotal",VALIDASI_DOKUMEN_ROWS.length);
+
+    const info=document.getElementById("dashboardTrendInfo");
+    if(info) info.textContent="6 Bulan Terakhir • VALIDASI_DOKUMEN • "+VALIDASI_DOKUMEN_ROWS.length+" dokumen";
+}
+
+createTrendChart();
+createStatistikChart();
+createStatusValidasiChart();
+
+
+/* =========================================================
+   VALIDASI DOKUMEN
+========================================================= */
+
+function openValidation(guru,dokumen){
+
+    currentValidation.guru =
+        guru;
+
+    currentValidation.dokumen =
+        dokumen;
+
+
+    document.getElementById(
+        "validationInfo"
+    ).innerHTML =
+
+        "<strong>Guru:</strong> " +
+        guru +
+
+        "<br>" +
+
+        "<strong>Dokumen:</strong> " +
+        dokumen;
+
+
+    document.getElementById(
+        "documentName"
+    ).textContent =
+        dokumen +
+        " - " +
+        guru;
+
+
+    document.getElementById(
+        "catatanValidasi"
+    ).value = "";
+
+
+    document.getElementById(
+        "validationModal"
+    ).classList.add("show");
+
+}
+
+
+function closeModal(){
+
+    document
+    .getElementById(
+        "validationModal"
+    )
+    .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   SETUJUI
+========================================================= */
+
+function approveDocument(){
+
+    const catatan =
+        document.getElementById(
+            "catatanValidasi"
+        ).value.trim();
+
+
+    alert(
+
+        "DOKUMEN DISETUJUI\n\n" +
+
+        "Guru: " +
+        currentValidation.guru +
+
+        "\nDokumen: " +
+        currentValidation.dokumen +
+
+        "\n\n" +
+
+        "Pada versi terintegrasi, data ini akan:\n" +
+
+        "✓ disimpan ke Google Spreadsheet\n" +
+
+        "✓ status dokumen menjadi TERVALIDASI\n" +
+
+        "✓ masuk Audit Trail\n" +
+
+        "✓ memperbarui persentase dashboard"
+
+    );
+
+
+    closeModal();
+
+}
+
+
+/* =========================================================
+   REVISI
+========================================================= */
+
+function requestRevision(){
+
+    const catatan =
+        document.getElementById(
+            "catatanValidasi"
+        ).value.trim();
+
+
+    if(!catatan){
+
+        alert(
+            "Silakan tuliskan catatan revisi terlebih dahulu."
+        );
+
+        document
+        .getElementById(
+            "catatanValidasi"
+        )
+        .focus();
+
+        return;
+
     }
 
-    // Format Tanggal Indonesia
-    function formatDate(dateStr) {
-      if (!dateStr) return '-';
-      try {
-        const d = new Date(dateStr);
-        if (isNaN(d.getTime())) return dateStr;
-        return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
-      } catch (e) {
-        return dateStr;
-      }
+
+    alert(
+
+        "PERMINTAAN REVISI\n\n" +
+
+        "Guru: " +
+        currentValidation.guru +
+
+        "\nDokumen: " +
+        currentValidation.dokumen +
+
+        "\n\nCatatan:\n" +
+
+        catatan +
+
+        "\n\n" +
+
+        "Pada versi terintegrasi, catatan akan disimpan ke Google Spreadsheet dan dikirim ke akun guru."
+
+    );
+
+
+    closeModal();
+
+}
+
+
+/* =========================================================
+   BUKA FILE DRIVE
+========================================================= */
+
+function previewDriveFile(){
+
+    alert(
+
+        "Fitur ini siap dihubungkan ke Google Drive.\n\n" +
+
+        "Google Apps Script nantinya akan mengambil File ID dokumen dan membuka file secara aman."
+
+    );
+
+}
+
+
+/* =========================================================
+   FILTER DOKUMEN
+========================================================= */
+
+function filterDokumen(){
+
+    const guru =
+        document.getElementById(
+            "filterGuru"
+        ).value;
+
+
+    const status =
+        document.getElementById(
+            "filterStatus"
+        ).value;
+
+
+    const rows =
+        document.querySelectorAll(
+            "#validasiTable tr"
+        );
+
+
+    let visible = 0;
+
+
+    rows.forEach(row => {
+
+        const rowGuru =
+            row.dataset.guru || "";
+
+
+        const rowStatus =
+            row.dataset.status || "";
+
+
+        const guruMatch =
+            !guru ||
+            rowGuru === guru;
+
+
+        const statusMatch =
+            !status ||
+            rowStatus === status;
+
+
+        if(guruMatch && statusMatch){
+
+            row.style.display = "";
+
+            visible++;
+
+        }
+        else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+
+    if(visible === 0){
+
+        alert(
+            "Tidak ada dokumen yang sesuai dengan filter."
+        );
+
     }
-  </script>
+
+}
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+function refreshValidasi(){
+
+    alert(
+
+        "Memperbarui data...\n\n" +
+
+        "Pada versi terintegrasi, sistem akan mengambil data terbaru dari Google Spreadsheet."
+
+    );
+
+}
+
+
+/* =========================================================
+   EXPORT
+========================================================= */
+
+function exportValidasi(){
+
+    alert(
+
+        "Ekspor laporan validasi.\n\n" +
+
+        "Pada versi terintegrasi tersedia pilihan:\n" +
+
+        "• Excel (.xlsx)\n" +
+
+        "• PDF\n" +
+
+        "• Rekap per guru\n" +
+
+        "• Rekap per jenis administrasi"
+
+    );
+
+}
+
+
+/* =========================================================
+   CATATAN PEMBINAAN
+========================================================= */
+
+function buatCatatan(){
+
+    alert(
+        "Form Catatan Pembinaan akan terhubung ke Google Spreadsheet."
+    );
+
+}
+
+
+/* =========================================================
+   SUPERVISI
+========================================================= */
+
+function buatSupervisi(){
+
+    alert(
+        "Form Jadwal Supervisi akan terhubung ke kalender dan Google Spreadsheet."
+    );
+
+}
+
+
+/* =========================================================
+   LAPORAN
+========================================================= */
+
+function generateReport(){
+
+    alert(
+
+        "Generator laporan siap dihubungkan dengan Google Apps Script.\n\n" +
+
+        "Output:\n" +
+
+        "• Laporan PDF\n" +
+
+        "• Rekap Excel\n" +
+
+        "• Rekap 8 SNP\n" +
+
+        "• Rekap administrasi guru"
+
+    );
+
+}
+
+
+/* =========================================================
+   PENGATURAN
+========================================================= */
+
+function simpanPengaturan(){
+
+    alert(
+
+        "Pengaturan berhasil disiapkan.\n\n" +
+
+        "Pada versi database, data akan disimpan ke Google Spreadsheet."
+
+    );
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout(){
+
+    const yakin =
+        confirm(
+            "Apakah Anda yakin ingin keluar dari SIMPEL-KS?"
+        );
+
+
+    if(yakin){
+
+        window.location.href =
+            "login.html";
+
+    }
+
+}
+
+
+/* =========================================================
+   KLIK DI LUAR MODAL
+========================================================= */
+
+document
+.getElementById(
+    "validationModal"
+)
+.addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === this){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESC UNTUK MODAL
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+/* =========================================================
+   STAGE 2 - DATA GOOGLE SPREADSHEET
+   DATA_GURU: NO | NAMA | NIP | GOL. RUANG | JABATAN | STATUS | ADMINISTRASI
+   VALIDASI_DOKUMEN: sumber dokumen validasi / revisi
+========================================================= */
+const DATA_GURU_API="https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec";
+let DATA_GURU_ROWS=[],DATA_GURU_FILTERED=[],VALIDASI_DOKUMEN_ROWS=[],VALIDASI_DOKUMEN_FILTERED=[];
+function gf(r,keys){for(const k of keys){if(r&&r[k]!=null&&String(r[k]).trim()!="")return r[k]}return ""}
+function txt(id,v){const e=document.getElementById(id);if(e)e.textContent=v}
+function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+function pct(v){const n=Number(v);if(!Number.isFinite(n))return "0%";const x=Math.round(n*10)/10;return (Number.isInteger(x)?x:x.toFixed(1))+"%"}
+function parseAdmin(v){if(v==null)return null;const s=String(v).trim().replace(",",".");if(!s)return null;const n=parseFloat(s.replace("%",""));return Number.isFinite(n)&&n>=0&&n<=100?n:null}
+function rowsOf(r){if(Array.isArray(r))return r;if(r&&Array.isArray(r.data))return r.data;if(r&&Array.isArray(r.rows))return r.rows;if(r&&Array.isArray(r.records))return r.records;return []}
+async function api(action){const u=DATA_GURU_API+"?action="+encodeURIComponent(action)+"&_="+Date.now();const r=await fetch(u,{method:"GET",cache:"no-store",redirect:"follow"});if(!r.ok)throw Error("HTTP "+r.status);const j=await r.json();if(j&&j.success===false)throw Error(j.message||"Gagal mengambil data");return j}
+function validStatus(v){
+    const s=String(v??"").trim().toUpperCase();
+    if(!s) return "menunggu";
+    if(s.includes("REVISI")||s.includes("DITOLAK")||s.includes("TOLAK")||s.includes("KEMBALI")) return "revisi";
+    if(s.includes("TERVERIFIKASI")||s.includes("DISETUJUI")||s.includes("SETUJU")||s==="VALID"||s==="SELESAI") return "valid";
+    return "menunggu";
+}
+function adminStats(){let sum=0,n=0,l=0,r=0,b=0;DATA_GURU_ROWS.forEach(g=>{const raw=gf(g,["administrasi","ADMINISTRASI","Administrasi"]),p=parseAdmin(raw),s=String(raw).toUpperCase();if(p!==null){sum+=p;n++;if(p>=100)l++;else if(p>=75)r++;else b++}else if(s.includes("LENGKAP")&&!s.includes("BELUM"))l++;else if(s.includes("REVISI")||s.includes("PERLU"))r++;else b++});return{total:DATA_GURU_ROWS.length,avg:n?sum/n:0,lengkap:l,revisi:r,belum:b}}
+function updateGuruUI(){const a=adminStats(),rv=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;txt("guruTotal",a.total);txt("guruAktif",DATA_GURU_ROWS.filter(g=>String(gf(g,["status","STATUS","Status"])).toUpperCase()==="AKTIF").length);txt("guruTidakAktif",a.total-DATA_GURU_ROWS.filter(g=>String(gf(g,["status","STATUS","Status"])).toUpperCase()==="AKTIF").length);txt("guruAdministrasiRata",pct(a.avg));txt("dashboardGuruTotal",a.total);txt("dashboardAdministrasiRata",pct(a.avg));txt("dashboardGuruBelumLengkap",a.belum);txt("dashboardGuruLengkap",a.lengkap+" Guru");txt("dashboardGuruPerluRevisi",a.revisi+" Guru");txt("dashboardGuruBelumLengkapDetail",a.belum+" Guru");txt("dashboardDokumenRevisi",rv);txt("dashboardCirclePercent",pct(a.avg));txt("adminTotalGuru",a.total);txt("adminGuruLengkap",a.lengkap);txt("adminGuruPerluRevisi",a.revisi+a.belum);txt("adminRataRata",pct(a.avg));txt("guruMenuBadge",a.total);txt("validasiMenuBadge",rv);const c=document.querySelector("#section-dashboard .circle-progress");if(c){const d=Math.max(0,Math.min(100,a.avg))*3.6;c.style.background=`conic-gradient(#16a34a 0deg ${d}deg,#e2e8f0 ${d}deg 360deg)`}}
+async function loadDataGuru(){const l=document.getElementById("guruLoading"),e=document.getElementById("guruError"),t=document.getElementById("guruTableBody");if(l)l.style.display="flex";if(e)e.style.display="none";if(t)t.innerHTML='<tr><td colspan="7"><div class="empty-state guru-empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Guru</h3><p>Mengambil data dari sheet DATA_GURU...</p></div></td></tr>';try{const j=await api("getDataGuru");DATA_GURU_ROWS=rowsOf(j);DATA_GURU_FILTERED=[...DATA_GURU_ROWS];renderGuru();updateGuruUI();const i=document.getElementById("guruDataInfo");if(i)i.textContent="Terhubung • Sheet DATA_GURU • "+DATA_GURU_ROWS.length+" data"}catch(x){DATA_GURU_ROWS=[];DATA_GURU_FILTERED=[];renderGuru();updateGuruUI();if(e){e.innerHTML="<strong>Gagal mengambil data:</strong> "+esc(x.message);e.style.display="block"}}finally{if(l)l.style.display="none"}}
+function renderGuru(){const t=document.getElementById("guruTableBody"),i=document.getElementById("guruTableInfo");if(!t)return;if(!DATA_GURU_FILTERED.length){t.innerHTML='<tr><td colspan="7"><div class="empty-state guru-empty-state"><i class="fa-solid fa-users-slash"></i><h3>Data Guru Tidak Ditemukan</h3><p>Tidak ada data yang sesuai.</p></div></td></tr>';if(i)i.textContent="Menampilkan 0 data";return}t.innerHTML=DATA_GURU_FILTERED.map((g,n)=>{const no=gf(g,["no","NO","No"])||n+1,nm=gf(g,["nama","NAMA","Nama"])||"-",nip=gf(g,["nip","NIP","Nip"])||"-",gol=gf(g,["gol_ruang","GOL. RUANG","GOL RUANG","Gol. Ruang"])||"-",jab=gf(g,["jabatan","JABATAN","Jabatan"])||"-",st=String(gf(g,["status","STATUS","Status"])).trim().toUpperCase(),act=st==="AKTIF",ad=gf(g,["administrasi","ADMINISTRASI","Administrasi"]),p=parseAdmin(ad);let ah;if(p!==null){const cl=p>=100?"complete":p>=75?"review":"incomplete";ah='<div class="guru-admin"><div class="guru-admin-top"><span class="guru-admin-label">Kelengkapan</span><span class="guru-admin-percent">'+pct(p)+'</span></div><div class="guru-admin-bar"><div class="guru-admin-progress '+cl+'" style="width:'+Math.max(0,Math.min(100,p))+'%;"></div></div></div>'}else ah='<span class="guru-admin-text '+(String(ad).toUpperCase().includes("LENGKAP")?"complete":"incomplete")+'">'+esc(ad||"Belum diisi")+'</span>';return '<tr><td class="guru-no">'+esc(no)+'</td><td><div class="guru-name">'+esc(nm)+'</div></td><td><span class="guru-nip">'+esc(nip)+'</span></td><td><span class="guru-gol">'+esc(gol)+'</span></td><td>'+esc(jab)+'</td><td><span class="guru-status '+(act?"aktif":"nonaktif")+'"><i class="fa-solid '+(act?"fa-circle-check":"fa-circle-xmark")+'"></i>'+esc(st||"-")+'</span></td><td>'+ah+'</td></tr>'}).join("");if(i)i.textContent="Menampilkan "+DATA_GURU_FILTERED.length+" dari "+DATA_GURU_ROWS.length+" data"}
+function filterDataGuru(){const q=(document.getElementById("guruSearch")?.value||"").toLowerCase().trim(),s=(document.getElementById("guruStatusFilter")?.value||"").toUpperCase();DATA_GURU_FILTERED=DATA_GURU_ROWS.filter(g=>{const n=String(gf(g,["nama","NAMA","Nama"])).toLowerCase(),p=String(gf(g,["nip","NIP","Nip"])).toLowerCase(),st=String(gf(g,["status","STATUS","Status"])).toUpperCase();return(!q||n.includes(q)||p.includes(q))&&(!s||st===s)});renderGuru()}
+function resetFilterGuru(){const q=document.getElementById("guruSearch"),s=document.getElementById("guruStatusFilter");if(q)q.value="";if(s)s.value="";DATA_GURU_FILTERED=[...DATA_GURU_ROWS];renderGuru()}
+async function loadValidasiDokumen(){
+    const t=document.getElementById("validasiTable");
+    if(t)t.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Validasi</h3><p>Mengambil data dari sheet VALIDASI_DOKUMEN...</p></div></td></tr>';
+
+    try{
+        const j=await api("getValidasiDokumen");
+        VALIDASI_DOKUMEN_ROWS=rowsOf(j).map(r=>({
+            idValidasi:gf(r,["ID_VALIDASI","id_validasi","ID Validasi","id"]),
+            tanggalValidasi:gf(r,["TANGGAL_VALIDASI","tanggal_validasi","Tanggal Validasi","tanggal"]),
+            guru:gf(r,["NAMA_GURU","nama_guru","Nama Guru","NAMA","nama","guru","GURU"])||"-",
+            dokumen:gf(r,["JENIS_DOKUMEN","jenis_dokumen","Jenis Dokumen","DOKUMEN","dokumen","jenis","JENIS"])||"-",
+            status:validStatus(gf(r,["STATUS","status","Status"])),
+            statusRaw:gf(r,["STATUS","status","Status"]),
+            ket:gf(r,["CATATAN","catatan","Catatan","KETERANGAN","keterangan"])||"-",
+            deadline:gf(r,["TANGGAL_DEADLINE","tanggal_deadline","Tanggal Deadline"]),
+            selesai:gf(r,["TANGGAL_SELESAI","tanggal_selesai","Tanggal Selesai"]),
+            validator:gf(r,["VALIDATOR","validator","Validator"]),
+            aksiTerakhir:gf(r,["AKSI_TERAKHIR","aksi_terakhir","Aksi Terakhir"]),
+            fileId:gf(r,["FILE_ID","file_id","fileId"]),
+            fileUrl:gf(r,["FILE_URL","file_url","fileUrl","url","URL"])
+        }));
+
+        VALIDASI_DOKUMEN_FILTERED=[...VALIDASI_DOKUMEN_ROWS];
+        renderValidasi();
+        updateValidasiUI();
+        updateDashboardValidationFeatures();
+
+        const i=document.getElementById("validasiDataInfo");
+        if(i)i.textContent="Terhubung • Sheet VALIDASI_DOKUMEN • "+VALIDASI_DOKUMEN_ROWS.length+" dokumen";
+    }catch(x){
+        VALIDASI_DOKUMEN_ROWS=[];
+        VALIDASI_DOKUMEN_FILTERED=[];
+        renderValidasi();
+        updateValidasiUI();
+        updateDashboardValidationFeatures();
+        const i=document.getElementById("validasiDataInfo");
+        if(i)i.textContent="Koneksi VALIDASI_DOKUMEN gagal";
+        console.error(x);
+    }
+}
+function updateValidasiUI(){const m=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="menunggu").length,v=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="valid").length,r=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;txt("validasiMenunggu",m);txt("validasiTerverifikasi",v);txt("validasiRevisi",r);txt("validasiTotal",VALIDASI_DOKUMEN_ROWS.length);txt("dashboardDokumenRevisi",r);txt("dashboardDokumenTerverifikasi",v);txt("validasiMenuBadge",r)}
+function renderValidasi(){const t=document.getElementById("validasiTable");if(!t)return;if(!VALIDASI_DOKUMEN_FILTERED.length){t.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-folder-open"></i><h3>Tidak Ada Data Validasi</h3><p>Belum ada data dari sheet VALIDASI_DOKUMEN.</p></div></td></tr>';return}t.innerHTML=VALIDASI_DOKUMEN_FILTERED.map(r=>{const q=r.status==="valid"?["status-complete","fa-check","TERVERIFIKASI"]:r.status==="revisi"?["status-incomplete","fa-rotate-left","REVISI"]:["status-review","fa-clock","MENUNGGU"];return '<tr data-guru="'+esc(r.guru)+'" data-status="'+r.status+'" data-jenis="'+esc(r.dokumen)+'"><td><strong>'+esc(r.guru)+'</strong></td><td>'+esc(r.dokumen)+'</td><td>'+esc(r.tanggal)+'</td><td><span class="status-badge '+q[0]+'"><i class="fa-solid '+q[1]+'"></i>'+q[2]+'</span></td><td>'+esc(r.ket)+'</td><td><button class="action-btn" title="Periksa" onclick="openValidation("+JSON.stringify(r.guru)+","+JSON.stringify(r.dokumen)+")"><i class="fa-solid fa-eye"></i></button></td></tr>'}).join("")}
+function filterDokumen(){const g=document.getElementById("filterGuru")?.value||"",s=document.getElementById("filterStatus")?.value||"",j=document.getElementById("filterJenis")?.value||"";VALIDASI_DOKUMEN_FILTERED=VALIDASI_DOKUMEN_ROWS.filter(r=>(!g||r.guru===g)&&(!s||r.status===s)&&(!j||j==="Semua Jenis Dokumen"||r.dokumen===j));renderValidasi();if(!VALIDASI_DOKUMEN_FILTERED.length)alert("Tidak ada dokumen yang sesuai dengan filter.")}
+function refreshValidasi(){loadDataGuru();loadValidasiDokumen()}
+function exportValidasi(){alert("Ekspor laporan validasi.\n\nPada versi terintegrasi tersedia pilihan:\n• Excel (.xlsx)\n• PDF\n• Rekap per guru\n• Rekap per jenis administrasi")}
+const oldShowSection=window.showSection;window.showSection=function(section){oldShowSection(section);if(section==="guru"||section==="administrasi"){if(!DATA_GURU_ROWS.length)loadDataGuru()}if(section==="validasi"&&!VALIDASI_DOKUMEN_ROWS.length)loadValidasiDokumen()};
+window.addEventListener("load",()=>{loadDataGuru();loadValidasiDokumen()});
+
+</script>
+
 </body>
 </html>
