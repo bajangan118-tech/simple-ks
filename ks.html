@@ -1952,6 +1952,105 @@ td strong{
 }
 
 
+
+/* =========================================================
+   PENGATURAN - MANAJEMEN PENGGUNA
+========================================================= */
+.user-management-card{
+    margin-top:20px;
+}
+.user-management-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+}
+.user-management-head p{
+    margin-top:4px;
+    font-size:10px;
+    color:var(--muted);
+}
+.user-table-wrap{
+    overflow-x:auto;
+}
+.user-table td,
+.user-table th{
+    white-space:nowrap;
+}
+.user-id-cell{
+    font-family:monospace;
+    font-size:9px;
+    color:#64748b;
+}
+.user-role{
+    display:inline-flex;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:9px;
+    font-weight:800;
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+.user-role.guru{
+    background:#e0f2fe;
+    color:#0369a1;
+}
+.user-status-select{
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:7px 9px;
+    font-size:10px;
+    font-weight:700;
+    background:white;
+    min-width:105px;
+}
+.user-status-select.aktif{
+    color:var(--success);
+    background:var(--success-bg);
+    border-color:#bbf7d0;
+}
+.user-status-select.nonaktif{
+    color:var(--danger);
+    background:var(--danger-bg);
+    border-color:#fecaca;
+}
+.user-form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:13px;
+}
+.user-form-grid .full{
+    grid-column:1/-1;
+}
+.user-help{
+    margin-top:5px;
+    font-size:9px;
+    color:var(--muted);
+    line-height:1.5;
+}
+.user-auto-box{
+    margin-top:14px;
+    padding:11px 12px;
+    border:1px dashed #bfdbfe;
+    background:#eff6ff;
+    border-radius:10px;
+    font-size:9px;
+    color:#1e40af;
+}
+.user-auto-box strong{
+    color:#1e3a8a;
+}
+.settings-divider{
+    height:1px;
+    background:var(--border);
+    margin:20px 0;
+}
+.settings-actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
 /* =========================================================
    MODAL
 ========================================================= */
@@ -2878,21 +2977,6 @@ td strong{
 
     </div>
 
-
-</div>
-
-
-<div class="motto">
-
-    <i class="fa-solid fa-quote-left"></i>
-
-    <p>
-        "Dari Meja Kepsek, Tertibnya Satu Sekolah"
-    </p>
-
-    <span>
-        SIMPEL-KS • Sistem Monitoring & Penilaian Efektifitas Administrasi
-    </span>
 
 </div>
 
@@ -3980,7 +4064,7 @@ td strong{
         </h2>
 
         <p>
-            Konfigurasi SIMPEL-KS dan profil sekolah.
+            Konfigurasi SIMPEL-KS, profil sekolah, dan manajemen pengguna.
         </p>
 
     </div>
@@ -3992,9 +4076,7 @@ td strong{
 
     <div class="card-body">
 
-
         <div class="filter-grid">
-
 
             <div>
 
@@ -4008,6 +4090,7 @@ td strong{
                 </label>
 
                 <input class="form-control"
+                       id="settingNamaSekolah"
                        value="SDN Nama Sekolah">
 
             </div>
@@ -4024,15 +4107,11 @@ td strong{
                     Tahun Pelajaran
                 </label>
 
-                <select class="form-control">
+                <select class="form-control" id="settingTahunPelajaran">
 
-                    <option>
-                        2026/2027
-                    </option>
-
-                    <option>
-                        2027/2028
-                    </option>
+                    <option>2026/2027</option>
+                    <option>2027/2028</option>
+                    <option>2028/2029</option>
 
                 </select>
 
@@ -4051,6 +4130,7 @@ td strong{
                 </label>
 
                 <input class="form-control"
+                       id="settingNamaKepala"
                        value="Kepala Sekolah">
 
             </div>
@@ -4067,15 +4147,10 @@ td strong{
                     Status Sistem
                 </label>
 
-                <select class="form-control">
+                <select class="form-control" id="settingStatusSistem">
 
-                    <option>
-                        Aktif
-                    </option>
-
-                    <option>
-                        Maintenance
-                    </option>
+                    <option value="AKTIF">Aktif</option>
+                    <option value="MAINTENANCE">Maintenance</option>
 
                 </select>
 
@@ -4088,17 +4163,133 @@ td strong{
         <br>
 
 
-        <button class="btn btn-primary"
-                onclick="simpanPengaturan()">
+        <div class="settings-actions">
 
-            <i class="fa-solid fa-save"></i>
+            <button class="btn btn-primary"
+                    onclick="simpanPengaturan()">
 
-            Simpan Pengaturan
+                <i class="fa-solid fa-save"></i>
 
-        </button>
+                Simpan Pengaturan
+
+            </button>
+
+            <button class="btn btn-light"
+                    onclick="openUserModal()">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Tambah Pengguna
+
+            </button>
+
+        </div>
 
 
     </div>
+
+</div>
+
+
+<!-- ======================================================
+     MANAJEMEN PENGGUNA
+====================================================== -->
+
+<div class="card user-management-card">
+
+    <div class="card-header user-management-head">
+
+        <div>
+
+            <h3>
+                Manajemen Pengguna
+            </h3>
+
+            <p>
+                Data akun yang tersimpan pada sheet USERS.
+            </p>
+
+        </div>
+
+        <button class="btn btn-primary"
+                onclick="openUserModal()">
+
+            <i class="fa-solid fa-user-plus"></i>
+
+            Tambah Pengguna
+
+        </button>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div id="usersDataInfo"
+             style="font-size:10px;color:#64748b;margin-bottom:12px;">
+            Memuat data pengguna...
+        </div>
+
+        <div class="user-table-wrap">
+
+            <table class="user-table">
+
+                <thead>
+
+                    <tr>
+                        <th>No</th>
+                        <th>User ID</th>
+                        <th>Nama Lengkap</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                        <th>Guru ID</th>
+                        <th>Jabatan</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="usersTableBody">
+
+                    <tr>
+
+                        <td colspan="9">
+
+                            <div class="empty-state">
+                                <i class="fa-solid fa-spinner fa-spin"></i>
+                                <h3>Memuat Data Pengguna</h3>
+                                <p>Mengambil data dari sheet USERS...</p>
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- MOTTO DIPINDAHKAN KE BAGIAN PALING BAWAH PENGATURAN -->
+
+<div class="motto">
+
+    <i class="fa-solid fa-quote-left"></i>
+
+    <p>
+        "Dari Meja Kepsek, Tertibnya Satu Sekolah"
+    </p>
+
+    <span>
+        SIMPEL-KS • Sistem Monitoring & Penilaian Efektifitas Administrasi
+    </span>
 
 </div>
 
@@ -4119,6 +4310,152 @@ Efektifitas Administrasi Kepala Sekolah
 </main>
 
 </div>
+
+<!-- ======================================================
+     MODAL TAMBAH PENGGUNA
+====================================================== -->
+
+<div class="modal"
+     id="userModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                Tambah Pengguna
+            </h3>
+
+            <button class="modal-close"
+                    onclick="closeUserModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <form id="userForm"
+                  onsubmit="submitUserForm(event)">
+
+                <div class="user-form-grid">
+
+                    <div class="full">
+
+                        <label style="font-size:10px;font-weight:700;display:block;margin-bottom:5px;">
+                            Nama Lengkap <span style="color:#dc2626;">*</span>
+                        </label>
+
+                        <input class="form-control"
+                               id="userNama"
+                               required
+                               autocomplete="name"
+                               placeholder="Masukkan nama lengkap">
+
+                    </div>
+
+
+                    <div>
+
+                        <label style="font-size:10px;font-weight:700;display:block;margin-bottom:5px;">
+                            Username <span style="color:#dc2626;">*</span>
+                        </label>
+
+                        <input class="form-control"
+                               id="userUsername"
+                               required
+                               autocomplete="username"
+                               placeholder="Contoh: sugeng.ks">
+
+                    </div>
+
+
+                    <div>
+
+                        <label style="font-size:10px;font-weight:700;display:block;margin-bottom:5px;">
+                            Sandi <span style="color:#dc2626;">*</span>
+                        </label>
+
+                        <input class="form-control"
+                               id="userPassword"
+                               type="password"
+                               minlength="6"
+                               required
+                               autocomplete="new-password"
+                               placeholder="Minimal 6 karakter">
+
+                    </div>
+
+
+                    <div>
+
+                        <label style="font-size:10px;font-weight:700;display:block;margin-bottom:5px;">
+                            Role <span style="color:#dc2626;">*</span>
+                        </label>
+
+                        <select class="form-control"
+                                id="userRole"
+                                required
+                                onchange="updateUserAutoInfo()">
+
+                            <option value="KEPSEK">KEPSEK</option>
+                            <option value="GURU">GURU</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label style="font-size:10px;font-weight:700;display:block;margin-bottom:5px;">
+                            Email
+                        </label>
+
+                        <input class="form-control"
+                               id="userEmail"
+                               type="email"
+                               autocomplete="email"
+                               placeholder="nama@sekolah.sch.id">
+
+                    </div>
+
+                </div>
+
+
+                <div class="user-auto-box"
+                     id="userAutoInfo">
+                    <strong>Otomatis oleh sistem:</strong>
+                    user_id, guru_id, dan jabatan akan dibuat/ditentukan oleh sistem.
+                </div>
+
+
+                <div class="modal-footer" style="padding:15px 0 0;border-top:0;">
+
+                    <button type="button"
+                            class="btn btn-light"
+                            onclick="closeUserModal()">
+                        Batal
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-primary"
+                            id="btnSimpanUser">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Simpan Pengguna
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <!-- ======================================================
      MODAL VALIDASI
@@ -5024,14 +5361,33 @@ function generateReport(){
 
 function simpanPengaturan(){
 
-    alert(
+    const data={
+        namaSekolah:document.getElementById("settingNamaSekolah")?.value||"",
+        tahunPelajaran:document.getElementById("settingTahunPelajaran")?.value||"",
+        namaKepala:document.getElementById("settingNamaKepala")?.value||"",
+        statusSistem:document.getElementById("settingStatusSistem")?.value||"AKTIF"
+    };
 
-        "Pengaturan berhasil disiapkan.\n\n" +
+    localStorage.setItem("SIMPEL_KS_PENGATURAN",JSON.stringify(data));
 
-        "Pada versi database, data akan disimpan ke Google Spreadsheet."
+    alert("Pengaturan berhasil disimpan.");
 
-    );
+}
 
+function loadPengaturanLocal(){
+    try{
+        const raw=localStorage.getItem("SIMPEL_KS_PENGATURAN");
+        if(!raw)return;
+        const d=JSON.parse(raw);
+        const a=document.getElementById("settingNamaSekolah");
+        const b=document.getElementById("settingTahunPelajaran");
+        const c=document.getElementById("settingNamaKepala");
+        const e=document.getElementById("settingStatusSistem");
+        if(a&&d.namaSekolah)a.value=d.namaSekolah;
+        if(b&&d.tahunPelajaran)b.value=d.tahunPelajaran;
+        if(c&&d.namaKepala)c.value=d.namaKepala;
+        if(e&&d.statusSistem)e.value=d.statusSistem;
+    }catch(err){console.warn("Pengaturan lokal gagal dimuat",err)}
 }
 
 
@@ -5097,6 +5453,15 @@ document.addEventListener(
 );
 
 
+document.getElementById("userModal")?.addEventListener("click",function(event){
+    if(event.target===this)closeUserModal();
+});
+
+document.addEventListener("keydown",function(event){
+    if(event.key==="Escape")closeUserModal();
+});
+
+
 /* =========================================================
    INTEGRASI DATA GOOGLE SPREADSHEET - STAGE 2
    Dipindahkan keluar dari script Chart.js agar benar-benar dieksekusi browser.
@@ -5115,6 +5480,126 @@ function pct(v){const n=Number(v);if(!Number.isFinite(n))return "0%";const x=Mat
 function parseAdmin(v){if(v==null)return null;const s=String(v).trim().replace(",",".");if(!s)return null;const n=parseFloat(s.replace("%",""));return Number.isFinite(n)&&n>=0&&n<=100?n:null}
 function rowsOf(r){if(Array.isArray(r))return r;if(r&&Array.isArray(r.data))return r.data;if(r&&Array.isArray(r.rows))return r.rows;if(r&&Array.isArray(r.records))return r.records;return []}
 async function api(action){const u=DATA_GURU_API+"?action="+encodeURIComponent(action)+"&_="+Date.now();const r=await fetch(u,{method:"GET",cache:"no-store",redirect:"follow"});if(!r.ok)throw Error("HTTP "+r.status);const j=await r.json();if(j&&j.success===false)throw Error(j.message||"Gagal mengambil data");return j}
+
+/* =========================================================
+   MANAJEMEN PENGGUNA - SHEET USERS
+   Struktur:
+   user_id | username | password_hash | nama | role | email |
+   guru_id | jabatan | status
+========================================================= */
+let USERS_ROWS=[];
+
+async function apiPost(payload){
+    const r=await fetch(DATA_GURU_API,{
+        method:"POST",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body:JSON.stringify(payload),
+        redirect:"follow"
+    });
+    const text=await r.text();
+    let j;
+    try{j=JSON.parse(text)}catch(e){throw Error("Respons server tidak valid.")}
+    if(!r.ok||j&&j.success===false)throw Error((j&&j.message)||("HTTP "+r.status));
+    return j;
+}
+
+function openUserModal(){
+    const modal=document.getElementById("userModal");
+    const form=document.getElementById("userForm");
+    if(form)form.reset();
+    const role=document.getElementById("userRole");
+    if(role)role.value="KEPSEK";
+    updateUserAutoInfo();
+    if(modal)modal.classList.add("show");
+    setTimeout(()=>document.getElementById("userNama")?.focus(),80);
+}
+
+function closeUserModal(){
+    document.getElementById("userModal")?.classList.remove("show");
+}
+
+function updateUserAutoInfo(){
+    const role=document.getElementById("userRole")?.value||"KEPSEK";
+    const box=document.getElementById("userAutoInfo");
+    if(!box)return;
+    if(role==="GURU"){
+        box.innerHTML='<strong>Otomatis oleh sistem:</strong> user_id dibuat otomatis. guru_id dan jabatan akan dicari dari sheet DATA_GURU berdasarkan nama lengkap; jika tidak ditemukan, sistem membuat guru_id baru.';
+    }else{
+        box.innerHTML='<strong>Otomatis oleh sistem:</strong> user_id dibuat otomatis. guru_id dibuat sebagai ID kepala sekolah dan jabatan otomatis menjadi "Kepala Sekolah".';
+    }
+}
+
+async function submitUserForm(event){
+    event.preventDefault();
+    const btn=document.getElementById("btnSimpanUser");
+    const nama=document.getElementById("userNama")?.value.trim()||"";
+    const username=document.getElementById("userUsername")?.value.trim()||"";
+    const password=document.getElementById("userPassword")?.value||"";
+    const role=document.getElementById("userRole")?.value||"";
+    const email=document.getElementById("userEmail")?.value.trim()||"";
+    if(!nama||!username||!password||!role){alert("Nama lengkap, username, sandi, dan role wajib diisi.");return;}
+    if(password.length<6){alert("Sandi minimal 6 karakter.");return;}
+    try{
+        if(btn){btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';}
+        const result=await apiPost({action:"createUser",nama:nama,username:username,password:password,role:role,email:email});
+        closeUserModal();
+        alert(result.message||"Pengguna berhasil ditambahkan ke sheet USERS.");
+        await loadUsers();
+    }catch(err){
+        alert("Gagal menambah pengguna:\n"+(err.message||err));
+        console.error(err);
+    }finally{
+        if(btn){btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-user-plus"></i> Simpan Pengguna';}
+    }
+}
+
+function renderUsers(){
+    const body=document.getElementById("usersTableBody");
+    const info=document.getElementById("usersDataInfo");
+    if(!body)return;
+    if(!USERS_ROWS.length){
+        body.innerHTML='<tr><td colspan="9"><div class="empty-state"><i class="fa-solid fa-user-slash"></i><h3>Belum Ada Pengguna</h3><p>Sheet USERS belum memiliki data pengguna.</p></div></td></tr>';
+        if(info)info.textContent="Terhubung • Sheet USERS • 0 pengguna";
+        return;
+    }
+    body.innerHTML=USERS_ROWS.map((u,i)=>{
+        const role=String(gf(u,["role","ROLE","Role"])).toUpperCase();
+        const status=String(gf(u,["status","STATUS","Status"])).toUpperCase()||"NON AKTIF";
+        const safeId=esc(gf(u,["user_id","USER_ID","user id"]));
+        const select='<select class="user-status-select '+(status==="AKTIF"?'aktif':'nonaktif')+'" onchange="updateUserStatus('+JSON.stringify(gf(u,["user_id","USER_ID","user id"]))+',this.value)"><option value="AKTIF" '+(status==="AKTIF"?'selected':'')+'>AKTIF</option><option value="NON AKTIF" '+(status!=="AKTIF"?'selected':'')+'>NON AKTIF</option></select>';
+        return '<tr><td>'+esc(i+1)+'</td><td class="user-id-cell">'+safeId+'</td><td><strong>'+esc(gf(u,["nama","NAMA","Nama"])||"-")+'</strong></td><td>'+esc(gf(u,["username","USERNAME","Username"])||"-")+'</td><td><span class="user-role '+(role==="GURU"?'guru':'')+'">'+esc(role||"-")+'</span></td><td>'+esc(gf(u,["email","EMAIL","Email"])||"-")+'</td><td>'+esc(gf(u,["guru_id","GURU_ID","guru id"])||"-")+'</td><td>'+esc(gf(u,["jabatan","JABATAN","Jabatan"])||"-")+'</td><td>'+select+'</td></tr>';
+    }).join("");
+    if(info)info.textContent="Terhubung • Sheet USERS • "+USERS_ROWS.length+" pengguna";
+}
+
+async function loadUsers(){
+    const body=document.getElementById("usersTableBody");
+    const info=document.getElementById("usersDataInfo");
+    if(!body)return;
+    body.innerHTML='<tr><td colspan="9"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Pengguna</h3><p>Mengambil data dari sheet USERS...</p></div></td></tr>';
+    try{
+        const j=await api("getUsers");
+        USERS_ROWS=rowsOf(j);
+        renderUsers();
+    }catch(err){
+        USERS_ROWS=[];
+        body.innerHTML='<tr><td colspan="9"><div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><h3>Gagal Memuat Pengguna</h3><p>'+esc(err.message||err)+'</p></div></td></tr>';
+        if(info)info.textContent="Koneksi sheet USERS gagal";
+        console.error(err);
+    }
+}
+
+async function updateUserStatus(userId,status){
+    try{
+        await apiPost({action:"updateUserStatus",user_id:userId,status:status});
+        const row=USERS_ROWS.find(x=>String(gf(x,["user_id","USER_ID","user id"]))===String(userId));
+        if(row)row.status=status;
+        renderUsers();
+    }catch(err){
+        alert("Gagal memperbarui status:\n"+(err.message||err));
+        await loadUsers();
+    }
+}
 function validStatus(v){const s=String(v??"").trim().toUpperCase();if(s.includes("REVISI")||s.includes("KEMBALI"))return"revisi";if(s.includes("VALID")||s.includes("TERVERIFIKASI")||s.includes("DISETUJUI")||s.includes("SETUJU"))return"valid";return"menunggu"}
 function adminStats(){let sum=0,n=0,l=0,r=0,b=0;DATA_GURU_ROWS.forEach(g=>{const raw=gf(g,["administrasi","ADMINISTRASI","Administrasi"]),p=parseAdmin(raw),s=String(raw).toUpperCase();if(p!==null){sum+=p;n++;if(p>=100)l++;else if(p>=75)r++;else b++}else if(s.includes("LENGKAP")&&!s.includes("BELUM"))l++;else if(s.includes("REVISI")||s.includes("PERLU"))r++;else b++});return{total:DATA_GURU_ROWS.length,avg:n?sum/n:0,lengkap:l,revisi:r,belum:b}}
 function updateGuruUI(){const a=adminStats(),rv=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;txt("guruTotal",a.total);txt("guruAktif",DATA_GURU_ROWS.filter(g=>String(gf(g,["status","STATUS","Status"])).toUpperCase()==="AKTIF").length);txt("guruTidakAktif",a.total-DATA_GURU_ROWS.filter(g=>String(gf(g,["status","STATUS","Status"])).toUpperCase()==="AKTIF").length);txt("guruAdministrasiRata",pct(a.avg));txt("dashboardGuruTotal",a.total);txt("dashboardAdministrasiRata",pct(a.avg));txt("dashboardGuruBelumLengkap",a.belum);txt("dashboardGuruLengkap",a.lengkap+" Guru");txt("dashboardGuruPerluRevisi",a.revisi+" Guru");txt("dashboardGuruBelumLengkapDetail",a.belum+" Guru");txt("dashboardDokumenRevisi",rv);txt("dashboardCirclePercent",pct(a.avg));txt("adminTotalGuru",a.total);txt("adminGuruLengkap",a.lengkap);txt("adminGuruPerluRevisi",a.revisi+a.belum);txt("adminRataRata",pct(a.avg));txt("guruMenuBadge",a.total);txt("validasiMenuBadge",rv);const c=document.querySelector("#section-dashboard .circle-progress");if(c){const d=Math.max(0,Math.min(100,a.avg))*3.6;c.style.background=`conic-gradient(#16a34a 0deg ${d}deg,#e2e8f0 ${d}deg 360deg)`}}
@@ -5128,7 +5613,7 @@ function renderValidasi(){const t=document.getElementById("validasiTable");if(!t
 function filterDokumen(){const g=document.getElementById("filterGuru")?.value||"",s=document.getElementById("filterStatus")?.value||"",j=document.getElementById("filterJenis")?.value||"";VALIDASI_DOKUMEN_FILTERED=VALIDASI_DOKUMEN_ROWS.filter(r=>(!g||r.guru===g)&&(!s||r.status===s)&&(!j||j==="Semua Jenis Dokumen"||r.dokumen===j));renderValidasi();if(!VALIDASI_DOKUMEN_FILTERED.length)alert("Tidak ada dokumen yang sesuai dengan filter.")}
 function refreshValidasi(){loadDataGuru();loadValidasiDokumen()}
 function exportValidasi(){alert("Ekspor laporan validasi.\n\nPada versi terintegrasi tersedia pilihan:\n• Excel (.xlsx)\n• PDF\n• Rekap per guru\n• Rekap per jenis administrasi")}
-const oldShowSection=window.showSection;window.showSection=function(section){oldShowSection(section);if(section==="guru"||section==="administrasi"){if(!DATA_GURU_ROWS.length)loadDataGuru()}if(section==="validasi"&&!VALIDASI_DOKUMEN_ROWS.length)loadValidasiDokumen()};
+const oldShowSection=window.showSection;window.showSection=function(section){oldShowSection(section);if(section==="guru"||section==="administrasi"){if(!DATA_GURU_ROWS.length)loadDataGuru()}if(section==="validasi"&&!VALIDASI_DOKUMEN_ROWS.length)loadValidasiDokumen();if(section==="pengaturan"){loadUsers();loadPengaturanLocal()}};
 function validationDateValue(r){const v=r.tanggal||"";if(!v)return null;let d=new Date(v);if(!isNaN(d.getTime()))return d;const m=String(v).match(/(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/);return m?new Date(+m[3],+m[2]-1,+m[1]):null;}
 function validationDeadlineValue(r){const v=r.deadline||"";if(!v)return null;let d=new Date(v);if(!isNaN(d.getTime()))return d;const m=String(v).match(/(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/);return m?new Date(+m[3],+m[2]-1,+m[1]):null;}
 function dashEmpty(msg){return '<div class="empty-state"><i class="fa-solid fa-folder-open"></i><h3>Belum Ada Data</h3><p>'+esc(msg)+'</p></div>';}
@@ -5146,7 +5631,7 @@ function renderValidationDashboard(){
  const acts=[...rows].sort((a,b)=>(validationDateValue(b)?.getTime()||0)-(validationDateValue(a)?.getTime()||0)).slice(0,5);if(aktivitas)aktivitas.innerHTML=acts.map(r=>{const icon=r.status==="valid"?'fa-check':r.status==="revisi"?'fa-pen':'fa-clock',title=r.status==="valid"?'Dokumen terverifikasi':r.status==="revisi"?'Dokumen perlu revisi':'Dokumen menunggu validasi';return '<div class="audit-item"><div class="audit-icon"><i class="fa-solid '+icon+'"></i></div><div class="audit-content"><strong>'+title+'</strong><p>'+esc(r.guru)+' • '+esc(r.dokumen)+'</p></div><span class="audit-time">'+esc(r.tanggal||'-')+'</span></div>';}).join("");
 }
 
-window.addEventListener("load",()=>{loadDataGuru();loadValidasiDokumen()});
+window.addEventListener("load",()=>{loadDataGuru();loadValidasiDokumen();loadPengaturanLocal();loadUsers()});
 </script>
 
 </body>
