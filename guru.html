@@ -1,0 +1,5151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SIMPEL-KS | Guru</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --sidebar:#0f172a;
+    --sidebar-2:#111c33;
+    --bg:#f1f5f9;
+    --card:#ffffff;
+    --text:#0f172a;
+    --muted:#64748b;
+    --border:#e2e8f0;
+
+    --success:#16a34a;
+    --success-bg:#dcfce7;
+
+    --warning:#d97706;
+    --warning-bg:#fef3c7;
+
+    --danger:#dc2626;
+    --danger-bg:#fee2e2;
+
+    --info:#0284c7;
+    --info-bg:#e0f2fe;
+
+    --shadow:0 10px 30px rgba(15,23,42,.06);
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app{
+    display:flex;
+    min-height:100vh;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+    width:280px;
+    background:var(--sidebar);
+    color:white;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    z-index:1000;
+    display:flex;
+    flex-direction:column;
+    transition:.3s;
+}
+
+.brand{
+    height:120px;
+    padding:25px 22px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.brand-icon{
+    width:58px;
+    height:58px;
+    background:var(--primary);
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:27px;
+}
+
+.brand-text h1{
+    font-size:22px;
+    font-weight:800;
+}
+
+.brand-text p{
+    margin-top:5px;
+    font-size:12px;
+    color:#94a3b8;
+}
+
+.profile-side{
+    padding:25px 20px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.avatar{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:#dbeafe;
+    color:#1d4ed8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    font-weight:800;
+    flex-shrink:0;
+}
+
+.profile-side h3{
+    font-size:15px;
+    margin-bottom:5px;
+}
+
+.profile-side p{
+    font-size:12px;
+    color:#94a3b8;
+}
+
+.sidebar-scroll{
+    flex:1;
+    overflow-y:auto;
+    padding:18px 10px;
+}
+
+.menu-title{
+    color:#64748b;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1.4px;
+    padding:12px 12px 8px;
+}
+
+.menu-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:13px 14px;
+    border-radius:12px;
+    color:#cbd5e1;
+    cursor:pointer;
+    margin-bottom:4px;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.menu-item:hover{
+    background:rgba(255,255,255,.06);
+    color:white;
+}
+
+.menu-item.active{
+    background:var(--primary);
+    color:white;
+    box-shadow:0 8px 20px rgba(37,99,235,.25);
+}
+
+.menu-item i{
+    width:20px;
+    text-align:center;
+}
+
+.menu-badge{
+    margin-left:auto;
+    min-width:22px;
+    height:22px;
+    padding:0 6px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:10px;
+    background:#ef4444;
+    color:white;
+}
+
+.logout-area{
+    padding:15px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.logout-btn{
+    width:100%;
+    border:0;
+    padding:14px;
+    border-radius:12px;
+    background:#1e293b;
+    color:#cbd5e1;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.logout-btn:hover{
+    background:#334155;
+    color:white;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+    margin-left:280px;
+    width:calc(100% - 280px);
+    min-height:100vh;
+}
+
+.topbar{
+    height:120px;
+    background:white;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+    position:sticky;
+    top:0;
+    z-index:900;
+}
+
+.top-title h2{
+    font-size:27px;
+    font-weight:800;
+}
+
+.top-title p{
+    margin-top:5px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.top-actions{
+    display:flex;
+    gap:10px;
+}
+
+.top-action{
+    width:48px;
+    height:48px;
+    border:1px solid var(--border);
+    background:white;
+    border-radius:13px;
+    color:#64748b;
+    cursor:pointer;
+    font-size:17px;
+    position:relative;
+}
+
+.top-action:hover{
+    color:var(--primary);
+    border-color:#bfdbfe;
+}
+
+.notification-dot{
+    position:absolute;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#ef4444;
+    top:9px;
+    right:10px;
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content{
+    padding:30px 35px 45px;
+}
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#0ea5e9);
+    color:white;
+    border-radius:22px;
+    padding:30px;
+    margin-bottom:25px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    right:-90px;
+    top:-100px;
+    background:rgba(255,255,255,.12);
+}
+
+.hero h1{
+    font-size:26px;
+    font-weight:800;
+    position:relative;
+    z-index:2;
+}
+
+.hero p{
+    margin-top:8px;
+    opacity:.9;
+    position:relative;
+    z-index:2;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:16px;
+    margin-bottom:25px;
+}
+
+.stat-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    box-shadow:var(--shadow);
+}
+
+.stat-icon{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:14px;
+}
+
+.stat-card h3{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.stat-card p{
+    color:var(--muted);
+    font-size:12px;
+    font-weight:600;
+}
+
+.icon-blue{
+    background:#dbeafe;
+    color:#2563eb;
+}
+
+.icon-green{
+    background:#dcfce7;
+    color:#16a34a;
+}
+
+.icon-orange{
+    background:#ffedd5;
+    color:#ea580c;
+}
+
+.icon-red{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.icon-cyan{
+    background:#cffafe;
+    color:#0891b2;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid-2{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:22px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+.card-header{
+    padding:20px 22px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.card-header h3{
+    font-size:17px;
+}
+
+.card-header p{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.card-body{
+    padding:22px;
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-box{
+    display:flex;
+    align-items:center;
+    gap:22px;
+}
+
+.circle{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:conic-gradient(
+        var(--success) 0deg,
+        var(--success) 0deg,
+        #e2e8f0 0deg,
+        #e2e8f0 360deg
+    );
+    position:relative;
+    flex-shrink:0;
+}
+
+.circle:after{
+    content:"";
+    position:absolute;
+    width:88px;
+    height:88px;
+    background:white;
+    border-radius:50%;
+}
+
+.circle span{
+    position:relative;
+    z-index:2;
+    font-size:20px;
+    font-weight:800;
+}
+
+.progress-info h4{
+    font-size:20px;
+    margin-bottom:7px;
+}
+
+.progress-info p{
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.6;
+}
+
+/* =========================================================
+   QUICK ACTION
+========================================================= */
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.quick-btn{
+    border:1px solid var(--border);
+    background:white;
+    padding:16px;
+    border-radius:14px;
+    text-align:left;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.quick-btn:hover{
+    border-color:#93c5fd;
+    background:#eff6ff;
+}
+
+.quick-btn i{
+    color:var(--primary);
+    font-size:20px;
+    margin-bottom:9px;
+}
+
+.quick-btn strong{
+    display:block;
+    font-size:13px;
+}
+
+.quick-btn span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.table-wrap{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#f8fafc;
+}
+
+th{
+    text-align:left;
+    padding:14px 16px;
+    color:#64748b;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    white-space:nowrap;
+}
+
+td{
+    padding:15px 16px;
+    border-top:1px solid #f1f5f9;
+    font-size:13px;
+    vertical-align:middle;
+}
+
+.empty{
+    padding:60px 20px;
+    text-align:center;
+    color:#94a3b8;
+}
+
+.empty i{
+    font-size:38px;
+    margin-bottom:15px;
+    color:#cbd5e1;
+}
+
+.empty h3{
+    color:#475569;
+    font-size:17px;
+    margin-bottom:5px;
+}
+
+.empty p{
+    font-size:13px;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.status.valid{
+    background:var(--success-bg);
+    color:#15803d;
+}
+
+.status.waiting{
+    background:var(--warning-bg);
+    color:#b45309;
+}
+
+.status.revision{
+    background:var(--danger-bg);
+    color:#b91c1c;
+}
+
+.status.incomplete{
+    background:#f1f5f9;
+    color:#64748b;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn{
+    border:0;
+    border-radius:10px;
+    padding:10px 14px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+}
+
+.btn-primary{
+    background:var(--primary);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:var(--primary-dark);
+}
+
+.btn-light{
+    background:#f1f5f9;
+    color:#475569;
+}
+
+.btn-danger{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.btn-success{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.filters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.input,
+.select,
+.textarea{
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:11px 13px;
+    outline:none;
+    background:white;
+    color:var(--text);
+    font-family:inherit;
+    font-size:13px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus{
+    border-color:#60a5fa;
+    box-shadow:0 0 0 3px rgba(37,99,235,.08);
+}
+
+.filter-control{
+    min-width:180px;
+}
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.profile-item{
+    padding:16px;
+    border:1px solid var(--border);
+    border-radius:13px;
+}
+
+.profile-item label{
+    display:block;
+    font-size:11px;
+    color:var(--muted);
+    margin-bottom:7px;
+}
+
+.profile-item strong{
+    font-size:14px;
+}
+
+/* =========================================================
+   DEADLINE
+========================================================= */
+
+.deadline-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.deadline-item{
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.deadline-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:#fef3c7;
+    color:#d97706;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.deadline-info{
+    flex:1;
+}
+
+.deadline-info strong{
+    display:block;
+    font-size:13px;
+}
+
+.deadline-info span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* =========================================================
+   ACTIVITY
+========================================================= */
+
+.activity{
+    display:flex;
+    flex-direction:column;
+}
+
+.activity-item{
+    display:flex;
+    gap:12px;
+    padding:14px 0;
+    border-bottom:1px solid #f1f5f9;
+}
+
+.activity-item:last-child{
+    border-bottom:0;
+}
+
+.activity-dot{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#dbeafe;
+    color:#2563eb;
+    flex-shrink:0;
+}
+
+.activity-info strong{
+    display:block;
+    font-size:12px;
+}
+
+.activity-info span{
+    color:var(--muted);
+    font-size:11px;
+    display:block;
+    margin-top:4px;
+}
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+.upload-box{
+    border:2px dashed #cbd5e1;
+    border-radius:18px;
+    padding:40px;
+    text-align:center;
+    background:#f8fafc;
+}
+
+.upload-box i{
+    font-size:45px;
+    color:#94a3b8;
+    margin-bottom:15px;
+}
+
+.upload-box h3{
+    margin-bottom:7px;
+}
+
+.upload-box p{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:18px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.55);
+    z-index:3000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:650px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:white;
+    border-radius:20px;
+    box-shadow:0 30px 80px rgba(0,0,0,.2);
+}
+
+.modal-header{
+    padding:20px 22px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.modal-header h3{
+    font-size:18px;
+}
+
+.modal-close{
+    width:35px;
+    height:35px;
+    border:0;
+    background:#f1f5f9;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+.modal-body{
+    padding:22px;
+}
+
+.modal-footer{
+    padding:16px 22px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(255,255,255,.94);
+    z-index:5000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.loading-box{
+    text-align:center;
+}
+
+.loading-box i{
+    font-size:40px;
+    color:var(--primary);
+    margin-bottom:15px;
+}
+
+.loading-box h3{
+    margin-bottom:5px;
+}
+
+.loading-box p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    z-index:6000;
+    background:#0f172a;
+    color:white;
+    padding:14px 18px;
+    border-radius:12px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+    transform:translateY(120px);
+    opacity:0;
+    transition:.3s;
+    font-size:13px;
+    max-width:350px;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+.toast.success{
+    background:#15803d;
+}
+
+.toast.error{
+    background:#b91c1c;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    text-align:center;
+    padding:25px;
+    color:#94a3b8;
+    font-size:12px;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:1200px){
+
+    .stats-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        transform:translateX(-100%);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .grid-2{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topbar{
+        height:auto;
+        padding:18px;
+    }
+
+    .content{
+        padding:18px;
+    }
+
+    .top-title h2{
+        font-size:21px;
+    }
+
+    .top-actions{
+        display:none;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .profile-grid,
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .quick-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding:22px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     LOADING
+========================================================= -->
+
+<div class="loading-overlay" id="loadingOverlay">
+
+    <div class="loading-box">
+
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        <h3>Memeriksa Sesi</h3>
+
+        <p>Memuat akun Guru...</p>
+
+    </div>
+
+</div>
+
+
+<div class="app">
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="fa-solid fa-school"></i>
+        </div>
+
+        <div class="brand-text">
+
+            <h1>SIMPEL-KS</h1>
+
+            <p>
+                SISTEM ADMINISTRASI SEKOLAH
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-side">
+
+        <div class="avatar" id="sideAvatar">
+            G
+        </div>
+
+        <div>
+
+            <h3 id="sideNama">
+                Guru
+            </h3>
+
+            <p id="sideJabatan">
+                Guru
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="sidebar-scroll">
+
+        <div class="menu-title">
+            UTAMA
+        </div>
+
+        <div class="menu-item active"
+             onclick="showSection('dashboard',this)">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Dashboard</span>
+
+        </div>
+
+
+        <div class="menu-title">
+            ADMINISTRASI
+        </div>
+
+        <div class="menu-item"
+             onclick="showSection('administrasi',this)">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+            <span>Administrasi Saya</span>
+
+            <span class="menu-badge"
+                  id="badgeAdministrasi">
+                0
+            </span>
+
+        </div>
+
+
+        <div class="menu-item"
+             onclick="showSection('upload',this)">
+
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+
+            <span>Upload Dokumen</span>
+
+        </div>
+
+
+        <div class="menu-item"
+             onclick="showSection('validasi',this)">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span>Status Validasi</span>
+
+            <span class="menu-badge"
+                  id="badgeRevisi">
+                0
+            </span>
+
+        </div>
+
+
+        <div class="menu-item"
+             onclick="showSection('rekap',this)">
+
+            <i class="fa-solid fa-chart-pie"></i>
+
+            <span>Rekap Administrasi</span>
+
+        </div>
+
+
+        <div class="menu-title">
+            PEMBINAAN
+        </div>
+
+
+        <div class="menu-item"
+             onclick="showSection('pembinaan',this)">
+
+            <i class="fa-solid fa-comments"></i>
+
+            <span>Catatan Pembinaan</span>
+
+        </div>
+
+
+        <div class="menu-item"
+             onclick="showSection('supervisi',this)">
+
+            <i class="fa-solid fa-calendar-check"></i>
+
+            <span>Jadwal Supervisi</span>
+
+        </div>
+
+
+        <div class="menu-title">
+            DOKUMEN
+        </div>
+
+
+        <div class="menu-item"
+             onclick="showSection('file',this)">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+            <span>File Saya</span>
+
+        </div>
+
+
+        <div class="menu-title">
+            AKUN
+        </div>
+
+
+        <div class="menu-item"
+             onclick="showSection('profil',this)">
+
+            <i class="fa-solid fa-user"></i>
+
+            <span>Profil Saya</span>
+
+        </div>
+
+    </div>
+
+
+    <div class="logout-area">
+
+        <button class="logout-btn"
+                onclick="logout()">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            &nbsp; Keluar
+
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+
+<header class="topbar">
+
+    <div class="top-title">
+
+        <h2 id="pageTitle">
+            Dashboard Guru
+        </h2>
+
+        <p id="pageSubtitle">
+            Pusat administrasi pribadi guru
+        </p>
+
+    </div>
+
+
+    <div class="top-actions">
+
+        <button class="top-action mobile-menu"
+                onclick="toggleSidebar()">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+
+        <button class="top-action"
+                onclick="showToast('Fitur pencarian siap dikembangkan.')">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+        </button>
+
+
+        <button class="top-action"
+                onclick="showToast('Notifikasi akan terhubung dengan data validasi.')">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span class="notification-dot"></span>
+
+        </button>
+
+
+        <button class="top-action"
+                onclick="showSection('profil')">
+
+            <i class="fa-solid fa-user"></i>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="content">
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<section id="section-dashboard"
+         class="section active">
+
+
+<div class="hero">
+
+    <h1>
+        Selamat Datang,
+        <span id="welcomeName">
+            Guru
+        </span>
+    </h1>
+
+    <p>
+        Pantau dan kelola administrasi Anda melalui SIMPEL-KS.
+    </p>
+
+</div>
+
+
+<div class="stats-grid">
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon icon-blue">
+
+            <i class="fa-solid fa-folder"></i>
+
+        </div>
+
+        <h3 id="statTotal">
+            0
+        </h3>
+
+        <p>
+            Total Administrasi
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon icon-green">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+        <h3 id="statValid">
+            0
+        </h3>
+
+        <p>
+            Tervalidasi
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon icon-orange">
+
+            <i class="fa-solid fa-clock"></i>
+
+        </div>
+
+        <h3 id="statWaiting">
+            0
+        </h3>
+
+        <p>
+            Menunggu Validasi
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon icon-red">
+
+            <i class="fa-solid fa-rotate-left"></i>
+
+        </div>
+
+        <h3 id="statRevision">
+            0
+        </h3>
+
+        <p>
+            Perlu Revisi
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon icon-cyan">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+        </div>
+
+        <h3 id="statPercent">
+            0%
+        </h3>
+
+        <p>
+            Kelengkapan
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="grid-2">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Kelengkapan Administrasi Saya
+            </h3>
+
+            <p>
+                Berdasarkan data validasi
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="progress-box">
+
+            <div class="circle"
+                 id="progressCircle">
+
+                <span id="circlePercent">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress-info">
+
+                <h4 id="progressText">
+                    Belum Ada Data
+                </h4>
+
+                <p id="progressDescription">
+                    Data administrasi akan tampil setelah
+                    terdapat dokumen pada sistem.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Aksi Cepat
+            </h3>
+
+            <p>
+                Menu yang sering digunakan
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="quick-grid">
+
+            <button class="quick-btn"
+                    onclick="showSection('administrasi')">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                <strong>
+                    Administrasi
+                </strong>
+
+                <span>
+                    Lihat dokumen
+                </span>
+
+            </button>
+
+
+            <button class="quick-btn"
+                    onclick="showSection('upload')">
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                <strong>
+                    Upload
+                </strong>
+
+                <span>
+                    Kirim dokumen
+                </span>
+
+            </button>
+
+
+            <button class="quick-btn"
+                    onclick="showSection('validasi')">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <strong>
+                    Validasi
+                </strong>
+
+                <span>
+                    Lihat status
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<div class="grid-2">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Deadline Administrasi
+            </h3>
+
+            <p>
+                Data dari sistem
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div id="deadlineList"
+             class="deadline-list">
+
+            <div class="empty">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <h3>
+                    Belum Ada Data
+                </h3>
+
+                <p>
+                    Belum tersedia data deadline administrasi.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Aktivitas Terbaru
+            </h3>
+
+            <p>
+                Aktivitas administrasi Anda
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div id="activityList"
+             class="activity">
+
+            <div class="empty">
+
+                <i class="fa-regular fa-clock"></i>
+
+                <h3>
+                    Belum Ada Aktivitas
+                </h3>
+
+                <p>
+                    Belum ada aktivitas tercatat.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     ADMINISTRASI
+========================================================= -->
+
+<section id="section-administrasi"
+         class="section">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Administrasi Saya
+            </h3>
+
+            <p>
+                Daftar administrasi berdasarkan data validasi.
+            </p>
+
+        </div>
+
+
+        <button class="btn btn-primary"
+                onclick="showSection('upload')">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Upload Dokumen
+
+        </button>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="filters"
+             style="margin-bottom:18px;">
+
+            <div class="filter-control">
+
+                <input type="text"
+                       id="searchAdmin"
+                       class="input"
+                       placeholder="Cari dokumen..."
+                       oninput="filterAdministrasi()">
+
+            </div>
+
+
+            <div class="filter-control">
+
+                <select id="filterAdminStatus"
+                        class="select"
+                        onchange="filterAdministrasi()">
+
+                    <option value="">
+                        Semua Status
+                    </option>
+
+                    <option value="valid">
+                        Tervalidasi
+                    </option>
+
+                    <option value="menunggu">
+                        Menunggu
+                    </option>
+
+                    <option value="revisi">
+                        Revisi
+                    </option>
+
+                    <option value="belum">
+                        Belum Lengkap
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            No
+                        </th>
+
+                        <th>
+                            Jenis Administrasi
+                        </th>
+
+                        <th>
+                            Tanggal
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Catatan
+                        </th>
+
+                        <th>
+                            Aksi
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="administrasiBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     UPLOAD
+========================================================= -->
+
+<section id="section-upload"
+         class="section">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Upload Dokumen Administrasi
+            </h3>
+
+            <p>
+                Kirim dokumen untuk diperiksa dan divalidasi.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>
+                    Jenis Administrasi
+                </label>
+
+                <select id="uploadJenis"
+                        class="select">
+
+                    <option value="">
+                        Pilih jenis administrasi
+                    </option>
+
+                    <option>
+                        Modul Ajar
+                    </option>
+
+                    <option>
+                        Program Tahunan
+                    </option>
+
+                    <option>
+                        Program Semester
+                    </option>
+
+                    <option>
+                        Jurnal Mengajar
+                    </option>
+
+                    <option>
+                        Asesmen
+                    </option>
+
+                    <option>
+                        Dokumen Administrasi Lainnya
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    File Dokumen
+                </label>
+
+                <input type="file"
+                       id="uploadFile"
+                       class="input">
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Keterangan
+            </label>
+
+            <textarea id="uploadKeterangan"
+                      class="textarea"
+                      rows="4"
+                      placeholder="Keterangan dokumen..."></textarea>
+
+        </div>
+
+
+        <div class="upload-box">
+
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+
+            <h3>
+                Siapkan Dokumen
+            </h3>
+
+            <p>
+                Fitur penyimpanan akan menggunakan Google Drive
+                setelah endpoint upload diaktifkan.
+            </p>
+
+            <button class="btn btn-primary"
+                    onclick="submitUpload()">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Kirim untuk Validasi
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     VALIDASI
+========================================================= -->
+
+<section id="section-validasi"
+         class="section">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Status Validasi
+            </h3>
+
+            <p>
+                Periksa hasil validasi dokumen Anda.
+            </p>
+
+        </div>
+
+
+        <button class="btn btn-light"
+                onclick="loadGuruData()">
+
+            <i class="fa-solid fa-rotate"></i>
+
+            Refresh
+
+        </button>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            No
+                        </th>
+
+                        <th>
+                            Dokumen
+                        </th>
+
+                        <th>
+                            Tanggal
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Catatan
+                        </th>
+
+                        <th>
+                            Validator
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="validasiBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     REKAP
+========================================================= -->
+
+<section id="section-rekap"
+         class="section">
+
+
+<div class="grid-2">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Rekap Administrasi
+            </h3>
+
+            <p>
+                Ringkasan status dokumen
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <canvas id="rekapChart"
+                height="260"></canvas>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Ringkasan
+            </h3>
+
+            <p>
+                Kondisi administrasi Anda
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="profile-item"
+             style="margin-bottom:10px;">
+
+            <label>
+                Tervalidasi
+            </label>
+
+            <strong id="rekapValid">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="profile-item"
+             style="margin-bottom:10px;">
+
+            <label>
+                Menunggu
+            </label>
+
+            <strong id="rekapWaiting">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="profile-item"
+             style="margin-bottom:10px;">
+
+            <label>
+                Revisi
+            </label>
+
+            <strong id="rekapRevision">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="profile-item">
+
+            <label>
+                Kelengkapan
+            </label>
+
+            <strong id="rekapPercent">
+                0%
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<div class="card"
+     style="margin-top:22px;">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Tren Administrasi
+            </h3>
+
+            <p>
+                Grafik akan menggunakan data aktual sistem.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div style="height:300px;">
+
+            <canvas id="trendGuruChart"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     PEMBINAAN
+========================================================= -->
+
+<section id="section-pembinaan"
+         class="section">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Catatan Pembinaan
+            </h3>
+
+            <p>
+                Catatan pembinaan dari Kepala Sekolah.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="empty">
+
+            <i class="fa-solid fa-comments"></i>
+
+            <h3>
+                Belum Ada Catatan Pembinaan
+            </h3>
+
+            <p>
+                Data akan tampil setelah fitur pembinaan
+                terhubung dengan database.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     SUPERVISI
+========================================================= -->
+
+<section id="section-supervisi"
+         class="section">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Jadwal Supervisi
+            </h3>
+
+            <p>
+                Jadwal supervisi yang ditetapkan Kepala Sekolah.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="empty">
+
+            <i class="fa-regular fa-calendar-check"></i>
+
+            <h3>
+                Belum Ada Jadwal Supervisi
+            </h3>
+
+            <p>
+                Data akan tampil setelah modul supervisi
+                terhubung dengan database.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     FILE SAYA
+========================================================= -->
+
+<section id="section-file"
+         class="section">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                File Saya
+            </h3>
+
+            <p>
+                Dokumen yang tersimpan pada Google Drive.
+            </p>
+
+        </div>
+
+        <button class="btn btn-light"
+                onclick="loadDriveFiles()">
+
+            <i class="fa-solid fa-rotate"></i>
+
+            Refresh
+
+        </button>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div id="fileList">
+
+            <div class="empty">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                <h3>
+                    Belum Ada File
+                </h3>
+
+                <p>
+                    Data file akan tampil setelah
+                    integrasi Google Drive tersedia.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     PROFIL
+========================================================= -->
+
+<section id="section-profil"
+         class="section">
+
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>
+                Profil Saya
+            </h3>
+
+            <p>
+                Informasi akun dan data kepegawaian.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="profile-grid">
+
+
+            <div class="profile-item">
+
+                <label>
+                    Nama Lengkap
+                </label>
+
+                <strong id="profileNama">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Username
+                </label>
+
+                <strong id="profileUsername">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    NIP
+                </label>
+
+                <strong id="profileNip">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Role
+                </label>
+
+                <strong id="profileRole">
+                    GURU
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Guru ID
+                </label>
+
+                <strong id="profileGuruId">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Jabatan
+                </label>
+
+                <strong id="profileJabatan">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Email
+                </label>
+
+                <strong id="profileEmail">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Status Akun
+                </label>
+
+                <strong id="profileStatus">
+                    AKTIF
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<div class="footer">
+
+    SIMPEL-KS © 2026 • Sistem Administrasi Sekolah
+
+</div>
+
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL DETAIL
+========================================================= -->
+
+<div class="modal"
+     id="detailModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                Detail Administrasi
+            </h3>
+
+            <button class="modal-close"
+                    onclick="closeDetail()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div id="detailContent">
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button class="btn btn-light"
+                    onclick="closeDetail()">
+
+                Tutup
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="toast"
+     id="toast">
+</div>
+
+
+<script>
+
+/* =========================================================
+   KONFIGURASI API
+========================================================= */
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec";
+
+
+/* =========================================================
+   SESSION LOGIN
+========================================================= */
+
+let CURRENT_USER = null;
+
+let GURU_DATA = null;
+
+let DATA_GURU_ROWS = [];
+
+let VALIDASI_ROWS = [];
+
+let VALIDASI_GURU = [];
+
+let rekapChart = null;
+
+let trendChart = null;
+
+
+/* =========================================================
+   HELPER
+========================================================= */
+
+function esc(v){
+
+    return String(v ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function txt(id,value){
+
+    const el =
+        document.getElementById(id);
+
+    if(el){
+        el.textContent =
+            value ?? "";
+    }
+
+}
+
+
+function getInitial(name){
+
+    const s =
+        String(name || "G")
+            .trim();
+
+    if(!s){
+        return "G";
+    }
+
+    return s
+        .split(/\s+/)
+        .slice(0,2)
+        .map(x => x.charAt(0))
+        .join("")
+        .toUpperCase();
+
+}
+
+
+function normalizeStatus(value){
+
+    const s =
+        String(value || "")
+            .trim()
+            .toUpperCase();
+
+    if(
+        s.includes("REVISI") ||
+        s.includes("KEMBALI") ||
+        s.includes("DITOLAK")
+    ){
+        return "revisi";
+    }
+
+    if(
+        s.includes("VALID") ||
+        s.includes("TERVERIFIKASI") ||
+        s.includes("DISETUJUI") ||
+        s.includes("SETUJU")
+    ){
+        return "valid";
+    }
+
+    if(
+        s.includes("BELUM") ||
+        s.includes("KOSONG")
+    ){
+        return "belum";
+    }
+
+    return "menunggu";
+
+}
+
+
+function statusHTML(status){
+
+    if(status === "valid"){
+
+        return `
+            <span class="status valid">
+                <i class="fa-solid fa-check"></i>
+                TERVERIFIKASI
+            </span>
+        `;
+
+    }
+
+    if(status === "revisi"){
+
+        return `
+            <span class="status revision">
+                <i class="fa-solid fa-rotate-left"></i>
+                REVISI
+            </span>
+        `;
+
+    }
+
+    if(status === "belum"){
+
+        return `
+            <span class="status incomplete">
+                <i class="fa-solid fa-minus"></i>
+                BELUM LENGKAP
+            </span>
+        `;
+
+    }
+
+    return `
+        <span class="status waiting">
+            <i class="fa-solid fa-clock"></i>
+            MENUNGGU
+        </span>
+    `;
+
+}
+
+
+function rowsOf(result){
+
+    if(Array.isArray(result)){
+        return result;
+    }
+
+    if(
+        result &&
+        Array.isArray(result.data)
+    ){
+        return result.data;
+    }
+
+    if(
+        result &&
+        Array.isArray(result.rows)
+    ){
+        return result.rows;
+    }
+
+    if(
+        result &&
+        Array.isArray(result.records)
+    ){
+        return result.records;
+    }
+
+    return [];
+
+}
+
+
+/* =========================================================
+   SESSION READER
+   Mendukung beberapa format localStorage
+========================================================= */
+
+function getStoredUser(){
+
+    const keys = [
+
+        "simpeLKS_user",
+        "simpelKS_user",
+        "SIMPEL_KS_USER",
+        "currentUser",
+        "CURRENT_USER",
+        "user",
+        "userData",
+        "sessionUser",
+        "loginUser"
+
+    ];
+
+
+    for(const key of keys){
+
+        try{
+
+            const raw =
+                localStorage.getItem(key);
+
+            if(!raw) continue;
+
+            let value;
+
+            try{
+                value = JSON.parse(raw);
+            }
+            catch{
+                continue;
+            }
+
+            if(
+                value &&
+                typeof value === "object"
+            ){
+
+                if(value.user){
+                    return value.user;
+                }
+
+                if(value.data?.user){
+                    return value.data.user;
+                }
+
+                return value;
+
+            }
+
+        }
+        catch(error){
+
+            console.warn(
+                "Session error:",
+                key,
+                error
+            );
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+/* =========================================================
+   VALIDASI LOGIN
+========================================================= */
+
+function checkLogin(){
+
+    const user =
+        getStoredUser();
+
+
+    if(!user){
+
+        window.location.replace(
+            "login.html"
+        );
+
+        return false;
+
+    }
+
+
+    const role =
+        String(
+            user.role ||
+            user.ROLE ||
+            ""
+        )
+        .trim()
+        .toUpperCase();
+
+
+    if(role !== "GURU"){
+
+        alert(
+            "Akses ditolak. Halaman ini khusus untuk pengguna dengan role GURU."
+        );
+
+        window.location.replace(
+            "login.html"
+        );
+
+        return false;
+
+    }
+
+
+    CURRENT_USER =
+        user;
+
+    return true;
+
+}
+
+
+/* =========================================================
+   TAMPILKAN PROFIL
+========================================================= */
+
+function renderProfile(){
+
+    const u =
+        CURRENT_USER || {};
+
+
+    const nama =
+        u.nama ||
+        u.NAMA ||
+        u.name ||
+        "Guru";
+
+
+    const username =
+        u.username ||
+        u.USERNAME ||
+        "-";
+
+
+    const email =
+        u.email ||
+        u.EMAIL ||
+        "-";
+
+
+    const guruId =
+        u.guru_id ||
+        u.GURU_ID ||
+        "-";
+
+
+    const jabatan =
+        u.jabatan ||
+        u.JABATAN ||
+        "Guru";
+
+
+    txt(
+        "welcomeName",
+        nama
+    );
+
+    txt(
+        "sideNama",
+        nama
+    );
+
+    txt(
+        "sideJabatan",
+        jabatan
+    );
+
+
+    const avatar =
+        document.getElementById(
+            "sideAvatar"
+        );
+
+    if(avatar){
+
+        avatar.textContent =
+            getInitial(nama);
+
+    }
+
+
+    txt(
+        "profileNama",
+        nama
+    );
+
+    txt(
+        "profileUsername",
+        username
+    );
+
+    txt(
+        "profileEmail",
+        email
+    );
+
+    txt(
+        "profileGuruId",
+        guruId
+    );
+
+    txt(
+        "profileJabatan",
+        jabatan
+    );
+
+    txt(
+        "profileRole",
+        "GURU"
+    );
+
+    txt(
+        "profileStatus",
+        u.status ||
+        u.STATUS ||
+        "AKTIF"
+    );
+
+}
+
+
+/* =========================================================
+   API GET
+========================================================= */
+
+async function api(action, params = {}){
+
+    let url =
+        API_URL +
+        "?action=" +
+        encodeURIComponent(action);
+
+
+    Object.keys(params)
+        .forEach(key => {
+
+            if(
+                params[key] !== undefined &&
+                params[key] !== null &&
+                params[key] !== ""
+            ){
+
+                url +=
+                    "&" +
+                    encodeURIComponent(key) +
+                    "=" +
+                    encodeURIComponent(params[key]);
+
+            }
+
+        });
+
+
+    url +=
+        "&_=" +
+        Date.now();
+
+
+    const response =
+        await fetch(
+            url,
+            {
+                method:"GET",
+                cache:"no-store",
+                redirect:"follow"
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "HTTP " +
+            response.status
+        );
+
+    }
+
+
+    const json =
+        await response.json();
+
+
+    if(
+        json &&
+        json.success === false
+    ){
+
+        throw new Error(
+            json.message ||
+            "API gagal"
+        );
+
+    }
+
+
+    return json;
+
+}
+
+
+/* =========================================================
+   LOAD DATA GURU
+========================================================= */
+
+async function loadDataGuru(){
+
+    try{
+
+        const result =
+            await api(
+                "getDataGuru"
+            );
+
+
+        DATA_GURU_ROWS =
+            rowsOf(result);
+
+
+        const u =
+            CURRENT_USER || {};
+
+
+        const guruId =
+            String(
+                u.guru_id ||
+                u.GURU_ID ||
+                ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        const username =
+            String(
+                u.username ||
+                ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        const nama =
+            String(
+                u.nama ||
+                ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        let found =
+            null;
+
+
+        if(guruId){
+
+            found =
+                DATA_GURU_ROWS.find(g =>
+
+                    String(
+                        g.guru_id ||
+                        g.GURU_ID ||
+                        ""
+                    )
+                    .trim()
+                    .toLowerCase()
+                    === guruId
+
+                );
+
+        }
+
+
+        if(!found && username){
+
+            found =
+                DATA_GURU_ROWS.find(g =>
+
+                    String(
+                        g.username ||
+                        g.USERNAME ||
+                        ""
+                    )
+                    .trim()
+                    .toLowerCase()
+                    === username
+
+                );
+
+        }
+
+
+        if(!found && nama){
+
+            found =
+                DATA_GURU_ROWS.find(g =>
+
+                    String(
+                        g.nama ||
+                        g.NAMA ||
+                        ""
+                    )
+                    .trim()
+                    .toLowerCase()
+                    === nama
+
+                );
+
+        }
+
+
+        GURU_DATA =
+            found;
+
+
+        if(found){
+
+            txt(
+                "profileNip",
+                found.nip ||
+                found.NIP ||
+                "-"
+            );
+
+
+            if(
+                found.jabatan ||
+                found.JABATAN
+            ){
+
+                txt(
+                    "profileJabatan",
+                    found.jabatan ||
+                    found.JABATAN
+                );
+
+                txt(
+                    "sideJabatan",
+                    found.jabatan ||
+                    found.JABATAN
+                );
+
+            }
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Data Guru:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD VALIDASI
+========================================================= */
+
+async function loadValidasi(){
+
+    try{
+
+        const result =
+            await api(
+                "getValidasiDokumen"
+            );
+
+
+        const rows =
+            rowsOf(result);
+
+
+        const u =
+            CURRENT_USER || {};
+
+
+        const guruId =
+            String(
+                u.guru_id ||
+                u.GURU_ID ||
+                ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        const nama =
+            String(
+                u.nama ||
+                u.NAMA ||
+                ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        VALIDASI_ROWS =
+            rows.map(row => {
+
+                return {
+
+                    id:
+                        row.id_validasi ||
+                        row.ID_VALIDASI ||
+                        "",
+
+                    guru:
+                        row.nama_guru ||
+                        row.NAMA_GURU ||
+                        row.guru ||
+                        row.GURU ||
+                        "",
+
+                    dokumen:
+                        row.jenis_dokumen ||
+                        row.JENIS_DOKUMEN ||
+                        row.dokumen ||
+                        row.DOKUMEN ||
+                        "",
+
+                    tanggal:
+                        row.tanggal_validasi ||
+                        row.TANGGAL_VALIDASI ||
+                        row.tanggal ||
+                        "",
+
+                    status:
+                        normalizeStatus(
+                            row.status ||
+                            row.STATUS
+                        ),
+
+                    statusOriginal:
+                        row.status ||
+                        row.STATUS ||
+                        "",
+
+                    catatan:
+                        row.catatan ||
+                        row.CATATAN ||
+                        row.keterangan ||
+                        row.KETERANGAN ||
+                        "",
+
+                    validator:
+                        row.validator ||
+                        row.VALIDATOR ||
+                        "",
+
+                    deadline:
+                        row.tanggal_deadline ||
+                        row.TANGGAL_DEADLINE ||
+                        "",
+
+                    selesai:
+                        row.tanggal_selesai ||
+                        row.TANGGAL_SELESAI ||
+                        ""
+
+                };
+
+            });
+
+
+        /*
+         * FILTER DATA GURU
+         *
+         * Prioritas:
+         * 1. guru_id bila API menyediakan
+         * 2. nama guru dari session
+         */
+
+        if(guruId){
+
+            VALIDASI_GURU =
+                VALIDASI_ROWS.filter(row => {
+
+                    const rowGuruId =
+                        String(
+                            row.guru_id ||
+                            row.GURU_ID ||
+                            ""
+                        )
+                        .trim()
+                        .toLowerCase();
+
+                    return rowGuruId === guruId;
+
+                });
+
+        }
+
+
+        /*
+         * Karena endpoint lama VALIDASI_DOKUMEN
+         * belum mengirim guru_id,
+         * gunakan nama guru sebagai fallback.
+         */
+
+        if(
+            !VALIDASI_GURU.length &&
+            nama
+        ){
+
+            VALIDASI_GURU =
+                VALIDASI_ROWS.filter(row =>
+
+                    String(
+                        row.guru ||
+                        ""
+                    )
+                    .trim()
+                    .toLowerCase()
+                    === nama
+
+                );
+
+        }
+
+
+        /*
+         * Jika API mengembalikan data tetapi
+         * tidak ada kecocokan, JANGAN tampilkan
+         * data guru lain.
+         */
+
+        renderAllGuruData();
+
+    }
+    catch(error){
+
+        console.error(
+            "Validasi:",
+            error
+        );
+
+
+        VALIDASI_GURU = [];
+
+        renderAllGuruData();
+
+        showToast(
+            "Data validasi belum dapat dimuat.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER SEMUA
+========================================================= */
+
+function renderAllGuruData(){
+
+    renderAdministrasi();
+
+    renderValidasi();
+
+    updateStatistics();
+
+    renderDeadline();
+
+    renderActivity();
+
+    renderCharts();
+
+}
+
+
+/* =========================================================
+   STATISTIK
+========================================================= */
+
+function updateStatistics(){
+
+    const total =
+        VALIDASI_GURU.length;
+
+
+    const valid =
+        VALIDASI_GURU.filter(
+            x => x.status === "valid"
+        ).length;
+
+
+    const waiting =
+        VALIDASI_GURU.filter(
+            x => x.status === "menunggu"
+        ).length;
+
+
+    const revision =
+        VALIDASI_GURU.filter(
+            x => x.status === "revisi"
+        ).length;
+
+
+    const incomplete =
+        VALIDASI_GURU.filter(
+            x => x.status === "belum"
+        ).length;
+
+
+    /*
+     * Kelengkapan dihitung dari
+     * dokumen yang tervalidasi terhadap
+     * seluruh dokumen yang ada.
+     */
+
+    const percent =
+        total
+        ? (valid / total) * 100
+        : 0;
+
+
+    const p =
+        Math.round(
+            percent * 10
+        ) / 10;
+
+
+    txt(
+        "statTotal",
+        total
+    );
+
+    txt(
+        "statValid",
+        valid
+    );
+
+    txt(
+        "statWaiting",
+        waiting
+    );
+
+    txt(
+        "statRevision",
+        revision
+    );
+
+    txt(
+        "statPercent",
+        p + "%"
+    );
+
+
+    txt(
+        "circlePercent",
+        p + "%"
+    );
+
+
+    txt(
+        "rekapValid",
+        valid
+    );
+
+    txt(
+        "rekapWaiting",
+        waiting
+    );
+
+    txt(
+        "rekapRevision",
+        revision
+    );
+
+    txt(
+        "rekapPercent",
+        p + "%"
+    );
+
+
+    txt(
+        "badgeAdministrasi",
+        total
+    );
+
+    txt(
+        "badgeRevisi",
+        revision
+    );
+
+
+    const circle =
+        document.getElementById(
+            "progressCircle"
+        );
+
+
+    if(circle){
+
+        const deg =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    p
+                )
+            ) * 3.6;
+
+
+        circle.style.background =
+            `conic-gradient(
+                #16a34a 0deg ${deg}deg,
+                #e2e8f0 ${deg}deg 360deg
+            )`;
+
+    }
+
+
+    if(total === 0){
+
+        txt(
+            "progressText",
+            "Belum Ada Data"
+        );
+
+        txt(
+            "progressDescription",
+            "Belum terdapat data administrasi yang terkait dengan akun Anda."
+        );
+
+    }
+    else if(revision > 0){
+
+        txt(
+            "progressText",
+            "Perlu Perhatian"
+        );
+
+        txt(
+            "progressDescription",
+            "Terdapat " +
+            revision +
+            " dokumen yang perlu direvisi."
+        );
+
+    }
+    else if(waiting > 0){
+
+        txt(
+            "progressText",
+            "Menunggu Validasi"
+        );
+
+        txt(
+            "progressDescription",
+            "Terdapat " +
+            waiting +
+            " dokumen yang sedang menunggu validasi."
+        );
+
+    }
+    else{
+
+        txt(
+            "progressText",
+            "Administrasi Tervalidasi"
+        );
+
+        txt(
+            "progressDescription",
+            "Data administrasi Anda telah tercatat dalam sistem."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER ADMINISTRASI
+========================================================= */
+
+function renderAdministrasi(){
+
+    const body =
+        document.getElementById(
+            "administrasiBody"
+        );
+
+
+    if(!body) return;
+
+
+    if(!VALIDASI_GURU.length){
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td colspan="6">
+
+                    <div class="empty">
+
+                        <i class="fa-solid fa-folder-open"></i>
+
+                        <h3>
+                            Belum Ada Data Administrasi
+                        </h3>
+
+                        <p>
+                            Belum ada dokumen administrasi
+                            yang tercatat untuk akun Anda.
+                        </p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    body.innerHTML =
+        VALIDASI_GURU.map(
+            (row,index) => `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${esc(row.dokumen || "-")}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${esc(row.tanggal || "-")}
+                    </td>
+
+                    <td>
+                        ${statusHTML(row.status)}
+                    </td>
+
+                    <td>
+                        ${esc(row.catatan || "-")}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-light"
+                            onclick="showDetail(${index})">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            Lihat
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   FILTER ADMINISTRASI
+========================================================= */
+
+function filterAdministrasi(){
+
+    const q =
+        (
+            document.getElementById(
+                "searchAdmin"
+            )?.value ||
+            ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    const s =
+        document.getElementById(
+            "filterAdminStatus"
+        )?.value ||
+        "";
+
+
+    const body =
+        document.getElementById(
+            "administrasiBody"
+        );
+
+
+    if(!body) return;
+
+
+    const rows =
+        VALIDASI_GURU.filter(row =>
+
+            (
+                !q ||
+                String(row.dokumen)
+                    .toLowerCase()
+                    .includes(q) ||
+                String(row.catatan)
+                    .toLowerCase()
+                    .includes(q)
+            )
+
+            &&
+
+            (
+                !s ||
+                row.status === s
+            )
+
+        );
+
+
+    if(!rows.length){
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td colspan="6">
+
+                    <div class="empty">
+
+                        <i class="fa-solid fa-filter-circle-xmark"></i>
+
+                        <h3>
+                            Data Tidak Ditemukan
+                        </h3>
+
+                        <p>
+                            Tidak ada data yang sesuai filter.
+                        </p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    body.innerHTML =
+        rows.map(
+            (row,index) => `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${esc(row.dokumen || "-")}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${esc(row.tanggal || "-")}
+                    </td>
+
+                    <td>
+                        ${statusHTML(row.status)}
+                    </td>
+
+                    <td>
+                        ${esc(row.catatan || "-")}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-light"
+                            onclick='showDetailByObject(${JSON.stringify(row)})'>
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            Lihat
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   RENDER VALIDASI
+========================================================= */
+
+function renderValidasi(){
+
+    const body =
+        document.getElementById(
+            "validasiBody"
+        );
+
+
+    if(!body) return;
+
+
+    if(!VALIDASI_GURU.length){
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td colspan="6">
+
+                    <div class="empty">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <h3>
+                            Belum Ada Data Validasi
+                        </h3>
+
+                        <p>
+                            Belum ada dokumen validasi
+                            yang terkait dengan akun Anda.
+                        </p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    body.innerHTML =
+        VALIDASI_GURU.map(
+            (row,index) => `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${esc(row.dokumen || "-")}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${esc(row.tanggal || "-")}
+                    </td>
+
+                    <td>
+                        ${statusHTML(row.status)}
+                    </td>
+
+                    <td>
+                        ${esc(row.catatan || "-")}
+                    </td>
+
+                    <td>
+                        ${esc(row.validator || "-")}
+                    </td>
+
+                </tr>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   DEADLINE
+========================================================= */
+
+function renderDeadline(){
+
+    const container =
+        document.getElementById(
+            "deadlineList"
+        );
+
+
+    if(!container) return;
+
+
+    const data =
+        VALIDASI_GURU
+            .filter(row =>
+                row.deadline
+            );
+
+
+    if(!data.length){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <h3>
+                    Belum Ada Data
+                </h3>
+
+                <p>
+                    Belum tersedia deadline administrasi
+                    pada data Anda.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        data.map(
+            row => `
+
+                <div class="deadline-item">
+
+                    <div class="deadline-icon">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                    </div>
+
+                    <div class="deadline-info">
+
+                        <strong>
+                            ${esc(row.dokumen)}
+                        </strong>
+
+                        <span>
+                            Deadline:
+                            ${esc(row.deadline)}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   AKTIVITAS
+========================================================= */
+
+function renderActivity(){
+
+    const container =
+        document.getElementById(
+            "activityList"
+        );
+
+
+    if(!container) return;
+
+
+    const data =
+        VALIDASI_GURU
+            .filter(row =>
+                row.tanggal ||
+                row.statusOriginal ||
+                row.catatan
+            )
+            .slice()
+            .sort(
+                (a,b) =>
+                    String(b.tanggal)
+                        .localeCompare(
+                            String(a.tanggal)
+                        )
+            )
+            .slice(0,5);
+
+
+    if(!data.length){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-regular fa-clock"></i>
+
+                <h3>
+                    Belum Ada Aktivitas
+                </h3>
+
+                <p>
+                    Belum ada aktivitas administrasi
+                    tercatat.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        data.map(
+            row => `
+
+                <div class="activity-item">
+
+                    <div class="activity-dot">
+
+                        <i class="fa-solid fa-file-circle-check"></i>
+
+                    </div>
+
+                    <div class="activity-info">
+
+                        <strong>
+                            ${esc(row.dokumen || "Administrasi")}
+                        </strong>
+
+                        <span>
+                            ${esc(row.statusOriginal || "-")}
+                            •
+                            ${esc(row.tanggal || "-")}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   CHART
+========================================================= */
+
+function renderCharts(){
+
+    const valid =
+        VALIDASI_GURU.filter(
+            x => x.status === "valid"
+        ).length;
+
+
+    const waiting =
+        VALIDASI_GURU.filter(
+            x => x.status === "menunggu"
+        ).length;
+
+
+    const revision =
+        VALIDASI_GURU.filter(
+            x => x.status === "revisi"
+        ).length;
+
+
+    const incomplete =
+        VALIDASI_GURU.filter(
+            x => x.status === "belum"
+        ).length;
+
+
+    const canvas =
+        document.getElementById(
+            "rekapChart"
+        );
+
+
+    if(canvas){
+
+        if(rekapChart){
+            rekapChart.destroy();
+        }
+
+
+        rekapChart =
+            new Chart(
+                canvas,
+                {
+
+                    type:"doughnut",
+
+                    data:{
+
+                        labels:[
+                            "Tervalidasi",
+                            "Menunggu",
+                            "Revisi",
+                            "Belum Lengkap"
+                        ],
+
+                        datasets:[
+
+                            {
+
+                                data:[
+                                    valid,
+                                    waiting,
+                                    revision,
+                                    incomplete
+                                ]
+
+                            }
+
+                        ]
+
+                    },
+
+                    options:{
+
+                        responsive:true,
+
+                        maintainAspectRatio:false,
+
+                        plugins:{
+
+                            legend:{
+                                position:"bottom"
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    const trendCanvas =
+        document.getElementById(
+            "trendGuruChart"
+        );
+
+
+    if(trendCanvas){
+
+        if(trendChart){
+            trendChart.destroy();
+        }
+
+
+        /*
+         * Tidak menggunakan angka dummy.
+         * Karena data historis bulanan belum
+         * tersedia pada endpoint sekarang,
+         * grafik diberi kondisi kosong.
+         */
+
+        trendChart =
+            new Chart(
+                trendCanvas,
+                {
+
+                    type:"line",
+
+                    data:{
+
+                        labels:[],
+
+                        datasets:[
+
+                            {
+
+                                label:
+                                "Kelengkapan Administrasi",
+
+                                data:[]
+
+                            }
+
+                        ]
+
+                    },
+
+                    options:{
+
+                        responsive:true,
+
+                        maintainAspectRatio:false,
+
+                        plugins:{
+
+                            legend:{
+                                display:false
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   DETAIL
+========================================================= */
+
+function showDetail(index){
+
+    const row =
+        VALIDASI_GURU[index];
+
+    if(row){
+
+        showDetailByObject(row);
+
+    }
+
+}
+
+
+function showDetailByObject(row){
+
+    const content =
+        document.getElementById(
+            "detailContent"
+        );
+
+
+    if(!content) return;
+
+
+    content.innerHTML = `
+
+        <div class="profile-grid">
+
+            <div class="profile-item">
+
+                <label>
+                    Dokumen
+                </label>
+
+                <strong>
+                    ${esc(row.dokumen || "-")}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Tanggal
+                </label>
+
+                <strong>
+                    ${esc(row.tanggal || "-")}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Status
+                </label>
+
+                <strong>
+                    ${statusHTML(row.status)}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Validator
+                </label>
+
+                <strong>
+                    ${esc(row.validator || "-")}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div style="margin-top:18px;">
+
+            <label style="
+                display:block;
+                font-size:11px;
+                color:#64748b;
+                margin-bottom:7px;
+            ">
+                Catatan
+            </label>
+
+            <div style="
+                padding:15px;
+                border:1px solid #e2e8f0;
+                border-radius:12px;
+                background:#f8fafc;
+                font-size:13px;
+                line-height:1.6;
+            ">
+
+                ${esc(row.catatan || "Tidak ada catatan.")}
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById(
+            "detailModal"
+        )
+        .classList.add("show");
+
+}
+
+
+function closeDetail(){
+
+    document
+        .getElementById(
+            "detailModal"
+        )
+        .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+function submitUpload(){
+
+    const jenis =
+        document.getElementById(
+            "uploadJenis"
+        )?.value;
+
+
+    const file =
+        document.getElementById(
+            "uploadFile"
+        )?.files?.[0];
+
+
+    if(!jenis){
+
+        showToast(
+            "Silakan pilih jenis administrasi.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(!file){
+
+        showToast(
+            "Silakan pilih file dokumen.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Endpoint upload belum terdapat pada
+     * Apps Script terakhir.
+     *
+     * Tidak mengklaim file sudah tersimpan.
+     */
+
+    showToast(
+        "Form upload siap. Endpoint Google Drive belum diaktifkan pada backend.",
+        "error"
+    );
+
+}
+
+
+/* =========================================================
+   GOOGLE DRIVE
+========================================================= */
+
+async function loadDriveFiles(){
+
+    const container =
+        document.getElementById(
+            "fileList"
+        );
+
+
+    if(!container) return;
+
+
+    container.innerHTML = `
+
+        <div class="empty">
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            <h3>
+                Memuat File
+            </h3>
+
+            <p>
+                Mengambil data Google Drive...
+            </p>
+
+        </div>
+
+    `;
+
+
+    try{
+
+        /*
+         * Endpoint drive yang tersedia saat ini
+         * mengembalikan folder root.
+         *
+         * Folder guru spesifik belum diberikan
+         * pada session endpoint.
+         */
+
+        const result =
+            await api(
+                "drive"
+            );
+
+
+        const files =
+            result.files || [];
+
+
+        if(!files.length){
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    <i class="fa-solid fa-folder-open"></i>
+
+                    <h3>
+                        Belum Ada File
+                    </h3>
+
+                    <p>
+                        Tidak ada file yang ditemukan.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            files.map(
+                file => `
+
+                    <div class="deadline-item">
+
+                        <div class="deadline-icon">
+
+                            <i class="fa-solid fa-file"></i>
+
+                        </div>
+
+                        <div class="deadline-info">
+
+                            <strong>
+                                ${esc(file.name)}
+                            </strong>
+
+                            <span>
+                                ${esc(file.mime_type || "")}
+                            </span>
+
+                        </div>
+
+                        <a
+                            href="${esc(file.url)}"
+                            target="_blank"
+                            class="btn btn-light">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            Buka
+
+                        </a>
+
+                    </div>
+
+                `
+            )
+            .join("");
+
+    }
+    catch(error){
+
+        console.error(error);
+
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <h3>
+                    Gagal Memuat File
+                </h3>
+
+                <p>
+                    ${esc(error.message)}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   NAVIGASI
+========================================================= */
+
+function showSection(section, clicked){
+
+    document
+        .querySelectorAll(
+            ".section"
+        )
+        .forEach(
+            el =>
+                el.classList.remove(
+                    "active"
+                )
+        );
+
+
+    const target =
+        document.getElementById(
+            "section-" +
+            section
+        );
+
+
+    if(target){
+
+        target.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(
+            ".menu-item"
+        )
+        .forEach(
+            el =>
+                el.classList.remove(
+                    "active"
+                )
+        );
+
+
+    if(clicked){
+
+        clicked.classList.add(
+            "active"
+        );
+
+    }
+    else{
+
+        const menu =
+            document.querySelector(
+                `.menu-item[onclick*="'${section}'"]`
+            );
+
+        if(menu){
+
+            menu.classList.add(
+                "active"
+            );
+
+        }
+
+    }
+
+
+    const titles = {
+
+        dashboard:[
+            "Dashboard Guru",
+            "Pusat administrasi pribadi guru"
+        ],
+
+        administrasi:[
+            "Administrasi Saya",
+            "Daftar administrasi pribadi"
+        ],
+
+        upload:[
+            "Upload Dokumen",
+            "Kirim administrasi untuk validasi"
+        ],
+
+        validasi:[
+            "Status Validasi",
+            "Pantau hasil pemeriksaan dokumen"
+        ],
+
+        rekap:[
+            "Rekap Administrasi",
+            "Ringkasan administrasi Anda"
+        ],
+
+        pembinaan:[
+            "Catatan Pembinaan",
+            "Catatan pembinaan dari Kepala Sekolah"
+        ],
+
+        supervisi:[
+            "Jadwal Supervisi",
+            "Jadwal supervisi Anda"
+        ],
+
+        file:[
+            "File Saya",
+            "Dokumen yang tersimpan di Google Drive"
+        ],
+
+        profil:[
+            "Profil Saya",
+            "Informasi akun dan data kepegawaian"
+        ]
+
+    };
+
+
+    if(titles[section]){
+
+        txt(
+            "pageTitle",
+            titles[section][0]
+        );
+
+        txt(
+            "pageSubtitle",
+            titles[section][1]
+        );
+
+    }
+
+
+    if(section === "file"){
+
+        loadDriveFiles();
+
+    }
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+function toggleSidebar(){
+
+    document
+        .getElementById(
+            "sidebar"
+        )
+        .classList.toggle(
+            "open"
+        );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(message,type=""){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    if(!toast) return;
+
+
+    toast.textContent =
+        message;
+
+
+    toast.className =
+        "toast show " +
+        type;
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3500
+        );
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout(){
+
+    const yakin =
+        confirm(
+            "Apakah Anda yakin ingin keluar dari SIMPEL-KS?"
+        );
+
+
+    if(!yakin){
+
+        return;
+
+    }
+
+
+    /*
+     * Hapus beberapa kemungkinan key
+     * session tanpa mengganggu data lain.
+     */
+
+    const keys = [
+
+        "simpeLKS_user",
+        "simpelKS_user",
+        "SIMPEL_KS_USER",
+        "currentUser",
+        "CURRENT_USER",
+        "user",
+        "userData",
+        "sessionUser",
+        "loginUser"
+
+    ];
+
+
+    keys.forEach(
+        key => {
+
+            try{
+
+                localStorage.removeItem(
+                    key
+                );
+
+            }
+            catch(error){}
+
+        }
+    );
+
+
+    window.location.replace(
+        "login.html"
+    );
+
+}
+
+
+/* =========================================================
+   MODAL CLICK OUTSIDE
+========================================================= */
+
+document
+    .getElementById(
+        "detailModal"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target === this
+            ){
+
+                closeDetail();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeDetail();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+async function initializeGuru(){
+
+    /*
+     * WAJIB LOGIN
+     */
+
+    if(!checkLogin()){
+
+        return;
+
+    }
+
+
+    renderProfile();
+
+
+    try{
+
+        await Promise.all([
+
+            loadDataGuru(),
+
+            loadValidasi()
+
+        ]);
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+    }
+
+
+    const overlay =
+        document.getElementById(
+            "loadingOverlay"
+        );
+
+
+    if(overlay){
+
+        overlay.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializeGuru
+);
+
+</script>
+
+</body>
+</html>
