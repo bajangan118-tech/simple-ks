@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SIMPEL-KS | Guru</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="theme-color"
+      content="#2563eb">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>SIMPEL-KS | Dashboard Guru</title>
+
+
+<!-- =========================================================
+     FONT
+========================================================= -->
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+
+<!-- =========================================================
+     FONT AWESOME
+========================================================= -->
 
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+
+<!-- =========================================================
+     CHART JS
+========================================================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!-- =========================================================
+     STYLE
+========================================================= -->
 
 <style>
 
@@ -25,1297 +56,2324 @@
 }
 
 :root{
+
     --primary:#2563eb;
     --primary-dark:#1d4ed8;
-    --sidebar:#0f172a;
-    --sidebar-2:#111c33;
-    --bg:#f1f5f9;
-    --card:#ffffff;
-    --text:#0f172a;
-    --muted:#64748b;
-    --border:#e2e8f0;
+    --primary-light:#eff6ff;
 
     --success:#16a34a;
-    --success-bg:#dcfce7;
+    --success-light:#f0fdf4;
 
     --warning:#d97706;
-    --warning-bg:#fef3c7;
+    --warning-light:#fffbeb;
 
     --danger:#dc2626;
-    --danger-bg:#fee2e2;
+    --danger-light:#fef2f2;
 
-    --info:#0284c7;
-    --info-bg:#e0f2fe;
+    --purple:#7c3aed;
+    --purple-light:#f5f3ff;
 
-    --shadow:0 10px 30px rgba(15,23,42,.06);
+    --dark:#0f172a;
+    --text:#334155;
+    --muted:#64748b;
+
+    --border:#e2e8f0;
+
+    --bg:#f8fafc;
+    --white:#ffffff;
+
+    --sidebar:260px;
+
+    --shadow:
+        0 8px 30px rgba(15,23,42,.06);
+
+    --radius:16px;
+
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    font-family:'Inter',sans-serif;
+
+    font-family:
+        "Inter",
+        Arial,
+        sans-serif;
+
     background:var(--bg);
+
     color:var(--text);
+
     min-height:100vh;
-}
-
-/* =========================================================
-   APP
-========================================================= */
-
-.app{
-    display:flex;
-    min-height:100vh;
-}
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-.sidebar{
-    width:280px;
-    background:var(--sidebar);
-    color:white;
-    position:fixed;
-    left:0;
-    top:0;
-    bottom:0;
-    z-index:1000;
-    display:flex;
-    flex-direction:column;
-    transition:.3s;
-}
-
-.brand{
-    height:120px;
-    padding:25px 22px;
-    border-bottom:1px solid rgba(255,255,255,.08);
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.brand-icon{
-    width:58px;
-    height:58px;
-    background:var(--primary);
-    border-radius:15px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:27px;
-}
-
-.brand-text h1{
-    font-size:22px;
-    font-weight:800;
-}
-
-.brand-text p{
-    margin-top:5px;
-    font-size:12px;
-    color:#94a3b8;
-}
-
-.profile-side{
-    padding:25px 20px;
-    border-bottom:1px solid rgba(255,255,255,.08);
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.avatar{
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    background:#dbeafe;
-    color:#1d4ed8;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    font-weight:800;
-    flex-shrink:0;
-}
-
-.profile-side h3{
-    font-size:15px;
-    margin-bottom:5px;
-}
-
-.profile-side p{
-    font-size:12px;
-    color:#94a3b8;
-}
-
-.sidebar-scroll{
-    flex:1;
-    overflow-y:auto;
-    padding:18px 10px;
-}
-
-.menu-title{
-    color:#64748b;
-    font-size:11px;
-    font-weight:800;
-    letter-spacing:1.4px;
-    padding:12px 12px 8px;
-}
-
-.menu-item{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:13px 14px;
-    border-radius:12px;
-    color:#cbd5e1;
-    cursor:pointer;
-    margin-bottom:4px;
-    font-size:14px;
-    font-weight:600;
-    transition:.2s;
-}
-
-.menu-item:hover{
-    background:rgba(255,255,255,.06);
-    color:white;
-}
-
-.menu-item.active{
-    background:var(--primary);
-    color:white;
-    box-shadow:0 8px 20px rgba(37,99,235,.25);
-}
-
-.menu-item i{
-    width:20px;
-    text-align:center;
-}
-
-.menu-badge{
-    margin-left:auto;
-    min-width:22px;
-    height:22px;
-    padding:0 6px;
-    border-radius:20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:10px;
-    background:#ef4444;
-    color:white;
-}
-
-.logout-area{
-    padding:15px;
-    border-top:1px solid rgba(255,255,255,.08);
-}
-
-.logout-btn{
-    width:100%;
-    border:0;
-    padding:14px;
-    border-radius:12px;
-    background:#1e293b;
-    color:#cbd5e1;
-    font-size:14px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.logout-btn:hover{
-    background:#334155;
-    color:white;
-}
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.main{
-    margin-left:280px;
-    width:calc(100% - 280px);
-    min-height:100vh;
-}
-
-.topbar{
-    height:120px;
-    background:white;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 35px;
-    position:sticky;
-    top:0;
-    z-index:900;
-}
-
-.top-title h2{
-    font-size:27px;
-    font-weight:800;
-}
-
-.top-title p{
-    margin-top:5px;
-    color:var(--muted);
-    font-size:14px;
-}
-
-.top-actions{
-    display:flex;
-    gap:10px;
-}
-
-.top-action{
-    width:48px;
-    height:48px;
-    border:1px solid var(--border);
-    background:white;
-    border-radius:13px;
-    color:#64748b;
-    cursor:pointer;
-    font-size:17px;
-    position:relative;
-}
-
-.top-action:hover{
-    color:var(--primary);
-    border-color:#bfdbfe;
-}
-
-.notification-dot{
-    position:absolute;
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#ef4444;
-    top:9px;
-    right:10px;
-}
-
-/* =========================================================
-   CONTENT
-========================================================= */
-
-.content{
-    padding:30px 35px 45px;
-}
-
-.section{
-    display:none;
-}
-
-.section.active{
-    display:block;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-    background:linear-gradient(135deg,#2563eb,#0ea5e9);
-    color:white;
-    border-radius:22px;
-    padding:30px;
-    margin-bottom:25px;
-    position:relative;
-    overflow:hidden;
-}
-
-.hero:after{
-    content:"";
-    position:absolute;
-    width:260px;
-    height:260px;
-    border-radius:50%;
-    right:-90px;
-    top:-100px;
-    background:rgba(255,255,255,.12);
-}
-
-.hero h1{
-    font-size:26px;
-    font-weight:800;
-    position:relative;
-    z-index:2;
-}
-
-.hero p{
-    margin-top:8px;
-    opacity:.9;
-    position:relative;
-    z-index:2;
-}
-
-/* =========================================================
-   CARDS
-========================================================= */
-
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:16px;
-    margin-bottom:25px;
-}
-
-.stat-card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:20px;
-    box-shadow:var(--shadow);
-}
-
-.stat-icon{
-    width:42px;
-    height:42px;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:14px;
-}
-
-.stat-card h3{
-    font-size:25px;
-    margin-bottom:5px;
-}
-
-.stat-card p{
-    color:var(--muted);
-    font-size:12px;
-    font-weight:600;
-}
-
-.icon-blue{
-    background:#dbeafe;
-    color:#2563eb;
-}
-
-.icon-green{
-    background:#dcfce7;
-    color:#16a34a;
-}
-
-.icon-orange{
-    background:#ffedd5;
-    color:#ea580c;
-}
-
-.icon-red{
-    background:#fee2e2;
-    color:#dc2626;
-}
-
-.icon-cyan{
-    background:#cffafe;
-    color:#0891b2;
-}
-
-/* =========================================================
-   GRID
-========================================================= */
-
-.grid-2{
-    display:grid;
-    grid-template-columns:1.5fr 1fr;
-    gap:22px;
-    margin-bottom:25px;
-}
-
-.card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:20px;
-    box-shadow:var(--shadow);
-    overflow:hidden;
-}
-
-.card-header{
-    padding:20px 22px;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.card-header h3{
-    font-size:17px;
-}
-
-.card-header p{
-    font-size:12px;
-    color:var(--muted);
-    margin-top:4px;
-}
-
-.card-body{
-    padding:22px;
-}
-
-/* =========================================================
-   PROGRESS
-========================================================= */
-
-.progress-box{
-    display:flex;
-    align-items:center;
-    gap:22px;
-}
-
-.circle{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:conic-gradient(
-        var(--success) 0deg,
-        var(--success) 0deg,
-        #e2e8f0 0deg,
-        #e2e8f0 360deg
-    );
-    position:relative;
-    flex-shrink:0;
-}
-
-.circle:after{
-    content:"";
-    position:absolute;
-    width:88px;
-    height:88px;
-    background:white;
-    border-radius:50%;
-}
-
-.circle span{
-    position:relative;
-    z-index:2;
-    font-size:20px;
-    font-weight:800;
-}
-
-.progress-info h4{
-    font-size:20px;
-    margin-bottom:7px;
-}
-
-.progress-info p{
-    font-size:13px;
-    color:var(--muted);
-    line-height:1.6;
-}
-
-/* =========================================================
-   QUICK ACTION
-========================================================= */
-
-.quick-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-}
-
-.quick-btn{
-    border:1px solid var(--border);
-    background:white;
-    padding:16px;
-    border-radius:14px;
-    text-align:left;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.quick-btn:hover{
-    border-color:#93c5fd;
-    background:#eff6ff;
-}
-
-.quick-btn i{
-    color:var(--primary);
-    font-size:20px;
-    margin-bottom:9px;
-}
-
-.quick-btn strong{
-    display:block;
-    font-size:13px;
-}
-
-.quick-btn span{
-    display:block;
-    color:var(--muted);
-    font-size:11px;
-    margin-top:4px;
-}
-
-/* =========================================================
-   TABLE
-========================================================= */
-
-.table-card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-}
-
-.table-wrap{
-    width:100%;
-    overflow-x:auto;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-thead{
-    background:#f8fafc;
-}
-
-th{
-    text-align:left;
-    padding:14px 16px;
-    color:#64748b;
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.4px;
-    white-space:nowrap;
-}
-
-td{
-    padding:15px 16px;
-    border-top:1px solid #f1f5f9;
-    font-size:13px;
-    vertical-align:middle;
-}
-
-.empty{
-    padding:60px 20px;
-    text-align:center;
-    color:#94a3b8;
-}
-
-.empty i{
-    font-size:38px;
-    margin-bottom:15px;
-    color:#cbd5e1;
-}
-
-.empty h3{
-    color:#475569;
-    font-size:17px;
-    margin-bottom:5px;
-}
-
-.empty p{
-    font-size:13px;
-}
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    padding:6px 10px;
-    border-radius:20px;
-    font-size:10px;
-    font-weight:800;
-    white-space:nowrap;
-}
-
-.status.valid{
-    background:var(--success-bg);
-    color:#15803d;
-}
-
-.status.waiting{
-    background:var(--warning-bg);
-    color:#b45309;
-}
-
-.status.revision{
-    background:var(--danger-bg);
-    color:#b91c1c;
-}
-
-.status.incomplete{
-    background:#f1f5f9;
-    color:#64748b;
-}
-
-/* =========================================================
-   BUTTON
-========================================================= */
-
-.btn{
-    border:0;
-    border-radius:10px;
-    padding:10px 14px;
-    cursor:pointer;
-    font-size:12px;
-    font-weight:700;
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-}
-
-.btn-primary{
-    background:var(--primary);
-    color:white;
-}
-
-.btn-primary:hover{
-    background:var(--primary-dark);
-}
-
-.btn-light{
-    background:#f1f5f9;
-    color:#475569;
-}
-
-.btn-danger{
-    background:#fee2e2;
-    color:#b91c1c;
-}
-
-.btn-success{
-    background:#dcfce7;
-    color:#15803d;
-}
-
-/* =========================================================
-   FILTER
-========================================================= */
-
-.filters{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.input,
-.select,
-.textarea{
-    width:100%;
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:11px 13px;
-    outline:none;
-    background:white;
-    color:var(--text);
-    font-family:inherit;
-    font-size:13px;
-}
-
-.input:focus,
-.select:focus,
-.textarea:focus{
-    border-color:#60a5fa;
-    box-shadow:0 0 0 3px rgba(37,99,235,.08);
-}
-
-.filter-control{
-    min-width:180px;
-}
 
-/* =========================================================
-   PROFILE
-========================================================= */
-
-.profile-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-}
-
-.profile-item{
-    padding:16px;
-    border:1px solid var(--border);
-    border-radius:13px;
-}
-
-.profile-item label{
-    display:block;
-    font-size:11px;
-    color:var(--muted);
-    margin-bottom:7px;
-}
-
-.profile-item strong{
-    font-size:14px;
-}
-
-/* =========================================================
-   DEADLINE
-========================================================= */
-
-.deadline-list{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.deadline-item{
-    padding:14px;
-    border:1px solid var(--border);
-    border-radius:13px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.deadline-icon{
-    width:38px;
-    height:38px;
-    border-radius:10px;
-    background:#fef3c7;
-    color:#d97706;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.deadline-info{
-    flex:1;
-}
-
-.deadline-info strong{
-    display:block;
-    font-size:13px;
-}
-
-.deadline-info span{
-    color:var(--muted);
-    font-size:11px;
-}
-
-/* =========================================================
-   ACTIVITY
-========================================================= */
-
-.activity{
-    display:flex;
-    flex-direction:column;
-}
-
-.activity-item{
-    display:flex;
-    gap:12px;
-    padding:14px 0;
-    border-bottom:1px solid #f1f5f9;
-}
-
-.activity-item:last-child{
-    border-bottom:0;
-}
-
-.activity-dot{
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#dbeafe;
-    color:#2563eb;
-    flex-shrink:0;
-}
-
-.activity-info strong{
-    display:block;
-    font-size:12px;
-}
-
-.activity-info span{
-    color:var(--muted);
-    font-size:11px;
-    display:block;
-    margin-top:4px;
-}
-
-/* =========================================================
-   UPLOAD
-========================================================= */
-
-.upload-box{
-    border:2px dashed #cbd5e1;
-    border-radius:18px;
-    padding:40px;
-    text-align:center;
-    background:#f8fafc;
-}
-
-.upload-box i{
-    font-size:45px;
-    color:#94a3b8;
-    margin-bottom:15px;
-}
-
-.upload-box h3{
-    margin-bottom:7px;
-}
-
-.upload-box p{
-    color:var(--muted);
-    font-size:13px;
-    margin-bottom:18px;
-}
-
-.form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-}
-
-.form-group{
-    margin-bottom:18px;
-}
-
-.form-group label{
-    display:block;
-    font-size:12px;
-    font-weight:700;
-    margin-bottom:7px;
 }
 
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(15,23,42,.55);
-    z-index:3000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    width:100%;
-    max-width:650px;
-    max-height:90vh;
-    overflow-y:auto;
-    background:white;
-    border-radius:20px;
-    box-shadow:0 30px 80px rgba(0,0,0,.2);
-}
-
-.modal-header{
-    padding:20px 22px;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.modal-header h3{
-    font-size:18px;
-}
-
-.modal-close{
-    width:35px;
-    height:35px;
-    border:0;
-    background:#f1f5f9;
-    border-radius:9px;
-    cursor:pointer;
-}
-
-.modal-body{
-    padding:22px;
-}
-
-.modal-footer{
-    padding:16px 22px;
-    border-top:1px solid var(--border);
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-}
 
 /* =========================================================
    LOADING
 ========================================================= */
 
 .loading-overlay{
+
     position:fixed;
+
     inset:0;
-    background:rgba(255,255,255,.94);
-    z-index:5000;
+
+    background:
+        rgba(255,255,255,.96);
+
+    z-index:99999;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
 }
 
 .loading-box{
+
     text-align:center;
+
 }
 
-.loading-box i{
-    font-size:40px;
-    color:var(--primary);
-    margin-bottom:15px;
+.loading-spinner{
+
+    width:52px;
+    height:52px;
+
+    border:4px solid #dbeafe;
+
+    border-top-color:
+        var(--primary);
+
+    border-radius:50%;
+
+    animation:
+        spin .8s linear infinite;
+
+    margin:auto auto 18px;
+
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
 }
 
 .loading-box h3{
-    margin-bottom:5px;
+
+    font-size:16px;
+
+    color:var(--dark);
+
+    margin-bottom:6px;
+
 }
 
 .loading-box p{
-    color:var(--muted);
+
     font-size:13px;
+
+    color:var(--muted);
+
 }
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+
+    position:fixed;
+
+    left:0;
+    top:0;
+    bottom:0;
+
+    width:var(--sidebar);
+
+    background:#fff;
+
+    border-right:
+        1px solid var(--border);
+
+    z-index:1000;
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:.25s ease;
+
+}
+
+.brand{
+
+    height:74px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:
+        0 20px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+.brand-icon{
+
+    width:40px;
+    height:40px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:18px;
+
+    box-shadow:
+        0 8px 18px
+        rgba(37,99,235,.25);
+
+}
+
+.brand-text strong{
+
+    display:block;
+
+    font-size:15px;
+
+    color:var(--dark);
+
+    font-weight:800;
+
+}
+
+.brand-text span{
+
+    display:block;
+
+    font-size:10px;
+
+    color:var(--muted);
+
+    margin-top:2px;
+
+}
+
+.sidebar-profile{
+
+    padding:18px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+.profile-mini{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+}
+
+.avatar{
+
+    width:42px;
+    height:42px;
+
+    flex:none;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #60a5fa
+        );
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:13px;
+
+    font-weight:800;
+
+}
+
+.profile-mini-info{
+
+    min-width:0;
+
+}
+
+.profile-mini-info strong{
+
+    display:block;
+
+    color:var(--dark);
+
+    font-size:12px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+.profile-mini-info span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:3px;
+
+}
+
+.sidebar-menu{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:14px 12px;
+
+}
+
+.menu-label{
+
+    font-size:10px;
+
+    font-weight:700;
+
+    color:#94a3b8;
+
+    text-transform:uppercase;
+
+    letter-spacing:.7px;
+
+    padding:
+        10px 12px 7px;
+
+}
+
+.menu-item{
+
+    width:100%;
+
+    border:0;
+
+    background:transparent;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:
+        11px 12px;
+
+    border-radius:10px;
+
+    color:#64748b;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    font-family:inherit;
+
+    font-size:12px;
+
+    margin-bottom:3px;
+
+    transition:.2s;
+
+}
+
+.menu-item i{
+
+    width:18px;
+
+    text-align:center;
+
+    font-size:14px;
+
+}
+
+.menu-item:hover{
+
+    background:#f8fafc;
+
+    color:var(--primary);
+
+}
+
+.menu-item.active{
+
+    background:
+        var(--primary-light);
+
+    color:var(--primary);
+
+    font-weight:700;
+
+}
+
+.menu-badge{
+
+    margin-left:auto;
+
+    min-width:20px;
+    height:20px;
+
+    padding:0 6px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:20px;
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+    font-size:9px;
+
+    font-weight:800;
+
+}
+
+.menu-badge.red{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+.sidebar-bottom{
+
+    padding:12px;
+
+    border-top:
+        1px solid var(--border);
+
+}
+
+.logout-btn{
+
+    width:100%;
+
+    border:0;
+
+    background:#fef2f2;
+
+    color:#dc2626;
+
+    padding:11px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-family:inherit;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+
+    margin-left:
+        var(--sidebar);
+
+    min-height:100vh;
+
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar{
+
+    height:74px;
+
+    background:#fff;
+
+    border-bottom:
+        1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+        0 28px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:500;
+
+}
+
+.topbar-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.mobile-menu{
+
+    display:none;
+
+    width:38px;
+    height:38px;
+
+    border:1px solid var(--border);
+
+    background:#fff;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    color:var(--dark);
+
+}
+
+.page-title h1{
+
+    font-size:18px;
+
+    color:var(--dark);
+
+    font-weight:800;
+
+}
+
+.page-title p{
+
+    font-size:11px;
+
+    color:var(--muted);
+
+    margin-top:3px;
+
+}
+
+.topbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.user-chip{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    padding:
+        6px 10px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:12px;
+
+    background:#fff;
+
+}
+
+.user-chip .avatar{
+
+    width:30px;
+    height:30px;
+
+    font-size:9px;
+
+}
+
+.user-chip-text strong{
+
+    display:block;
+
+    font-size:11px;
+
+    color:var(--dark);
+
+}
+
+.user-chip-text span{
+
+    display:block;
+
+    font-size:9px;
+
+    color:var(--muted);
+
+    margin-top:2px;
+
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content{
+
+    padding:26px;
+
+}
+
+.section{
+
+    display:none;
+
+}
+
+.section.active{
+
+    display:block;
+
+}
+
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
+.welcome{
+
+    background:
+        linear-gradient(
+            135deg,
+            #1d4ed8,
+            #2563eb 55%,
+            #4f46e5
+        );
+
+    color:#fff;
+
+    border-radius:
+        20px;
+
+    padding:26px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:22px;
+
+}
+
+.welcome::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:230px;
+    height:230px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.08);
+
+    right:-70px;
+
+    top:-100px;
+
+}
+
+.welcome h2{
+
+    font-size:22px;
+
+    margin-bottom:7px;
+
+}
+
+.welcome p{
+
+    font-size:12px;
+
+    color:#dbeafe;
+
+}
+
+.welcome small{
+
+    display:block;
+
+    margin-top:13px;
+
+    color:#bfdbfe;
+
+    font-size:10px;
+
+}
+
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.stat-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:16px;
+
+    margin-bottom:22px;
+
+}
+
+.stat-card{
+
+    background:#fff;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    padding:18px;
+
+    box-shadow:
+        var(--shadow);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.stat-icon{
+
+    width:44px;
+    height:44px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:16px;
+
+}
+
+.stat-icon.blue{
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+}
+
+.stat-icon.green{
+
+    background:#f0fdf4;
+
+    color:#16a34a;
+
+}
+
+.stat-icon.orange{
+
+    background:#fffbeb;
+
+    color:#d97706;
+
+}
+
+.stat-icon.red{
+
+    background:#fef2f2;
+
+    color:#dc2626;
+
+}
+
+.stat-info span{
+
+    display:block;
+
+    font-size:10px;
+
+    color:var(--muted);
+
+    margin-bottom:5px;
+
+}
+
+.stat-info strong{
+
+    display:block;
+
+    font-size:21px;
+
+    color:var(--dark);
+
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card{
+
+    background:#fff;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
+
+    margin-bottom:20px;
+
+}
+
+.card-header{
+
+    padding:
+        17px 20px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+}
+
+.card-header h3{
+
+    font-size:14px;
+
+    color:var(--dark);
+
+}
+
+.card-header p{
+
+    font-size:10px;
+
+    color:var(--muted);
+
+    margin-top:3px;
+
+}
+
+.card-body{
+
+    padding:20px;
+
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid-2{
+
+    display:grid;
+
+    grid-template-columns:
+        1.2fr .8fr;
+
+    gap:20px;
+
+}
+
+.grid-3{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:16px;
+
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn{
+
+    border:0;
+
+    border-radius:9px;
+
+    padding:
+        9px 13px;
+
+    cursor:pointer;
+
+    font-family:inherit;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    transition:.2s;
+
+    text-decoration:none;
+
+}
+
+.btn-primary{
+
+    background:
+        var(--primary);
+
+    color:#fff;
+
+}
+
+.btn-primary:hover{
+
+    background:
+        var(--primary-dark);
+
+}
+
+.btn-light{
+
+    background:#f8fafc;
+
+    color:#475569;
+
+    border:
+        1px solid var(--border);
+
+}
+
+.btn-light:hover{
+
+    background:#f1f5f9;
+
+}
+
+.btn-success{
+
+    background:#16a34a;
+
+    color:#fff;
+
+}
+
+.btn-danger{
+
+    background:#dc2626;
+
+    color:#fff;
+
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-wrap{
+
+    width:100%;
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:700px;
+
+}
+
+th{
+
+    text-align:left;
+
+    font-size:10px;
+
+    color:#64748b;
+
+    font-weight:700;
+
+    background:#f8fafc;
+
+    padding:
+        12px 14px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    white-space:nowrap;
+
+}
+
+td{
+
+    padding:
+        13px 14px;
+
+    border-bottom:
+        1px solid #f1f5f9;
+
+    font-size:11px;
+
+    color:#475569;
+
+    vertical-align:middle;
+
+}
+
+tbody tr:hover{
+
+    background:#fafcff;
+
+}
+
+td strong{
+
+    color:var(--dark);
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    padding:
+        5px 8px;
+
+    border-radius:20px;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+}
+
+.status.valid{
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+.status.revision{
+
+    background:#fee2e2;
+
+    color:#b91c1c;
+
+}
+
+.status.waiting{
+
+    background:#fef3c7;
+
+    color:#b45309;
+
+}
+
+.status.incomplete{
+
+    background:#e2e8f0;
+
+    color:#475569;
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.filter-bar{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:9px;
+
+}
+
+.input{
+
+    width:100%;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:9px;
+
+    background:#fff;
+
+    padding:
+        10px 12px;
+
+    font-family:inherit;
+
+    font-size:11px;
+
+    color:var(--dark);
+
+    outline:none;
+
+}
+
+.input:focus{
+
+    border-color:
+        #93c5fd;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.08);
+
+}
+
+.search-box{
+
+    position:relative;
+
+    min-width:220px;
+
+    flex:1;
+
+}
+
+.search-box i{
+
+    position:absolute;
+
+    left:12px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#94a3b8;
+
+    font-size:11px;
+
+}
+
+.search-box input{
+
+    padding-left:33px;
+
+}
+
+select.input{
+
+    width:auto;
+
+    min-width:150px;
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty{
+
+    padding:
+        38px 20px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+}
+
+.empty i{
+
+    font-size:30px;
+
+    color:#cbd5e1;
+
+    margin-bottom:13px;
+
+}
+
+.empty h3{
+
+    font-size:13px;
+
+    color:#475569;
+
+    margin-bottom:5px;
+
+}
+
+.empty p{
+
+    font-size:10px;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+.progress-circle{
+
+    width:125px;
+    height:125px;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            #16a34a 0deg,
+            #16a34a 0deg,
+            #e2e8f0 0deg,
+            #e2e8f0 360deg
+        );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    flex:none;
+
+}
+
+.progress-circle::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:9px;
+
+    background:#fff;
+
+    border-radius:50%;
+
+}
+
+.progress-circle span{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:20px;
+
+    font-weight:800;
+
+    color:var(--dark);
+
+}
+
+.progress-info h3{
+
+    font-size:16px;
+
+    color:var(--dark);
+
+    margin-bottom:7px;
+
+}
+
+.progress-info p{
+
+    font-size:11px;
+
+    color:var(--muted);
+
+    line-height:1.7;
+
+}
+
+
+/* =========================================================
+   DEADLINE
+========================================================= */
+
+.deadline-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:
+        12px 0;
+
+    border-bottom:
+        1px solid #f1f5f9;
+
+}
+
+.deadline-item:last-child{
+
+    border-bottom:0;
+
+}
+
+.deadline-icon{
+
+    width:36px;
+    height:36px;
+
+    border-radius:9px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex:none;
+
+}
+
+.deadline-info{
+
+    min-width:0;
+
+    flex:1;
+
+}
+
+.deadline-info strong{
+
+    display:block;
+
+    font-size:11px;
+
+    color:var(--dark);
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+.deadline-info span{
+
+    display:block;
+
+    font-size:9px;
+
+    color:var(--muted);
+
+    margin-top:4px;
+
+}
+
+
+/* =========================================================
+   ACTIVITY
+========================================================= */
+
+.activity-item{
+
+    display:flex;
+
+    gap:12px;
+
+    padding:
+        12px 0;
+
+    border-bottom:
+        1px solid #f1f5f9;
+
+}
+
+.activity-item:last-child{
+
+    border-bottom:0;
+
+}
+
+.activity-dot{
+
+    width:34px;
+    height:34px;
+
+    border-radius:50%;
+
+    background:#f0fdf4;
+
+    color:#16a34a;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex:none;
+
+    font-size:12px;
+
+}
+
+.activity-info strong{
+
+    display:block;
+
+    font-size:11px;
+
+    color:var(--dark);
+
+}
+
+.activity-info span{
+
+    display:block;
+
+    font-size:9px;
+
+    color:var(--muted);
+
+    margin-top:4px;
+
+}
+
+
+/* =========================================================
+   CHART
+========================================================= */
+
+.chart-box{
+
+    height:280px;
+
+    position:relative;
+
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:14px;
+
+}
+
+.profile-item{
+
+    border:
+        1px solid var(--border);
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    padding:14px;
+
+}
+
+.profile-item label{
+
+    display:block;
+
+    font-size:9px;
+
+    color:#64748b;
+
+    margin-bottom:6px;
+
+}
+
+.profile-item strong{
+
+    display:block;
+
+    color:var(--dark);
+
+    font-size:12px;
+
+    word-break:break-word;
+
+}
+
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+.upload-box{
+
+    border:
+        2px dashed #cbd5e1;
+
+    border-radius:16px;
+
+    padding:35px;
+
+    text-align:center;
+
+    background:#f8fafc;
+
+}
+
+.upload-box i{
+
+    font-size:35px;
+
+    color:#2563eb;
+
+    margin-bottom:14px;
+
+}
+
+.upload-box h3{
+
+    color:var(--dark);
+
+    font-size:15px;
+
+    margin-bottom:6px;
+
+}
+
+.upload-box p{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-bottom:20px;
+
+}
+
+.upload-box input[type=file]{
+
+    display:block;
+
+    width:100%;
+
+    max-width:450px;
+
+    margin:
+        0 auto 16px;
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(15,23,42,.55);
+
+    z-index:9990;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+}
+
+.modal.show{
+
+    display:flex;
+
+}
+
+.modal-box{
+
+    background:#fff;
+
+    width:100%;
+
+    max-width:620px;
+
+    max-height:
+        calc(100vh - 40px);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 25px 60px
+        rgba(15,23,42,.25);
+
+}
+
+.modal-header{
+
+    padding:
+        16px 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+.modal-header h3{
+
+    font-size:14px;
+
+    color:var(--dark);
+
+}
+
+.modal-close{
+
+    width:32px;
+    height:32px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:#f1f5f9;
+
+    color:#64748b;
+
+    cursor:pointer;
+
+}
+
+.modal-body{
+
+    padding:20px;
+
+    overflow-y:auto;
+
+    max-height:60vh;
+
+}
+
+.modal-footer{
+
+    padding:
+        13px 20px;
+
+    border-top:
+        1px solid var(--border);
+
+    display:flex;
+
+    justify-content:flex-end;
+
+}
+
 
 /* =========================================================
    TOAST
 ========================================================= */
 
 .toast{
+
     position:fixed;
-    right:25px;
-    bottom:25px;
-    z-index:6000;
+
+    right:22px;
+
+    bottom:22px;
+
+    max-width:360px;
+
+    padding:
+        12px 16px;
+
+    border-radius:10px;
+
     background:#0f172a;
-    color:white;
-    padding:14px 18px;
-    border-radius:12px;
-    box-shadow:0 15px 40px rgba(0,0,0,.2);
-    transform:translateY(120px);
+
+    color:#fff;
+
+    font-size:11px;
+
+    box-shadow:
+        0 15px 35px
+        rgba(15,23,42,.25);
+
+    transform:
+        translateY(30px);
+
     opacity:0;
-    transition:.3s;
-    font-size:13px;
-    max-width:350px;
+
+    pointer-events:none;
+
+    transition:.25s;
+
+    z-index:99999;
+
 }
 
 .toast.show{
-    transform:translateY(0);
-    opacity:1;
-}
 
-.toast.success{
-    background:#15803d;
+    transform:
+        translateY(0);
+
+    opacity:1;
+
 }
 
 .toast.error{
+
     background:#b91c1c;
+
 }
+
+.toast.success{
+
+    background:#15803d;
+
+}
+
 
 /* =========================================================
-   FOOTER
+   FILE LIST
 ========================================================= */
 
-.footer{
-    text-align:center;
-    padding:25px;
-    color:#94a3b8;
-    font-size:12px;
+.file-list{
+
+    display:flex;
+
+    flex-direction:column;
+
 }
+
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-.mobile-menu{
-    display:none;
-}
+@media(max-width:1000px){
 
-@media(max-width:1200px){
-
-    .stats-grid{
-        grid-template-columns:repeat(3,1fr);
+    :root{
+        --sidebar:230px;
     }
 
-}
+    .stat-grid{
 
-@media(max-width:900px){
+        grid-template-columns:
+            repeat(2,1fr);
 
-    .sidebar{
-        transform:translateX(-100%);
-    }
-
-    .sidebar.open{
-        transform:translateX(0);
-    }
-
-    .main{
-        margin-left:0;
-        width:100%;
-    }
-
-    .mobile-menu{
-        display:block;
     }
 
     .grid-2{
-        grid-template-columns:1fr;
-    }
 
-    .stats-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:1fr;
+
     }
 
 }
 
-@media(max-width:600px){
+@media(max-width:760px){
+
+    .sidebar{
+
+        transform:
+            translateX(-100%);
+
+        box-shadow:
+            15px 0 40px
+            rgba(15,23,42,.12);
+
+    }
+
+    .sidebar.open{
+
+        transform:
+            translateX(0);
+
+    }
+
+    .main{
+
+        margin-left:0;
+
+    }
+
+    .mobile-menu{
+
+        display:block;
+
+    }
 
     .topbar{
-        height:auto;
-        padding:18px;
+
+        padding:
+            0 15px;
+
+    }
+
+    .user-chip-text{
+
+        display:none;
+
     }
 
     .content{
-        padding:18px;
+
+        padding:15px;
+
     }
 
-    .top-title h2{
-        font-size:21px;
+    .welcome{
+
+        padding:20px;
+
     }
 
-    .top-actions{
+    .welcome h2{
+
+        font-size:18px;
+
+    }
+
+    .stat-grid{
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:10px;
+
+    }
+
+    .stat-card{
+
+        padding:13px;
+
+        gap:10px;
+
+    }
+
+    .stat-icon{
+
+        width:38px;
+        height:38px;
+
+    }
+
+    .stat-info strong{
+
+        font-size:17px;
+
+    }
+
+    .progress-card{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .profile-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:500px){
+
+    .stat-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .topbar{
+
+        height:65px;
+
+    }
+
+    .page-title h1{
+
+        font-size:15px;
+
+    }
+
+    .page-title p{
+
         display:none;
+
     }
 
-    .stats-grid{
-        grid-template-columns:1fr;
+    .card-header{
+
+        align-items:flex-start;
+
+        flex-direction:column;
+
     }
 
-    .profile-grid,
-    .form-grid{
-        grid-template-columns:1fr;
+    .filter-bar{
+
+        width:100%;
+
     }
 
-    .quick-grid{
-        grid-template-columns:1fr;
+    .search-box{
+
+        min-width:100%;
+
     }
 
-    .hero{
-        padding:22px;
+    select.input{
+
+        width:100%;
+
+    }
+
+}
+
+
+/* =========================================================
+   SIDEBAR OVERLAY MOBILE
+========================================================= */
+
+.sidebar-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(15,23,42,.35);
+
+    z-index:900;
+
+    display:none;
+
+}
+
+.sidebar-overlay.show{
+
+    display:block;
+
+}
+
+@media(min-width:761px){
+
+    .sidebar-overlay{
+
+        display:none!important;
+
     }
 
 }
 
 </style>
+
 </head>
 
+
 <body>
+
 
 <!-- =========================================================
      LOADING
 ========================================================= -->
 
-<div class="loading-overlay" id="loadingOverlay">
+<div class="loading-overlay"
+     id="loadingOverlay">
 
     <div class="loading-box">
 
-        <i class="fa-solid fa-spinner fa-spin"></i>
+        <div class="loading-spinner"></div>
 
-        <h3>Memeriksa Sesi</h3>
+        <h3>
+            Memuat SIMPEL-KS
+        </h3>
 
-        <p>Memuat akun Guru...</p>
+        <p>
+            Mengambil data administrasi guru...
+        </p>
 
     </div>
 
 </div>
 
 
-<div class="app">
+<!-- =========================================================
+     SIDEBAR OVERLAY
+========================================================= -->
+
+<div class="sidebar-overlay"
+     id="sidebarOverlay"
+     onclick="toggleSidebar()">
+</div>
+
 
 <!-- =========================================================
      SIDEBAR
 ========================================================= -->
 
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar"
+       id="sidebar">
+
 
     <div class="brand">
 
         <div class="brand-icon">
+
             <i class="fa-solid fa-school"></i>
+
         </div>
 
         <div class="brand-text">
 
-            <h1>SIMPEL-KS</h1>
+            <strong>
+                SIMPEL-KS
+            </strong>
 
-            <p>
-                SISTEM ADMINISTRASI SEKOLAH
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="profile-side">
-
-        <div class="avatar" id="sideAvatar">
-            G
-        </div>
-
-        <div>
-
-            <h3 id="sideNama">
-                Guru
-            </h3>
-
-            <p id="sideJabatan">
-                Guru
-            </p>
+            <span>
+                Sistem Administrasi Sekolah
+            </span>
 
         </div>
 
     </div>
 
 
-    <div class="sidebar-scroll">
+    <div class="sidebar-profile">
 
-        <div class="menu-title">
-            UTAMA
+        <div class="profile-mini">
+
+            <div class="avatar"
+                 id="sideAvatar">
+                G
+            </div>
+
+            <div class="profile-mini-info">
+
+                <strong id="sideNama">
+                    Guru
+                </strong>
+
+                <span id="sideJabatan">
+                    Guru
+                </span>
+
+            </div>
+
         </div>
 
-        <div class="menu-item active"
-             onclick="showSection('dashboard',this)">
+    </div>
 
-            <i class="fa-solid fa-house"></i>
 
-            <span>Dashboard</span>
+    <nav class="sidebar-menu">
 
+
+        <div class="menu-label">
+            Utama
         </div>
 
 
-        <div class="menu-title">
-            ADMINISTRASI
-        </div>
+        <button class="menu-item active"
+                onclick="showSection('dashboard',this)">
 
-        <div class="menu-item"
-             onclick="showSection('administrasi',this)">
+            <i class="fa-solid fa-gauge-high"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </button>
+
+
+        <button class="menu-item"
+                onclick="showSection('administrasi',this)">
 
             <i class="fa-solid fa-folder-open"></i>
 
-            <span>Administrasi Saya</span>
+            <span>
+                Administrasi Saya
+            </span>
 
             <span class="menu-badge"
                   id="badgeAdministrasi">
                 0
             </span>
 
-        </div>
+        </button>
 
 
-        <div class="menu-item"
-             onclick="showSection('upload',this)">
+        <button class="menu-item"
+                onclick="showSection('upload',this)">
 
             <i class="fa-solid fa-cloud-arrow-up"></i>
 
-            <span>Upload Dokumen</span>
+            <span>
+                Upload Dokumen
+            </span>
 
-        </div>
+        </button>
 
 
-        <div class="menu-item"
-             onclick="showSection('validasi',this)">
+        <button class="menu-item"
+                onclick="showSection('validasi',this)">
 
             <i class="fa-solid fa-circle-check"></i>
 
-            <span>Status Validasi</span>
-
-            <span class="menu-badge"
-                  id="badgeRevisi">
-                0
+            <span>
+                Status Validasi
             </span>
 
-        </div>
+        </button>
 
 
-        <div class="menu-item"
-             onclick="showSection('rekap',this)">
+        <button class="menu-item"
+                onclick="showSection('rekap',this)">
 
             <i class="fa-solid fa-chart-pie"></i>
 
-            <span>Rekap Administrasi</span>
+            <span>
+                Rekap Administrasi
+            </span>
 
+        </button>
+
+
+        <div class="menu-label">
+            Monitoring
         </div>
 
 
-        <div class="menu-title">
-            PEMBINAAN
+        <button class="menu-item"
+                onclick="showSection('pembinaan',this)">
+
+            <i class="fa-solid fa-user-check"></i>
+
+            <span>
+                Catatan Pembinaan
+            </span>
+
+        </button>
+
+
+        <button class="menu-item"
+                onclick="showSection('supervisi',this)">
+
+            <i class="fa-solid fa-clipboard-check"></i>
+
+            <span>
+                Jadwal Supervisi
+            </span>
+
+        </button>
+
+
+        <button class="menu-item"
+                onclick="showSection('file',this)">
+
+            <i class="fa-solid fa-hard-drive"></i>
+
+            <span>
+                File Saya
+            </span>
+
+        </button>
+
+
+        <div class="menu-label">
+            Akun
         </div>
 
 
-        <div class="menu-item"
-             onclick="showSection('pembinaan',this)">
-
-            <i class="fa-solid fa-comments"></i>
-
-            <span>Catatan Pembinaan</span>
-
-        </div>
-
-
-        <div class="menu-item"
-             onclick="showSection('supervisi',this)">
-
-            <i class="fa-solid fa-calendar-check"></i>
-
-            <span>Jadwal Supervisi</span>
-
-        </div>
-
-
-        <div class="menu-title">
-            DOKUMEN
-        </div>
-
-
-        <div class="menu-item"
-             onclick="showSection('file',this)">
-
-            <i class="fa-solid fa-file-lines"></i>
-
-            <span>File Saya</span>
-
-        </div>
-
-
-        <div class="menu-title">
-            AKUN
-        </div>
-
-
-        <div class="menu-item"
-             onclick="showSection('profil',this)">
+        <button class="menu-item"
+                onclick="showSection('profil',this)">
 
             <i class="fa-solid fa-user"></i>
 
-            <span>Profil Saya</span>
+            <span>
+                Profil Saya
+            </span>
 
-        </div>
-
-    </div>
+        </button>
 
 
-    <div class="logout-area">
+    </nav>
+
+
+    <div class="sidebar-bottom">
 
         <button class="logout-btn"
                 onclick="logout()">
 
             <i class="fa-solid fa-right-from-bracket"></i>
 
-            &nbsp; Keluar
+            &nbsp;
+
+            Keluar
 
         </button>
 
@@ -1331,1272 +2389,1260 @@ td{
 <main class="main">
 
 
-<header class="topbar">
+    <!-- =====================================================
+         TOPBAR
+    ====================================================== -->
 
-    <div class="top-title">
+    <header class="topbar">
 
-        <h2 id="pageTitle">
-            Dashboard Guru
-        </h2>
+        <div class="topbar-left">
 
-        <p id="pageSubtitle">
-            Pusat administrasi pribadi guru
-        </p>
+            <button class="mobile-menu"
+                    onclick="toggleSidebar()">
 
-    </div>
+                <i class="fa-solid fa-bars"></i>
 
+            </button>
 
-    <div class="top-actions">
 
-        <button class="top-action mobile-menu"
-                onclick="toggleSidebar()">
+            <div class="page-title">
 
-            <i class="fa-solid fa-bars"></i>
+                <h1 id="pageTitle">
+                    Dashboard Guru
+                </h1>
 
-        </button>
-
-
-        <button class="top-action"
-                onclick="showToast('Fitur pencarian siap dikembangkan.')">
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-        </button>
-
-
-        <button class="top-action"
-                onclick="showToast('Notifikasi akan terhubung dengan data validasi.')">
-
-            <i class="fa-regular fa-bell"></i>
-
-            <span class="notification-dot"></span>
-
-        </button>
-
-
-        <button class="top-action"
-                onclick="showSection('profil')">
-
-            <i class="fa-solid fa-user"></i>
-
-        </button>
-
-    </div>
-
-</header>
-
-
-<div class="content">
-
-
-<!-- =========================================================
-     DASHBOARD
-========================================================= -->
-
-<section id="section-dashboard"
-         class="section active">
-
-
-<div class="hero">
-
-    <h1>
-        Selamat Datang,
-        <span id="welcomeName">
-            Guru
-        </span>
-    </h1>
-
-    <p>
-        Pantau dan kelola administrasi Anda melalui SIMPEL-KS.
-    </p>
-
-</div>
-
-
-<div class="stats-grid">
-
-
-    <div class="stat-card">
-
-        <div class="stat-icon icon-blue">
-
-            <i class="fa-solid fa-folder"></i>
-
-        </div>
-
-        <h3 id="statTotal">
-            0
-        </h3>
-
-        <p>
-            Total Administrasi
-        </p>
-
-    </div>
-
-
-    <div class="stat-card">
-
-        <div class="stat-icon icon-green">
-
-            <i class="fa-solid fa-circle-check"></i>
-
-        </div>
-
-        <h3 id="statValid">
-            0
-        </h3>
-
-        <p>
-            Tervalidasi
-        </p>
-
-    </div>
-
-
-    <div class="stat-card">
-
-        <div class="stat-icon icon-orange">
-
-            <i class="fa-solid fa-clock"></i>
-
-        </div>
-
-        <h3 id="statWaiting">
-            0
-        </h3>
-
-        <p>
-            Menunggu Validasi
-        </p>
-
-    </div>
-
-
-    <div class="stat-card">
-
-        <div class="stat-icon icon-red">
-
-            <i class="fa-solid fa-rotate-left"></i>
-
-        </div>
-
-        <h3 id="statRevision">
-            0
-        </h3>
-
-        <p>
-            Perlu Revisi
-        </p>
-
-    </div>
-
-
-    <div class="stat-card">
-
-        <div class="stat-icon icon-cyan">
-
-            <i class="fa-solid fa-chart-line"></i>
-
-        </div>
-
-        <h3 id="statPercent">
-            0%
-        </h3>
-
-        <p>
-            Kelengkapan
-        </p>
-
-    </div>
-
-</div>
-
-
-<div class="grid-2">
-
-
-<div class="card">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Kelengkapan Administrasi Saya
-            </h3>
-
-            <p>
-                Berdasarkan data validasi
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <div class="progress-box">
-
-            <div class="circle"
-                 id="progressCircle">
-
-                <span id="circlePercent">
-                    0%
-                </span>
-
-            </div>
-
-
-            <div class="progress-info">
-
-                <h4 id="progressText">
-                    Belum Ada Data
-                </h4>
-
-                <p id="progressDescription">
-                    Data administrasi akan tampil setelah
-                    terdapat dokumen pada sistem.
+                <p id="pageSubtitle">
+                    Pusat administrasi pribadi guru
                 </p>
 
             </div>
 
         </div>
 
-    </div>
 
-</div>
+        <div class="topbar-right">
 
+            <div class="user-chip">
 
-<div class="card">
+                <div class="avatar"
+                     id="topAvatar">
+                    G
+                </div>
 
-    <div class="card-header">
+                <div class="user-chip-text">
 
-        <div>
+                    <strong id="topNama">
+                        Guru
+                    </strong>
 
-            <h3>
-                Aksi Cepat
-            </h3>
+                    <span>
+                        Pengguna GURU
+                    </span>
 
-            <p>
-                Menu yang sering digunakan
-            </p>
+                </div>
 
-        </div>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <div class="quick-grid">
-
-            <button class="quick-btn"
-                    onclick="showSection('administrasi')">
-
-                <i class="fa-solid fa-folder-open"></i>
-
-                <strong>
-                    Administrasi
-                </strong>
-
-                <span>
-                    Lihat dokumen
-                </span>
-
-            </button>
-
-
-            <button class="quick-btn"
-                    onclick="showSection('upload')">
-
-                <i class="fa-solid fa-cloud-arrow-up"></i>
-
-                <strong>
-                    Upload
-                </strong>
-
-                <span>
-                    Kirim dokumen
-                </span>
-
-            </button>
-
-
-            <button class="quick-btn"
-                    onclick="showSection('validasi')">
-
-                <i class="fa-solid fa-circle-check"></i>
-
-                <strong>
-                    Validasi
-                </strong>
-
-                <span>
-                    Lihat status
-                </span>
-
-            </button>
+            </div>
 
         </div>
 
-    </div>
-
-</div>
-
-</div>
+    </header>
 
 
-<div class="grid-2">
+    <div class="content">
 
 
-<div class="card">
+        <!-- =================================================
+             DASHBOARD
+        ================================================== -->
 
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Deadline Administrasi
-            </h3>
-
-            <p>
-                Data dari sistem
-            </p>
-
-        </div>
-
-    </div>
+        <section class="section active"
+                 id="section-dashboard">
 
 
-    <div class="card-body">
+            <div class="welcome">
 
-        <div id="deadlineList"
-             class="deadline-list">
-
-            <div class="empty">
-
-                <i class="fa-regular fa-calendar"></i>
-
-                <h3>
-                    Belum Ada Data
-                </h3>
+                <h2>
+                    Selamat Datang,
+                    <span id="welcomeName">
+                        Guru
+                    </span>
+                </h2>
 
                 <p>
-                    Belum tersedia data deadline administrasi.
+                    Pantau dan kelola administrasi sekolah
+                    Anda melalui SIMPEL-KS.
                 </p>
 
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="card">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Aktivitas Terbaru
-            </h3>
-
-            <p>
-                Aktivitas administrasi Anda
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <div id="activityList"
-             class="activity">
-
-            <div class="empty">
-
-                <i class="fa-regular fa-clock"></i>
-
-                <h3>
-                    Belum Ada Aktivitas
-                </h3>
-
-                <p>
-                    Belum ada aktivitas tercatat.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-</div>
-
-
-</section>
-
-
-<!-- =========================================================
-     ADMINISTRASI
-========================================================= -->
-
-<section id="section-administrasi"
-         class="section">
-
-
-<div class="card">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Administrasi Saya
-            </h3>
-
-            <p>
-                Daftar administrasi berdasarkan data validasi.
-            </p>
-
-        </div>
-
-
-        <button class="btn btn-primary"
-                onclick="showSection('upload')">
-
-            <i class="fa-solid fa-plus"></i>
-
-            Upload Dokumen
-
-        </button>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <div class="filters"
-             style="margin-bottom:18px;">
-
-            <div class="filter-control">
-
-                <input type="text"
-                       id="searchAdmin"
-                       class="input"
-                       placeholder="Cari dokumen..."
-                       oninput="filterAdministrasi()">
+                <small>
+                    Sistem Administrasi Sekolah • Area Guru
+                </small>
 
             </div>
 
 
-            <div class="filter-control">
+            <!-- STATISTIK -->
 
-                <select id="filterAdminStatus"
-                        class="select"
-                        onchange="filterAdministrasi()">
-
-                    <option value="">
-                        Semua Status
-                    </option>
-
-                    <option value="valid">
-                        Tervalidasi
-                    </option>
-
-                    <option value="menunggu">
-                        Menunggu
-                    </option>
-
-                    <option value="revisi">
-                        Revisi
-                    </option>
-
-                    <option value="belum">
-                        Belum Lengkap
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
+            <div class="stat-grid">
 
 
-        <div class="table-wrap">
+                <div class="stat-card">
 
-            <table>
+                    <div class="stat-icon blue">
 
-                <thead>
+                        <i class="fa-solid fa-folder"></i>
 
-                    <tr>
+                    </div>
 
-                        <th>
-                            No
-                        </th>
+                    <div class="stat-info">
 
-                        <th>
-                            Jenis Administrasi
-                        </th>
+                        <span>
+                            Total Administrasi
+                        </span>
 
-                        <th>
-                            Tanggal
-                        </th>
+                        <strong id="statTotal">
+                            0
+                        </strong>
 
-                        <th>
-                            Status
-                        </th>
+                    </div>
 
-                        <th>
-                            Catatan
-                        </th>
-
-                        <th>
-                            Aksi
-                        </th>
-
-                    </tr>
-
-                </thead>
+                </div>
 
 
-                <tbody id="administrasiBody">
+                <div class="stat-card">
 
-                </tbody>
+                    <div class="stat-icon green">
 
-            </table>
+                        <i class="fa-solid fa-circle-check"></i>
 
-        </div>
+                    </div>
 
-    </div>
+                    <div class="stat-info">
 
-</div>
+                        <span>
+                            Tervalidasi
+                        </span>
 
+                        <strong id="statValid">
+                            0
+                        </strong>
 
-</section>
+                    </div>
 
-
-<!-- =========================================================
-     UPLOAD
-========================================================= -->
-
-<section id="section-upload"
-         class="section">
-
-
-<div class="card">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Upload Dokumen Administrasi
-            </h3>
-
-            <p>
-                Kirim dokumen untuk diperiksa dan divalidasi.
-            </p>
-
-        </div>
-
-    </div>
+                </div>
 
 
-    <div class="card-body">
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Menunggu
+                        </span>
+
+                        <strong id="statWaiting">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
 
 
-        <div class="form-grid">
+                <div class="stat-card">
 
-            <div class="form-group">
+                    <div class="stat-icon red">
 
-                <label>
-                    Jenis Administrasi
-                </label>
+                        <i class="fa-solid fa-rotate-left"></i>
 
-                <select id="uploadJenis"
-                        class="select">
+                    </div>
 
-                    <option value="">
-                        Pilih jenis administrasi
-                    </option>
+                    <div class="stat-info">
 
-                    <option>
-                        Modul Ajar
-                    </option>
+                        <span>
+                            Perlu Revisi
+                        </span>
 
-                    <option>
-                        Program Tahunan
-                    </option>
+                        <strong id="statRevision">
+                            0
+                        </strong>
 
-                    <option>
-                        Program Semester
-                    </option>
+                    </div>
 
-                    <option>
-                        Jurnal Mengajar
-                    </option>
+                </div>
 
-                    <option>
-                        Asesmen
-                    </option>
-
-                    <option>
-                        Dokumen Administrasi Lainnya
-                    </option>
-
-                </select>
 
             </div>
 
 
-            <div class="form-group">
+            <!-- PROGRESS + DEADLINE -->
 
-                <label>
-                    File Dokumen
-                </label>
+            <div class="grid-2">
 
-                <input type="file"
-                       id="uploadFile"
-                       class="input">
 
-            </div>
+                <div class="card">
 
-        </div>
+                    <div class="card-header">
 
+                        <div>
 
-        <div class="form-group">
+                            <h3>
+                                Kelengkapan Administrasi
+                            </h3>
 
-            <label>
-                Keterangan
-            </label>
+                            <p>
+                                Berdasarkan data validasi Anda
+                            </p>
 
-            <textarea id="uploadKeterangan"
-                      class="textarea"
-                      rows="4"
-                      placeholder="Keterangan dokumen..."></textarea>
+                        </div>
 
-        </div>
+                    </div>
 
 
-        <div class="upload-box">
+                    <div class="card-body">
 
-            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <div class="progress-card">
 
-            <h3>
-                Siapkan Dokumen
-            </h3>
 
-            <p>
-                Fitur penyimpanan akan menggunakan Google Drive
-                setelah endpoint upload diaktifkan.
-            </p>
+                            <div class="progress-circle"
+                                 id="progressCircle">
 
-            <button class="btn btn-primary"
-                    onclick="submitUpload()">
+                                <span id="circlePercent">
+                                    0%
+                                </span>
 
-                <i class="fa-solid fa-paper-plane"></i>
+                            </div>
 
-                Kirim untuk Validasi
 
-            </button>
+                            <div class="progress-info">
 
-        </div>
+                                <h3 id="progressText">
+                                    Belum Ada Data
+                                </h3>
 
+                                <p id="progressDescription">
 
-    </div>
+                                    Belum terdapat data administrasi
+                                    yang terkait dengan akun Anda.
 
-</div>
+                                </p>
 
+                            </div>
 
-</section>
 
+                        </div>
 
-<!-- =========================================================
-     VALIDASI
-========================================================= -->
+                    </div>
 
-<section id="section-validasi"
-         class="section">
+                </div>
 
 
-<div class="card">
+                <div class="card">
 
-    <div class="card-header">
+                    <div class="card-header">
 
-        <div>
+                        <div>
 
-            <h3>
-                Status Validasi
-            </h3>
+                            <h3>
+                                Deadline Administrasi
+                            </h3>
 
-            <p>
-                Periksa hasil validasi dokumen Anda.
-            </p>
+                            <p>
+                                Jadwal penyelesaian dokumen
+                            </p>
 
-        </div>
+                        </div>
 
+                    </div>
 
-        <button class="btn btn-light"
-                onclick="loadGuruData()">
 
-            <i class="fa-solid fa-rotate"></i>
+                    <div class="card-body">
 
-            Refresh
+                        <div id="deadlineList">
 
-        </button>
+                            <div class="empty">
 
-    </div>
+                                <i class="fa-regular fa-calendar"></i>
 
+                                <h3>
+                                    Belum Ada Data
+                                </h3>
 
-    <div class="card-body">
+                                <p>
+                                    Belum tersedia deadline.
+                                </p>
 
-        <div class="table-wrap">
+                            </div>
 
-            <table>
+                        </div>
 
-                <thead>
+                    </div>
 
-                    <tr>
+                </div>
 
-                        <th>
-                            No
-                        </th>
-
-                        <th>
-                            Dokumen
-                        </th>
-
-                        <th>
-                            Tanggal
-                        </th>
-
-                        <th>
-                            Status
-                        </th>
-
-                        <th>
-                            Catatan
-                        </th>
-
-                        <th>
-                            Validator
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="validasiBody">
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-</section>
-
-
-<!-- =========================================================
-     REKAP
-========================================================= -->
-
-<section id="section-rekap"
-         class="section">
-
-
-<div class="grid-2">
-
-
-<div class="card">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Rekap Administrasi
-            </h3>
-
-            <p>
-                Ringkasan status dokumen
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <canvas id="rekapChart"
-                height="260"></canvas>
-
-    </div>
-
-</div>
-
-
-<div class="card">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Ringkasan
-            </h3>
-
-            <p>
-                Kondisi administrasi Anda
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <div class="profile-item"
-             style="margin-bottom:10px;">
-
-            <label>
-                Tervalidasi
-            </label>
-
-            <strong id="rekapValid">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="profile-item"
-             style="margin-bottom:10px;">
-
-            <label>
-                Menunggu
-            </label>
-
-            <strong id="rekapWaiting">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="profile-item"
-             style="margin-bottom:10px;">
-
-            <label>
-                Revisi
-            </label>
-
-            <strong id="rekapRevision">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="profile-item">
-
-            <label>
-                Kelengkapan
-            </label>
-
-            <strong id="rekapPercent">
-                0%
-            </strong>
-
-        </div>
-
-    </div>
-
-</div>
-
-</div>
-
-
-<div class="card"
-     style="margin-top:22px;">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Tren Administrasi
-            </h3>
-
-            <p>
-                Grafik akan menggunakan data aktual sistem.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <div style="height:300px;">
-
-            <canvas id="trendGuruChart"></canvas>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-</section>
-
-
-<!-- =========================================================
-     PEMBINAAN
-========================================================= -->
-
-<section id="section-pembinaan"
-         class="section">
-
-
-<div class="card">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Catatan Pembinaan
-            </h3>
-
-            <p>
-                Catatan pembinaan dari Kepala Sekolah.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <div class="empty">
-
-            <i class="fa-solid fa-comments"></i>
-
-            <h3>
-                Belum Ada Catatan Pembinaan
-            </h3>
-
-            <p>
-                Data akan tampil setelah fitur pembinaan
-                terhubung dengan database.
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-</section>
-
-
-<!-- =========================================================
-     SUPERVISI
-========================================================= -->
-
-<section id="section-supervisi"
-         class="section">
-
-
-<div class="card">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Jadwal Supervisi
-            </h3>
-
-            <p>
-                Jadwal supervisi yang ditetapkan Kepala Sekolah.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <div class="empty">
-
-            <i class="fa-regular fa-calendar-check"></i>
-
-            <h3>
-                Belum Ada Jadwal Supervisi
-            </h3>
-
-            <p>
-                Data akan tampil setelah modul supervisi
-                terhubung dengan database.
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-</section>
-
-
-<!-- =========================================================
-     FILE SAYA
-========================================================= -->
-
-<section id="section-file"
-         class="section">
-
-
-<div class="card">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                File Saya
-            </h3>
-
-            <p>
-                Dokumen yang tersimpan pada Google Drive.
-            </p>
-
-        </div>
-
-        <button class="btn btn-light"
-                onclick="loadDriveFiles()">
-
-            <i class="fa-solid fa-rotate"></i>
-
-            Refresh
-
-        </button>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <div id="fileList">
-
-            <div class="empty">
-
-                <i class="fa-solid fa-folder-open"></i>
-
-                <h3>
-                    Belum Ada File
-                </h3>
-
-                <p>
-                    Data file akan tampil setelah
-                    integrasi Google Drive tersedia.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-</section>
-
-
-<!-- =========================================================
-     PROFIL
-========================================================= -->
-
-<section id="section-profil"
-         class="section">
-
-
-<div class="card">
-
-    <div class="card-header">
-
-        <div>
-
-            <h3>
-                Profil Saya
-            </h3>
-
-            <p>
-                Informasi akun dan data kepegawaian.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="card-body">
-
-        <div class="profile-grid">
-
-
-            <div class="profile-item">
-
-                <label>
-                    Nama Lengkap
-                </label>
-
-                <strong id="profileNama">
-                    -
-                </strong>
 
             </div>
 
 
-            <div class="profile-item">
+            <!-- AKTIVITAS -->
 
-                <label>
-                    Username
-                </label>
+            <div class="card">
 
-                <strong id="profileUsername">
-                    -
-                </strong>
+                <div class="card-header">
 
-            </div>
+                    <div>
 
+                        <h3>
+                            Aktivitas Administrasi Terbaru
+                        </h3>
 
-            <div class="profile-item">
+                        <p>
+                            Lima aktivitas terakhir
+                        </p>
 
-                <label>
-                    NIP
-                </label>
+                    </div>
 
-                <strong id="profileNip">
-                    -
-                </strong>
+                    <button class="btn btn-light"
+                            onclick="showSection('administrasi')">
 
-            </div>
+                        Lihat Semua
 
+                        <i class="fa-solid fa-arrow-right"></i>
 
-            <div class="profile-item">
+                    </button>
 
-                <label>
-                    Role
-                </label>
-
-                <strong id="profileRole">
-                    GURU
-                </strong>
-
-            </div>
+                </div>
 
 
-            <div class="profile-item">
+                <div class="card-body">
 
-                <label>
-                    Guru ID
-                </label>
+                    <div id="activityList">
 
-                <strong id="profileGuruId">
-                    -
-                </strong>
+                        <div class="empty">
 
-            </div>
+                            <i class="fa-regular fa-clock"></i>
 
+                            <h3>
+                                Belum Ada Aktivitas
+                            </h3>
 
-            <div class="profile-item">
+                            <p>
+                                Belum ada aktivitas administrasi.
+                            </p>
 
-                <label>
-                    Jabatan
-                </label>
+                        </div>
 
-                <strong id="profileJabatan">
-                    -
-                </strong>
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <div class="profile-item">
+        </section>
 
-                <label>
-                    Email
-                </label>
 
-                <strong id="profileEmail">
-                    -
-                </strong>
+        <!-- =================================================
+             ADMINISTRASI
+        ================================================== -->
+
+        <section class="section"
+                 id="section-administrasi">
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Administrasi Saya
+                        </h3>
+
+                        <p>
+                            Daftar dokumen administrasi
+                            yang terkait dengan akun Anda.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+
+                    <div class="filter-bar"
+                         style="margin-bottom:18px;">
+
+                        <div class="search-box">
+
+                            <i class="fa-solid fa-search"></i>
+
+                            <input
+                                type="text"
+                                class="input"
+                                id="searchAdmin"
+                                placeholder="Cari dokumen atau catatan..."
+                                oninput="filterAdministrasi()">
+
+                        </div>
+
+
+                        <select
+                            class="input"
+                            id="filterAdminStatus"
+                            onchange="filterAdministrasi()">
+
+                            <option value="">
+                                Semua Status
+                            </option>
+
+                            <option value="valid">
+                                Tervalidasi
+                            </option>
+
+                            <option value="menunggu">
+                                Menunggu
+                            </option>
+
+                            <option value="revisi">
+                                Revisi
+                            </option>
+
+                            <option value="belum">
+                                Belum Lengkap
+                            </option>
+
+                        </select>
+
+
+                        <button
+                            class="btn btn-light"
+                            onclick="resetFilterAdministrasi()">
+
+                            <i class="fa-solid fa-rotate"></i>
+
+                            Reset
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-wrap">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        No
+                                    </th>
+
+                                    <th>
+                                        Dokumen
+                                    </th>
+
+                                    <th>
+                                        Tanggal
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Catatan
+                                    </th>
+
+                                    <th>
+                                        Aksi
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="administrasiBody">
+
+                                <tr>
+
+                                    <td colspan="6">
+
+                                        <div class="empty">
+
+                                            <i class="fa-solid fa-spinner fa-spin"></i>
+
+                                            <h3>
+                                                Memuat Data
+                                            </h3>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                </div>
 
             </div>
 
 
-            <div class="profile-item">
+        </section>
 
-                <label>
-                    Status Akun
-                </label>
 
-                <strong id="profileStatus">
-                    AKTIF
-                </strong>
+        <!-- =================================================
+             UPLOAD
+        ================================================== -->
+
+        <section class="section"
+                 id="section-upload">
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Upload Dokumen Administrasi
+                        </h3>
+
+                        <p>
+                            Kirim dokumen untuk diperiksa
+                            dan divalidasi.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+
+                    <div class="upload-box">
+
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                        <h3>
+                            Upload Dokumen
+                        </h3>
+
+                        <p>
+                            Pilih jenis administrasi kemudian
+                            pilih file yang akan dikirim.
+                        </p>
+
+
+                        <select
+                            class="input"
+                            id="uploadJenis"
+                            style="max-width:450px;margin:0 auto 12px;">
+
+                            <option value="">
+                                -- Pilih Jenis Administrasi --
+                            </option>
+
+                            <option value="Modul Ajar">
+                                Modul Ajar
+                            </option>
+
+                            <option value="RPP / Perencanaan Pembelajaran">
+                                RPP / Perencanaan Pembelajaran
+                            </option>
+
+                            <option value="Jurnal Mengajar">
+                                Jurnal Mengajar
+                            </option>
+
+                            <option value="Asesmen">
+                                Asesmen
+                            </option>
+
+                            <option value="Program Semester">
+                                Program Semester
+                            </option>
+
+                            <option value="Program Tahunan">
+                                Program Tahunan
+                            </option>
+
+                            <option value="Administrasi Kelas">
+                                Administrasi Kelas
+                            </option>
+
+                            <option value="Dokumen Lainnya">
+                                Dokumen Lainnya
+                            </option>
+
+                        </select>
+
+
+                        <input
+                            type="file"
+                            id="uploadFile"
+                            class="input"
+                            accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png">
+
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="submitUpload()">
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                            Kirim Dokumen
+
+                        </button>
+
+                    </div>
+
+
+                    <div style="
+                        margin-top:15px;
+                        padding:13px;
+                        background:#eff6ff;
+                        border-radius:10px;
+                        font-size:10px;
+                        color:#1e40af;
+                        line-height:1.6;
+                    ">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        File akan diproses sesuai konfigurasi
+                        backend Google Apps Script dan Google Drive.
+
+                    </div>
+
+
+                </div>
 
             </div>
 
-        </div>
+
+        </section>
+
+
+        <!-- =================================================
+             VALIDASI
+        ================================================== -->
+
+        <section class="section"
+                 id="section-validasi">
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Status Validasi
+                        </h3>
+
+                        <p>
+                            Pantau hasil pemeriksaan administrasi.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="table-wrap">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        No
+                                    </th>
+
+                                    <th>
+                                        Dokumen
+                                    </th>
+
+                                    <th>
+                                        Tanggal
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Catatan
+                                    </th>
+
+                                    <th>
+                                        Validator
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="validasiBody">
+
+                                <tr>
+
+                                    <td colspan="6">
+
+                                        <div class="empty">
+
+                                            <i class="fa-solid fa-spinner fa-spin"></i>
+
+                                            <h3>
+                                                Memuat Data
+                                            </h3>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             REKAP
+        ================================================== -->
+
+        <section class="section"
+                 id="section-rekap">
+
+
+            <div class="grid-2">
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Komposisi Status
+                            </h3>
+
+                            <p>
+                                Rekap administrasi berdasarkan status.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-body">
+
+                        <div class="chart-box">
+
+                            <canvas id="rekapChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Ringkasan
+                            </h3>
+
+                            <p>
+                                Statistik administrasi Anda.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-body">
+
+                        <div class="profile-grid">
+
+                            <div class="profile-item">
+
+                                <label>
+                                    Tervalidasi
+                                </label>
+
+                                <strong id="rekapValid">
+                                    0
+                                </strong>
+
+                            </div>
+
+
+                            <div class="profile-item">
+
+                                <label>
+                                    Menunggu
+                                </label>
+
+                                <strong id="rekapWaiting">
+                                    0
+                                </strong>
+
+                            </div>
+
+
+                            <div class="profile-item">
+
+                                <label>
+                                    Revisi
+                                </label>
+
+                                <strong id="rekapRevision">
+                                    0
+                                </strong>
+
+                            </div>
+
+
+                            <div class="profile-item">
+
+                                <label>
+                                    Kelengkapan
+                                </label>
+
+                                <strong id="rekapPercent">
+                                    0%
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Tren Administrasi
+                        </h3>
+
+                        <p>
+                            Grafik historis akan menggunakan data
+                            tanggal yang tersedia pada backend.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="chart-box">
+
+                        <canvas id="trendGuruChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PEMBINAAN
+        ================================================== -->
+
+        <section class="section"
+                 id="section-pembinaan">
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Catatan Pembinaan
+                        </h3>
+
+                        <p>
+                            Catatan pembinaan dari Kepala Sekolah.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="empty">
+
+                        <i class="fa-solid fa-user-check"></i>
+
+                        <h3>
+                            Belum Ada Catatan
+                        </h3>
+
+                        <p>
+                            Endpoint catatan pembinaan belum
+                            tersedia pada backend API saat ini.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             SUPERVISI
+        ================================================== -->
+
+        <section class="section"
+                 id="section-supervisi">
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Jadwal Supervisi
+                        </h3>
+
+                        <p>
+                            Jadwal supervisi pembelajaran Anda.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="empty">
+
+                        <i class="fa-solid fa-calendar-check"></i>
+
+                        <h3>
+                            Belum Ada Jadwal
+                        </h3>
+
+                        <p>
+                            Endpoint jadwal supervisi belum
+                            tersedia pada backend API saat ini.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             FILE
+        ================================================== -->
+
+        <section class="section"
+                 id="section-file">
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            File Saya
+                        </h3>
+
+                        <p>
+                            Dokumen yang tersedia di Google Drive.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="btn btn-light"
+                        onclick="loadDriveFiles()">
+
+                        <i class="fa-solid fa-rotate"></i>
+
+                        Muat Ulang
+
+                    </button>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div id="fileList"
+                         class="file-list">
+
+                        <div class="empty">
+
+                            <i class="fa-solid fa-hard-drive"></i>
+
+                            <h3>
+                                Belum Dimuat
+                            </h3>
+
+                            <p>
+                                Buka menu File Saya untuk
+                                mengambil data Google Drive.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PROFIL
+        ================================================== -->
+
+        <section class="section"
+                 id="section-profil">
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Profil Saya
+                        </h3>
+
+                        <p>
+                            Informasi akun dan data kepegawaian.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+
+                    <div class="profile-grid">
+
+
+                        <div class="profile-item">
+
+                            <label>
+                                Nama
+                            </label>
+
+                            <strong id="profileNama">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <label>
+                                Username
+                            </label>
+
+                            <strong id="profileUsername">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <label>
+                                Email
+                            </label>
+
+                            <strong id="profileEmail">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <label>
+                                Guru ID
+                            </label>
+
+                            <strong id="profileGuruId">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <label>
+                                NIP
+                            </label>
+
+                            <strong id="profileNip">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <label>
+                                Jabatan
+                            </label>
+
+                            <strong id="profileJabatan">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <label>
+                                Role
+                            </label>
+
+                            <strong id="profileRole">
+                                GURU
+                            </strong>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <label>
+                                Status Akun
+                            </label>
+
+                            <strong id="profileStatus">
+                                AKTIF
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
 
     </div>
 
-</div>
 
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
 
-</section>
+    <footer style="
+        padding:0 26px 25px;
+        color:#94a3b8;
+        font-size:9px;
+        text-align:center;
+    ">
 
+        SIMPEL-KS © 2026 • Sistem Administrasi Sekolah
 
-<div class="footer">
+    </footer>
 
-    SIMPEL-KS © 2026 • Sistem Administrasi Sekolah
-
-</div>
-
-
-</div>
 
 </main>
-
-</div>
 
 
 <!-- =========================================================
@@ -2648,12 +3694,21 @@ td{
 </div>
 
 
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
 <div class="toast"
      id="toast">
 </div>
 
 
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
 <script>
+
 
 /* =========================================================
    KONFIGURASI API
@@ -2664,7 +3719,7 @@ const API_URL =
 
 
 /* =========================================================
-   SESSION LOGIN
+   STATE
 ========================================================= */
 
 let CURRENT_USER = null;
@@ -2681,14 +3736,16 @@ let rekapChart = null;
 
 let trendChart = null;
 
+let toastTimer = null;
+
 
 /* =========================================================
    HELPER
 ========================================================= */
 
-function esc(v){
+function esc(value){
 
-    return String(v ?? "")
+    return String(value ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -2704,8 +3761,10 @@ function txt(id,value){
         document.getElementById(id);
 
     if(el){
+
         el.textContent =
             value ?? "";
+
     }
 
 }
@@ -2713,23 +3772,41 @@ function txt(id,value){
 
 function getInitial(name){
 
-    const s =
+    const value =
         String(name || "G")
             .trim();
 
-    if(!s){
+    if(!value){
+
         return "G";
+
     }
 
-    return s
+    return value
         .split(/\s+/)
         .slice(0,2)
-        .map(x => x.charAt(0))
+        .map(
+            word =>
+                word.charAt(0)
+        )
         .join("")
         .toUpperCase();
 
 }
 
+
+function normalizeText(value){
+
+    return String(value ?? "")
+        .trim()
+        .toLowerCase();
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
 
 function normalizeStatus(value){
 
@@ -2738,13 +3815,17 @@ function normalizeStatus(value){
             .trim()
             .toUpperCase();
 
+
     if(
         s.includes("REVISI") ||
         s.includes("KEMBALI") ||
         s.includes("DITOLAK")
     ){
+
         return "revisi";
+
     }
+
 
     if(
         s.includes("VALID") ||
@@ -2752,15 +3833,22 @@ function normalizeStatus(value){
         s.includes("DISETUJUI") ||
         s.includes("SETUJU")
     ){
+
         return "valid";
+
     }
+
 
     if(
         s.includes("BELUM") ||
-        s.includes("KOSONG")
+        s.includes("KOSONG") ||
+        s.includes("TIDAK LENGKAP")
     ){
+
         return "belum";
+
     }
+
 
     return "menunggu";
 
@@ -2780,6 +3868,7 @@ function statusHTML(status){
 
     }
 
+
     if(status === "revisi"){
 
         return `
@@ -2790,6 +3879,7 @@ function statusHTML(status){
         `;
 
     }
+
 
     if(status === "belum"){
 
@@ -2802,6 +3892,7 @@ function statusHTML(status){
 
     }
 
+
     return `
         <span class="status waiting">
             <i class="fa-solid fa-clock"></i>
@@ -2812,32 +3903,48 @@ function statusHTML(status){
 }
 
 
+/* =========================================================
+   RESULT ROWS
+========================================================= */
+
 function rowsOf(result){
 
     if(Array.isArray(result)){
+
         return result;
+
     }
+
 
     if(
         result &&
         Array.isArray(result.data)
     ){
+
         return result.data;
+
     }
+
 
     if(
         result &&
         Array.isArray(result.rows)
     ){
+
         return result.rows;
+
     }
+
 
     if(
         result &&
         Array.isArray(result.records)
     ){
+
         return result.records;
+
     }
+
 
     return [];
 
@@ -2845,8 +3952,7 @@ function rowsOf(result){
 
 
 /* =========================================================
-   SESSION READER
-   Mendukung beberapa format localStorage
+   SESSION
 ========================================================= */
 
 function getStoredUser(){
@@ -2866,23 +3972,38 @@ function getStoredUser(){
     ];
 
 
-    for(const key of keys){
+    for(
+        const key of keys
+    ){
 
         try{
 
             const raw =
                 localStorage.getItem(key);
 
-            if(!raw) continue;
+
+            if(!raw){
+
+                continue;
+
+            }
+
 
             let value;
 
+
             try{
-                value = JSON.parse(raw);
+
+                value =
+                    JSON.parse(raw);
+
             }
             catch{
+
                 continue;
+
             }
+
 
             if(
                 value &&
@@ -2890,12 +4011,21 @@ function getStoredUser(){
             ){
 
                 if(value.user){
+
                     return value.user;
+
                 }
 
-                if(value.data?.user){
+
+                if(
+                    value.data &&
+                    value.data.user
+                ){
+
                     return value.data.user;
+
                 }
+
 
                 return value;
 
@@ -2914,13 +4044,14 @@ function getStoredUser(){
 
     }
 
+
     return null;
 
 }
 
 
 /* =========================================================
-   VALIDASI LOGIN
+   CHECK LOGIN
 ========================================================= */
 
 function checkLogin(){
@@ -2956,9 +4087,11 @@ function checkLogin(){
             "Akses ditolak. Halaman ini khusus untuk pengguna dengan role GURU."
         );
 
+
         window.location.replace(
             "login.html"
         );
+
 
         return false;
 
@@ -2968,13 +4101,14 @@ function checkLogin(){
     CURRENT_USER =
         user;
 
+
     return true;
 
 }
 
 
 /* =========================================================
-   TAMPILKAN PROFIL
+   PROFILE
 ========================================================= */
 
 function renderProfile(){
@@ -3005,6 +4139,8 @@ function renderProfile(){
     const guruId =
         u.guru_id ||
         u.GURU_ID ||
+        u.id_guru ||
+        u.ID_GURU ||
         "-";
 
 
@@ -3014,15 +4150,21 @@ function renderProfile(){
         "Guru";
 
 
+    const initial =
+        getInitial(nama);
+
+
     txt(
         "welcomeName",
         nama
     );
 
+
     txt(
         "sideNama",
         nama
     );
+
 
     txt(
         "sideJabatan",
@@ -3030,15 +4172,36 @@ function renderProfile(){
     );
 
 
-    const avatar =
+    txt(
+        "topNama",
+        nama
+    );
+
+
+    const sideAvatar =
         document.getElementById(
             "sideAvatar"
         );
 
-    if(avatar){
 
-        avatar.textContent =
-            getInitial(nama);
+    if(sideAvatar){
+
+        sideAvatar.textContent =
+            initial;
+
+    }
+
+
+    const topAvatar =
+        document.getElementById(
+            "topAvatar"
+        );
+
+
+    if(topAvatar){
+
+        topAvatar.textContent =
+            initial;
 
     }
 
@@ -3048,30 +4211,36 @@ function renderProfile(){
         nama
     );
 
+
     txt(
         "profileUsername",
         username
     );
+
 
     txt(
         "profileEmail",
         email
     );
 
+
     txt(
         "profileGuruId",
         guruId
     );
+
 
     txt(
         "profileJabatan",
         jabatan
     );
 
+
     txt(
         "profileRole",
         "GURU"
     );
+
 
     txt(
         "profileStatus",
@@ -3087,7 +4256,10 @@ function renderProfile(){
    API GET
 ========================================================= */
 
-async function api(action, params = {}){
+async function api(
+    action,
+    params = {}
+){
 
     let url =
         API_URL +
@@ -3096,23 +4268,29 @@ async function api(action, params = {}){
 
 
     Object.keys(params)
-        .forEach(key => {
+        .forEach(
+            key => {
 
-            if(
-                params[key] !== undefined &&
-                params[key] !== null &&
-                params[key] !== ""
-            ){
+                const value =
+                    params[key];
 
-                url +=
-                    "&" +
-                    encodeURIComponent(key) +
-                    "=" +
-                    encodeURIComponent(params[key]);
+
+                if(
+                    value !== undefined &&
+                    value !== null &&
+                    value !== ""
+                ){
+
+                    url +=
+                        "&" +
+                        encodeURIComponent(key) +
+                        "=" +
+                        encodeURIComponent(value);
+
+                }
 
             }
-
-        });
+        );
 
 
     url +=
@@ -3186,89 +4364,120 @@ async function loadDataGuru(){
 
 
         const guruId =
-            String(
+            normalizeText(
                 u.guru_id ||
                 u.GURU_ID ||
+                u.id_guru ||
+                u.ID_GURU ||
                 ""
-            )
-            .trim()
-            .toLowerCase();
+            );
 
 
         const username =
-            String(
+            normalizeText(
                 u.username ||
+                u.USERNAME ||
                 ""
-            )
-            .trim()
-            .toLowerCase();
+            );
 
 
         const nama =
-            String(
+            normalizeText(
                 u.nama ||
+                u.NAMA ||
+                u.name ||
                 ""
-            )
-            .trim()
-            .toLowerCase();
+            );
 
 
-        let found =
-            null;
+        let found = null;
 
+
+        /* ================================================
+           PRIORITAS 1 : GURU ID
+        ================================================= */
 
         if(guruId){
 
             found =
-                DATA_GURU_ROWS.find(g =>
+                DATA_GURU_ROWS.find(
+                    guru => {
 
-                    String(
-                        g.guru_id ||
-                        g.GURU_ID ||
-                        ""
-                    )
-                    .trim()
-                    .toLowerCase()
-                    === guruId
+                        const rowId =
+                            normalizeText(
+                                guru.guru_id ||
+                                guru.GURU_ID ||
+                                guru.id_guru ||
+                                guru.ID_GURU ||
+                                ""
+                            );
 
+
+                        return (
+                            rowId ===
+                            guruId
+                        );
+
+                    }
                 );
 
         }
 
 
-        if(!found && username){
+        /* ================================================
+           PRIORITAS 2 : USERNAME
+        ================================================= */
+
+        if(
+            !found &&
+            username
+        ){
 
             found =
-                DATA_GURU_ROWS.find(g =>
+                DATA_GURU_ROWS.find(
+                    guru => {
 
-                    String(
-                        g.username ||
-                        g.USERNAME ||
-                        ""
-                    )
-                    .trim()
-                    .toLowerCase()
-                    === username
+                        return (
+                            normalizeText(
+                                guru.username ||
+                                guru.USERNAME ||
+                                ""
+                            )
+                            ===
+                            username
+                        );
 
+                    }
                 );
 
         }
 
 
-        if(!found && nama){
+        /* ================================================
+           PRIORITAS 3 : NAMA
+        ================================================= */
+
+        if(
+            !found &&
+            nama
+        ){
 
             found =
-                DATA_GURU_ROWS.find(g =>
+                DATA_GURU_ROWS.find(
+                    guru => {
 
-                    String(
-                        g.nama ||
-                        g.NAMA ||
-                        ""
-                    )
-                    .trim()
-                    .toLowerCase()
-                    === nama
+                        return (
+                            normalizeText(
+                                guru.nama ||
+                                guru.NAMA ||
+                                guru.name ||
+                                ""
+                            )
+                            ===
+                            nama
+                        );
 
+                    }
                 );
 
         }
@@ -3288,21 +4497,22 @@ async function loadDataGuru(){
             );
 
 
-            if(
+            const jabatan =
                 found.jabatan ||
-                found.JABATAN
-            ){
+                found.JABATAN;
+
+
+            if(jabatan){
 
                 txt(
                     "profileJabatan",
-                    found.jabatan ||
-                    found.JABATAN
+                    jabatan
                 );
+
 
                 txt(
                     "sideJabatan",
-                    found.jabatan ||
-                    found.JABATAN
+                    jabatan
                 );
 
             }
@@ -3340,132 +4550,170 @@ async function loadValidasi(){
             rowsOf(result);
 
 
+        VALIDASI_ROWS =
+            rows.map(
+                row => {
+
+                    return {
+
+                        id:
+                            row.id_validasi ||
+                            row.ID_VALIDASI ||
+                            row.validasi_id ||
+                            row.VALIDASI_ID ||
+                            "",
+
+
+                        /* =================================
+                           PERBAIKAN PENTING
+                           guru_id SEKARANG DISIMPAN
+                        ================================= */
+
+                        guru_id:
+                            row.guru_id ||
+                            row.GURU_ID ||
+                            row.id_guru ||
+                            row.ID_GURU ||
+                            row.guruId ||
+                            "",
+
+
+                        guru:
+                            row.nama_guru ||
+                            row.NAMA_GURU ||
+                            row.guru ||
+                            row.GURU ||
+                            row.nama ||
+                            row.NAMA ||
+                            "",
+
+
+                        dokumen:
+                            row.jenis_dokumen ||
+                            row.JENIS_DOKUMEN ||
+                            row.dokumen ||
+                            row.DOKUMEN ||
+                            row.nama_dokumen ||
+                            row.NAMA_DOKUMEN ||
+                            "",
+
+
+                        tanggal:
+                            row.tanggal_validasi ||
+                            row.TANGGAL_VALIDASI ||
+                            row.tanggal ||
+                            row.TANGGAL ||
+                            "",
+
+
+                        status:
+                            normalizeStatus(
+                                row.status ||
+                                row.STATUS
+                            ),
+
+
+                        statusOriginal:
+                            row.status ||
+                            row.STATUS ||
+                            "",
+
+
+                        catatan:
+                            row.catatan ||
+                            row.CATATAN ||
+                            row.keterangan ||
+                            row.KETERANGAN ||
+                            "",
+
+
+                        validator:
+                            row.validator ||
+                            row.VALIDATOR ||
+                            row.nama_validator ||
+                            row.NAMA_VALIDATOR ||
+                            "",
+
+
+                        deadline:
+                            row.tanggal_deadline ||
+                            row.TANGGAL_DEADLINE ||
+                            row.deadline ||
+                            row.DEADLINE ||
+                            "",
+
+
+                        selesai:
+                            row.tanggal_selesai ||
+                            row.TANGGAL_SELESAI ||
+                            row.selesai ||
+                            row.SELESAI ||
+                            ""
+
+                    };
+
+                }
+            );
+
+
         const u =
             CURRENT_USER || {};
 
 
         const guruId =
-            String(
+            normalizeText(
                 u.guru_id ||
                 u.GURU_ID ||
+                u.id_guru ||
+                u.ID_GURU ||
                 ""
-            )
-            .trim()
-            .toLowerCase();
+            );
 
 
         const nama =
-            String(
+            normalizeText(
                 u.nama ||
                 u.NAMA ||
+                u.name ||
                 ""
-            )
-            .trim()
-            .toLowerCase();
+            );
 
 
-        VALIDASI_ROWS =
-            rows.map(row => {
-
-                return {
-
-                    id:
-                        row.id_validasi ||
-                        row.ID_VALIDASI ||
-                        "",
-
-                    guru:
-                        row.nama_guru ||
-                        row.NAMA_GURU ||
-                        row.guru ||
-                        row.GURU ||
-                        "",
-
-                    dokumen:
-                        row.jenis_dokumen ||
-                        row.JENIS_DOKUMEN ||
-                        row.dokumen ||
-                        row.DOKUMEN ||
-                        "",
-
-                    tanggal:
-                        row.tanggal_validasi ||
-                        row.TANGGAL_VALIDASI ||
-                        row.tanggal ||
-                        "",
-
-                    status:
-                        normalizeStatus(
-                            row.status ||
-                            row.STATUS
-                        ),
-
-                    statusOriginal:
-                        row.status ||
-                        row.STATUS ||
-                        "",
-
-                    catatan:
-                        row.catatan ||
-                        row.CATATAN ||
-                        row.keterangan ||
-                        row.KETERANGAN ||
-                        "",
-
-                    validator:
-                        row.validator ||
-                        row.VALIDATOR ||
-                        "",
-
-                    deadline:
-                        row.tanggal_deadline ||
-                        row.TANGGAL_DEADLINE ||
-                        "",
-
-                    selesai:
-                        row.tanggal_selesai ||
-                        row.TANGGAL_SELESAI ||
-                        ""
-
-                };
-
-            });
+        VALIDASI_GURU = [];
 
 
-        /*
-         * FILTER DATA GURU
-         *
-         * Prioritas:
-         * 1. guru_id bila API menyediakan
-         * 2. nama guru dari session
-         */
+        /* ================================================
+           PRIORITAS 1
+           FILTER GURU_ID
+        ================================================= */
 
         if(guruId){
 
             VALIDASI_GURU =
-                VALIDASI_ROWS.filter(row => {
+                VALIDASI_ROWS.filter(
+                    row => {
 
-                    const rowGuruId =
-                        String(
-                            row.guru_id ||
-                            row.GURU_ID ||
-                            ""
-                        )
-                        .trim()
-                        .toLowerCase();
+                        const rowGuruId =
+                            normalizeText(
+                                row.guru_id
+                            );
 
-                    return rowGuruId === guruId;
 
-                });
+                        return (
+                            rowGuruId &&
+                            rowGuruId === guruId
+                        );
+
+                    }
+                );
 
         }
 
 
-        /*
-         * Karena endpoint lama VALIDASI_DOKUMEN
-         * belum mengirim guru_id,
-         * gunakan nama guru sebagai fallback.
-         */
+        /* ================================================
+           PRIORITAS 2
+           FALLBACK NAMA
+        ================================================= */
 
         if(
             !VALIDASI_GURU.length &&
@@ -3473,25 +4721,29 @@ async function loadValidasi(){
         ){
 
             VALIDASI_GURU =
-                VALIDASI_ROWS.filter(row =>
+                VALIDASI_ROWS.filter(
+                    row => {
 
-                    String(
-                        row.guru ||
-                        ""
-                    )
-                    .trim()
-                    .toLowerCase()
-                    === nama
+                        const rowNama =
+                            normalizeText(
+                                row.guru
+                            );
 
+
+                        return (
+                            rowNama &&
+                            rowNama === nama
+                        );
+
+                    }
                 );
 
         }
 
 
         /*
-         * Jika API mengembalikan data tetapi
-         * tidak ada kecocokan, JANGAN tampilkan
-         * data guru lain.
+         * PENTING:
+         * Tidak ada fallback menampilkan semua data.
          */
 
         renderAllGuruData();
@@ -3507,7 +4759,9 @@ async function loadValidasi(){
 
         VALIDASI_GURU = [];
 
+
         renderAllGuruData();
+
 
         showToast(
             "Data validasi belum dapat dimuat.",
@@ -3520,7 +4774,7 @@ async function loadValidasi(){
 
 
 /* =========================================================
-   RENDER SEMUA
+   RENDER ALL
 ========================================================= */
 
 function renderAllGuruData(){
@@ -3552,33 +4806,31 @@ function updateStatistics(){
 
     const valid =
         VALIDASI_GURU.filter(
-            x => x.status === "valid"
+            row =>
+                row.status === "valid"
         ).length;
 
 
     const waiting =
         VALIDASI_GURU.filter(
-            x => x.status === "menunggu"
+            row =>
+                row.status === "menunggu"
         ).length;
 
 
     const revision =
         VALIDASI_GURU.filter(
-            x => x.status === "revisi"
+            row =>
+                row.status === "revisi"
         ).length;
 
 
     const incomplete =
         VALIDASI_GURU.filter(
-            x => x.status === "belum"
+            row =>
+                row.status === "belum"
         ).length;
 
-
-    /*
-     * Kelengkapan dihitung dari
-     * dokumen yang tervalidasi terhadap
-     * seluruh dokumen yang ada.
-     */
 
     const percent =
         total
@@ -3586,7 +4838,7 @@ function updateStatistics(){
         : 0;
 
 
-    const p =
+    const rounded =
         Math.round(
             percent * 10
         ) / 10;
@@ -3597,30 +4849,34 @@ function updateStatistics(){
         total
     );
 
+
     txt(
         "statValid",
         valid
     );
+
 
     txt(
         "statWaiting",
         waiting
     );
 
+
     txt(
         "statRevision",
         revision
     );
 
+
     txt(
         "statPercent",
-        p + "%"
+        rounded + "%"
     );
 
 
     txt(
         "circlePercent",
-        p + "%"
+        rounded + "%"
     );
 
 
@@ -3629,19 +4885,22 @@ function updateStatistics(){
         valid
     );
 
+
     txt(
         "rekapWaiting",
         waiting
     );
+
 
     txt(
         "rekapRevision",
         revision
     );
 
+
     txt(
         "rekapPercent",
-        p + "%"
+        rounded + "%"
     );
 
 
@@ -3649,6 +4908,7 @@ function updateStatistics(){
         "badgeAdministrasi",
         total
     );
+
 
     txt(
         "badgeRevisi",
@@ -3669,7 +4929,7 @@ function updateStatistics(){
                 0,
                 Math.min(
                     100,
-                    p
+                    rounded
                 )
             ) * 3.6;
 
@@ -3690,6 +4950,7 @@ function updateStatistics(){
             "Belum Ada Data"
         );
 
+
         txt(
             "progressDescription",
             "Belum terdapat data administrasi yang terkait dengan akun Anda."
@@ -3702,6 +4963,7 @@ function updateStatistics(){
             "progressText",
             "Perlu Perhatian"
         );
+
 
         txt(
             "progressDescription",
@@ -3718,6 +4980,7 @@ function updateStatistics(){
             "Menunggu Validasi"
         );
 
+
         txt(
             "progressDescription",
             "Terdapat " +
@@ -3732,6 +4995,7 @@ function updateStatistics(){
             "progressText",
             "Administrasi Tervalidasi"
         );
+
 
         txt(
             "progressDescription",
@@ -3755,7 +5019,11 @@ function renderAdministrasi(){
         );
 
 
-    if(!body) return;
+    if(!body){
+
+        return;
+
+    }
 
 
     if(!VALIDASI_GURU.length){
@@ -3793,52 +5061,53 @@ function renderAdministrasi(){
 
 
     body.innerHTML =
-        VALIDASI_GURU.map(
-            (row,index) => `
+        VALIDASI_GURU
+            .map(
+                (row,index) => `
 
-                <tr>
+                    <tr>
 
-                    <td>
-                        ${index + 1}
-                    </td>
+                        <td>
+                            ${index + 1}
+                        </td>
 
-                    <td>
-                        <strong>
-                            ${esc(row.dokumen || "-")}
-                        </strong>
-                    </td>
+                        <td>
+                            <strong>
+                                ${esc(row.dokumen || "-")}
+                            </strong>
+                        </td>
 
-                    <td>
-                        ${esc(row.tanggal || "-")}
-                    </td>
+                        <td>
+                            ${esc(row.tanggal || "-")}
+                        </td>
 
-                    <td>
-                        ${statusHTML(row.status)}
-                    </td>
+                        <td>
+                            ${statusHTML(row.status)}
+                        </td>
 
-                    <td>
-                        ${esc(row.catatan || "-")}
-                    </td>
+                        <td>
+                            ${esc(row.catatan || "-")}
+                        </td>
 
-                    <td>
+                        <td>
 
-                        <button
-                            class="btn btn-light"
-                            onclick="showDetail(${index})">
+                            <button
+                                class="btn btn-light"
+                                onclick="showDetail(${index})">
 
-                            <i class="fa-solid fa-eye"></i>
+                                <i class="fa-solid fa-eye"></i>
 
-                            Lihat
+                                Lihat
 
-                        </button>
+                            </button>
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
-            `
-        )
-        .join("");
+                `
+            )
+            .join("");
 
 }
 
@@ -3850,21 +5119,17 @@ function renderAdministrasi(){
 function filterAdministrasi(){
 
     const q =
-        (
+        normalizeText(
             document.getElementById(
                 "searchAdmin"
-            )?.value ||
-            ""
-        )
-        .toLowerCase()
-        .trim();
+            )?.value || ""
+        );
 
 
-    const s =
+    const status =
         document.getElementById(
             "filterAdminStatus"
-        )?.value ||
-        "";
+        )?.value || "";
 
 
     const body =
@@ -3873,29 +5138,46 @@ function filterAdministrasi(){
         );
 
 
-    if(!body) return;
+    if(!body){
+
+        return;
+
+    }
 
 
     const rows =
-        VALIDASI_GURU.filter(row =>
+        VALIDASI_GURU.filter(
+            row => {
 
-            (
-                !q ||
-                String(row.dokumen)
-                    .toLowerCase()
-                    .includes(q) ||
-                String(row.catatan)
-                    .toLowerCase()
-                    .includes(q)
-            )
+                const dokumen =
+                    normalizeText(
+                        row.dokumen
+                    );
 
-            &&
 
-            (
-                !s ||
-                row.status === s
-            )
+                const catatan =
+                    normalizeText(
+                        row.catatan
+                    );
 
+
+                const matchSearch =
+                    !q ||
+                    dokumen.includes(q) ||
+                    catatan.includes(q);
+
+
+                const matchStatus =
+                    !status ||
+                    row.status === status;
+
+
+                return (
+                    matchSearch &&
+                    matchStatus
+                );
+
+            }
         );
 
 
@@ -3916,7 +5198,8 @@ function filterAdministrasi(){
                         </h3>
 
                         <p>
-                            Tidak ada data yang sesuai filter.
+                            Tidak ada data yang sesuai
+                            dengan filter.
                         </p>
 
                     </div>
@@ -3933,52 +5216,71 @@ function filterAdministrasi(){
 
 
     body.innerHTML =
-        rows.map(
-            (row,index) => `
+        rows
+            .map(
+                (row,index) => `
 
-                <tr>
+                    <tr>
 
-                    <td>
-                        ${index + 1}
-                    </td>
+                        <td>
+                            ${index + 1}
+                        </td>
 
-                    <td>
-                        <strong>
-                            ${esc(row.dokumen || "-")}
-                        </strong>
-                    </td>
+                        <td>
+                            <strong>
+                                ${esc(row.dokumen || "-")}
+                            </strong>
+                        </td>
 
-                    <td>
-                        ${esc(row.tanggal || "-")}
-                    </td>
+                        <td>
+                            ${esc(row.tanggal || "-")}
+                        </td>
 
-                    <td>
-                        ${statusHTML(row.status)}
-                    </td>
+                        <td>
+                            ${statusHTML(row.status)}
+                        </td>
 
-                    <td>
-                        ${esc(row.catatan || "-")}
-                    </td>
+                        <td>
+                            ${esc(row.catatan || "-")}
+                        </td>
 
-                    <td>
+                        <td>
 
-                        <button
-                            class="btn btn-light"
-                            onclick='showDetailByObject(${JSON.stringify(row)})'>
+                            <button
+                                class="btn btn-light"
+                                onclick="showDetailByObject(${safeObject(row)})">
 
-                            <i class="fa-solid fa-eye"></i>
+                                <i class="fa-solid fa-eye"></i>
 
-                            Lihat
+                                Lihat
 
-                        </button>
+                            </button>
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
-            `
-        )
-        .join("");
+                `
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   SAFE OBJECT
+========================================================= */
+
+function safeObject(row){
+
+    const json =
+        JSON.stringify(row)
+            .replace(/\\/g,"\\\\")
+            .replace(/'/g,"\\'")
+            .replace(/"/g,"&quot;");
+
+
+    return `'${json}'`;
 
 }
 
@@ -3995,7 +5297,11 @@ function renderValidasi(){
         );
 
 
-    if(!body) return;
+    if(!body){
+
+        return;
+
+    }
 
 
     if(!VALIDASI_GURU.length){
@@ -4033,42 +5339,43 @@ function renderValidasi(){
 
 
     body.innerHTML =
-        VALIDASI_GURU.map(
-            (row,index) => `
+        VALIDASI_GURU
+            .map(
+                (row,index) => `
 
-                <tr>
+                    <tr>
 
-                    <td>
-                        ${index + 1}
-                    </td>
+                        <td>
+                            ${index + 1}
+                        </td>
 
-                    <td>
-                        <strong>
-                            ${esc(row.dokumen || "-")}
-                        </strong>
-                    </td>
+                        <td>
+                            <strong>
+                                ${esc(row.dokumen || "-")}
+                            </strong>
+                        </td>
 
-                    <td>
-                        ${esc(row.tanggal || "-")}
-                    </td>
+                        <td>
+                            ${esc(row.tanggal || "-")}
+                        </td>
 
-                    <td>
-                        ${statusHTML(row.status)}
-                    </td>
+                        <td>
+                            ${statusHTML(row.status)}
+                        </td>
 
-                    <td>
-                        ${esc(row.catatan || "-")}
-                    </td>
+                        <td>
+                            ${esc(row.catatan || "-")}
+                        </td>
 
-                    <td>
-                        ${esc(row.validator || "-")}
-                    </td>
+                        <td>
+                            ${esc(row.validator || "-")}
+                        </td>
 
-                </tr>
+                    </tr>
 
-            `
-        )
-        .join("");
+                `
+            )
+            .join("");
 
 }
 
@@ -4085,13 +5392,18 @@ function renderDeadline(){
         );
 
 
-    if(!container) return;
+    if(!container){
+
+        return;
+
+    }
 
 
     const data =
         VALIDASI_GURU
-            .filter(row =>
-                row.deadline
+            .filter(
+                row =>
+                    row.deadline
             );
 
 
@@ -4108,8 +5420,8 @@ function renderDeadline(){
                 </h3>
 
                 <p>
-                    Belum tersedia deadline administrasi
-                    pada data Anda.
+                    Belum tersedia deadline
+                    administrasi pada data Anda.
                 </p>
 
             </div>
@@ -4122,41 +5434,42 @@ function renderDeadline(){
 
 
     container.innerHTML =
-        data.map(
-            row => `
+        data
+            .map(
+                row => `
 
-                <div class="deadline-item">
+                    <div class="deadline-item">
 
-                    <div class="deadline-icon">
+                        <div class="deadline-icon">
 
-                        <i class="fa-regular fa-calendar"></i>
+                            <i class="fa-regular fa-calendar"></i>
+
+                        </div>
+
+                        <div class="deadline-info">
+
+                            <strong>
+                                ${esc(row.dokumen)}
+                            </strong>
+
+                            <span>
+                                Deadline:
+                                ${esc(row.deadline)}
+                            </span>
+
+                        </div>
 
                     </div>
 
-                    <div class="deadline-info">
-
-                        <strong>
-                            ${esc(row.dokumen)}
-                        </strong>
-
-                        <span>
-                            Deadline:
-                            ${esc(row.deadline)}
-                        </span>
-
-                    </div>
-
-                </div>
-
-            `
-        )
-        .join("");
+                `
+            )
+            .join("");
 
 }
 
 
 /* =========================================================
-   AKTIVITAS
+   ACTIVITY
 ========================================================= */
 
 function renderActivity(){
@@ -4167,15 +5480,20 @@ function renderActivity(){
         );
 
 
-    if(!container) return;
+    if(!container){
+
+        return;
+
+    }
 
 
     const data =
         VALIDASI_GURU
-            .filter(row =>
-                row.tanggal ||
-                row.statusOriginal ||
-                row.catatan
+            .filter(
+                row =>
+                    row.tanggal ||
+                    row.statusOriginal ||
+                    row.catatan
             )
             .slice()
             .sort(
@@ -4215,36 +5533,48 @@ function renderActivity(){
 
 
     container.innerHTML =
-        data.map(
-            row => `
+        data
+            .map(
+                row => `
 
-                <div class="activity-item">
+                    <div class="activity-item">
 
-                    <div class="activity-dot">
+                        <div class="activity-dot">
 
-                        <i class="fa-solid fa-file-circle-check"></i>
+                            <i class="fa-solid fa-file-circle-check"></i>
+
+                        </div>
+
+                        <div class="activity-info">
+
+                            <strong>
+                                ${esc(
+                                    row.dokumen ||
+                                    "Administrasi"
+                                )}
+                            </strong>
+
+                            <span>
+                                ${esc(
+                                    row.statusOriginal ||
+                                    "-"
+                                )}
+
+                                •
+
+                                ${esc(
+                                    row.tanggal ||
+                                    "-"
+                                )}
+                            </span>
+
+                        </div>
 
                     </div>
 
-                    <div class="activity-info">
-
-                        <strong>
-                            ${esc(row.dokumen || "Administrasi")}
-                        </strong>
-
-                        <span>
-                            ${esc(row.statusOriginal || "-")}
-                            •
-                            ${esc(row.tanggal || "-")}
-                        </span>
-
-                    </div>
-
-                </div>
-
-            `
-        )
-        .join("");
+                `
+            )
+            .join("");
 
 }
 
@@ -4257,25 +5587,29 @@ function renderCharts(){
 
     const valid =
         VALIDASI_GURU.filter(
-            x => x.status === "valid"
+            row =>
+                row.status === "valid"
         ).length;
 
 
     const waiting =
         VALIDASI_GURU.filter(
-            x => x.status === "menunggu"
+            row =>
+                row.status === "menunggu"
         ).length;
 
 
     const revision =
         VALIDASI_GURU.filter(
-            x => x.status === "revisi"
+            row =>
+                row.status === "revisi"
         ).length;
 
 
     const incomplete =
         VALIDASI_GURU.filter(
-            x => x.status === "belum"
+            row =>
+                row.status === "belum"
         ).length;
 
 
@@ -4285,10 +5619,15 @@ function renderCharts(){
         );
 
 
-    if(canvas){
+    if(
+        canvas &&
+        typeof Chart !== "undefined"
+    ){
 
         if(rekapChart){
+
             rekapChart.destroy();
+
         }
 
 
@@ -4309,7 +5648,6 @@ function renderCharts(){
                         ],
 
                         datasets:[
-
                             {
 
                                 data:[
@@ -4317,10 +5655,11 @@ function renderCharts(){
                                     waiting,
                                     revision,
                                     incomplete
-                                ]
+                                ],
+
+                                borderWidth:2
 
                             }
-
                         ]
 
                     },
@@ -4330,6 +5669,8 @@ function renderCharts(){
                         responsive:true,
 
                         maintainAspectRatio:false,
+
+                        cutout:"65%",
 
                         plugins:{
 
@@ -4353,18 +5694,23 @@ function renderCharts(){
         );
 
 
-    if(trendCanvas){
+    if(
+        trendCanvas &&
+        typeof Chart !== "undefined"
+    ){
 
         if(trendChart){
+
             trendChart.destroy();
+
         }
 
 
         /*
-         * Tidak menggunakan angka dummy.
-         * Karena data historis bulanan belum
-         * tersedia pada endpoint sekarang,
-         * grafik diberi kondisi kosong.
+         * Belum menggunakan data dummy.
+         *
+         * Karena endpoint saat ini belum menyediakan
+         * agregasi histori bulanan.
          */
 
         trendChart =
@@ -4379,16 +5725,16 @@ function renderCharts(){
                         labels:[],
 
                         datasets:[
-
                             {
 
                                 label:
-                                "Kelengkapan Administrasi",
+                                    "Kelengkapan Administrasi",
 
-                                data:[]
+                                data:[],
+
+                                tension:.35
 
                             }
-
                         ]
 
                     },
@@ -4403,6 +5749,18 @@ function renderCharts(){
 
                             legend:{
                                 display:false
+                            }
+
+                        },
+
+                        scales:{
+
+                            y:{
+
+                                beginAtZero:true,
+
+                                max:100
+
                             }
 
                         }
@@ -4426,9 +5784,12 @@ function showDetail(index){
     const row =
         VALIDASI_GURU[index];
 
+
     if(row){
 
-        showDetailByObject(row);
+        showDetailByObject(
+            row
+        );
 
     }
 
@@ -4437,18 +5798,76 @@ function showDetail(index){
 
 function showDetailByObject(row){
 
+    /*
+     * Mendukung object langsung maupun
+     * object yang dikirim melalui onclick.
+     */
+
+    if(
+        typeof row === "string"
+    ){
+
+        try{
+
+            row =
+                JSON.parse(row);
+
+        }
+        catch(error){
+
+            console.error(
+                error
+            );
+
+            return;
+
+        }
+
+    }
+
+
     const content =
         document.getElementById(
             "detailContent"
         );
 
 
-    if(!content) return;
+    if(!content){
+
+        return;
+
+    }
 
 
     content.innerHTML = `
 
         <div class="profile-grid">
+
+            <div class="profile-item">
+
+                <label>
+                    Guru ID
+                </label>
+
+                <strong>
+                    ${esc(row.guru_id || "-")}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Guru
+                </label>
+
+                <strong>
+                    ${esc(row.guru || "-")}
+                </strong>
+
+            </div>
+
 
             <div class="profile-item">
 
@@ -4501,6 +5920,32 @@ function showDetailByObject(row){
 
             </div>
 
+
+            <div class="profile-item">
+
+                <label>
+                    Deadline
+                </label>
+
+                <strong>
+                    ${esc(row.deadline || "-")}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Tanggal Selesai
+                </label>
+
+                <strong>
+                    ${esc(row.selesai || "-")}
+                </strong>
+
+            </div>
+
         </div>
 
 
@@ -4508,11 +5953,11 @@ function showDetailByObject(row){
 
             <label style="
                 display:block;
-                font-size:11px;
+                font-size:10px;
                 color:#64748b;
                 margin-bottom:7px;
             ">
-                Catatan
+                Catatan / Keterangan
             </label>
 
             <div style="
@@ -4520,11 +5965,15 @@ function showDetailByObject(row){
                 border:1px solid #e2e8f0;
                 border-radius:12px;
                 background:#f8fafc;
-                font-size:13px;
-                line-height:1.6;
+                font-size:11px;
+                line-height:1.7;
+                color:#475569;
             ">
 
-                ${esc(row.catatan || "Tidak ada catatan.")}
+                ${esc(
+                    row.catatan ||
+                    "Tidak ada catatan."
+                )}
 
             </div>
 
@@ -4537,18 +5986,65 @@ function showDetailByObject(row){
         .getElementById(
             "detailModal"
         )
-        .classList.add("show");
+        .classList.add(
+            "show"
+        );
 
 }
 
 
 function closeDetail(){
 
-    document
-        .getElementById(
+    const modal =
+        document.getElementById(
             "detailModal"
-        )
-        .classList.remove("show");
+        );
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET FILTER
+========================================================= */
+
+function resetFilterAdministrasi(){
+
+    const search =
+        document.getElementById(
+            "searchAdmin"
+        );
+
+
+    const status =
+        document.getElementById(
+            "filterAdminStatus"
+        );
+
+
+    if(search){
+
+        search.value = "";
+
+    }
+
+
+    if(status){
+
+        status.value = "";
+
+    }
+
+
+    renderAdministrasi();
 
 }
 
@@ -4596,8 +6092,8 @@ function submitUpload(){
 
 
     /*
-     * Endpoint upload belum terdapat pada
-     * Apps Script terakhir.
+     * Endpoint upload belum tersedia
+     * pada API yang diberikan.
      *
      * Tidak mengklaim file sudah tersimpan.
      */
@@ -4622,7 +6118,11 @@ async function loadDriveFiles(){
         );
 
 
-    if(!container) return;
+    if(!container){
+
+        return;
+
+    }
 
 
     container.innerHTML = `
@@ -4646,14 +6146,6 @@ async function loadDriveFiles(){
 
     try{
 
-        /*
-         * Endpoint drive yang tersedia saat ini
-         * mengembalikan folder root.
-         *
-         * Folder guru spesifik belum diberikan
-         * pada session endpoint.
-         */
-
         const result =
             await api(
                 "drive"
@@ -4661,7 +6153,11 @@ async function loadDriveFiles(){
 
 
         const files =
-            result.files || [];
+            Array.isArray(
+                result?.files
+            )
+            ? result.files
+            : [];
 
 
         if(!files.length){
@@ -4690,50 +6186,87 @@ async function loadDriveFiles(){
 
 
         container.innerHTML =
-            files.map(
-                file => `
+            files
+                .map(
+                    file => {
 
-                    <div class="deadline-item">
+                        const name =
+                            file.name ||
+                            file.NAMA ||
+                            "File";
 
-                        <div class="deadline-icon">
 
-                            <i class="fa-solid fa-file"></i>
+                        const mime =
+                            file.mime_type ||
+                            file.mimeType ||
+                            "";
 
-                        </div>
 
-                        <div class="deadline-info">
+                        const url =
+                            file.url ||
+                            file.webViewLink ||
+                            file.link ||
+                            "#";
 
-                            <strong>
-                                ${esc(file.name)}
-                            </strong>
 
-                            <span>
-                                ${esc(file.mime_type || "")}
-                            </span>
+                        return `
 
-                        </div>
+                            <div class="deadline-item">
 
-                        <a
-                            href="${esc(file.url)}"
-                            target="_blank"
-                            class="btn btn-light">
+                                <div class="deadline-icon">
 
-                            <i class="fa-solid fa-eye"></i>
+                                    <i class="fa-solid fa-file"></i>
 
-                            Buka
+                                </div>
 
-                        </a>
+                                <div class="deadline-info">
 
-                    </div>
+                                    <strong>
+                                        ${esc(name)}
+                                    </strong>
 
-                `
-            )
-            .join("");
+                                    <span>
+                                        ${esc(mime)}
+                                    </span>
+
+                                </div>
+
+
+                                ${
+                                    url !== "#"
+                                    ?
+                                    `
+                                    <a
+                                        href="${esc(url)}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="btn btn-light">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                        Buka
+
+                                    </a>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
 
     }
     catch(error){
 
-        console.error(error);
+        console.error(
+            "Google Drive:",
+            error
+        );
 
 
         container.innerHTML = `
@@ -4763,15 +6296,18 @@ async function loadDriveFiles(){
    NAVIGASI
 ========================================================= */
 
-function showSection(section, clicked){
+function showSection(
+    section,
+    clicked
+){
 
     document
         .querySelectorAll(
             ".section"
         )
         .forEach(
-            el =>
-                el.classList.remove(
+            element =>
+                element.classList.remove(
                     "active"
                 )
         );
@@ -4798,8 +6334,8 @@ function showSection(section, clicked){
             ".menu-item"
         )
         .forEach(
-            el =>
-                el.classList.remove(
+            element =>
+                element.classList.remove(
                     "active"
                 )
         );
@@ -4818,6 +6354,7 @@ function showSection(section, clicked){
             document.querySelector(
                 `.menu-item[onclick*="'${section}'"]`
             );
+
 
         if(menu){
 
@@ -4887,6 +6424,7 @@ function showSection(section, clicked){
             titles[section][0]
         );
 
+
         txt(
             "pageSubtitle",
             titles[section][1]
@@ -4902,9 +6440,52 @@ function showSection(section, clicked){
     }
 
 
+    /*
+     * Tutup sidebar pada mobile
+     */
+
+    if(
+        window.innerWidth <= 760
+    ){
+
+        const sidebar =
+            document.getElementById(
+                "sidebar"
+            );
+
+
+        const overlay =
+            document.getElementById(
+                "sidebarOverlay"
+            );
+
+
+        if(sidebar){
+
+            sidebar.classList.remove(
+                "open"
+            );
+
+        }
+
+
+        if(overlay){
+
+            overlay.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+
+
     window.scrollTo({
+
         top:0,
+
         behavior:"smooth"
+
     });
 
 }
@@ -4916,13 +6497,37 @@ function showSection(section, clicked){
 
 function toggleSidebar(){
 
-    document
-        .getElementById(
+    const sidebar =
+        document.getElementById(
             "sidebar"
-        )
-        .classList.toggle(
-            "open"
         );
+
+
+    const overlay =
+        document.getElementById(
+            "sidebarOverlay"
+        );
+
+
+    if(!sidebar){
+
+        return;
+
+    }
+
+
+    sidebar.classList.toggle(
+        "open"
+    );
+
+
+    if(overlay){
+
+        overlay.classList.toggle(
+            "show"
+        );
+
+    }
 
 }
 
@@ -4931,10 +6536,10 @@ function toggleSidebar(){
    TOAST
 ========================================================= */
 
-let toastTimer;
-
-
-function showToast(message,type=""){
+function showToast(
+    message,
+    type=""
+){
 
     const toast =
         document.getElementById(
@@ -4942,7 +6547,11 @@ function showToast(message,type=""){
         );
 
 
-    if(!toast) return;
+    if(!toast){
+
+        return;
+
+    }
 
 
     toast.textContent =
@@ -4993,11 +6602,6 @@ function logout(){
     }
 
 
-    /*
-     * Hapus beberapa kemungkinan key
-     * session tanpa mengganggu data lain.
-     */
-
     const keys = [
 
         "simpeLKS_user",
@@ -5040,11 +6644,15 @@ function logout(){
    MODAL CLICK OUTSIDE
 ========================================================= */
 
-document
-    .getElementById(
+const detailModal =
+    document.getElementById(
         "detailModal"
-    )
-    .addEventListener(
+    );
+
+
+if(detailModal){
+
+    detailModal.addEventListener(
         "click",
         function(event){
 
@@ -5058,6 +6666,8 @@ document
 
         }
     );
+
+}
 
 
 /* =========================================================
@@ -5102,6 +6712,10 @@ async function initializeGuru(){
 
     try{
 
+        /*
+         * Jalankan paralel.
+         */
+
         await Promise.all([
 
             loadDataGuru(),
@@ -5114,7 +6728,14 @@ async function initializeGuru(){
     catch(error){
 
         console.error(
+            "Initialization:",
             error
+        );
+
+
+        showToast(
+            "Sebagian data gagal dimuat.",
+            "error"
         );
 
     }
@@ -5140,12 +6761,25 @@ async function initializeGuru(){
    START
 ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    initializeGuru
-);
+if(
+    document.readyState ===
+    "loading"
+){
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeGuru
+    );
+
+}
+else{
+
+    initializeGuru();
+
+}
 
 </script>
+
 
 </body>
 </html>
