@@ -1,665 +1,1374 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0f766e">
-<title>SIMPEL-KS | Guru</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <title>SIMPEL-KS | Portal Guru</title>
 
-<style>
-:root{--p:#0f766e;--pd:#115e59;--bg:#f1f5f9;--card:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--side:#0f172a;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--shadow:0 8px 28px rgba(15,23,42,.07)}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:13px}button,input,select,textarea{font:inherit}button{cursor:pointer}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:var(--side);color:#fff;z-index:1000;display:flex;flex-direction:column;transition:.25s}
-.brand{padding:20px;border-bottom:1px solid #ffffff12}.brand-row,.user-row,.topbar,.head-row,.filter{display:flex;align-items:center}.brand-row,.user-row{gap:11px}.logo,.avatar{display:grid;place-items:center;border-radius:12px;background:#134e4a;color:#ccfbf1;font-weight:800}.logo{width:42px;height:42px;background:linear-gradient(135deg,#14b8a6,#0f766e)}.brand-title{font-weight:800;font-size:15px}.brand-sub{font-size:9px;color:#94a3b8;margin-top:3px}
-.user{margin:15px;padding:12px;border:1px solid #ffffff12;background:#ffffff08;border-radius:13px}.avatar{width:40px;height:40px;flex:0 0 40px}.user-name{font-size:11px;font-weight:700}.user-role{font-size:9px;color:#94a3b8;margin-top:3px}
-.menu{padding:5px 12px;overflow:auto;flex:1}.label{font-size:9px;color:#64748b;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:13px 9px 6px}.menu-item{width:100%;border:0;background:transparent;color:#cbd5e1;padding:10px;border-radius:10px;display:flex;align-items:center;gap:10px;text-align:left;font-size:10px;margin-bottom:2px}.menu-item i{width:18px;text-align:center}.menu-item:hover{background:#ffffff0c;color:#fff}.menu-item.active{background:#134e4a;color:#fff;box-shadow:inset 3px 0 #2dd4bf}.side-bottom{padding:12px;border-top:1px solid #ffffff12}.logout{width:100%;border:0;border-radius:9px;padding:10px;background:#dc262612;color:#fecaca;font-size:10px}
-.main{margin-left:260px;min-height:100vh}.topbar{height:68px;padding:0 26px;background:#fff;border-bottom:1px solid var(--border);justify-content:space-between;position:sticky;top:0;z-index:90}.top-left{display:flex;align-items:center;gap:12px}.mobile{display:none;width:38px;height:38px;border:1px solid var(--border);background:#fff;border-radius:9px}.page-title{font-size:15px;font-weight:800}.page-sub{font-size:9px;color:var(--muted);margin-top:3px}.top-user{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700}.top-user .avatar{width:34px;height:34px;flex-basis:34px;font-size:10px}
-.content{padding:24px 26px;max-width:1600px;margin:auto}.section{display:none}.section.active{display:block}.card,.stat{background:#fff;border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow);margin-bottom:18px}.card-header{padding:16px 19px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}.card-header h3{margin:0;font-size:12px}.card-header p{margin:4px 0 0;font-size:9px;color:var(--muted)}.card-body{padding:19px}
-.btn{border:1px solid transparent;border-radius:9px;padding:8px 12px;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:9px;font-weight:700}.btn-primary{background:var(--p);color:#fff}.btn-primary:hover{background:var(--pd)}.btn-light{background:#fff;border-color:var(--border);color:#334155}.btn-danger{background:#fef2f2;border-color:#fecaca;color:#b91c1c}.btn:disabled{opacity:.55}
-.grid{display:grid;gap:18px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.welcome{background:linear-gradient(135deg,#0f766e,#115e59);color:#fff;border-radius:18px;padding:22px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}.welcome h1{font-size:18px;margin:0}.welcome p{font-size:9px;color:#ccfbf1;margin:6px 0 0}.welcome-icon{font-size:28px;padding:15px;background:#ffffff12;border-radius:15px}
-.stat{padding:16px}.stat-label{font-size:9px;color:var(--muted)}.stat-value{font-size:23px;font-weight:800;margin-top:9px}.stat-note{font-size:8px;color:#94a3b8;margin-top:3px}
-.progress{display:flex;align-items:center;gap:25px}.circle{width:145px;height:145px;flex:0 0 145px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--ok) 0deg,#e2e8f0 0deg);position:relative}.circle:after{content:"";position:absolute;inset:13px;background:#fff;border-radius:50%}.circle span{position:relative;z-index:1;font-size:21px;font-weight:800}.progress-info h3{margin:0;font-size:13px}.progress-info p{font-size:9px;color:var(--muted);line-height:1.7}.mini{display:flex;gap:15px;flex-wrap:wrap}.mini strong{display:block;font-size:14px;color:var(--text)}.mini span{font-size:8px;color:var(--muted)}
-.chart{height:270px;position:relative}.list{display:flex;flex-direction:column;gap:8px}.list-item{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:10px}.list-icon{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;background:#f0fdfa;color:var(--p);border-radius:9px}.list-info{flex:1;min-width:0}.list-info strong{display:block;font-size:9px}.list-info span{display:block;font-size:8px;color:var(--muted);margin-top:3px}
-.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:11px}table{width:100%;min-width:720px;border-collapse:collapse}th{padding:10px 11px;background:#f8fafc;border-bottom:1px solid var(--border);font-size:8px;color:#475569;text-transform:uppercase;text-align:left}td{padding:10px 11px;border-bottom:1px solid #eef2f7;font-size:9px;color:#475569}tr:last-child td{border-bottom:0}.status{display:inline-flex;align-items:center;gap:4px;padding:4px 7px;border-radius:999px;font-size:7px;font-weight:800;white-space:nowrap}.valid{background:#dcfce7;color:#15803d}.waiting{background:#fef3c7;color:#a16207}.revision{background:#fee2e2;color:#b91c1c}.incomplete{background:#e2e8f0;color:#475569}
-.filter{gap:8px;flex-wrap:wrap;margin-bottom:13px}.input,.select,.textarea{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:9px;background:#fff;outline:0;font-size:9px}.input:focus,.select:focus,.textarea:focus{border-color:#5eead4;box-shadow:0 0 0 3px #14b8a61a}.search{width:260px;position:relative}.search i{position:absolute;left:10px;top:10px;color:#94a3b8}.search input{padding-left:28px}.filter .select{width:155px}
-.form-grid,.profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.form-group label{display:block;font-size:9px;font-weight:800;color:#475569;margin-bottom:6px}.full{grid-column:1/-1}.textarea{min-height:105px;resize:vertical}.drop{border:1.5px dashed #94a3b8;background:#f8fafc;border-radius:12px;padding:24px;text-align:center}.drop i{font-size:27px;color:var(--p)}.drop strong{display:block;font-size:10px;margin:8px 0 4px}.drop span{display:block;font-size:8px;color:var(--muted);margin-bottom:12px}.file-name{font-size:8px;color:#475569;margin-top:9px}
-.profile-item{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:12px}.profile-item label{display:block;font-size:8px;color:#94a3b8;margin-bottom:4px}.profile-item strong{font-size:10px;word-break:break-word}
-.empty{min-height:150px;padding:25px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:var(--muted)}.empty i{font-size:24px;color:#94a3b8;margin-bottom:9px}.empty h3{font-size:11px;color:#475569;margin:0 0 4px}.empty p{font-size:9px;line-height:1.6;max-width:520px;margin:0}
-.modal{position:fixed;inset:0;background:#0f172a99;z-index:3000;display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-box{background:#fff;width:min(760px,100%);max-height:90vh;overflow:auto;border-radius:16px}.modal-head,.modal-foot{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}.modal-foot{border-top:1px solid var(--border);border-bottom:0;justify-content:flex-end}.modal-head h3{margin:0;font-size:12px}.modal-close{width:31px;height:31px;border:0;background:#f8fafc;border-radius:8px}.modal-body{padding:18px}
-.toast{position:fixed;right:18px;bottom:18px;z-index:5000;background:#0f172a;color:#fff;padding:11px 14px;border-radius:10px;font-size:9px;max-width:400px;opacity:0;transform:translateY(15px);pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:none}.toast.success{background:#166534}.toast.error{background:#b91c1c}
-.loading{position:fixed;inset:0;z-index:4000;background:#f8fafcee;display:flex;align-items:center;justify-content:center}.load-box{text-align:center}.spinner{width:38px;height:38px;border:3px solid #ccfbf1;border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite;margin:auto}@keyframes spin{to{transform:rotate(360deg)}}.load-box strong{display:block;font-size:11px;margin-top:10px}.load-box span{font-size:8px;color:var(--muted)}
-footer{padding:0 26px 24px;text-align:center;color:#94a3b8;font-size:8px}
-.overlay{display:none;position:fixed;inset:0;background:#0f172a80;z-index:999}
-@media(max-width:1050px){.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
-@media(max-width:760px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:none}.overlay.show{display:block}.main{margin-left:0}.mobile{display:block}.topbar{padding:0 14px}.content{padding:15px 13px}.g4,.g2,.form-grid,.profile-grid{grid-template-columns:1fr}.card-header{align-items:flex-start;flex-direction:column}.search,.filter .select{width:100%}.top-user-name{display:none}.welcome-icon{display:none}.progress{flex-direction:column;text-align:center}.progress-info{width:100%}footer{padding:0 13px 20px}}
-</style>
+  <!-- GitHub Pages compatible: semua resource dari CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    .glass {
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .sidebar-transition { transition: transform .25s ease, width .25s ease; }
+    .fade-in { animation: fadeIn .25s ease both; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .spin { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .toast { animation: toastIn .25s ease both; }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .scrollbar::-webkit-scrollbar { width: 7px; height: 7px; }
+    .scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+    .scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .nav-active { background: #eff6ff; color: #1d4ed8; }
+    .nav-active .nav-icon { background: #dbeafe; }
+    .status-dot { box-shadow: 0 0 0 4px rgba(34,197,94,.12); }
+    .modal-backdrop { background: rgba(15,23,42,.55); backdrop-filter: blur(3px); }
+  </style>
 </head>
 
 <body>
+  <div id="app" class="min-h-screen">
 
-<aside class="sidebar" id="sidebar">
-    <div class="brand">
-        <div class="brand-row">
-            <div class="logo"><i class="fa-solid fa-school"></i></div>
+    <!-- MOBILE OVERLAY -->
+    <div id="sidebarOverlay"
+         class="fixed inset-0 z-30 hidden bg-slate-900/50 lg:hidden"
+         onclick="closeSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+           class="sidebar-transition fixed inset-y-0 left-0 z-40 flex w-72 -translate-x-full flex-col border-r border-slate-200 bg-white lg:translate-x-0">
+      <div class="flex h-20 items-center gap-3 border-b border-slate-100 px-5">
+        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/20">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="text-lg font-extrabold tracking-tight text-slate-900">SIMPEL-KS</div>
+          <div class="text-[11px] font-medium text-slate-500">Portal Administrasi Guru</div>
+        </div>
+      </div>
+
+      <div class="scrollbar flex-1 overflow-y-auto px-3 py-5">
+        <div class="mb-3 px-3 text-[10px] font-bold uppercase tracking-widest text-slate-400">Menu Utama</div>
+
+        <button data-section="dashboard" onclick="showSection('dashboard')"
+                class="nav-item nav-active mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold">
+          <span class="nav-icon flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="3" y="15" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/></svg>
+          </span>
+          Dashboard
+        </button>
+
+        <button data-section="profil" onclick="showSection('profil')"
+                class="nav-item mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
+          <span class="nav-icon flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>
+          </span>
+          Profil Saya
+        </button>
+
+        <button data-section="dokumen" onclick="showSection('dokumen')"
+                class="nav-item mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
+          <span class="nav-icon flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5M8 12h8M8 16h8"/></svg>
+          </span>
+          Dokumen Saya
+        </button>
+
+        <button data-section="validasi" onclick="showSection('validasi')"
+                class="nav-item mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
+          <span class="nav-icon flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6a2 2 0 0 1 2 2v16H5a2 2 0 0 1-2-2V6h6V2Z"/><path d="M9 2v4H3M8 13l2 2 4-5"/></svg>
+          </span>
+          Status Validasi
+        </button>
+
+        <div class="my-5 border-t border-slate-100"></div>
+        <div class="mb-3 px-3 text-[10px] font-bold uppercase tracking-widest text-slate-400">Lainnya</div>
+
+        <button onclick="refreshAll()"
+                class="mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
+          <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
+          </span>
+          Muat Ulang Data
+        </button>
+
+        <button onclick="openHelp()"
+                class="mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
+          <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.3 1.75c-.9.9-1.8 1.2-1.8 2.75M12 17h.01"/></svg>
+          </span>
+          Bantuan
+        </button>
+      </div>
+
+      <div class="border-t border-slate-100 p-3">
+        <div class="flex items-center gap-3 rounded-2xl bg-slate-50 p-3">
+          <div id="sideAvatar" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-700">G</div>
+          <div class="min-w-0 flex-1">
+            <div id="sideName" class="truncate text-sm font-bold text-slate-800">Guru</div>
+            <div id="sideRole" class="text-xs text-slate-500">GURU</div>
+          </div>
+          <button onclick="logout()" title="Keluar" class="rounded-lg p-2 text-slate-400 hover:bg-white hover:text-red-600">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M20 4v16"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="min-h-screen lg:pl-72">
+      <!-- TOPBAR -->
+      <header class="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
+        <div class="flex h-20 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center gap-3">
+            <button onclick="toggleSidebar()" class="rounded-xl p-2 text-slate-500 hover:bg-slate-100 lg:hidden">
+              <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
             <div>
-                <div class="brand-title">SIMPEL-KS</div>
-                <div class="brand-sub">Sistem Administrasi Sekolah</div>
+              <div id="pageTitle" class="text-lg font-extrabold text-slate-900 sm:text-xl">Dashboard Guru</div>
+              <div id="pageSubtitle" class="hidden text-xs text-slate-500 sm:block">Ringkasan administrasi Anda</div>
             </div>
-        </div>
-    </div>
+          </div>
 
-    <div class="user">
-        <div class="user-row">
-            <div class="avatar" id="sideAvatar">G</div>
-            <div style="min-width:0">
-                <div class="user-name" id="sideNama">Guru</div>
-                <div class="user-role" id="sideJabatan">Guru</div>
+          <div class="flex items-center gap-2 sm:gap-4">
+            <div class="hidden items-center gap-2 rounded-full bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700 sm:flex">
+              <span class="status-dot h-2 w-2 rounded-full bg-emerald-500"></span>
+              Sistem Online
             </div>
+
+            <button onclick="refreshAll()" class="rounded-xl border border-slate-200 bg-white p-2.5 text-slate-500 hover:bg-slate-50" title="Refresh">
+              <svg id="topRefreshIcon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
+            </button>
+
+            <div class="h-8 w-px bg-slate-200"></div>
+
+            <button onclick="showSection('profil')" class="flex items-center gap-2 rounded-xl p-1.5 hover:bg-slate-50">
+              <div id="topAvatar" class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white">G</div>
+              <div class="hidden text-left sm:block">
+                <div id="topName" class="max-w-36 truncate text-sm font-bold text-slate-800">Guru</div>
+                <div class="text-[11px] text-slate-500">Profil Saya</div>
+              </div>
+            </button>
+          </div>
         </div>
+      </header>
+
+      <main class="p-4 sm:p-6 lg:p-8">
+
+        <!-- DASHBOARD -->
+        <section id="section-dashboard" class="section-panel fade-in">
+          <div class="mb-6 overflow-hidden rounded-3xl bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 p-6 text-white shadow-xl shadow-blue-900/10 sm:p-8">
+            <div class="flex flex-col justify-between gap-6 md:flex-row md:items-center">
+              <div>
+                <div class="mb-2 text-sm font-medium text-blue-100">Selamat datang kembali 👋</div>
+                <h1 class="text-2xl font-extrabold tracking-tight sm:text-3xl">
+                  <span id="welcomeName">Guru</span>
+                </h1>
+                <p class="mt-2 max-w-2xl text-sm leading-6 text-blue-100">
+                  Kelola profil dan administrasi dokumen Anda melalui Portal Guru SIMPEL-KS.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
+                <div class="text-xs text-blue-100">Status akun</div>
+                <div class="mt-1 flex items-center gap-2 text-lg font-bold">
+                  <span class="h-2.5 w-2.5 rounded-full bg-emerald-300"></span>
+                  AKTIF
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STAT CARDS -->
+          <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">Dokumen</div>
+                  <div id="statFiles" class="mt-2 text-3xl font-extrabold text-slate-900">0</div>
+                  <div class="mt-1 text-xs text-slate-500">file di folder administrasi</div>
+                </div>
+                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                  <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">Terverifikasi</div>
+                  <div id="statVerified" class="mt-2 text-3xl font-extrabold text-emerald-600">0</div>
+                  <div class="mt-1 text-xs text-slate-500">dokumen tervalidasi</div>
+                </div>
+                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+                  <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/><circle cx="12" cy="12" r="9"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">Perlu Revisi</div>
+                  <div id="statRevision" class="mt-2 text-3xl font-extrabold text-amber-600">0</div>
+                  <div class="mt-1 text-xs text-slate-500">dokumen perlu diperbaiki</div>
+                </div>
+                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-amber-600">
+                  <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.6 2.8 17a2 2 0 0 0 1.75 3h14.9a2 2 0 0 0 1.75-3l-7.5-13.4a2 2 0 0 0-3.4 0Z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">Belum Lengkap</div>
+                  <div id="statIncomplete" class="mt-2 text-3xl font-extrabold text-red-600">0</div>
+                  <div class="mt-1 text-xs text-slate-500">dokumen belum lengkap</div>
+                </div>
+                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-600">
+                  <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-6 xl:grid-cols-3">
+            <!-- PROFILE CARD -->
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div class="mb-5 flex items-center justify-between">
+                <h2 class="font-extrabold text-slate-900">Profil Singkat</h2>
+                <button onclick="showSection('profil')" class="text-xs font-bold text-blue-600 hover:underline">Lihat profil</button>
+              </div>
+              <div class="flex items-center gap-4">
+                <div id="dashAvatar" class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-xl font-extrabold text-blue-700">G</div>
+                <div class="min-w-0">
+                  <div id="dashName" class="truncate text-base font-extrabold text-slate-900">-</div>
+                  <div id="dashJabatan" class="mt-1 text-sm text-slate-500">Guru</div>
+                  <div id="dashGuruId" class="mt-2 inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600">ID: -</div>
+                </div>
+              </div>
+              <div class="mt-5 space-y-3 border-t border-slate-100 pt-5 text-sm">
+                <div class="flex items-center justify-between gap-3"><span class="text-slate-500">Username</span><span id="dashUsername" class="font-semibold text-slate-800">-</span></div>
+                <div class="flex items-center justify-between gap-3"><span class="text-slate-500">Email</span><span id="dashEmail" class="max-w-[60%] truncate font-semibold text-slate-800">-</span></div>
+              </div>
+            </div>
+
+            <!-- VALIDATION SUMMARY -->
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm xl:col-span-2">
+              <div class="mb-5 flex items-center justify-between">
+                <div>
+                  <h2 class="font-extrabold text-slate-900">Ringkasan Validasi</h2>
+                  <p class="mt-1 text-xs text-slate-500">Status administrasi berdasarkan data VALIDASI_DOKUMEN.</p>
+                </div>
+                <button onclick="showSection('validasi')" class="rounded-xl bg-blue-50 px-3 py-2 text-xs font-bold text-blue-700 hover:bg-blue-100">Lihat semua</button>
+              </div>
+              <div id="validationSummary" class="space-y-3">
+                <div class="h-12 animate-pulse rounded-xl bg-slate-100"></div>
+                <div class="h-12 animate-pulse rounded-xl bg-slate-100"></div>
+                <div class="h-12 animate-pulse rounded-xl bg-slate-100"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <div class="flex gap-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white">
+                <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+              </div>
+              <div>
+                <div class="font-bold text-blue-900">Informasi</div>
+                <p class="mt-1 text-sm leading-6 text-blue-800">
+                  Dokumen administrasi tersimpan pada Google Drive yang dikelola SIMPEL-KS.
+                  Gunakan menu <b>Dokumen Saya</b> untuk melihat file yang tersedia.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROFIL -->
+        <section id="section-profil" class="section-panel hidden fade-in">
+          <div class="mb-6">
+            <h2 class="text-xl font-extrabold text-slate-900">Profil Saya</h2>
+            <p class="mt-1 text-sm text-slate-500">Informasi akun guru yang digunakan untuk mengakses SIMPEL-KS.</p>
+          </div>
+
+          <div class="grid gap-6 lg:grid-cols-3">
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div class="flex flex-col items-center text-center">
+                <div id="profileAvatar" class="flex h-28 w-28 items-center justify-center rounded-3xl bg-blue-100 text-4xl font-extrabold text-blue-700">G</div>
+                <h3 id="profileName" class="mt-5 text-xl font-extrabold text-slate-900">-</h3>
+                <p id="profileJabatan" class="mt-1 text-sm text-slate-500">Guru</p>
+                <span class="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700">
+                  <span class="h-2 w-2 rounded-full bg-emerald-500"></span> AKUN AKTIF
+                </span>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-2">
+              <h3 class="mb-5 font-extrabold text-slate-900">Detail Akun</h3>
+              <div class="grid gap-5 sm:grid-cols-2">
+                <InfoField label="Nama Lengkap" id="profileNameField"/>
+                <InfoField label="User ID" id="profileUserId"/>
+                <InfoField label="Username" id="profileUsername"/>
+                <InfoField label="Role" id="profileRole"/>
+                <InfoField label="Guru ID" id="profileGuruId"/>
+                <InfoField label="Jabatan" id="profileJabatanField"/>
+                <InfoField label="Email" id="profileEmail"/>
+                <InfoField label="Status" id="profileStatus"/>
+              </div>
+              <div class="mt-6 rounded-xl bg-slate-50 p-4 text-xs leading-5 text-slate-500">
+                Data profil diambil dari akun pada sheet <b>USERS</b>. Perubahan data akun dilakukan melalui Administrator.
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 class="font-extrabold text-slate-900">Data pada DATA_GURU</h3>
+            <p class="mt-1 text-sm text-slate-500">Data guru yang ditemukan berdasarkan Guru ID atau nama.</p>
+            <div id="teacherDataBox" class="mt-5">
+              <div class="rounded-xl bg-slate-50 p-5 text-sm text-slate-500">Memuat data...</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DOKUMEN -->
+        <section id="section-dokumen" class="section-panel hidden fade-in">
+          <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <h2 class="text-xl font-extrabold text-slate-900">Dokumen Saya</h2>
+              <p class="mt-1 text-sm text-slate-500">File administrasi yang tersedia di folder Google Drive Anda.</p>
+            </div>
+            <button onclick="loadDocuments(true)" class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700">
+              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
+              Refresh Dokumen
+            </button>
+          </div>
+
+          <div id="folderInfo" class="mb-5 hidden rounded-2xl border border-blue-100 bg-blue-50 p-4">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <div class="text-xs font-bold uppercase tracking-wide text-blue-600">Folder Administrasi</div>
+                <div id="folderName" class="mt-1 font-extrabold text-blue-900">-</div>
+              </div>
+              <a id="folderUrl" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-bold text-blue-700 shadow-sm hover:bg-blue-100">
+                Buka Google Drive
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 7-7M7 5h5v5"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="flex flex-col gap-3 border-b border-slate-100 p-5 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 class="font-extrabold text-slate-900">Daftar File</h3>
+                <div id="fileCountText" class="mt-1 text-xs text-slate-500">0 file</div>
+              </div>
+              <div class="relative">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><path d="m11 11 4 4"/></svg>
+                <input id="fileSearch" oninput="renderFiles()" type="search" placeholder="Cari nama file..."
+                       class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 sm:w-64">
+              </div>
+            </div>
+            <div id="filesContainer" class="p-5">
+              <div class="flex min-h-48 items-center justify-center text-sm text-slate-400">Memuat dokumen...</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VALIDASI -->
+        <section id="section-validasi" class="section-panel hidden fade-in">
+          <div class="mb-6">
+            <h2 class="text-xl font-extrabold text-slate-900">Status Validasi</h2>
+            <p class="mt-1 text-sm text-slate-500">Status administrasi berdasarkan data VALIDASI_DOKUMEN.</p>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <ValidationCard id="valWaiting" label="Menunggu" color="blue" icon="clock"/>
+            <ValidationCard id="valVerified" label="Terverifikasi" color="emerald" icon="check"/>
+            <ValidationCard id="valRevision" label="Revisi" color="amber" icon="warning"/>
+            <ValidationCard id="valIncomplete" label="Belum Lengkap" color="red" icon="alert"/>
+          </div>
+
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="flex flex-col gap-3 border-b border-slate-100 p-5 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 class="font-extrabold text-slate-900">Rincian Dokumen</h3>
+                <p id="validationFilterInfo" class="mt-1 text-xs text-slate-500">Menampilkan data yang terkait dengan Anda.</p>
+              </div>
+              <select id="validationStatusFilter" onchange="renderValidation()" class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-blue-400">
+                <option value="">Semua status</option>
+                <option value="MENUNGGU">Menunggu</option>
+                <option value="TERVERIFIKASI">Terverifikasi</option>
+                <option value="REVISI">Revisi</option>
+                <option value="BELUM LENGKAP">Belum Lengkap</option>
+              </select>
+            </div>
+            <div id="validationContainer" class="overflow-x-auto">
+              <div class="flex min-h-48 items-center justify-center p-5 text-sm text-slate-400">Memuat data validasi...</div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <footer class="border-t border-slate-200 bg-white px-4 py-5 text-center text-xs text-slate-400 sm:px-6 lg:px-8">
+        SIMPEL-KS &copy; <span id="year"></span> · Portal Administrasi Guru
+      </footer>
     </div>
+  </div>
 
-    <nav class="menu">
-        <div class="label">Utama</div>
-        <button class="menu-item active" onclick="showSection('dashboard',this)">
-            <i class="fa-solid fa-gauge-high"></i><span>Dashboard</span>
-        </button>
+  <!-- TOAST -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-[80] flex max-w-[calc(100vw-2rem)] flex-col gap-2"></div>
 
-        <div class="label">Administrasi</div>
-        <button class="menu-item" onclick="showSection('administrasi',this)">
-            <i class="fa-solid fa-folder-tree"></i><span>Administrasi Saya</span>
-            <span id="badgeAdministrasi" style="margin-left:auto"></span>
-        </button>
-        <button class="menu-item" onclick="showSection('upload',this)">
-            <i class="fa-solid fa-cloud-arrow-up"></i><span>Upload Dokumen</span>
-        </button>
-        <button class="menu-item" onclick="showSection('validasi',this)">
-            <i class="fa-solid fa-circle-check"></i><span>Status Validasi</span>
-            <span id="badgeRevisi" style="margin-left:auto;color:#fca5a5"></span>
-        </button>
-        <button class="menu-item" onclick="showSection('rekap',this)">
-            <i class="fa-solid fa-chart-pie"></i><span>Rekap Administrasi</span>
-        </button>
-
-        <div class="label">Pembinaan</div>
-        <button class="menu-item" onclick="showSection('pembinaan',this)">
-            <i class="fa-solid fa-user-check"></i><span>Catatan Pembinaan</span>
-        </button>
-        <button class="menu-item" onclick="showSection('supervisi',this)">
-            <i class="fa-solid fa-calendar-check"></i><span>Jadwal Supervisi</span>
-        </button>
-
-        <div class="label">Dokumen & Akun</div>
-        <button class="menu-item" onclick="showSection('file',this)">
-            <i class="fa-solid fa-hard-drive"></i><span>File Saya</span>
-        </button>
-        <button class="menu-item" onclick="showSection('profil',this)">
-            <i class="fa-solid fa-id-card"></i><span>Profil Saya</span>
-        </button>
-    </nav>
-
-    <div class="side-bottom">
-        <button class="logout" onclick="logout()">
-            <i class="fa-solid fa-right-from-bracket"></i> Keluar
-        </button>
-    </div>
-</aside>
-
-<div class="overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-<main class="main">
-
-<header class="topbar">
-    <div class="top-left">
-        <button class="mobile" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+  <!-- HELP MODAL -->
+  <div id="helpModal" class="modal-backdrop fixed inset-0 z-[70] hidden items-center justify-center p-4">
+    <div class="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl">
+      <div class="flex items-start justify-between gap-4">
         <div>
-            <div class="page-title" id="pageTitle">Dashboard Guru</div>
-            <div class="page-sub" id="pageSubtitle">Pusat administrasi pribadi guru</div>
+          <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+            <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.3 1.75c-.9.9-1.8 1.2-1.8 2.75M12 17h.01"/></svg>
+          </div>
+          <h3 class="mt-4 text-xl font-extrabold text-slate-900">Bantuan Portal Guru</h3>
         </div>
+        <button onclick="closeHelp()" class="rounded-xl p-2 text-slate-400 hover:bg-slate-100">
+          <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="mt-5 space-y-3 text-sm leading-6 text-slate-600">
+        <p><b>Dashboard:</b> melihat ringkasan dokumen dan validasi.</p>
+        <p><b>Profil Saya:</b> melihat informasi akun guru.</p>
+        <p><b>Dokumen Saya:</b> membuka file administrasi yang tersimpan di Google Drive.</p>
+        <p><b>Status Validasi:</b> melihat status dokumen yang berkaitan dengan nama/Guru ID Anda.</p>
+        <p class="rounded-xl bg-amber-50 p-3 text-amber-800">Jika dokumen belum muncul, pastikan akun guru memiliki <b>Guru ID</b> yang benar pada sheet USERS dan folder Drive dapat dibuat/dibaca oleh akun Apps Script.</p>
+      </div>
+      <button onclick="closeHelp()" class="mt-6 w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold text-white hover:bg-blue-700">Mengerti</button>
     </div>
-    <div class="top-user">
-        <span class="top-user-name" id="topNama">Guru</span>
-        <div class="avatar" id="topAvatar">G</div>
+  </div>
+
+  <!-- LOGOUT MODAL -->
+  <div id="logoutModal" class="modal-backdrop fixed inset-0 z-[70] hidden items-center justify-center p-4">
+    <div class="w-full max-w-sm rounded-3xl bg-white p-6 text-center shadow-2xl">
+      <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M20 4v16"/></svg>
+      </div>
+      <h3 class="mt-4 text-xl font-extrabold text-slate-900">Keluar dari akun?</h3>
+      <p class="mt-2 text-sm leading-6 text-slate-500">Sesi login akan dihapus dari perangkat ini.</p>
+      <div class="mt-6 flex gap-3">
+        <button onclick="closeLogout()" class="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50">Batal</button>
+        <button onclick="confirmLogout()" class="flex-1 rounded-xl bg-red-600 px-4 py-3 text-sm font-bold text-white hover:bg-red-700">Keluar</button>
+      </div>
     </div>
-</header>
+  </div>
 
-<div class="content">
+  <script>
+    /************************************************************
+     * SIMPEL-KS | GURU.HTML
+     * Kompatibel dengan Code.gs yang diberikan:
+     * - GET  ?action=getdataguru
+     * - GET  ?action=getvalidasidokumen
+     * - GET  ?action=drive&folder_id=...
+     * - POST {action:"createfolder", guru_id, nama}
+     * - POST {action:"getfiles", folder_id}
+     *
+     * Login diasumsikan disimpan oleh login.html pada localStorage
+     * dengan object user dari response handleLogin().
+     ************************************************************/
 
-<!-- DASHBOARD -->
-<section class="section active" id="section-dashboard">
-    <div class="welcome">
+    const CONFIG = {
+      API_URL: 'https://script.google.com/macros/s/PASTE_DEPLOYMENT_ID_ANDA/exec',
+      LOGIN_URL: 'https://bajangan118-tech.github.io/simple-ks/login.html',
+      STORAGE_KEYS: ['simpelks_user', 'simpel_ks_user', 'user', 'currentUser']
+    };
+
+    let currentUser = null;
+    let teacherRows = [];
+    let validationRows = [];
+    let driveFiles = [];
+    let teacherFolder = null;
+
+    const $ = (id) => document.getElementById(id);
+
+    function InfoField({label, id}) {
+      return '';
+    }
+
+    // Komponen kecil yang dipasang ulang sebagai HTML agar file tetap standalone.
+    function infoFieldHtml(label, id) {
+      return `
         <div>
-            <h1>Selamat datang, <span id="welcomeName">Guru</span> 👋</h1>
-            <p>Pantau administrasi, validasi, pembinaan, supervisi, dan dokumen Anda dari satu tempat.</p>
-        </div>
-        <div class="welcome-icon"><i class="fa-solid fa-user-tie"></i></div>
-    </div>
-
-    <div class="grid g4">
-        <div class="stat"><div class="stat-label">Total Administrasi</div><div class="stat-value" id="statTotal">0</div><div class="stat-note">Dokumen terkait akun Anda</div></div>
-        <div class="stat"><div class="stat-label">Terverifikasi</div><div class="stat-value" id="statValid">0</div><div class="stat-note">Dokumen telah diverifikasi</div></div>
-        <div class="stat"><div class="stat-label">Menunggu</div><div class="stat-value" id="statWaiting">0</div><div class="stat-note">Menunggu pemeriksaan</div></div>
-        <div class="stat"><div class="stat-label">Perlu Revisi</div><div class="stat-value" id="statRevision">0</div><div class="stat-note">Dokumen perlu diperbaiki</div></div>
-    </div>
-
-    <div class="grid g2">
-        <div class="card">
-            <div class="card-header"><div><h3>Progress Administrasi</h3><p>Ringkasan kondisi administrasi Anda.</p></div></div>
-            <div class="card-body">
-                <div class="progress">
-                    <div class="circle" id="progressCircle"><span id="circlePercent">0%</span></div>
-                    <div class="progress-info">
-                        <h3 id="progressText">Belum Ada Data</h3>
-                        <p id="progressDescription">Belum terdapat data administrasi yang terkait dengan akun Anda.</p>
-                        <div class="mini">
-                            <div><strong id="rekapValid">0</strong><span>Tervalidasi</span></div>
-                            <div><strong id="rekapWaiting">0</strong><span>Menunggu</span></div>
-                            <div><strong id="rekapRevision">0</strong><span>Revisi</span></div>
-                            <div><strong id="rekapPercent">0%</strong><span>Kelengkapan</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header"><div><h3>Deadline</h3><p>Jadwal penyelesaian administrasi.</p></div></div>
-            <div class="card-body"><div class="list" id="deadlineList"></div></div>
-        </div>
-    </div>
-
-    <div class="grid g2">
-        <div class="card">
-            <div class="card-header"><div><h3>Rekap Status</h3><p>Distribusi status administrasi Anda.</p></div></div>
-            <div class="card-body"><div class="chart"><canvas id="rekapChart"></canvas></div></div>
-        </div>
-        <div class="card">
-            <div class="card-header"><div><h3>Aktivitas Terbaru</h3><p>Lima aktivitas administrasi terakhir.</p></div></div>
-            <div class="card-body"><div class="list" id="activityList"></div></div>
-        </div>
-    </div>
-</section>
-
-<!-- ADMINISTRASI -->
-<section class="section" id="section-administrasi">
-    <div class="card">
-        <div class="card-header">
-            <div><h3>Administrasi Saya</h3><p>Daftar administrasi yang terkait dengan akun guru yang sedang login.</p></div>
-            <button class="btn btn-primary" onclick="showSection('upload')"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Dokumen</button>
-        </div>
-        <div class="card-body">
-            <div class="filter">
-                <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input class="input" id="searchAdmin" placeholder="Cari dokumen atau catatan..." oninput="filterAdministrasi()"></div>
-                <select class="select" id="filterAdminStatus" onchange="filterAdministrasi()">
-                    <option value="">Semua Status</option><option value="valid">Terverifikasi</option><option value="menunggu">Menunggu</option><option value="revisi">Revisi</option><option value="belum">Belum Lengkap</option>
-                </select>
-                <button class="btn btn-light" onclick="resetFilterAdministrasi()"><i class="fa-solid fa-filter-circle-xmark"></i> Reset</button>
-            </div>
-            <div class="table-wrap">
-                <table>
-                    <thead><tr><th>No</th><th>Dokumen</th><th>Tanggal</th><th>Status</th><th>Catatan</th><th>Aksi</th></tr></thead>
-                    <tbody id="administrasiBody"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- UPLOAD -->
-<section class="section" id="section-upload">
-    <div class="card">
-        <div class="card-header"><div><h3>Upload Dokumen</h3><p>Kirim dokumen administrasi untuk diperiksa dan divalidasi.</p></div></div>
-        <div class="card-body">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Jenis Administrasi *</label>
-                    <select class="select" id="uploadJenis">
-                        <option value="">Pilih jenis administrasi</option>
-                        <option>Perangkat Pembelajaran</option><option>Modul Ajar</option><option>Administrasi Kelas</option><option>Asesmen</option><option>Penilaian</option><option>Jurnal Mengajar</option><option>Lainnya</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Keterangan</label>
-                    <input class="input" id="uploadKeterangan" placeholder="Keterangan singkat dokumen">
-                </div>
-                <div class="form-group full">
-                    <label>File Dokumen *</label>
-                    <div class="drop" id="uploadDrop">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
-                        <strong>Pilih atau seret file ke area ini</strong>
-                        <span>File dikirim ke backend Google Apps Script.</span>
-                        <label class="btn btn-primary">
-                            <i class="fa-solid fa-file-arrow-up"></i> Pilih File
-                            <input type="file" id="uploadFile" hidden onchange="handleFileSelect(this)">
-                        </label>
-                        <div class="file-name" id="uploadFileName">Belum ada file dipilih.</div>
-                    </div>
-                </div>
-                <div class="full" style="display:flex;justify-content:flex-end;gap:8px">
-                    <button class="btn btn-light" onclick="resetUploadForm()">Reset</button>
-                    <button class="btn btn-primary" id="btnSubmitUpload" onclick="submitUpload()"><i class="fa-solid fa-paper-plane"></i> Kirim Dokumen</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- VALIDASI -->
-<section class="section" id="section-validasi">
-    <div class="card">
-        <div class="card-header"><div><h3>Status Validasi</h3><p>Pantau hasil pemeriksaan administrasi Anda.</p></div><button class="btn btn-light" onclick="loadValidasi()"><i class="fa-solid fa-rotate"></i> Muat Ulang</button></div>
-        <div class="card-body">
-            <div class="table-wrap">
-                <table>
-                    <thead><tr><th>No</th><th>Dokumen</th><th>Tanggal</th><th>Status</th><th>Catatan</th><th>Validator</th></tr></thead>
-                    <tbody id="validasiBody"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- REKAP -->
-<section class="section" id="section-rekap">
-    <div class="grid g4">
-        <div class="stat"><div class="stat-label">Total</div><div class="stat-value" id="rekapTotalPage">0</div></div>
-        <div class="stat"><div class="stat-label">Tervalidasi</div><div class="stat-value" id="rekapValidPage">0</div></div>
-        <div class="stat"><div class="stat-label">Menunggu</div><div class="stat-value" id="rekapWaitingPage">0</div></div>
-        <div class="stat"><div class="stat-label">Revisi</div><div class="stat-value" id="rekapRevisionPage">0</div></div>
-    </div>
-    <div class="grid g2">
-        <div class="card"><div class="card-header"><div><h3>Distribusi Status</h3><p>Grafik administrasi guru.</p></div></div><div class="card-body"><div class="chart"><canvas id="rekapChartPage"></canvas></div></div></div>
-        <div class="card"><div class="card-header"><div><h3>Tren Administrasi</h3><p>Menunggu endpoint histori bulanan dari Code.gs.</p></div></div><div class="card-body"><div class="chart"><canvas id="trendGuruChart"></canvas></div></div></div>
-    </div>
-</section>
-
-<!-- PEMBINAAN -->
-<section class="section" id="section-pembinaan">
-    <div class="card">
-        <div class="card-header"><div><h3>Catatan Pembinaan</h3><p>Catatan pembinaan dari Kepala Sekolah.</p></div><button class="btn btn-light" onclick="loadPembinaan()"><i class="fa-solid fa-rotate"></i> Muat Ulang</button></div>
-        <div class="card-body"><div class="list" id="pembinaanList"></div></div>
-    </div>
-</section>
-
-<!-- SUPERVISI -->
-<section class="section" id="section-supervisi">
-    <div class="card">
-        <div class="card-header"><div><h3>Jadwal Supervisi</h3><p>Jadwal supervisi pembelajaran Anda.</p></div><button class="btn btn-light" onclick="loadSupervisi()"><i class="fa-solid fa-rotate"></i> Muat Ulang</button></div>
-        <div class="card-body"><div class="list" id="supervisiList"></div></div>
-    </div>
-</section>
-
-<!-- FILE -->
-<section class="section" id="section-file">
-    <div class="card">
-        <div class="card-header"><div><h3>File Saya</h3><p>Dokumen yang tersedia di Google Drive.</p></div><button class="btn btn-light" onclick="loadDriveFiles()"><i class="fa-solid fa-rotate"></i> Muat Ulang</button></div>
-        <div class="card-body"><div class="list" id="fileList"></div></div>
-    </div>
-</section>
-
-<!-- PROFIL -->
-<section class="section" id="section-profil">
-    <div class="card">
-        <div class="card-header"><div><h3>Profil Saya</h3><p>Informasi akun dan data kepegawaian.</p></div></div>
-        <div class="card-body">
-            <div class="profile-grid">
-                <div class="profile-item"><label>Nama</label><strong id="profileNama">-</strong></div>
-                <div class="profile-item"><label>Username</label><strong id="profileUsername">-</strong></div>
-                <div class="profile-item"><label>Email</label><strong id="profileEmail">-</strong></div>
-                <div class="profile-item"><label>Guru ID</label><strong id="profileGuruId">-</strong></div>
-                <div class="profile-item"><label>NIP</label><strong id="profileNip">-</strong></div>
-                <div class="profile-item"><label>Jabatan</label><strong id="profileJabatan">-</strong></div>
-                <div class="profile-item"><label>Role</label><strong id="profileRole">GURU</strong></div>
-                <div class="profile-item"><label>Status Akun</label><strong id="profileStatus">AKTIF</strong></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-</div>
-
-<footer>SIMPEL-KS © 2026 • Sistem Administrasi Sekolah</footer>
-</main>
-
-<!-- MODAL -->
-<div class="modal" id="detailModal">
-    <div class="modal-box">
-        <div class="modal-head"><h3>Detail Administrasi</h3><button class="modal-close" onclick="closeDetail()"><i class="fa-solid fa-xmark"></i></button></div>
-        <div class="modal-body" id="detailContent"></div>
-        <div class="modal-foot"><button class="btn btn-light" onclick="closeDetail()">Tutup</button></div>
-    </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<div class="loading" id="loadingOverlay">
-    <div class="load-box"><div class="spinner"></div><strong>Memuat SIMPEL-KS</strong><span>Mengambil data akun dan administrasi...</span></div>
-</div>
-
-<script>
-"use strict";
-
-/* =========================================================
-   KONFIGURASI
-========================================================= */
-const API_URL="https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec";
-
-/* =========================================================
-   STATE
-========================================================= */
-let CURRENT_USER=null,GURU_DATA=null,DATA_GURU_ROWS=[],VALIDASI_ROWS=[],VALIDASI_GURU=[];
-let PEMBINAAN_ROWS=[],SUPERVISI_ROWS=[],rekapChart=null,rekapChartPage=null,trendChart=null,toastTimer=null;
-
-/* =========================================================
-   HELPERS
-========================================================= */
-function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
-function txt(id,v){const e=document.getElementById(id);if(e)e.textContent=v??""}
-function norm(v){return String(v??"").trim().toLowerCase()}
-function initial(v){return String(v||"G").trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase()||"G"}
-function val(o,keys,def=""){if(!o)return def;for(const k of keys)if(o[k]!=null&&String(o[k]).trim()!=="")return o[k];return def}
-function rowsOf(r){if(Array.isArray(r))return r;if(r?.data&&Array.isArray(r.data))return r.data;if(r?.rows&&Array.isArray(r.rows))return r.rows;if(r?.records&&Array.isArray(r.records))return r.records;return []}
-function currentGuruId(){return norm(val(CURRENT_USER,["guru_id","GURU_ID","id_guru","ID_GURU","guruId"],""))}
-function currentUsername(){return norm(val(CURRENT_USER,["username","USERNAME"],""))}
-function currentNama(){return norm(val(CURRENT_USER,["nama","NAMA","name","NAME"],""))}
-
-/* =========================================================
-   SESSION
-========================================================= */
-function getStoredUser(){
-    const keys=["simpeLKS_user","simpelKS_user","SIMPEL_KS_USER","currentUser","CURRENT_USER","user","userData","sessionUser","loginUser"];
-    for(const key of keys){
-        try{
-            const raw=localStorage.getItem(key);if(!raw)continue;
-            const x=JSON.parse(raw);
-            if(x&&typeof x==="object")return x.user||(x.data&&x.data.user)||x;
-        }catch(e){}
+          <div class="text-[11px] font-bold uppercase tracking-wide text-slate-400">${escapeHtml(label)}</div>
+          <div id="${escapeHtml(id)}" class="mt-1 min-h-6 text-sm font-semibold text-slate-800">-</div>
+        </div>`;
     }
-    return null;
-}
-function checkLogin(){
-    const u=getStoredUser();
-    if(!u){location.replace("login.html");return false}
-    if(String(val(u,["role","ROLE"],"")).toUpperCase()!=="GURU"){
-        alert("Akses ditolak. Halaman ini khusus untuk role GURU.");
-        location.replace("login.html");return false
+
+    function ValidationCard({id,label,color,icon}) {
+      return '';
     }
-    CURRENT_USER=u;return true;
-}
-function renderProfile(){
-    const u=CURRENT_USER||{},nama=val(u,["nama","NAMA","name","NAME"],"Guru"),username=val(u,["username","USERNAME"],"-"),email=val(u,["email","EMAIL"],"-"),gid=val(u,["guru_id","GURU_ID","id_guru","ID_GURU","guruId"],"-"),jab=val(u,["jabatan","JABATAN"],"Guru");
-    txt("welcomeName",nama);txt("sideNama",nama);txt("sideJabatan",jab);txt("topNama",nama);
-    txt("profileNama",nama);txt("profileUsername",username);txt("profileEmail",email);txt("profileGuruId",gid);txt("profileJabatan",jab);txt("profileRole","GURU");txt("profileStatus",val(u,["status","STATUS"],"AKTIF"));
-    txt("sideAvatar",initial(nama));txt("topAvatar",initial(nama));
-}
 
-/* =========================================================
-   API
-========================================================= */
-async function api(action,params={}){
-    let url=API_URL+"?action="+encodeURIComponent(action);
-    Object.entries(params).forEach(([k,v])=>{if(v!==undefined&&v!==null&&v!=="")url+="&"+encodeURIComponent(k)+"="+encodeURIComponent(v)});
-    url+="&_="+Date.now();
-    const r=await fetch(url,{method:"GET",cache:"no-store",redirect:"follow"});
-    if(!r.ok)throw new Error("HTTP "+r.status);
-    const j=await r.json();
-    if(j?.success===false)throw new Error(j.message||"API gagal");
-    return j;
-}
-async function apiPost(action,payload={}){
-    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action,...payload}),redirect:"follow"});
-    if(!r.ok)throw new Error("HTTP "+r.status);
-    const j=await r.json();
-    if(j?.success===false)throw new Error(j.message||"API gagal");
-    return j;
-}
+    /***********************
+     * INIT
+     ***********************/
+    document.addEventListener('DOMContentLoaded', init);
 
-/* =========================================================
-   DATA GURU
-========================================================= */
-async function loadDataGuru(){
-    try{
-        const r=await api("getDataGuru");DATA_GURU_ROWS=rowsOf(r);
-        const gid=currentGuruId(),un=currentUsername(),nm=currentNama();
-        GURU_DATA=DATA_GURU_ROWS.find(x=>norm(val(x,["guru_id","GURU_ID","id_guru","ID_GURU","guruId"],""))===gid);
-        if(!GURU_DATA&&un)GURU_DATA=DATA_GURU_ROWS.find(x=>norm(val(x,["username","USERNAME"],""))===un);
-        if(!GURU_DATA&&nm)GURU_DATA=DATA_GURU_ROWS.find(x=>norm(val(x,["nama","NAMA","name","NAME"],""))===nm);
-        if(GURU_DATA){
-            txt("profileNip",val(GURU_DATA,["nip","NIP"],"-"));
-            const j=val(GURU_DATA,["jabatan","JABATAN"],"");if(j){txt("profileJabatan",j);txt("sideJabatan",j)}
-            const e=val(GURU_DATA,["email","EMAIL"],"");if(e)txt("profileEmail",e);
+    async function init() {
+      $('year').textContent = new Date().getFullYear();
+
+      // Isi field profil yang dibuat secara dinamis.
+      const grid = document.querySelector('#section-profil .grid.gap-5');
+      if (grid) {
+        grid.innerHTML = [
+          infoFieldHtml('Nama Lengkap','profileNameField'),
+          infoFieldHtml('User ID','profileUserId'),
+          infoFieldHtml('Username','profileUsername'),
+          infoFieldHtml('Role','profileRole'),
+          infoFieldHtml('Guru ID','profileGuruId'),
+          infoFieldHtml('Jabatan','profileJabatanField'),
+          infoFieldHtml('Email','profileEmail'),
+          infoFieldHtml('Status','profileStatus')
+        ].join('');
+      }
+
+      // Isi kartu validasi.
+      const cards = document.querySelector('#section-validasi .grid.gap-4');
+      if (cards) {
+        cards.innerHTML = [
+          validationCardHtml('valWaiting','Menunggu','blue','clock'),
+          validationCardHtml('valVerified','Terverifikasi','emerald','check'),
+          validationCardHtml('valRevision','Revisi','amber','warning'),
+          validationCardHtml('valIncomplete','Belum Lengkap','red','alert')
+        ].join('');
+      }
+
+      currentUser = getStoredUser();
+
+      if (!currentUser) {
+        redirectToLogin('Sesi login tidak ditemukan.');
+        return;
+      }
+
+      if (normalizeRole(currentUser.role) !== 'GURU') {
+        const target = getRoleRedirect(currentUser.role);
+        showToast('Akun ini bukan akun GURU.', 'error');
+        setTimeout(() => { window.location.href = target; }, 900);
+        return;
+      }
+
+      renderUser();
+      showSection('dashboard');
+      await refreshAll();
+    }
+
+    /***********************
+     * SESSION
+     ***********************/
+    function getStoredUser() {
+      for (const key of CONFIG.STORAGE_KEYS) {
+        try {
+          const raw = localStorage.getItem(key);
+          if (!raw) continue;
+          const parsed = JSON.parse(raw);
+          const user = parsed && parsed.user ? parsed.user : parsed;
+          if (user && (user.username || user.user_id || user.nama)) return user;
+        } catch (e) {}
+      }
+      return null;
+    }
+
+    function saveUser(user) {
+      localStorage.setItem(CONFIG.STORAGE_KEYS[0], JSON.stringify(user));
+    }
+
+    function clearUserStorage() {
+      CONFIG.STORAGE_KEYS.forEach(key => {
+        try { localStorage.removeItem(key); } catch (e) {}
+      });
+      // Hapus beberapa kemungkinan key sesi tambahan tanpa mengganggu data aplikasi.
+      ['simpelks_session', 'simpel_ks_session', 'sessionUser'].forEach(key => {
+        try { localStorage.removeItem(key); } catch (e) {}
+      });
+    }
+
+    function redirectToLogin(message) {
+      if (message) console.warn(message);
+      window.location.href = CONFIG.LOGIN_URL;
+    }
+
+    function getRoleRedirect(role) {
+      const r = normalizeRole(role);
+      if (r === 'KEPSEK') return CONFIG.LOGIN_URL.replace('login.html', 'ks.html');
+      if (r === 'ADMIN') return CONFIG.LOGIN_URL.replace('login.html', 'admin.html');
+      return CONFIG.LOGIN_URL;
+    }
+
+    function normalizeRole(value) {
+      return String(value || '').trim().toUpperCase();
+    }
+
+    function renderUser() {
+      const u = currentUser || {};
+      const name = u.nama || u.name || 'Guru';
+      const initials = getInitials(name);
+      const role = normalizeRole(u.role) || 'GURU';
+      const guruId = u.guru_id || '-';
+      const jabatan = u.jabatan || 'Guru';
+      const username = u.username || '-';
+      const email = u.email || '-';
+
+      ['sideAvatar','topAvatar','dashAvatar','profileAvatar'].forEach(id => {
+        if ($(id)) $(id).textContent = initials;
+      });
+
+      setText('sideName', name);
+      setText('sideRole', role);
+      setText('topName', name);
+      setText('welcomeName', name);
+      setText('dashName', name);
+      setText('dashJabatan', jabatan);
+      setText('dashGuruId', 'ID: ' + guruId);
+      setText('dashUsername', username);
+      setText('dashEmail', email);
+
+      setText('profileName', name);
+      setText('profileJabatan', jabatan);
+      setText('profileNameField', name);
+      setText('profileUserId', u.user_id || '-');
+      setText('profileUsername', username);
+      setText('profileRole', role);
+      setText('profileGuruId', guruId);
+      setText('profileJabatanField', jabatan);
+      setText('profileEmail', email);
+      setText('profileStatus', 'AKTIF');
+    }
+
+    /***********************
+     * API
+     ***********************/
+    function apiUrl(action, params = {}) {
+      const base = String(CONFIG.API_URL || '').trim();
+      if (!base || base.includes('PASTE_DEPLOYMENT_ID_ANDA')) {
+        throw new Error('API_URL belum diisi pada Guru.html.');
+      }
+
+      const url = new URL(base);
+      url.searchParams.set('action', action);
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          url.searchParams.set(key, value);
         }
-    }catch(e){console.error("getDataGuru",e)}
-}
-
-/* =========================================================
-   VALIDASI
-========================================================= */
-function normalizeStatus(v){
-    const s=String(v||"").toUpperCase();
-    if(/REVISI|KEMBALI|DITOLAK/.test(s))return"revisi";
-    if(/VALID|TERVERIFIKASI|DISETUJUI|SETUJU/.test(s))return"valid";
-    if(/BELUM|KOSONG|TIDAK LENGKAP/.test(s))return"belum";
-    return"menunggu";
-}
-function statusHTML(s){
-    if(s==="valid")return'<span class="status valid"><i class="fa-solid fa-check"></i> TERVERIFIKASI</span>';
-    if(s==="revisi")return'<span class="status revision"><i class="fa-solid fa-rotate-left"></i> REVISI</span>';
-    if(s==="belum")return'<span class="status incomplete"><i class="fa-solid fa-minus"></i> BELUM LENGKAP</span>';
-    return'<span class="status waiting"><i class="fa-solid fa-clock"></i> MENUNGGU</span>';
-}
-async function loadValidasi(){
-    try{
-        const r=await api("getValidasiDokumen");
-        VALIDASI_ROWS=rowsOf(r).map(x=>({
-            id:val(x,["id_validasi","ID_VALIDASI","validasi_id","VALIDASI_ID","id","ID"],""),
-            guru_id:val(x,["guru_id","GURU_ID","id_guru","ID_GURU","guruId"],""),
-            guru:val(x,["nama_guru","NAMA_GURU","guru","GURU","nama","NAMA","name"],""),
-            dokumen:val(x,["jenis_dokumen","JENIS_DOKUMEN","dokumen","DOKUMEN","nama_dokumen","NAMA_DOKUMEN"],""),
-            tanggal:val(x,["tanggal_validasi","TANGGAL_VALIDASI","tanggal","TANGGAL","tanggal_upload"],""),
-            statusOriginal:val(x,["status","STATUS"],""),
-            status:normalizeStatus(val(x,["status","STATUS"],"")),
-            catatan:val(x,["catatan","CATATAN","keterangan","KETERANGAN"],""),
-            validator:val(x,["validator","VALIDATOR","nama_validator","NAMA_VALIDATOR"],""),
-            deadline:val(x,["tanggal_deadline","TANGGAL_DEADLINE","deadline","DEADLINE"],""),
-            selesai:val(x,["tanggal_selesai","TANGGAL_SELESAI","selesai","SELESAI"],""),
-            fileUrl:val(x,["file_url","FILE_URL","url","URL","webViewLink"],"")
-        }));
-        const gid=currentGuruId(),nm=currentNama();
-        VALIDASI_GURU=gid?VALIDASI_ROWS.filter(x=>norm(x.guru_id)===gid):[];
-        if(!VALIDASI_GURU.length&&nm)VALIDASI_GURU=VALIDASI_ROWS.filter(x=>norm(x.guru)===nm);
-        renderAll();
-    }catch(e){
-        console.error("getValidasiDokumen",e);VALIDASI_GURU=[];renderAll();showToast("Data validasi belum dapat dimuat.","error");
+      });
+      return url.toString();
     }
-}
 
-/* =========================================================
-   RENDER
-========================================================= */
-function renderAll(){renderAdministrasi();renderValidasi();updateStats();renderDeadline();renderActivity();renderCharts();updateRekapPage()}
-function updateStats(){
-    const total=VALIDASI_GURU.length,v=VALIDASI_GURU.filter(x=>x.status==="valid").length,w=VALIDASI_GURU.filter(x=>x.status==="menunggu").length,r=VALIDASI_GURU.filter(x=>x.status==="revisi").length,b=VALIDASI_GURU.filter(x=>x.status==="belum").length,p=total?Math.round(v/total*1000)/10:0;
-    txt("statTotal",total);txt("statValid",v);txt("statWaiting",w);txt("statRevision",r);txt("circlePercent",p+"%");txt("rekapValid",v);txt("rekapWaiting",w);txt("rekapRevision",r);txt("rekapPercent",p+"%");txt("badgeAdministrasi",total||"");txt("badgeRevisi",r||"");
-    const c=document.getElementById("progressCircle");if(c){const d=Math.max(0,Math.min(100,p))*3.6;c.style.background=`conic-gradient(#16a34a 0deg ${d}deg,#e2e8f0 ${d}deg 360deg)`}
-    if(!total){txt("progressText","Belum Ada Data");txt("progressDescription","Belum terdapat data administrasi yang terkait dengan akun Anda.")}
-    else if(r){txt("progressText","Perlu Perhatian");txt("progressDescription",`Terdapat ${r} dokumen yang perlu direvisi.`)}
-    else if(w){txt("progressText","Menunggu Validasi");txt("progressDescription",`Terdapat ${w} dokumen yang sedang menunggu validasi.`)}
-    else{txt("progressText","Administrasi Tervalidasi");txt("progressDescription","Data administrasi Anda telah tercatat dalam sistem.")}
-}
-function emptyRow(icon,title,text){return`<tr><td colspan="6"><div class="empty"><i class="${icon}"></i><h3>${title}</h3><p>${text}</p></div></td></tr>`}
-function renderAdministrasi(){
-    const b=document.getElementById("administrasiBody");if(!b)return;
-    if(!VALIDASI_GURU.length){b.innerHTML=emptyRow("fa-solid fa-folder-open","Belum Ada Data Administrasi","Belum ada dokumen administrasi yang tercatat untuk akun Anda.");return}
-    b.innerHTML=VALIDASI_GURU.map((x,i)=>`<tr><td>${i+1}</td><td><strong>${esc(x.dokumen||"-")}</strong></td><td>${esc(x.tanggal||"-")}</td><td>${statusHTML(x.status)}</td><td>${esc(x.catatan||"-")}</td><td><button class="btn btn-light" onclick="showDetail(${i})"><i class="fa-solid fa-eye"></i> Lihat</button></td></tr>`).join("");
-}
-function filterAdministrasi(){
-    const q=norm(document.getElementById("searchAdmin")?.value),s=document.getElementById("filterAdminStatus")?.value||"",b=document.getElementById("administrasiBody");if(!b)return;
-    const a=VALIDASI_GURU.filter(x=>(!q||norm(x.dokumen).includes(q)||norm(x.catatan).includes(q))&&(!s||x.status===s));
-    if(!a.length){b.innerHTML=emptyRow("fa-solid fa-filter-circle-xmark","Data Tidak Ditemukan","Tidak ada data yang sesuai dengan filter.");return}
-    b.innerHTML=a.map((x,i)=>`<tr><td>${i+1}</td><td><strong>${esc(x.dokumen||"-")}</strong></td><td>${esc(x.tanggal||"-")}</td><td>${statusHTML(x.status)}</td><td>${esc(x.catatan||"-")}</td><td><button class="btn btn-light" onclick='showDetailByObject(${JSON.stringify(x).replace(/</g,"\\u003c")})'><i class="fa-solid fa-eye"></i> Lihat</button></td></tr>`).join("");
-}
-function resetFilterAdministrasi(){document.getElementById("searchAdmin").value="";document.getElementById("filterAdminStatus").value="";renderAdministrasi()}
-function renderValidasi(){
-    const b=document.getElementById("validasiBody");if(!b)return;
-    if(!VALIDASI_GURU.length){b.innerHTML=emptyRow("fa-solid fa-circle-check","Belum Ada Data Validasi","Belum ada dokumen validasi yang terkait dengan akun Anda.");return}
-    b.innerHTML=VALIDASI_GURU.map((x,i)=>`<tr><td>${i+1}</td><td><strong>${esc(x.dokumen||"-")}</strong></td><td>${esc(x.tanggal||"-")}</td><td>${statusHTML(x.status)}</td><td>${esc(x.catatan||"-")}</td><td>${esc(x.validator||"-")}</td></tr>`).join("");
-}
-function renderDeadline(){
-    const c=document.getElementById("deadlineList");if(!c)return;
-    const a=VALIDASI_GURU.filter(x=>x.deadline);if(!a.length){c.innerHTML='<div class="empty"><i class="fa-regular fa-calendar"></i><h3>Belum Ada Data</h3><p>Belum tersedia deadline administrasi.</p></div>';return}
-    c.innerHTML=a.map(x=>`<div class="list-item"><div class="list-icon"><i class="fa-regular fa-calendar"></i></div><div class="list-info"><strong>${esc(x.dokumen||"Administrasi")}</strong><span>Deadline: ${esc(x.deadline)}</span></div></div>`).join("");
-}
-function renderActivity(){
-    const c=document.getElementById("activityList");if(!c)return;
-    const a=VALIDASI_GURU.filter(x=>x.tanggal||x.statusOriginal||x.catatan).slice().sort((x,y)=>String(y.tanggal).localeCompare(String(x.tanggal))).slice(0,5);
-    if(!a.length){c.innerHTML='<div class="empty"><i class="fa-regular fa-clock"></i><h3>Belum Ada Aktivitas</h3><p>Belum ada aktivitas administrasi tercatat.</p></div>';return}
-    c.innerHTML=a.map(x=>`<div class="list-item"><div class="list-icon"><i class="fa-solid fa-file-circle-check"></i></div><div class="list-info"><strong>${esc(x.dokumen||"Administrasi")}</strong><span>${esc(x.statusOriginal||"-")} • ${esc(x.tanggal||"-")}</span></div></div>`).join("");
-}
+    async function apiGet(action, params = {}) {
+      const response = await fetch(apiUrl(action, params), {
+        method: 'GET',
+        cache: 'no-store',
+        redirect: 'follow'
+      });
 
-/* =========================================================
-   CHARTS
-========================================================= */
-function makeDoughnut(id,old){
-    const c=document.getElementById(id);if(!c||typeof Chart==="undefined")return old;if(old)old.destroy();
-    const d=["valid","menunggu","revisi","belum"].map(s=>VALIDASI_GURU.filter(x=>x.status===s).length);
-    return new Chart(c,{type:"doughnut",data:{labels:["Tervalidasi","Menunggu","Revisi","Belum Lengkap"],datasets:[{data:d,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:"65%",plugins:{legend:{position:"bottom"}}}});
-}
-function renderCharts(){
-    rekapChart=makeDoughnut("rekapChart",rekapChart);
-    rekapChartPage=makeDoughnut("rekapChartPage",rekapChartPage);
-    const c=document.getElementById("trendGuruChart");if(c&&typeof Chart!=="undefined"){if(trendChart)trendChart.destroy();trendChart=new Chart(c,{type:"line",data:{labels:[],datasets:[{label:"Kelengkapan Administrasi",data:[],tension:.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100}}}})}
-}
-function updateRekapPage(){const d=["valid","menunggu","revisi"].map(s=>VALIDASI_GURU.filter(x=>x.status===s).length);txt("rekapTotalPage",VALIDASI_GURU.length);txt("rekapValidPage",d[0]);txt("rekapWaitingPage",d[1]);txt("rekapRevisionPage",d[2])}
+      if (!response.ok) {
+        throw new Error('Server mengembalikan HTTP ' + response.status);
+      }
 
-/* =========================================================
-   DETAIL
-========================================================= */
-function showDetail(i){if(VALIDASI_GURU[i])showDetailByObject(VALIDASI_GURU[i])}
-function showDetailByObject(x){
-    if(typeof x==="string")try{x=JSON.parse(x)}catch(e){return}
-    document.getElementById("detailContent").innerHTML=`
-        <div class="profile-grid">
-            <div class="profile-item"><label>Guru ID</label><strong>${esc(x.guru_id||"-")}</strong></div>
-            <div class="profile-item"><label>Guru</label><strong>${esc(x.guru||"-")}</strong></div>
-            <div class="profile-item"><label>Dokumen</label><strong>${esc(x.dokumen||"-")}</strong></div>
-            <div class="profile-item"><label>Tanggal</label><strong>${esc(x.tanggal||"-")}</strong></div>
-            <div class="profile-item"><label>Status</label><strong>${statusHTML(x.status)}</strong></div>
-            <div class="profile-item"><label>Validator</label><strong>${esc(x.validator||"-")}</strong></div>
-            <div class="profile-item"><label>Deadline</label><strong>${esc(x.deadline||"-")}</strong></div>
-            <div class="profile-item"><label>Tanggal Selesai</label><strong>${esc(x.selesai||"-")}</strong></div>
-        </div>
-        ${x.fileUrl?`<div style="margin-top:15px"><a class="btn btn-primary" target="_blank" rel="noopener" href="${esc(x.fileUrl)}"><i class="fa-solid fa-file"></i> Buka Dokumen</a></div>`:""}
-        <div style="margin-top:16px"><label style="display:block;font-size:9px;color:#64748b;margin-bottom:6px">Catatan / Keterangan</label><div style="padding:14px;border:1px solid #e2e8f0;border-radius:10px;background:#f8fafc;font-size:10px;line-height:1.7">${esc(x.catatan||"Tidak ada catatan.")}</div></div>`;
-    document.getElementById("detailModal").classList.add("show");
-}
-function closeDetail(){document.getElementById("detailModal")?.classList.remove("show")}
-
-/* =========================================================
-   UPLOAD
-   Action uploadDokumen disiapkan untuk Code.gs berikutnya.
-========================================================= */
-function handleFileSelect(i){const f=i?.files?.[0],e=document.getElementById("uploadFileName");if(e)e.textContent=f?`${f.name} • ${formatBytes(f.size)}`:"Belum ada file dipilih."}
-function formatBytes(n){if(!n)return"0 B";const u=["B","KB","MB","GB"],i=Math.floor(Math.log(n)/Math.log(1024));return(n/Math.pow(1024,i)).toFixed(i?1:0)+" "+u[i]}
-function resetUploadForm(){document.getElementById("uploadJenis").value="";document.getElementById("uploadKeterangan").value="";document.getElementById("uploadFile").value="";document.getElementById("uploadFileName").textContent="Belum ada file dipilih."}
-function fileBase64(file){return new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>{const s=String(r.result||""),i=s.indexOf(",");ok(i>=0?s.slice(i+1):s)};r.onerror=no;r.readAsDataURL(file)})}
-async function submitUpload(){
-    const jenis=document.getElementById("uploadJenis").value,ket=document.getElementById("uploadKeterangan").value,file=document.getElementById("uploadFile").files[0],btn=document.getElementById("btnSubmitUpload");
-    if(!jenis)return showToast("Silakan pilih jenis administrasi.","error");
-    if(!file)return showToast("Silakan pilih file dokumen.","error");
-    btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
-    try{
-        const base64=await fileBase64(file);
-        const r=await apiPost("uploadDokumen",{guru_id:currentGuruId(),username:currentUsername(),nama_guru:val(CURRENT_USER,["nama","NAMA","name","NAME"],""),jenis_dokumen:jenis,keterangan:ket,fileName:file.name,mimeType:file.type,base64});
-        showToast(r?.message||"Dokumen berhasil dikirim.","success");resetUploadForm();await loadValidasi();
-    }catch(e){console.error(e);showToast("Upload belum berhasil: "+e.message,"error")}
-    finally{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-paper-plane"></i> Kirim Dokumen'}
-}
-
-/* =========================================================
-   DRIVE
-========================================================= */
-async function loadDriveFiles(){
-    const c=document.getElementById("fileList");if(!c)return;
-    c.innerHTML='<div class="empty"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat File</h3><p>Mengambil data Google Drive...</p></div>';
-    try{
-        const r=await api("drive",{guru_id:currentGuruId(),username:currentUsername()}),a=Array.isArray(r?.files)?r.files:rowsOf(r);
-        if(!a.length){c.innerHTML='<div class="empty"><i class="fa-solid fa-folder-open"></i><h3>Belum Ada File</h3><p>Tidak ada file yang ditemukan.</p></div>';return}
-        c.innerHTML=a.map(x=>{const n=val(x,["name","NAMA","fileName","FILE_NAME"],"File"),m=val(x,["mime_type","mimeType","MIME_TYPE"],""),u=val(x,["url","webViewLink","link","URL"],"");return`<div class="list-item"><div class="list-icon"><i class="fa-solid fa-file"></i></div><div class="list-info"><strong>${esc(n)}</strong><span>${esc(m)}</span></div>${u?`<a class="btn btn-light" href="${esc(u)}" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Buka</a>`:""}</div>`}).join("");
-    }catch(e){console.error(e);c.innerHTML=`<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Gagal Memuat File</h3><p>${esc(e.message)}</p></div>`}
-}
-
-/* =========================================================
-   PEMBINAAN & SUPERVISI
-   Endpoint dibuat fleksibel; akan disesuaikan setelah Code.gs.
-========================================================= */
-async function loadPembinaan(){await loadSimpleEndpoint("getPembinaan","pembinaanList","Pembinaan")}
-async function loadSupervisi(){await loadSimpleEndpoint("getSupervisi","supervisiList","Supervisi")}
-async function loadSimpleEndpoint(action,id,label){
-    const c=document.getElementById(id);if(!c)return;
-    c.innerHTML='<div class="empty"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data</h3><p>Mengambil data...</p></div>';
-    try{
-        const r=await api(action,{guru_id:currentGuruId()}),a=rowsOf(r);
-        if(!a.length){c.innerHTML=`<div class="empty"><i class="fa-solid fa-folder-open"></i><h3>Belum Ada Data</h3><p>Belum ada data ${label.toLowerCase()} untuk akun Anda.</p></div>`;return}
-        c.innerHTML=a.map(x=>{const t=val(x,["tanggal","TANGGAL","tanggal_pembinaan","tanggal_supervisi"],"-"),j=val(x,["catatan","CATATAN","keterangan","KETERANGAN","jenis","JENIS","kegiatan","KEGIATAN"],label),p=val(x,["pembina","PEMBINA","supervisor","SUPERVISOR","pengawas","PENGAWAS","kepala_sekolah","KEPALA_SEKOLAH"],"-");return`<div class="list-item"><div class="list-icon"><i class="fa-solid ${label==="Pembinaan"?"fa-user-check":"fa-calendar-check"}"></i></div><div class="list-info"><strong>${esc(j)}</strong><span>${esc(t)} • ${esc(p)}</span></div></div>`}).join("");
-    }catch(e){c.innerHTML=`<div class="empty"><i class="fa-solid fa-circle-info"></i><h3>Belum Tersedia</h3><p>Endpoint ${esc(action)} belum tersedia atau belum sesuai dengan backend.</p></div>`}
-}
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-function showSection(s,clicked){
-    document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-    document.getElementById("section-"+s)?.classList.add("active");
-    document.querySelectorAll(".menu-item").forEach(x=>x.classList.remove("active"));
-    if(clicked)clicked.classList.add("active");
-    const t={dashboard:["Dashboard Guru","Pusat administrasi pribadi guru"],administrasi:["Administrasi Saya","Daftar administrasi pribadi"],upload:["Upload Dokumen","Kirim administrasi untuk validasi"],validasi:["Status Validasi","Pantau hasil pemeriksaan dokumen"],rekap:["Rekap Administrasi","Ringkasan administrasi Anda"],pembinaan:["Catatan Pembinaan","Catatan pembinaan dari Kepala Sekolah"],supervisi:["Jadwal Supervisi","Jadwal supervisi Anda"],file:["File Saya","Dokumen yang tersimpan di Google Drive"],profil:["Profil Saya","Informasi akun dan data kepegawaian"]};
-    if(t[s]){txt("pageTitle",t[s][0]);txt("pageSubtitle",t[s][1])}
-    if(s==="file")loadDriveFiles();if(s==="pembinaan")loadPembinaan();if(s==="supervisi")loadSupervisi();
-    if(innerWidth<=760){document.getElementById("sidebar")?.classList.remove("open");document.getElementById("sidebarOverlay")?.classList.remove("show")}
-    scrollTo({top:0,behavior:"smooth"});
-}
-function toggleSidebar(){document.getElementById("sidebar")?.classList.toggle("open");document.getElementById("sidebarOverlay")?.classList.toggle("show")}
-
-/* =========================================================
-   TOAST / LOGOUT
-========================================================= */
-function showToast(m,type=""){const e=document.getElementById("toast");if(!e)return;e.textContent=m;e.className="toast show "+type;clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove("show"),3500)}
-function logout(){
-    if(!confirm("Apakah Anda yakin ingin keluar dari SIMPEL-KS?"))return;
-    ["simpeLKS_user","simpelKS_user","SIMPEL_KS_USER","currentUser","CURRENT_USER","user","userData","sessionUser","loginUser"].forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
-    location.replace("login.html");
-}
-
-/* =========================================================
-   DROP / MODAL
-========================================================= */
-function initUI(){
-    const d=document.getElementById("uploadDrop");
-    if(d){
-        ["dragenter","dragover"].forEach(e=>d.addEventListener(e,x=>{x.preventDefault();d.style.borderColor="#0f766e"}));
-        ["dragleave","drop"].forEach(e=>d.addEventListener(e,x=>{x.preventDefault();d.style.borderColor="#94a3b8"}));
-        d.addEventListener("drop",e=>{const f=e.dataTransfer?.files?.[0],i=document.getElementById("uploadFile");if(f&&i){try{const dt=new DataTransfer();dt.items.add(f);i.files=dt.files;handleFileSelect(i)}catch(x){}}});
+      const data = await response.json();
+      if (data && data.success === false) {
+        throw new Error(data.message || 'Permintaan gagal.');
+      }
+      return data;
     }
-    document.getElementById("detailModal")?.addEventListener("click",e=>{if(e.target.id==="detailModal")closeDetail()});
-    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDetail()});
-}
 
-/* =========================================================
-   INIT
-========================================================= */
-async function initializeGuru(){
-    if(!checkLogin())return;
-    renderProfile();initUI();
-    try{await Promise.all([loadDataGuru(),loadValidasi()])}catch(e){console.error(e);showToast("Sebagian data gagal dimuat.","error")}
-    document.getElementById("loadingOverlay").style.display="none";
-}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initializeGuru);else initializeGuru();
-</script>
+    async function apiPost(payload) {
+      const response = await fetch(apiUrl('status'), {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain;charset=utf-8'},
+        body: JSON.stringify(payload),
+        redirect: 'follow'
+      });
+
+      if (!response.ok) {
+        throw new Error('Server mengembalikan HTTP ' + response.status);
+      }
+
+      const data = await response.json();
+      if (data && data.success === false) {
+        throw new Error(data.message || 'Permintaan gagal.');
+      }
+      return data;
+    }
+
+    /***********************
+     * LOAD ALL
+     ***********************/
+    async function refreshAll() {
+      setRefreshing(true);
+
+      const jobs = [
+        loadTeacherData(),
+        loadValidationData(),
+        loadDocuments(false)
+      ];
+
+      const results = await Promise.allSettled(jobs);
+
+      const failed = results.filter(r => r.status === 'rejected');
+      if (failed.length) {
+        console.warn('Sebagian data gagal dimuat:', failed);
+      }
+
+      updateDashboardStats();
+      setRefreshing(false);
+    }
+
+    /***********************
+     * DATA GURU
+     ***********************/
+    async function loadTeacherData() {
+      try {
+        const data = await apiGet('getdataguru');
+        teacherRows = Array.isArray(data.data) ? data.data : [];
+        renderTeacherData();
+        return data;
+      } catch (error) {
+        teacherRows = [];
+        renderTeacherData(error.message);
+        throw error;
+      }
+    }
+
+    function getMyTeacherRows() {
+      const u = currentUser || {};
+      const myGuruId = normalizeComparable(u.guru_id);
+      const myName = normalizeComparable(u.nama);
+
+      return teacherRows.filter(row => {
+        const rowId = normalizeComparable(row.guru_id || row.id || row.user_id);
+        const rowName = normalizeComparable(row.nama);
+        if (myGuruId && rowId && myGuruId === rowId) return true;
+        if (myName && rowName && myName === rowName) return true;
+        return false;
+      });
+    }
+
+    function renderTeacherData(errorMessage = '') {
+      const box = $('teacherDataBox');
+      if (!box) return;
+
+      if (errorMessage) {
+        box.innerHTML = `<div class="rounded-xl bg-red-50 p-4 text-sm text-red-700">${escapeHtml(errorMessage)}</div>`;
+        return;
+      }
+
+      const rows = getMyTeacherRows();
+      if (!rows.length) {
+        box.innerHTML = `
+          <div class="rounded-xl border border-dashed border-slate-300 p-6 text-center">
+            <div class="font-semibold text-slate-700">Data guru tidak ditemukan</div>
+            <p class="mt-1 text-xs leading-5 text-slate-500">
+              Pencocokan dilakukan menggunakan Guru ID atau nama pada akun USERS dengan DATA_GURU.
+            </p>
+          </div>`;
+        return;
+      }
+
+      const g = rows[0];
+      box.innerHTML = `
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          ${miniData('Nama', g.nama)}
+          ${miniData('NIP', g.nip)}
+          ${miniData('Gol. Ruang', g.gol_ruang)}
+          ${miniData('Jabatan', g.jabatan)}
+          ${miniData('Status', g.status)}
+          ${miniData('Administrasi', g.administrasi)}
+        </div>`;
+    }
+
+    function miniData(label, value) {
+      return `
+        <div class="rounded-xl bg-slate-50 p-4">
+          <div class="text-[10px] font-bold uppercase tracking-wide text-slate-400">${escapeHtml(label)}</div>
+          <div class="mt-1 break-words text-sm font-bold text-slate-800">${escapeHtml(value || '-')}</div>
+        </div>`;
+    }
+
+    /***********************
+     * VALIDASI
+     ***********************/
+    async function loadValidationData() {
+      try {
+        const data = await apiGet('getvalidasidokumen');
+        const all = Array.isArray(data.data) ? data.data : [];
+        validationRows = filterValidationForUser(all);
+        renderValidation();
+        updateValidationSummary();
+        return data;
+      } catch (error) {
+        validationRows = [];
+        renderValidation(error.message);
+        updateValidationSummary();
+        throw error;
+      }
+    }
+
+    function filterValidationForUser(rows) {
+      const u = currentUser || {};
+      const name = normalizeComparable(u.nama);
+      const guruId = normalizeComparable(u.guru_id);
+
+      // VALIDASI_DOKUMEN pada Code.gs tidak mengembalikan guru_id khusus.
+      // Karena itu pencocokan dilakukan pada nama_guru, dengan fallback
+      // ke guru_id bila data server di masa depan menyediakannya.
+      const filtered = rows.filter(row => {
+        const rowName = normalizeComparable(row.nama_guru);
+        const rowGuruId = normalizeComparable(row.guru_id || row.guru_id_user);
+
+        if (guruId && rowGuruId && guruId === rowGuruId) return true;
+        if (name && rowName && name === rowName) return true;
+        return false;
+      });
+
+      return filtered;
+    }
+
+    function getValidationBucket(status) {
+      const s = normalizeStatus(status);
+
+      if (['TERVERIFIKASI','DISETUJUI','VALID','DISETUJUI/VALID'].includes(s)) return 'TERVERIFIKASI';
+      if (['REVISI','PERLU REVISI','PERLU DIREVISI','DITOLAK'].includes(s)) return 'REVISI';
+      if (['BELUM LENGKAP','BELUM_LENGKAP','BELUMLENGKAP','BELUM'].includes(s)) return 'BELUM LENGKAP';
+      if (['MENUNGGU','MENUNGGU VALIDASI','PENDING','BELUM DIVALIDASI'].includes(s)) return 'MENUNGGU';
+      return 'LAINNYA';
+    }
+
+    function normalizeStatus(value) {
+      return String(value || '').trim().toUpperCase().replace(/\s+/g, ' ');
+    }
+
+    function updateValidationSummary() {
+      const count = {
+        MENUNGGU: 0,
+        TERVERIFIKASI: 0,
+        REVISI: 0,
+        'BELUM LENGKAP': 0
+      };
+
+      validationRows.forEach(row => {
+        const bucket = getValidationBucket(row.status);
+        if (count[bucket] !== undefined) count[bucket]++;
+      });
+
+      setText('valWaiting', count.MENUNGGU);
+      setText('valVerified', count.TERVERIFIKASI);
+      setText('valRevision', count.REVISI);
+      setText('valIncomplete', count['BELUM LENGKAP']);
+
+      setText('statVerified', count.TERVERIFIKASI);
+      setText('statRevision', count.REVISI);
+      setText('statIncomplete', count['BELUM LENGKAP']);
+
+      const summary = $('validationSummary');
+      if (summary) {
+        const items = [
+          ['Menunggu', count.MENUNGGU, 'blue'],
+          ['Terverifikasi', count.TERVERIFIKASI, 'emerald'],
+          ['Perlu Revisi', count.REVISI, 'amber'],
+          ['Belum Lengkap', count['BELUM LENGKAP'], 'red']
+        ];
+        summary.innerHTML = items.map(([label, value, color]) => `
+          <div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
+            <div class="flex items-center gap-3">
+              <span class="h-2.5 w-2.5 rounded-full bg-${color}-500"></span>
+              <span class="text-sm font-semibold text-slate-700">${label}</span>
+            </div>
+            <span class="text-sm font-extrabold text-${color}-700">${value}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    function renderValidation(errorMessage = '') {
+      const container = $('validationContainer');
+      if (!container) return;
+
+      if (errorMessage) {
+        container.innerHTML = `<div class="p-6 text-sm text-red-700">${escapeHtml(errorMessage)}</div>`;
+        return;
+      }
+
+      const filter = normalizeStatus($('validationStatusFilter')?.value || '');
+      let rows = validationRows.slice();
+
+      if (filter) {
+        rows = rows.filter(row => getValidationBucket(row.status) === filter);
+      }
+
+      if (!rows.length) {
+        container.innerHTML = `
+          <div class="flex min-h-56 flex-col items-center justify-center p-6 text-center">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+              <svg width="25" height="25" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5"/></svg>
+            </div>
+            <div class="mt-4 font-bold text-slate-700">Belum ada data validasi</div>
+            <p class="mt-1 text-xs text-slate-500">Tidak ada dokumen yang cocok dengan akun Anda.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = `
+        <table class="min-w-[900px] w-full text-left text-sm">
+          <thead class="bg-slate-50 text-[11px] uppercase tracking-wide text-slate-500">
+            <tr>
+              <th class="px-5 py-3 font-bold">Dokumen</th>
+              <th class="px-5 py-3 font-bold">Status</th>
+              <th class="px-5 py-3 font-bold">Deadline</th>
+              <th class="px-5 py-3 font-bold">Selesai</th>
+              <th class="px-5 py-3 font-bold">Catatan</th>
+              <th class="px-5 py-3 font-bold">Validator</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            ${rows.map(row => `
+              <tr class="hover:bg-slate-50/70">
+                <td class="px-5 py-4">
+                  <div class="font-bold text-slate-800">${escapeHtml(row.jenis_dokumen || '-')}</div>
+                  <div class="mt-1 text-[11px] text-slate-400">ID: ${escapeHtml(row.id_validasi || '-')}</div>
+                </td>
+                <td class="px-5 py-4">${statusBadge(row.status)}</td>
+                <td class="px-5 py-4 whitespace-nowrap text-slate-600">${escapeHtml(row.tanggal_deadline || '-')}</td>
+                <td class="px-5 py-4 whitespace-nowrap text-slate-600">${escapeHtml(row.tanggal_selesai || '-')}</td>
+                <td class="max-w-xs px-5 py-4 text-slate-600">${escapeHtml(row.catatan || '-')}</td>
+                <td class="px-5 py-4 text-slate-600">${escapeHtml(row.validator || '-')}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    function statusBadge(status) {
+      const bucket = getValidationBucket(status);
+      const map = {
+        'TERVERIFIKASI': ['bg-emerald-50','text-emerald-700','TERVERIFIKASI'],
+        'REVISI': ['bg-amber-50','text-amber-700','REVISI'],
+        'BELUM LENGKAP': ['bg-red-50','text-red-700','BELUM LENGKAP'],
+        'MENUNGGU': ['bg-blue-50','text-blue-700','MENUNGGU']
+      };
+      const [bg, text, label] = map[bucket] || ['bg-slate-100','text-slate-600',String(status || 'UNKNOWN').toUpperCase()];
+      return `<span class="inline-flex rounded-full px-2.5 py-1 text-[10px] font-extrabold ${bg} ${text}">${escapeHtml(label)}</span>`;
+    }
+
+    /***********************
+     * DRIVE / DOCUMENTS
+     ***********************/
+    async function loadDocuments(force = false) {
+      try {
+        const u = currentUser || {};
+        const guruId = String(u.guru_id || '').trim();
+
+        if (!guruId) {
+          teacherFolder = null;
+          driveFiles = [];
+          renderFiles('Akun guru belum memiliki Guru ID.');
+          return;
+        }
+
+        // Code.gs akan membuat folder ADMINISTRASI_GURU/GURU-ID_NAMA
+        // jika belum tersedia.
+        const folderResponse = await apiPost({
+          action: 'createfolder',
+          guru_id: guruId,
+          nama: u.nama || 'GURU'
+        });
+
+        teacherFolder = folderResponse.folder || null;
+        renderFolderInfo();
+
+        if (!teacherFolder || !teacherFolder.id) {
+          throw new Error('Folder guru tidak dapat disiapkan.');
+        }
+
+        const filesResponse = await apiPost({
+          action: 'getfiles',
+          folder_id: teacherFolder.id
+        });
+
+        driveFiles = Array.isArray(filesResponse.files) ? filesResponse.files : [];
+        renderFiles();
+
+        setText('statFiles', driveFiles.length);
+        return filesResponse;
+      } catch (error) {
+        driveFiles = [];
+        renderFolderInfo();
+        renderFiles(error.message);
+        setText('statFiles', 0);
+        throw error;
+      }
+    }
+
+    function renderFolderInfo() {
+      const box = $('folderInfo');
+      if (!box) return;
+
+      if (!teacherFolder) {
+        box.classList.add('hidden');
+        return;
+      }
+
+      box.classList.remove('hidden');
+      setText('folderName', teacherFolder.name || 'Folder Guru');
+      const link = $('folderUrl');
+      if (link) {
+        link.href = teacherFolder.url || '#';
+        link.classList.toggle('pointer-events-none', !teacherFolder.url);
+      }
+    }
+
+    function renderFiles(errorMessage = '') {
+      const container = $('filesContainer');
+      if (!container) return;
+
+      if (errorMessage) {
+        container.innerHTML = `
+          <div class="flex min-h-48 flex-col items-center justify-center rounded-xl bg-red-50 p-6 text-center">
+            <div class="font-bold text-red-800">Dokumen tidak dapat dimuat</div>
+            <p class="mt-1 max-w-xl text-xs leading-5 text-red-600">${escapeHtml(errorMessage)}</p>
+          </div>`;
+        setText('fileCountText', '0 file');
+        return;
+      }
+
+      const q = String($('fileSearch')?.value || '').trim().toLowerCase();
+      const files = driveFiles.filter(file => String(file.name || '').toLowerCase().includes(q));
+
+      setText('fileCountText', `${files.length} file${q ? ' ditemukan' : ''}`);
+
+      if (!files.length) {
+        container.innerHTML = `
+          <div class="flex min-h-48 flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 p-6 text-center">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+              <svg width="25" height="25" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5"/></svg>
+            </div>
+            <div class="mt-4 font-bold text-slate-700">${q ? 'File tidak ditemukan' : 'Belum ada dokumen'}</div>
+            <p class="mt-1 text-xs text-slate-500">${q ? 'Coba kata kunci lain.' : 'Folder administrasi guru masih kosong.'}</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="grid gap-3 md:grid-cols-2">
+          ${files.map(fileCard).join('')}
+        </div>`;
+    }
+
+    function fileCard(file) {
+      const icon = getFileIcon(file.mime_type, file.name);
+      const size = formatBytes(file.size);
+      const updated = formatDate(file.updated);
+      const url = file.url || '#';
+
+      return `
+        <div class="group rounded-2xl border border-slate-200 p-4 transition hover:border-blue-200 hover:bg-blue-50/30">
+          <div class="flex gap-3">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">${icon}</div>
+            <div class="min-w-0 flex-1">
+              <div class="truncate text-sm font-bold text-slate-800" title="${escapeHtml(file.name || '')}">${escapeHtml(file.name || 'Tanpa nama')}</div>
+              <div class="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-slate-400">
+                <span>${escapeHtml(size)}</span>
+                <span>•</span>
+                <span>${escapeHtml(updated)}</span>
+              </div>
+            </div>
+            <a href="${escapeAttribute(url)}" target="_blank" rel="noopener"
+               class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-500 hover:bg-blue-600 hover:text-white"
+               title="Buka file">
+              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 17 7-7M9 7h5v5"/><path d="M17 13v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/></svg>
+            </a>
+          </div>
+        </div>`;
+    }
+
+    function getFileIcon(mime, name) {
+      const m = String(mime || '').toLowerCase();
+      const n = String(name || '').toLowerCase();
+      let type = 'file';
+      if (m.includes('pdf') || n.endsWith('.pdf')) type = 'pdf';
+      else if (m.includes('spreadsheet') || /\.(xlsx?|csv)$/.test(n)) type = 'sheet';
+      else if (m.includes('document') || /\.(docx?|odt)$/.test(n)) type = 'doc';
+      else if (m.includes('presentation') || /\.(pptx?|odp)$/.test(n)) type = 'slide';
+      else if (m.startsWith('image/') || /\.(png|jpe?g|gif|webp)$/.test(n)) type = 'image';
+
+      const paths = {
+        pdf: '<path d="M5 2h8l4 4v16H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M13 2v5h5"/><path d="M7 15h2a1.5 1.5 0 0 0 0-3H7v5M11 12v5h2M16 12h-3v5"/>',
+        sheet: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 3v18M3 9h18M3 15h18"/>',
+        doc: '<path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5M8 12h8M8 16h6"/>',
+        slide: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 20v2M16 20v2M3 8h18"/>',
+        image: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>',
+        file: '<path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5"/>'
+      };
+      return `<svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">${paths[type]}</svg>`;
+    }
+
+    /***********************
+     * DASHBOARD
+     ***********************/
+    function updateDashboardStats() {
+      // statFiles diatur saat loadDocuments.
+      updateValidationSummary();
+    }
+
+    /***********************
+     * NAVIGATION
+     ***********************/
+    const sectionMeta = {
+      dashboard: ['Dashboard Guru', 'Ringkasan administrasi Anda'],
+      profil: ['Profil Saya', 'Informasi akun guru'],
+      dokumen: ['Dokumen Saya', 'File administrasi pada Google Drive'],
+      validasi: ['Status Validasi', 'Status administrasi dokumen Anda']
+    };
+
+    function showSection(name) {
+      document.querySelectorAll('.section-panel').forEach(panel => panel.classList.add('hidden'));
+      const target = $('section-' + name);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('nav-active');
+        const icon = item.querySelector('.nav-icon');
+        if (icon) {
+          icon.classList.remove('bg-blue-50','text-blue-600');
+          icon.classList.add('bg-slate-100','text-slate-500');
+        }
+      });
+
+      const active = document.querySelector(`[data-section="${name}"]`);
+      if (active) {
+        active.classList.add('nav-active');
+        const icon = active.querySelector('.nav-icon');
+        if (icon) {
+          icon.classList.remove('bg-slate-100','text-slate-500');
+          icon.classList.add('bg-blue-50','text-blue-600');
+        }
+      }
+
+      const meta = sectionMeta[name] || sectionMeta.dashboard;
+      setText('pageTitle', meta[0]);
+      setText('pageSubtitle', meta[1]);
+
+      closeSidebar();
+
+      if (name === 'dokumen' && !driveFiles.length) loadDocuments(false).catch(()=>{});
+      if (name === 'validasi') renderValidation();
+    }
+
+    /***********************
+     * SIDEBAR
+     ***********************/
+    function toggleSidebar() {
+      const sidebar = $('sidebar');
+      const overlay = $('sidebarOverlay');
+      if (!sidebar || !overlay) return;
+
+      const open = sidebar.classList.contains('translate-x-0');
+      if (open) closeSidebar();
+      else {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('translate-x-0');
+        overlay.classList.remove('hidden');
+      }
+    }
+
+    function closeSidebar() {
+      const sidebar = $('sidebar');
+      const overlay = $('sidebarOverlay');
+      if (!sidebar || !overlay) return;
+
+      if (window.innerWidth < 1024) {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+        overlay.classList.add('hidden');
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) {
+        $('sidebar')?.classList.remove('-translate-x-full');
+        $('sidebar')?.classList.add('translate-x-0');
+        $('sidebarOverlay')?.classList.add('hidden');
+      } else {
+        $('sidebar')?.classList.add('-translate-x-full');
+        $('sidebar')?.classList.remove('translate-x-0');
+      }
+    });
+
+    /***********************
+     * LOGOUT
+     ***********************/
+    function logout() {
+      $('logoutModal').classList.remove('hidden');
+      $('logoutModal').classList.add('flex');
+    }
+
+    function closeLogout() {
+      $('logoutModal').classList.add('hidden');
+      $('logoutModal').classList.remove('flex');
+    }
+
+    function confirmLogout() {
+      clearUserStorage();
+      closeLogout();
+      window.location.href = CONFIG.LOGIN_URL;
+    }
+
+    /***********************
+     * HELP
+     ***********************/
+    function openHelp() {
+      $('helpModal').classList.remove('hidden');
+      $('helpModal').classList.add('flex');
+    }
+
+    function closeHelp() {
+      $('helpModal').classList.add('hidden');
+      $('helpModal').classList.remove('flex');
+    }
+
+    /***********************
+     * UI HELPERS
+     ***********************/
+    function setText(id, value) {
+      const el = $(id);
+      if (el) el.textContent = value ?? '-';
+    }
+
+    function getInitials(name) {
+      const parts = String(name || 'G').trim().split(/\s+/).filter(Boolean);
+      if (!parts.length) return 'G';
+      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
+    function normalizeComparable(value) {
+      return String(value || '').trim().toUpperCase().replace(/\s+/g, ' ');
+    }
+
+    function formatBytes(bytes) {
+      const n = Number(bytes);
+      if (!Number.isFinite(n) || n <= 0) return '-';
+      const units = ['B','KB','MB','GB','TB'];
+      const i = Math.min(Math.floor(Math.log(n) / Math.log(1024)), units.length - 1);
+      return `${(n / Math.pow(1024, i)).toFixed(i ? 1 : 0)} ${units[i]}`;
+    }
+
+    function formatDate(value) {
+      if (!value) return '-';
+      const d = new Date(value);
+      if (isNaN(d.getTime())) return String(value);
+      return d.toLocaleDateString('id-ID', {
+        day: '2-digit', month: 'short', year: 'numeric'
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#039;');
+    }
+
+    function escapeAttribute(value) {
+      const safe = String(value || '');
+      return escapeHtml(safe).replace(/`/g, '&#096;');
+    }
+
+    function setRefreshing(active) {
+      const icon = $('topRefreshIcon');
+      if (icon) icon.classList.toggle('spin', active);
+    }
+
+    function showToast(message, type = 'info') {
+      const container = $('toastContainer');
+      if (!container) return;
+
+      const styles = {
+        success: ['bg-emerald-600','✓'],
+        error: ['bg-red-600','!'],
+        warning: ['bg-amber-500','!'],
+        info: ['bg-slate-800','i']
+      };
+      const [bg, symbol] = styles[type] || styles.info;
+
+      const item = document.createElement('div');
+      item.className = `toast flex items-center gap-3 rounded-2xl ${bg} px-4 py-3 text-sm font-semibold text-white shadow-xl`;
+      item.innerHTML = `
+        <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-xs font-extrabold">${symbol}</span>
+        <span>${escapeHtml(message)}</span>`;
+      container.appendChild(item);
+
+      setTimeout(() => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(8px)';
+        item.style.transition = 'all .2s ease';
+        setTimeout(() => item.remove(), 220);
+      }, 3500);
+    }
+
+    function validationCardHtml(id, label, color, icon) {
+      const icons = {
+        clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+        check: '<path d="M20 6 9 17l-5-5"/><circle cx="12" cy="12" r="9"/>',
+        warning: '<path d="M12 9v4M12 17h.01"/><path d="m10.3 3.6-7.5 13.4a2 2 0 0 0 1.75 3h14.9a2 2 0 0 0 1.75-3L13.7 3.6a2 2 0 0 0-3.4 0Z"/>',
+        alert: '<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 17h.01"/>'
+      };
+      return `
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">${escapeHtml(label)}</div>
+              <div id="${escapeHtml(id)}" class="mt-2 text-3xl font-extrabold text-${color}-600">0</div>
+            </div>
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-${color}-50 text-${color}-600">
+              <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2">${icons[icon]}</svg>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // Jika browser menekan Escape, tutup modal.
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeHelp();
+        closeLogout();
+      }
+    });
+  </script>
 </body>
 </html>
