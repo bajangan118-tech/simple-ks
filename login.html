@@ -5,39 +5,27 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-<title>Login | SIMPEL-KS Aplikasi</title>
+<title>Login | SIMPEL-KS</title>
 
-<meta
-    name="description"
-    content="SIMPEL-KS - Sistem Monitoring & Penilaian Efektifitas Administrasi Kepala Sekolah"
->
+<meta name="description"
+      content="SIMPEL-KS - Sistem Monitoring dan Penilaian Efektivitas Administrasi Kepala Sekolah">
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
 
 
 <style>
 
-/* ==================================================
+/* =========================================================
    RESET
-================================================== */
+========================================================= */
 
 *{
     margin:0;
@@ -46,20 +34,18 @@
 }
 
 
-/* ==================================================
+/* =========================================================
    ROOT
-================================================== */
+========================================================= */
 
 :root{
 
     --primary:#2563eb;
-
     --primary-dark:#1d4ed8;
 
     --secondary:#0f172a;
 
     --text:#1e293b;
-
     --muted:#64748b;
 
     --border:#e2e8f0;
@@ -75,10 +61,9 @@
 }
 
 
-/* ==================================================
+/* =========================================================
    BODY
-   BIRU METALIK
-================================================== */
+========================================================= */
 
 body{
 
@@ -120,9 +105,9 @@ body{
 }
 
 
-/* ==================================================
-   METALLIC EFFECT
-================================================== */
+/* =========================================================
+   METALLIC SHINE
+========================================================= */
 
 body::before{
 
@@ -164,9 +149,9 @@ body::before{
 }
 
 
-/* ==================================================
+/* =========================================================
    HEADER
-================================================== */
+========================================================= */
 
 .header{
 
@@ -218,6 +203,8 @@ body::before{
     border-radius:12px;
 
     background:#fff;
+
+    padding:3px;
 
 }
 
@@ -302,9 +289,9 @@ body::before{
 }
 
 
-/* ==================================================
+/* =========================================================
    MAIN
-================================================== */
+========================================================= */
 
 .main{
 
@@ -355,9 +342,9 @@ body::before{
 }
 
 
-/* ==================================================
+/* =========================================================
    LEFT PANEL
-================================================== */
+========================================================= */
 
 .info-panel{
 
@@ -546,9 +533,9 @@ body::before{
 }
 
 
-/* ==================================================
+/* =========================================================
    LOGIN PANEL
-================================================== */
+========================================================= */
 
 .login-panel{
 
@@ -597,9 +584,9 @@ body::before{
 }
 
 
-/* ==================================================
+/* =========================================================
    ROLE
-================================================== */
+========================================================= */
 
 .role-title{
 
@@ -642,6 +629,8 @@ body::before{
     transition:.25s;
 
     color:#475569;
+
+    font-family:inherit;
 
 }
 
@@ -699,8 +688,7 @@ body::before{
 }
 
 
-.role-btn.active
-.role-icon{
+.role-btn.active .role-icon{
 
     background:#dbeafe;
 
@@ -716,9 +704,9 @@ body::before{
 }
 
 
-/* ==================================================
+/* =========================================================
    LOGIN FORM
-================================================== */
+========================================================= */
 
 .login-form{
 
@@ -762,9 +750,9 @@ body::before{
 }
 
 
-/* ==================================================
+/* =========================================================
    SELECTED ROLE
-================================================== */
+========================================================= */
 
 .selected-role{
 
@@ -836,12 +824,14 @@ body::before{
 
     cursor:pointer;
 
+    font-family:inherit;
+
 }
 
 
-/* ==================================================
+/* =========================================================
    FORM
-================================================== */
+========================================================= */
 
 .form-group{
 
@@ -887,6 +877,8 @@ body::before{
 
     font-size:16px;
 
+    pointer-events:none;
+
 }
 
 
@@ -930,6 +922,15 @@ body::before{
 }
 
 
+.form-input:disabled{
+
+    background:#f8fafc;
+
+    cursor:not-allowed;
+
+}
+
+
 .password-toggle{
 
     position:absolute;
@@ -954,9 +955,9 @@ body::before{
 }
 
 
-/* ==================================================
+/* =========================================================
    OPTIONS
-================================================== */
+========================================================= */
 
 .form-options{
 
@@ -984,6 +985,8 @@ body::before{
 
     color:#64748b;
 
+    cursor:pointer;
+
 }
 
 
@@ -1009,9 +1012,9 @@ body::before{
 }
 
 
-/* ==================================================
-   BUTTON
-================================================== */
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
 
 .login-button{
 
@@ -1080,9 +1083,56 @@ body::before{
 }
 
 
-/* ==================================================
+/* =========================================================
+   LOADING
+========================================================= */
+
+.login-button.loading{
+
+    position:relative;
+
+}
+
+
+.login-button.loading::before{
+
+    content:"";
+
+    display:inline-block;
+
+    width:13px;
+
+    height:13px;
+
+    border:
+        2px solid rgba(255,255,255,.4);
+
+    border-top-color:#fff;
+
+    border-radius:50%;
+
+    margin-right:8px;
+
+    vertical-align:-2px;
+
+    animation:
+        spin .7s linear infinite;
+
+}
+
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
    ALERT
-================================================== */
+========================================================= */
 
 .alert{
 
@@ -1145,9 +1195,9 @@ body::before{
 }
 
 
-/* ==================================================
+/* =========================================================
    NOTE
-================================================== */
+========================================================= */
 
 .login-note{
 
@@ -1174,12 +1224,14 @@ body::before{
 
     font-size:10px;
 
+    line-height:1.6;
+
 }
 
 
-/* ==================================================
+/* =========================================================
    RESPONSIVE
-================================================== */
+========================================================= */
 
 @media(max-width:850px){
 
@@ -1343,9 +1395,9 @@ body::before{
 <body>
 
 
-<!-- ==================================================
+<!-- =========================================================
      HEADER
-================================================== -->
+========================================================= -->
 
 <header class="header">
 
@@ -1353,7 +1405,7 @@ body::before{
 
         <img
             class="logo"
-            src="assets/logo_sd.jpeg"
+            src="assets/logo-sd.png"
             alt="Logo Sekolah"
             onerror="this.style.display='none';"
         >
@@ -1361,7 +1413,7 @@ body::before{
         <div class="brand-text">
 
             <div class="brand-title">
-                SIMPEL-KS Aplikasi
+                SIMPEL-KS
             </div>
 
             <div class="brand-subtitle">
@@ -1384,19 +1436,18 @@ body::before{
 </header>
 
 
-
-<!-- ==================================================
+<!-- =========================================================
      MAIN
-================================================== -->
+========================================================= -->
 
 <main class="main">
 
 <div class="login-wrapper">
 
 
-<!-- ==================================================
+<!-- =========================================================
      INFO PANEL
-================================================== -->
+========================================================= -->
 
 <section class="info-panel">
 
@@ -1424,7 +1475,7 @@ body::before{
 
 <p>
 
-    Sistem Monitoring & Penilaian Efektifitas
+    Sistem Monitoring & Penilaian Efektivitas
     Administrasi Kepala Sekolah untuk membantu
     pengelolaan administrasi sekolah secara cepat,
     tertib, dan berbasis data.
@@ -1487,10 +1538,9 @@ body::before{
 </section>
 
 
-
-<!-- ==================================================
+<!-- =========================================================
      LOGIN PANEL
-================================================== -->
+========================================================= -->
 
 <section class="login-panel">
 
@@ -1509,18 +1559,14 @@ body::before{
 </div>
 
 
-
 <div class="role-title">
-
     PILIH AKSES PENGGUNA
-
 </div>
 
 
-<!-- ==================================================
+<!-- =========================================================
      ROLE
-     HANYA KEPSEK DAN GURU
-================================================== -->
+========================================================= -->
 
 <div class="role-grid">
 
@@ -1564,14 +1610,14 @@ body::before{
 </div>
 
 
-
-<!-- ==================================================
+<!-- =========================================================
      LOGIN FORM
-================================================== -->
+========================================================= -->
 
 <form
     id="loginForm"
     class="login-form"
+    autocomplete="on"
     onsubmit="handleLogin(event)"
 >
 
@@ -1609,17 +1655,13 @@ body::before{
 </div>
 
 
-
 <div
     id="alert"
     class="alert"
 ></div>
 
 
-
-<!-- ==================================================
-     USERNAME
-================================================== -->
+<!-- USERNAME -->
 
 <div class="form-group">
 
@@ -1641,6 +1683,7 @@ body::before{
     class="form-input"
     placeholder="Masukkan username"
     autocomplete="username"
+    maxlength="100"
     required
 >
 
@@ -1649,10 +1692,7 @@ body::before{
 </div>
 
 
-
-<!-- ==================================================
-     PASSWORD
-================================================== -->
+<!-- PASSWORD -->
 
 <div class="form-group">
 
@@ -1674,6 +1714,7 @@ body::before{
     class="form-input"
     placeholder="Masukkan sandi"
     autocomplete="current-password"
+    maxlength="200"
     required
 >
 
@@ -1681,7 +1722,9 @@ body::before{
 <button
     type="button"
     class="password-toggle"
+    id="passwordToggle"
     onclick="togglePassword()"
+    aria-label="Tampilkan sandi"
 >
     👁
 </button>
@@ -1692,10 +1735,7 @@ body::before{
 </div>
 
 
-
-<!-- ==================================================
-     OPTIONS
-================================================== -->
+<!-- OPTIONS -->
 
 <div class="form-options">
 
@@ -1724,10 +1764,7 @@ Ingat saya
 </div>
 
 
-
-<!-- ==================================================
-     LOGIN BUTTON
-================================================== -->
+<!-- LOGIN BUTTON -->
 
 <button
     type="submit"
@@ -1736,7 +1773,6 @@ Ingat saya
 >
     Masuk ke Sistem
 </button>
-
 
 
 <div class="login-note">
@@ -1751,14 +1787,13 @@ Ingat saya
 </form>
 
 
-
 <div class="footer">
 
     SIMPEL-KS © 2026
 
     <br>
 
-    Sistem Monitoring & Penilaian Efektifitas Administrasi
+    Sistem Monitoring & Penilaian Efektivitas Administrasi
 
 </div>
 
@@ -1770,26 +1805,33 @@ Ingat saya
 </main>
 
 
-
 <script>
 
-/* ==================================================
-   GOOGLE APPS SCRIPT API
-================================================== */
+/* =========================================================
+   KONFIGURASI
+========================================================= */
+
+/*
+ * URL WEB APP GOOGLE APPS SCRIPT
+ *
+ * Pastikan deployment Code.gs:
+ *
+ * Execute as : Me
+ * Who has access : Anyone
+ */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec";
 
 
-/* ==================================================
-   HALAMAN TUJUAN
-   ADMIN DIHAPUS
-================================================== */
+/*
+ * URL HALAMAN SETELAH LOGIN
+ */
 
 const PAGE_CONFIG = {
 
     KEPSEK:
-        "https://bajangan118-tech.github.io/simple-ks/ks.html#",
+        "https://bajangan118-tech.github.io/simple-ks/ks.html",
 
     GURU:
         "https://bajangan118-tech.github.io/simple-ks/guru.html"
@@ -1797,27 +1839,66 @@ const PAGE_CONFIG = {
 };
 
 
-/* ==================================================
+/* =========================================================
    STATE
-================================================== */
+========================================================= */
 
 let selectedRole = null;
 
+let isLoggingIn = false;
 
-/* ==================================================
+
+/* =========================================================
+   DATA ROLE
+========================================================= */
+
+const ROLE_DATA = {
+
+    kepsek:{
+        serverRole:"KEPSEK",
+        name:"Kepala Sekolah",
+        icon:"👨‍💼",
+        destination:PAGE_CONFIG.KEPSEK
+    },
+
+    guru:{
+        serverRole:"GURU",
+        name:"Guru",
+        icon:"👨‍🏫",
+        destination:PAGE_CONFIG.GURU
+    }
+
+};
+
+
+/* =========================================================
+   NORMALISASI ROLE
+========================================================= */
+
+function normalizeRole(role){
+
+    return String(
+        role || ""
+    )
+    .trim()
+    .toUpperCase();
+
+}
+
+
+/* =========================================================
    PILIH ROLE
-================================================== */
+========================================================= */
 
 function selectRole(role){
 
-    /*
-     * Hanya KEPSEK dan GURU
-     */
+    role =
+        String(role || "")
+        .trim()
+        .toLowerCase();
 
-    if(
-        role !== "kepsek" &&
-        role !== "guru"
-    ){
+
+    if(!ROLE_DATA[role]){
 
         showAlert(
             "Role pengguna tidak tersedia.",
@@ -1860,23 +1941,8 @@ function selectRole(role){
     }
 
 
-    const roleData = {
-
-        kepsek:{
-            name:"Kepala Sekolah",
-            icon:"👨‍💼"
-        },
-
-        guru:{
-            name:"Guru",
-            icon:"👨‍🏫"
-        }
-
-    };
-
-
     const data =
-        roleData[role];
+        ROLE_DATA[role];
 
 
     document
@@ -1905,22 +1971,24 @@ function selectRole(role){
     clearAlert();
 
 
+    const username =
+        document.getElementById(
+            "username"
+        );
+
+
     setTimeout(function(){
 
-        document
-            .getElementById(
-                "username"
-            )
-            .focus();
+        username.focus();
 
-    },300);
+    },250);
 
 }
 
 
-/* ==================================================
+/* =========================================================
    GANTI ROLE
-================================================== */
+========================================================= */
 
 function changeRole(){
 
@@ -1947,14 +2015,21 @@ function changeRole(){
         );
 
 
+    document
+        .getElementById(
+            "password"
+        )
+        .value = "";
+
+
     clearAlert();
 
 }
 
 
-/* ==================================================
-   PASSWORD
-================================================== */
+/* =========================================================
+   TOGGLE PASSWORD
+========================================================= */
 
 function togglePassword(){
 
@@ -1965,47 +2040,66 @@ function togglePassword(){
 
 
     const button =
-        document.querySelector(
-            ".password-toggle"
+        document.getElementById(
+            "passwordToggle"
         );
 
 
     if(
-        password.type ===
-        "password"
+        password.type === "password"
     ){
 
-        password.type =
-            "text";
+        password.type = "text";
 
-        button.textContent =
-            "🙈";
+        button.textContent = "🙈";
+
+        button.setAttribute(
+            "aria-label",
+            "Sembunyikan sandi"
+        );
 
     }
 
     else{
 
-        password.type =
-            "password";
+        password.type = "password";
 
-        button.textContent =
-            "👁";
+        button.textContent = "👁";
+
+        button.setAttribute(
+            "aria-label",
+            "Tampilkan sandi"
+        );
 
     }
 
 }
 
 
-/* ==================================================
-   LOGIN
-================================================== */
+/* =========================================================
+   HANDLE LOGIN
+========================================================= */
 
 async function handleLogin(event){
 
     event.preventDefault();
 
 
-    if(!selectedRole){
+    if(isLoggingIn){
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------
+       VALIDASI ROLE
+    ------------------------------------------------ */
+
+    if(
+        !selectedRole ||
+        !ROLE_DATA[selectedRole]
+    ){
 
         showAlert(
             "Silakan pilih jenis pengguna terlebih dahulu.",
@@ -2017,41 +2111,24 @@ async function handleLogin(event){
     }
 
 
-    /*
-     * Keamanan tambahan:
-     * role yang diperbolehkan hanya
-     * KEPSEK dan GURU.
-     */
+    const roleConfig =
+        ROLE_DATA[selectedRole];
 
-    if(
-        selectedRole !== "kepsek" &&
-        selectedRole !== "guru"
-    ){
 
-        showAlert(
-            "Role pengguna tidak valid.",
-            "error"
-        );
-
-        return;
-
-    }
-
+    /* -----------------------------------------------
+       AMBIL INPUT
+    ------------------------------------------------ */
 
     const username =
         document
-        .getElementById(
-            "username"
-        )
+        .getElementById("username")
         .value
         .trim();
 
 
     const password =
         document
-        .getElementById(
-            "password"
-        )
+        .getElementById("password")
         .value;
 
 
@@ -2061,6 +2138,10 @@ async function handleLogin(event){
             "Username wajib diisi.",
             "error"
         );
+
+        document
+            .getElementById("username")
+            .focus();
 
         return;
 
@@ -2074,9 +2155,20 @@ async function handleLogin(event){
             "error"
         );
 
+        document
+            .getElementById("password")
+            .focus();
+
         return;
 
     }
+
+
+    /* -----------------------------------------------
+       LOCK LOGIN
+    ------------------------------------------------ */
+
+    isLoggingIn = true;
 
 
     const button =
@@ -2085,9 +2177,11 @@ async function handleLogin(event){
         );
 
 
-    button.disabled =
-        true;
+    button.disabled = true;
 
+    button.classList.add(
+        "loading"
+    );
 
     button.textContent =
         "Memverifikasi akun...";
@@ -2098,10 +2192,26 @@ async function handleLogin(event){
 
     try{
 
+        /* =================================================
+           REQUEST KE GOOGLE APPS SCRIPT
 
-        /* =========================================
-           REQUEST KE APPS SCRIPT
-        ========================================= */
+           Content-Type text/plain sengaja digunakan
+           agar request sederhana dari GitHub Pages
+           tidak memicu preflight OPTIONS.
+        ================================================== */
+
+        const payload = {
+
+            action:"login",
+
+            username:username,
+
+            password:password,
+
+            role:roleConfig.serverRole
+
+        };
+
 
         const response =
             await fetch(
@@ -2115,21 +2225,12 @@ async function handleLogin(event){
                             "text/plain;charset=utf-8"
                     },
 
-                    body:JSON.stringify({
+                    body:
+                        JSON.stringify(
+                            payload
+                        ),
 
-                        action:"login",
-
-                        username:
-                            username,
-
-                        password:
-                            password,
-
-                        role:
-                            selectedRole
-                            .toUpperCase()
-
-                    })
+                    redirect:"follow"
 
                 }
             );
@@ -2138,32 +2239,82 @@ async function handleLogin(event){
         if(!response.ok){
 
             throw new Error(
-                "Server HTTP " +
+                "HTTP " +
                 response.status
             );
 
         }
 
 
-        const result =
-            await response.json();
+        /* =================================================
+           BACA RESPONSE SEBAGAI TEXT TERLEBIH DAHULU
+
+           Ini lebih aman daripada langsung response.json()
+           karena beberapa deployment Apps Script dapat
+           mengembalikan response yang perlu diproses
+           sebagai text.
+        ================================================== */
+
+        const responseText =
+            await response.text();
 
 
         console.log(
-            "SIMPEL-KS LOGIN:",
+            "SIMPEL-KS RAW RESPONSE:",
+            responseText
+        );
+
+
+        let result;
+
+
+        try{
+
+            result =
+                JSON.parse(
+                    responseText
+                );
+
+        }
+
+        catch(parseError){
+
+            console.error(
+                "JSON PARSE ERROR:",
+                parseError
+            );
+
+
+            throw new Error(
+                "Respons server bukan JSON yang valid."
+            );
+
+        }
+
+
+        console.log(
+            "SIMPEL-KS LOGIN RESULT:",
             result
         );
 
 
+        /* -----------------------------------------------
+           LOGIN GAGAL
+        ------------------------------------------------ */
+
         if(
-            !result.success
+            !result ||
+            result.success !== true
         ){
 
             showAlert(
-                result.message ||
-                "Login gagal.",
+                result &&
+                result.message
+                    ? result.message
+                    : "Username atau sandi salah.",
                 "error"
             );
+
 
             resetLoginButton();
 
@@ -2171,25 +2322,35 @@ async function handleLogin(event){
 
         }
 
+
+        /* -----------------------------------------------
+           DATA USER
+        ------------------------------------------------ */
 
         const user =
-            result.user;
+            result.user || {};
 
 
-        /* =========================================
-           CEK ROLE HASIL SERVER
-           ADMIN TIDAK DIIZINKAN
-        ========================================= */
+        const serverRole =
+            normalizeRole(
+                user.role
+            );
+
+
+        /* -----------------------------------------------
+           VALIDASI ROLE SERVER
+        ------------------------------------------------ */
 
         if(
-            user.role !== "KEPSEK" &&
-            user.role !== "GURU"
+            serverRole !==
+            roleConfig.serverRole
         ){
 
             showAlert(
-                "Role pengguna tidak diizinkan untuk mengakses sistem.",
+                "Jenis akun tidak sesuai dengan akses yang dipilih.",
                 "error"
             );
+
 
             resetLoginButton();
 
@@ -2198,67 +2359,41 @@ async function handleLogin(event){
         }
 
 
-        /* =========================================
+        /*
+         * HANYA KEPSEK DAN GURU
+         */
+
+        if(
+            serverRole !== "KEPSEK" &&
+            serverRole !== "GURU"
+        ){
+
+            showAlert(
+                "Role pengguna tidak diizinkan mengakses sistem.",
+                "error"
+            );
+
+
+            resetLoginButton();
+
+            return;
+
+        }
+
+
+        /* =================================================
            SIMPAN SESSION
-        ========================================= */
+        ================================================= */
 
-        sessionStorage.setItem(
-            "simpelks_logged_in",
-            "true"
+        saveSession(
+            user,
+            serverRole
         );
 
 
-        sessionStorage.setItem(
-            "simpelks_user_id",
-            user.user_id || ""
-        );
-
-
-        sessionStorage.setItem(
-            "simpelks_username",
-            user.username || ""
-        );
-
-
-        sessionStorage.setItem(
-            "simpelks_nama",
-            user.nama || ""
-        );
-
-
-        sessionStorage.setItem(
-            "simpelks_role",
-            user.role || ""
-        );
-
-
-        sessionStorage.setItem(
-            "simpelks_email",
-            user.email || ""
-        );
-
-
-        sessionStorage.setItem(
-            "simpelks_guru_id",
-            user.guru_id || ""
-        );
-
-
-        sessionStorage.setItem(
-            "simpelks_jabatan",
-            user.jabatan || ""
-        );
-
-
-        sessionStorage.setItem(
-            "simpelks_login_time",
-            new Date().toISOString()
-        );
-
-
-        /* =========================================
+        /* =================================================
            INGAT USERNAME
-        ========================================= */
+        ================================================= */
 
         const remember =
             document
@@ -2286,9 +2421,9 @@ async function handleLogin(event){
         }
 
 
-        /* =========================================
-           PESAN BERHASIL
-        ========================================= */
+        /* =================================================
+           BERHASIL
+        ================================================= */
 
         showAlert(
             "Login berhasil. Mengarahkan ke dashboard...",
@@ -2296,64 +2431,34 @@ async function handleLogin(event){
         );
 
 
+        button.classList.remove(
+            "loading"
+        );
+
+
         button.textContent =
             "Login Berhasil ✓";
 
 
-        /* =========================================
-           REDIRECT BERDASARKAN ROLE
-        ========================================= */
-
-        let destination;
-
-
-        if(
-            user.role ===
-            "KEPSEK"
-        ){
-
-            destination =
-                PAGE_CONFIG.KEPSEK;
-
-        }
-
-        else if(
-            user.role ===
-            "GURU"
-        ){
-
-            destination =
-                PAGE_CONFIG.GURU;
-
-        }
-
-        else{
-
-            throw new Error(
-                "Role pengguna tidak dikenal."
-            );
-
-        }
-
-
-        /* =========================================
+        /* =================================================
            REDIRECT
-        ========================================= */
+        ================================================= */
 
         setTimeout(function(){
 
-            window.location.href =
-                destination;
+            window.location.replace(
+                roleConfig.destination
+            );
 
         },700);
 
-
     }
+
 
     catch(error){
 
         console.error(
-            "LOGIN ERROR:",
+            "SIMPEL-KS LOGIN ERROR:",
             error
         );
 
@@ -2361,7 +2466,8 @@ async function handleLogin(event){
         showAlert(
 
             "Tidak dapat terhubung ke server login. " +
-            "Pastikan Web App Google Apps Script sudah di-deploy sebagai Web App dan aksesnya dapat digunakan.",
+            "Periksa deployment Web App Google Apps Script, " +
+            "URL API, dan izin akses Web App.",
 
             "error"
 
@@ -2375,11 +2481,107 @@ async function handleLogin(event){
 }
 
 
-/* ==================================================
-   RESET BUTTON
-================================================== */
+/* =========================================================
+   SIMPAN SESSION
+========================================================= */
+
+function saveSession(
+    user,
+    serverRole
+){
+
+    const loginTime =
+        new Date().toISOString();
+
+
+    sessionStorage.setItem(
+        "simpelks_logged_in",
+        "true"
+    );
+
+
+    sessionStorage.setItem(
+        "simpelks_user_id",
+        user.user_id || ""
+    );
+
+
+    sessionStorage.setItem(
+        "simpelks_username",
+        user.username || ""
+    );
+
+
+    sessionStorage.setItem(
+        "simpelks_nama",
+        user.nama || ""
+    );
+
+
+    sessionStorage.setItem(
+        "simpelks_role",
+        serverRole || ""
+    );
+
+
+    sessionStorage.setItem(
+        "simpelks_email",
+        user.email || ""
+    );
+
+
+    sessionStorage.setItem(
+        "simpelks_guru_id",
+        user.guru_id || ""
+    );
+
+
+    sessionStorage.setItem(
+        "simpelks_jabatan",
+        user.jabatan || ""
+    );
+
+
+    sessionStorage.setItem(
+        "simpelks_login_time",
+        loginTime
+    );
+
+
+    /*
+     * Simpan seluruh object user juga.
+     * Berguna untuk halaman Guru.html / KS.html.
+     */
+
+    try{
+
+        sessionStorage.setItem(
+            "simpelks_user",
+            JSON.stringify(user)
+        );
+
+    }
+
+    catch(error){
+
+        console.warn(
+            "User object tidak dapat disimpan:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET LOGIN BUTTON
+========================================================= */
 
 function resetLoginButton(){
+
+    isLoggingIn = false;
+
 
     const button =
         document.getElementById(
@@ -2387,8 +2589,12 @@ function resetLoginButton(){
         );
 
 
-    button.disabled =
-        false;
+    button.disabled = false;
+
+
+    button.classList.remove(
+        "loading"
+    );
 
 
     button.textContent =
@@ -2397,9 +2603,9 @@ function resetLoginButton(){
 }
 
 
-/* ==================================================
+/* =========================================================
    ALERT
-================================================== */
+========================================================= */
 
 function showAlert(
     message,
@@ -2418,7 +2624,10 @@ function showAlert(
 
     alert.className =
         "alert show " +
-        type;
+        (
+            type ||
+            "info"
+        );
 
 }
 
@@ -2441,9 +2650,9 @@ function clearAlert(){
 }
 
 
-/* ==================================================
+/* =========================================================
    LUPA PASSWORD
-================================================== */
+========================================================= */
 
 function forgotPassword(event){
 
@@ -2452,7 +2661,7 @@ function forgotPassword(event){
 
     showAlert(
 
-        "Untuk keamanan, silakan hubungi Admin sekolah untuk melakukan reset sandi.",
+        "Untuk keamanan, silakan hubungi administrator sekolah untuk melakukan reset sandi.",
 
         "info"
 
@@ -2461,17 +2670,17 @@ function forgotPassword(event){
 }
 
 
-/* ==================================================
+/* =========================================================
    ESCAPE
-================================================== */
+========================================================= */
 
 document.addEventListener(
     "keydown",
     function(event){
 
         if(
-            event.key ===
-            "Escape"
+            event.key === "Escape" &&
+            !isLoggingIn
         ){
 
             changeRole();
@@ -2482,17 +2691,72 @@ document.addEventListener(
 );
 
 
-/* ==================================================
+/* =========================================================
+   CEK SESSION
+========================================================= */
+
+function checkExistingSession(){
+
+    const loggedIn =
+        sessionStorage.getItem(
+            "simpelks_logged_in"
+        );
+
+
+    const role =
+        normalizeRole(
+            sessionStorage.getItem(
+                "simpelks_role"
+            )
+        );
+
+
+    if(
+        loggedIn === "true" &&
+        (
+            role === "KEPSEK" ||
+            role === "GURU"
+        )
+    ){
+
+        const destination =
+            role === "KEPSEK"
+                ? PAGE_CONFIG.KEPSEK
+                : PAGE_CONFIG.GURU;
+
+
+        /*
+         * Jangan redirect jika halaman sudah
+         * berada di login.
+         */
+
+        console.log(
+            "Session aktif:",
+            role
+        );
+
+        /*
+         * Jika ingin otomatis masuk kembali,
+         * aktifkan baris berikut:
+         *
+         * window.location.replace(destination);
+         */
+
+    }
+
+}
+
+
+/* =========================================================
    LOAD
-================================================== */
+========================================================= */
 
 window.addEventListener(
-    "load",
+    "DOMContentLoaded",
     function(){
 
         /*
-         * Isi username terakhir
-         * jika "Ingat saya" digunakan.
+         * Username terakhir
          */
 
         const lastUsername =
@@ -2510,17 +2774,46 @@ window.addEventListener(
                 .value =
                 lastUsername;
 
+
+            document
+                .getElementById(
+                    "remember"
+                )
+                .checked =
+                true;
+
         }
 
 
+        checkExistingSession();
+
+
         console.log(
-            "SIMPEL-KS Login siap."
+            "===================================="
+        );
+
+        console.log(
+            "SIMPEL-KS LOGIN"
+        );
+
+        console.log(
+            "API:",
+            API_URL
+        );
+
+        console.log(
+            "Status: READY"
+        );
+
+        console.log(
+            "===================================="
         );
 
     }
 );
 
 </script>
+
 
 </body>
 
