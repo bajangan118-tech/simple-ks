@@ -368,41 +368,21 @@
           <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <h2 class="text-xl font-extrabold text-slate-900">Dokumen Saya</h2>
-              <p class="mt-1 text-sm text-slate-500">File administrasi yang tersedia di folder Google Drive Anda.</p>
+              <p class="mt-1 text-sm text-slate-500">Dokumen administrasi guru berdasarkan jenis dokumen.</p>
             </div>
             <button onclick="loadDocuments(true)" class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700">
               <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
-              Refresh Dokumen
+              Muat Ulang
             </button>
           </div>
 
-          <div id="folderInfo" class="mb-5 hidden rounded-2xl border border-blue-100 bg-blue-50 p-4">
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <div class="text-xs font-bold uppercase tracking-wide text-blue-600">Folder Administrasi</div>
-                <div id="folderName" class="mt-1 font-extrabold text-blue-900">-</div>
-              </div>
-              <a id="folderUrl" href="#" target="_blank" rel="noopener" onclick="openTeacherFolder(event)" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-bold text-blue-700 shadow-sm hover:bg-blue-100">
-                Buka Folder
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 7-7M7 5h5v5"/></svg>
-              </a>
-            </div>
-          </div>
-
           <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <div class="flex flex-col gap-3 border-b border-slate-100 p-5 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h3 class="font-extrabold text-slate-900">Daftar File</h3>
-                <div id="fileCountText" class="mt-1 text-xs text-slate-500">0 file</div>
-              </div>
-              <div class="relative">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><path d="m11 11 4 4"/></svg>
-                <input id="fileSearch" oninput="renderFiles()" type="search" placeholder="Cari nama file..."
-                       class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 sm:w-64">
-              </div>
+            <div class="border-b border-slate-100 p-5">
+              <h3 class="font-extrabold text-slate-900">Administrasi Dokumen</h3>
+              <p class="mt-1 text-xs text-slate-500">Klik tombol folder ↗ untuk membuka folder Google Drive sesuai LINK_FOLDER pada VALIDASI_DOKUMEN.</p>
             </div>
-            <div id="filesContainer" class="p-5">
-              <div class="flex min-h-48 items-center justify-center text-sm text-slate-400">Memuat dokumen...</div>
+            <div id="documentTypeContainer" class="grid gap-4 p-5 md:grid-cols-2">
+              <div class="col-span-full flex min-h-48 items-center justify-center text-sm text-slate-400">Memuat dokumen...</div>
             </div>
           </div>
         </section>
@@ -1015,428 +995,236 @@
     /***********************
      * DRIVE / DOCUMENTS
      ***********************/
+    const DOCUMENT_TYPE_CARDS = [
+      {
+        key: 'administrasi pembelajaran kelas 4',
+        label: 'ADMINISTRASI PEMBELAJARAN',
+        sublabel: 'Kelas 4',
+        aliases: [
+          'administrasi pembelajaran kelas 4',
+          'administrasi pembelajaran',
+          'administrasi pembelajaran kls 4'
+        ]
+      },
+      {
+        key: 'administrasi modul ajar kelas 4',
+        label: 'ADMINISTRASI MODUL AJAR',
+        sublabel: 'Kelas 4',
+        aliases: [
+          'administrasi modul ajar kelas 4',
+          'administrasi modul ajar',
+          'modul ajar kelas 4',
+          'modul ajar'
+        ]
+      },
+      {
+        key: 'rekap nilai siswa kelas 4',
+        label: 'REKAP NILAI SISWA',
+        sublabel: 'Kelas 4',
+        aliases: [
+          'rekap nilai siswa kelas 4',
+          'rekap nilai siswa',
+          'rekap nilai',
+          'penilaian kelas 4',
+          'penilaian'
+        ]
+      },
+      {
+        key: 'dokumen kegiatan guru',
+        label: 'DOKUMEN KEGIATAN GURU',
+        sublabel: '',
+        aliases: [
+          'dokumen kegiatan guru',
+          'dokumentasi kegiatan guru',
+          'dokumentasi kegiatan',
+          'dokumentasi'
+        ]
+      }
+    ];
+
     async function loadDocuments(force = false) {
+      const container = $('documentTypeContainer');
+      if (container) {
+        container.innerHTML = `
+          <div class="col-span-full flex min-h-48 items-center justify-center text-sm text-slate-400">
+            <svg class="mr-2 spin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 12a9 9 0 1 1-3-6.7"/>
+            </svg>
+            Memuat data folder...
+          </div>`;
+      }
+
       try {
-        const u = currentUser || {};
-        const guruId = String(u.guru_id || '').trim();
+        const response = await apiGet('getvalidasidokumen');
+        const allRows = Array.isArray(response.data) ? response.data : [];
+        validationRows = filterValidationForUser(allRows);
 
-        if (!guruId) {
-          teacherFolder = null;
-          driveFiles = [];
-          documentFolders = [];
-          renderFiles('Akun guru belum memiliki Guru ID.');
-          return;
-        }
-
-        /********************************************************
-         * 1. SIAPKAN ROOT FOLDER GURU
-         *    Tetap menggunakan endpoint Code.gs lama.
-         ********************************************************/
-        const folderResponse = await apiPost({
-          action: 'createfolder',
-          guru_id: guruId,
-          nama: u.nama || 'GURU'
-        });
-
-        teacherFolder = folderResponse.folder || null;
-        renderFolderInfo();
-
-        if (!teacherFolder || !teacherFolder.id) {
-          throw new Error('Folder guru tidak dapat disiapkan.');
-        }
-
-        /********************************************************
-         * 2. AMBIL DATA VALIDASI UNTUK MENGETAHUI
-         *    JENIS_DOKUMEN DAN FOLDER YANG SESUAI.
-         *
-         * Dukungan dibuat fleksibel:
-         * - link_folder / LINK_FOLDER bila dikirim backend
-         * - folder_url / folderUrl bila tersedia
-         * - id_validasi sebagai ID folder (sesuai backend versi
-         *   yang menyimpan ID subfolder pada ID_VALIDASI)
-         ********************************************************/
-        const validationResponse = await apiGet('getvalidasidokumen');
-        const allValidation = Array.isArray(validationResponse.data)
-          ? validationResponse.data
-          : [];
-
-        validationRows = filterValidationForUser(allValidation);
-
-        const folderRows = buildDocumentFolderRows(validationRows);
-
-        /********************************************************
-         * 3. AMBIL FILE DARI SETIAP FOLDER JENIS DOKUMEN.
-         *    FILE TETAP DITAMPILKAN SEPERTI TAMPILAN LAMA,
-         *    TETAPI TOMBOL ↗ MEMBUKA FOLDER INDUKNYA.
-         ********************************************************/
-        documentFolders = await Promise.all(
-          folderRows.map(async (row) => {
-            let files = [];
-            let folderUrl = row.folderUrl || makeDriveFolderUrl(row.folderId);
-
-            // Jika folderId tersedia, baca isi folder tersebut.
-            if (row.folderId) {
-              try {
-                const result = await apiPost({
-                  action: 'getfiles',
-                  folder_id: row.folderId
-                });
-
-                files = Array.isArray(result.files)
-                  ? result.files
-                  : [];
-
-                // Gunakan URL yang dikembalikan server bila tersedia.
-                if (result.folder && result.folder.url) {
-                  folderUrl = result.folder.url;
-                }
-              } catch (e) {
-                console.warn(
-                  'Folder jenis dokumen "' + row.jenis + '" tidak dapat dibaca:',
-                  e
-                );
-              }
-            }
-
-            return {
-              ...row,
-              folderUrl: folderUrl,
-              files: files
-            };
-          })
-        );
-
-        /********************************************************
-         * 4. GABUNGKAN SEMUA FILE DARI FOLDER JENIS DOKUMEN.
-         *    Metadata documentType + folderUrl ikut disimpan,
-         *    sehingga tombol ↗ selalu membuka folder jenisnya.
-         ********************************************************/
-        const groupedFiles = [];
-
-        documentFolders.forEach(folder => {
-          (folder.files || []).forEach(file => {
-            groupedFiles.push({
-              ...file,
-              document_type: folder.jenis || '',
-              folder_id: folder.folderId || '',
-              folder_url: folder.folderUrl || '',
-              validation_status: folder.status || ''
-            });
-          });
-        });
-
-        /********************************************************
-         * 5. FALLBACK:
-         *    Bila VALIDASI_DOKUMEN belum memiliki pemetaan folder,
-         *    tetap tampilkan file root guru seperti perilaku lama.
-         ********************************************************/
-        if (!groupedFiles.length) {
-          try {
-            const rootResponse = await apiPost({
-              action: 'getfiles',
-              folder_id: teacherFolder.id
-            });
-
-            const rootFiles = Array.isArray(rootResponse.files)
-              ? rootResponse.files
-              : [];
-
-            driveFiles = rootFiles.map(file => ({
-              ...file,
-              document_type: '',
-              folder_id: teacherFolder.id,
-              folder_url: teacherFolder.url || makeDriveFolderUrl(teacherFolder.id),
-              validation_status: ''
-            }));
-          } catch (rootError) {
-            driveFiles = [];
-            console.warn('File root folder guru gagal dibaca:', rootError);
-          }
-        } else {
-          driveFiles = groupedFiles;
-        }
-
-        renderFiles();
-        setText('statFiles', driveFiles.length);
+        renderDocumentTypeCards(allRows);
         updateValidationSummary();
+
+        setText('statFiles', DOCUMENT_TYPE_CARDS.length);
 
         return {
           success: true,
-          folder: teacherFolder,
-          folders: documentFolders,
-          files: driveFiles
+          folders: documentFolders
         };
       } catch (error) {
-        driveFiles = [];
         documentFolders = [];
-        renderFolderInfo();
-        renderFiles(error.message);
+        if (container) {
+          container.innerHTML = `
+            <div class="col-span-full flex min-h-48 flex-col items-center justify-center rounded-xl bg-red-50 p-6 text-center">
+              <div class="font-bold text-red-800">Dokumen tidak dapat dimuat</div>
+              <p class="mt-1 max-w-xl text-xs leading-5 text-red-600">${escapeHtml(error.message || 'Terjadi kesalahan saat membaca VALIDASI_DOKUMEN.')}</p>
+            </div>`;
+        }
         setText('statFiles', 0);
         throw error;
       }
     }
 
-    /************************************************************
-     * MEMBENTUK PEMETAAN:
-     * JENIS_DOKUMEN -> FOLDER GOOGLE DRIVE
-     ************************************************************/
-    function buildDocumentFolderRows(rows) {
-      const seen = {};
-      const result = [];
+    /*
+     * Setiap kartu ditentukan dari JENIS_DOKUMEN.
+     * Setelah ditemukan, ID_VALIDASI dari baris tersebut dipakai
+     * untuk mencari kembali baris yang sama dan mengambil LINK_FOLDER.
+     * Jadi tombol folder TIDAK membuka file dan TIDAK membuat URL folder
+     * sendiri dari ID_VALIDASI.
+     */
+    function renderDocumentTypeCards(allRows) {
+      const container = $('documentTypeContainer');
+      if (!container) return;
 
-      (rows || []).forEach(row => {
-        const jenis = String(
-          row.jenis_dokumen ||
-          row.jenis ||
-          row.dokumen ||
-          ''
-        ).trim();
+      documentFolders = DOCUMENT_TYPE_CARDS.map(card => {
+        const row = findValidationDocumentRow(allRows, card.aliases);
+        const idValidasi = String(row?.id_validasi || '').trim();
+        const linkRow = idValidasi
+          ? allRows.find(item => normalizeComparable(item?.id_validasi) === normalizeComparable(idValidasi) && getLinkFolder(item))
+          : row;
+        const folderUrl = getLinkFolder(linkRow || row);
 
-        if (!jenis) return;
-
-        const key = normalizeDocumentType(jenis);
-        if (seen[key]) return;
-
-        const folderId = String(
-          row.folder_id ||
-          row.folderId ||
-          row.id_folder ||
-          row.id_validasi ||
-          ''
-        ).trim();
-
-        const folderUrl = String(
-          row.link_folder ||
-          row.LINK_FOLDER ||
-          row.folder_url ||
-          row.folderUrl ||
-          row.link ||
-          ''
-        ).trim();
-
-        // Tidak membuat kartu folder jika benar-benar tidak ada
-        // informasi folder. Data validasi tetap dipakai untuk status.
-        if (!folderId && !folderUrl) return;
-
-        seen[key] = true;
-
-        result.push({
-          jenis: jenis,
-          folderId: folderId,
-          folderUrl: folderUrl || makeDriveFolderUrl(folderId),
-          status: row.status || '',
-          idValidasi: row.id_validasi || ''
-        });
+        return {
+          key: card.key,
+          jenis: card.label,
+          sublabel: card.sublabel,
+          idValidasi,
+          folderUrl,
+          available: Boolean(folderUrl),
+          status: row?.status || '',
+          row: row || null
+        };
       });
 
-      // Urutan sesuai tampilan administrasi yang umum digunakan.
-      const order = [
-        'administrasi pembelajaran',
-        'modul ajar',
-        'penilaian',
-        'dokumentasi'
-      ];
+      container.innerHTML = documentFolders.map((item, index) => {
+        const card = DOCUMENT_TYPE_CARDS[index];
+        const available = item.available;
+        const buttonClass = available
+          ? 'bg-slate-100 text-slate-500 hover:bg-blue-600 hover:text-white cursor-pointer'
+          : 'bg-slate-100 text-slate-300 cursor-not-allowed';
+        const statusText = available
+          ? 'Folder tersedia'
+          : 'LINK_FOLDER belum tersedia';
 
-      result.sort((a, b) => {
-        const ia = documentTypeOrderIndex(a.jenis, order);
-        const ib = documentTypeOrderIndex(b.jenis, order);
+        return `
+          <div class="group rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-blue-200 hover:shadow-sm">
+            <div class="flex items-center gap-4">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                <svg width="27" height="27" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h4l2 2H18.5A2.5 2.5 0 0 1 21 9.5v7A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z"/>
+                  <path d="M3 9h18"/>
+                </svg>
+              </div>
 
-        if (ia !== ib) return ia - ib;
-        return a.jenis.localeCompare(b.jenis, 'id');
-      });
+              <div class="min-w-0 flex-1">
+                <div class="text-sm font-extrabold tracking-wide text-slate-800">
+                  ${escapeHtml(card.label)}
+                </div>
+                ${card.sublabel ? `<div class="mt-0.5 text-sm font-semibold text-slate-500">${escapeHtml(card.sublabel)}</div>` : ''}
+                <div class="mt-1 text-[11px] ${available ? 'text-emerald-600' : 'text-slate-400'}">
+                  ${escapeHtml(statusText)}
+                </div>
+              </div>
 
-      return result;
+              <button type="button"
+                      ${available ? `onclick="openDocumentTypeFolderByIndex(${index}, event)"` : 'disabled'}
+                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${buttonClass}"
+                      title="${available ? 'Buka folder Google Drive' : 'LINK_FOLDER belum tersedia'}"
+                      aria-label="${available ? 'Buka folder Google Drive' : 'LINK_FOLDER belum tersedia'}">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="m7 17 7-7M9 7h5v5"/>
+                  <path d="M17 13v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/>
+                </svg>
+              </button>
+            </div>
+          </div>`;
+      }).join('');
     }
 
-    function documentTypeOrderIndex(value, order) {
-      const key = normalizeDocumentType(value);
-      const index = order.findIndex(item =>
-        key === item ||
-        key.includes(item) ||
-        item.includes(key)
-      );
+    function findValidationDocumentRow(rows, aliases) {
+      const normalizedAliases = aliases.map(normalizeDocumentType);
 
-      return index === -1 ? 999 : index;
+      return (rows || []).find(row => {
+        const jenis = normalizeDocumentType(
+          row?.jenis_dokumen || row?.jenis || row?.dokumen || ''
+        );
+        if (!jenis) return false;
+
+        return normalizedAliases.some(alias =>
+          jenis === alias || jenis.includes(alias) || alias.includes(jenis)
+        );
+      }) || null;
+    }
+
+    function getLinkFolder(row) {
+      if (!row) return '';
+      return String(
+        row.link_folder ||
+        row.LINK_FOLDER ||
+        row.folder_url ||
+        row.folderUrl ||
+        ''
+      ).trim();
+    }
+
+    function openDocumentTypeFolderByIndex(index, event) {
+      if (event) event.preventDefault();
+
+      const item = documentFolders[Number(index)];
+      if (!item) {
+        showToast('Data jenis dokumen tidak ditemukan.', 'error');
+        return;
+      }
+
+      if (!item.folderUrl) {
+        showToast(
+          'LINK_FOLDER untuk ' + item.jenis + ' belum tersedia pada VALIDASI_DOKUMEN. ID_VALIDASI: ' + (item.idValidasi || '-'),
+          'error'
+        );
+        return;
+      }
+
+      window.open(item.folderUrl, '_blank', 'noopener');
     }
 
     function normalizeDocumentType(value) {
       return String(value || '')
         .trim()
         .toLowerCase()
-        .replace(/[\/\\_-]+/g, ' ')
-        .replace(/\s+/g, ' ');
+        .replace(/[\/\_-]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
     }
 
-    function makeDriveFolderUrl(folderId) {
-      const id = String(folderId || '').trim();
-      return id
-        ? 'https://drive.google.com/drive/folders/' + encodeURIComponent(id)
-        : '';
-    }
-
-    /************************************************************
-     * TOMBOL ↗ PADA KARTU DOKUMEN
-     * Membuka FOLDER sesuai JENIS_DOKUMEN, BUKAN FILE.
-     ************************************************************/
-    function openDocumentFolderByFile(index, event) {
+    function openTeacherFolder(event) {
       if (event) event.preventDefault();
-
-      const file = driveFiles[Number(index)];
-
-      if (!file) {
-        showToast('Data dokumen tidak ditemukan.', 'error');
-        return;
-      }
-
-      const url = String(
-        file.folder_url ||
-        makeDriveFolderUrl(file.folder_id) ||
-        ''
-      ).trim();
-
-      if (!url) {
-        showToast(
-          'Link folder untuk jenis dokumen "' +
-          (file.document_type || 'dokumen ini') +
-          '" belum tersedia.',
-          'error'
-        );
-        return;
-      }
-
-      window.open(url, '_blank', 'noopener');
-    }
-
-    async function openTeacherFolder(event) {
-      if (event) event.preventDefault();
-
-      try {
-        showToast('Menyiapkan folder guru...', 'info');
-        await loadDocuments(true);
-
-        if (teacherFolder?.url) {
-          window.open(teacherFolder.url, '_blank', 'noopener');
-          showToast('Folder Google Drive siap dibuka.', 'success');
-        } else {
-          throw new Error('Link folder guru tidak tersedia.');
-        }
-      } catch (error) {
-        showToast(error.message || 'Folder gagal disiapkan.', 'error');
+      if (teacherFolder?.url) {
+        window.open(teacherFolder.url, '_blank', 'noopener');
+      } else {
+        showToast('Link folder guru tidak tersedia.', 'error');
       }
     }
 
     function renderFolderInfo() {
-      const box = $('folderInfo');
-      if (!box) return;
-
-      if (!teacherFolder) {
-        box.classList.add('hidden');
-        return;
-      }
-
-      box.classList.remove('hidden');
-      setText('folderName', teacherFolder.name || 'Folder Guru');
-
-      const link = $('folderUrl');
-      if (link) {
-        link.href = teacherFolder.url || '#';
-        link.classList.toggle('pointer-events-none', !teacherFolder.url);
-      }
-    }
-
-    function renderFiles(errorMessage = '') {
-      const container = $('filesContainer');
-      if (!container) return;
-
-      if (errorMessage) {
-        container.innerHTML = `
-          <div class="flex min-h-48 flex-col items-center justify-center rounded-xl bg-red-50 p-6 text-center">
-            <div class="font-bold text-red-800">Dokumen tidak dapat dimuat</div>
-            <p class="mt-1 max-w-xl text-xs leading-5 text-red-600">${escapeHtml(errorMessage)}</p>
-          </div>`;
-        setText('fileCountText', '0 file');
-        return;
-      }
-
-      const q = String($('fileSearch')?.value || '').trim().toLowerCase();
-
-      const files = driveFiles.filter(file => {
-        const nameText = String(file.name || '').toLowerCase();
-        const typeText = String(file.document_type || '').toLowerCase();
-        return !q || nameText.includes(q) || typeText.includes(q);
-      });
-
-      setText(
-        'fileCountText',
-        `${files.length} file${q ? ' ditemukan' : ''}`
-      );
-
-      if (!files.length) {
-        container.innerHTML = `
-          <div class="flex min-h-48 flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 p-6 text-center">
-            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
-              <svg width="25" height="25" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/>
-                <path d="M14 2v5h5"/>
-              </svg>
-            </div>
-            <div class="mt-4 font-bold text-slate-700">${q ? 'File tidak ditemukan' : 'Belum ada dokumen'}</div>
-            <p class="mt-1 text-xs text-slate-500">${q ? 'Coba kata kunci lain.' : 'Folder administrasi guru masih kosong.'}</p>
-          </div>`;
-        return;
-      }
-
-      container.innerHTML = `
-        <div class="grid gap-3 md:grid-cols-2">
-          ${files.map(file => fileCard(file)).join('')}
-        </div>`;
-    }
-
-    function fileCard(file) {
-      const fileIndex = driveFiles.indexOf(file);
-      const icon = getFileIcon(file.mime_type, file.name);
-      const size = formatBytes(file.size);
-      const updated = formatDate(file.updated);
-      const documentType = String(file.document_type || '').trim();
-
-      const typeBadge = documentType
-        ? `<span class="font-semibold text-blue-600">${escapeHtml(documentType)}</span><span>•</span>`
-        : '';
-
-      return `
-        <div class="group rounded-2xl border border-slate-200 p-4 transition hover:border-blue-200 hover:bg-blue-50/30">
-          <div class="flex gap-3">
-            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-              ${icon}
-            </div>
-
-            <div class="min-w-0 flex-1">
-              <div class="truncate text-sm font-bold text-slate-800"
-                   title="${escapeHtml(file.name || '')}">
-                ${escapeHtml(file.name || 'Tanpa nama')}
-              </div>
-
-              <div class="mt-1 flex flex-wrap gap-x-2 gap-y-1 text-[11px] text-slate-400">
-                ${typeBadge}
-                <span>${escapeHtml(size)}</span>
-                <span>•</span>
-                <span>${escapeHtml(updated)}</span>
-              </div>
-            </div>
-
-            <!-- TOMBOL ↗ SEKARANG MEMBUKA FOLDER JENIS DOKUMEN -->
-            <button type="button"
-                    onclick="openDocumentFolderByFile(${fileIndex}, event)"
-                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-500 hover:bg-blue-600 hover:text-white"
-                    title="Buka folder ${escapeHtml(documentType || 'dokumen')}"
-                    aria-label="Buka folder ${escapeHtml(documentType || 'dokumen')}">
-              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="m7 17 7-7M9 7h5v5"/>
-                <path d="M17 13v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/>
-              </svg>
-            </button>
-          </div>
-        </div>`;
+      // Dipertahankan agar fungsi lama tidak mengganggu bagian lain.
+      return;
     }
 
     function getFileIcon(mime, name) {
@@ -1508,7 +1296,7 @@
 
       closeSidebar();
 
-      if (name === 'dokumen' && !driveFiles.length) loadDocuments(false).catch(()=>{});
+      if (name === 'dokumen' && !documentFolders.length) loadDocuments(false).catch(()=>{});
       if (name === 'validasi') renderValidation();
     }
 
