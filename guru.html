@@ -501,6 +501,7 @@
      * - GET  ?action=drive&folder_id=...
      * - POST {action:"createfolder", guru_id, nama}
      * - POST {action:"getfiles", folder_id}
+ * - Tombol buka pada setiap kartu dokumen membuka folder Google Drive guru
      *
      * Login diasumsikan disimpan oleh login.html pada localStorage
      * dengan object user dari response handleLogin().
@@ -1134,7 +1135,6 @@
       const icon = getFileIcon(file.mime_type, file.name);
       const size = formatBytes(file.size);
       const updated = formatDate(file.updated);
-      const url = file.url || '#';
 
       return `
         <div class="group rounded-2xl border border-slate-200 p-4 transition hover:border-blue-200 hover:bg-blue-50/30">
@@ -1148,11 +1148,11 @@
                 <span>${escapeHtml(updated)}</span>
               </div>
             </div>
-            <a href="${escapeAttribute(url)}" target="_blank" rel="noopener"
+            <button type="button" onclick="openTeacherFolder(event)"
                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-500 hover:bg-blue-600 hover:text-white"
-               title="Buka file">
+               title="Buka folder Google Drive">
               <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 17 7-7M9 7h5v5"/><path d="M17 13v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/></svg>
-            </a>
+            </button>
           </div>
         </div>`;
     }
