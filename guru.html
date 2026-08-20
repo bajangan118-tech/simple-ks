@@ -501,7 +501,6 @@
      * - GET  ?action=drive&folder_id=...
      * - POST {action:"createfolder", guru_id, nama}
      * - POST {action:"getfiles", folder_id}
- * - Tombol buka pada setiap kartu dokumen membuka folder Google Drive guru
      *
      * Login diasumsikan disimpan oleh login.html pada localStorage
      * dengan object user dari response handleLogin().
@@ -518,6 +517,8 @@
     let validationRows = [];
     let driveFiles = [];
     let teacherFolder = null;
+    // Pemetaan folder berdasarkan JENIS_DOKUMEN.
+    let documentFolders = [];
 
     const $ = (id) => document.getElementById(id);
 
@@ -1022,12 +1023,15 @@
         if (!guruId) {
           teacherFolder = null;
           driveFiles = [];
+          documentFolders = [];
           renderFiles('Akun guru belum memiliki Guru ID.');
           return;
         }
 
-        // Membuat root folder guru + 4 subfolder administrasi dan
-        // menyinkronkan ID_VALIDASI, NAMA_GURU, LINK_FOLDER.
+        /********************************************************
+         * 1. SIAPKAN ROOT FOLDER GURU
+         *    Tetap menggunakan endpoint Code.gs lama.
+         ********************************************************/
         const folderResponse = await apiPost({
           action: 'createfolder',
           guru_id: guruId,
@@ -1041,18 +1045,130 @@
           throw new Error('Folder guru tidak dapat disiapkan.');
         }
 
-        const filesResponse = await apiPost({
-          action: 'getfiles',
-          folder_id: teacherFolder.id
+        /********************************************************
+         * 2. AMBIL DATA VALIDASI UNTUK MENGETAHUI
+         *    JENIS_DOKUMEN DAN FOLDER YANG SESUAI.
+         *
+         * Dukungan dibuat fleksibel:
+         * - link_folder / LINK_FOLDER bila dikirim backend
+         * - folder_url / folderUrl bila tersedia
+         * - id_validasi sebagai ID folder (sesuai backend versi
+         *   yang menyimpan ID subfolder pada ID_VALIDASI)
+         ********************************************************/
+        const validationResponse = await apiGet('getvalidasidokumen');
+        const allValidation = Array.isArray(validationResponse.data)
+          ? validationResponse.data
+          : [];
+
+        validationRows = filterValidationForUser(allValidation);
+
+        const folderRows = buildDocumentFolderRows(validationRows);
+
+        /********************************************************
+         * 3. AMBIL FILE DARI SETIAP FOLDER JENIS DOKUMEN.
+         *    FILE TETAP DITAMPILKAN SEPERTI TAMPILAN LAMA,
+         *    TETAPI TOMBOL ↗ MEMBUKA FOLDER INDUKNYA.
+         ********************************************************/
+        documentFolders = await Promise.all(
+          folderRows.map(async (row) => {
+            let files = [];
+            let folderUrl = row.folderUrl || makeDriveFolderUrl(row.folderId);
+
+            // Jika folderId tersedia, baca isi folder tersebut.
+            if (row.folderId) {
+              try {
+                const result = await apiPost({
+                  action: 'getfiles',
+                  folder_id: row.folderId
+                });
+
+                files = Array.isArray(result.files)
+                  ? result.files
+                  : [];
+
+                // Gunakan URL yang dikembalikan server bila tersedia.
+                if (result.folder && result.folder.url) {
+                  folderUrl = result.folder.url;
+                }
+              } catch (e) {
+                console.warn(
+                  'Folder jenis dokumen "' + row.jenis + '" tidak dapat dibaca:',
+                  e
+                );
+              }
+            }
+
+            return {
+              ...row,
+              folderUrl: folderUrl,
+              files: files
+            };
+          })
+        );
+
+        /********************************************************
+         * 4. GABUNGKAN SEMUA FILE DARI FOLDER JENIS DOKUMEN.
+         *    Metadata documentType + folderUrl ikut disimpan,
+         *    sehingga tombol ↗ selalu membuka folder jenisnya.
+         ********************************************************/
+        const groupedFiles = [];
+
+        documentFolders.forEach(folder => {
+          (folder.files || []).forEach(file => {
+            groupedFiles.push({
+              ...file,
+              document_type: folder.jenis || '',
+              folder_id: folder.folderId || '',
+              folder_url: folder.folderUrl || '',
+              validation_status: folder.status || ''
+            });
+          });
         });
 
-        driveFiles = Array.isArray(filesResponse.files) ? filesResponse.files : [];
-        renderFiles();
+        /********************************************************
+         * 5. FALLBACK:
+         *    Bila VALIDASI_DOKUMEN belum memiliki pemetaan folder,
+         *    tetap tampilkan file root guru seperti perilaku lama.
+         ********************************************************/
+        if (!groupedFiles.length) {
+          try {
+            const rootResponse = await apiPost({
+              action: 'getfiles',
+              folder_id: teacherFolder.id
+            });
 
+            const rootFiles = Array.isArray(rootResponse.files)
+              ? rootResponse.files
+              : [];
+
+            driveFiles = rootFiles.map(file => ({
+              ...file,
+              document_type: '',
+              folder_id: teacherFolder.id,
+              folder_url: teacherFolder.url || makeDriveFolderUrl(teacherFolder.id),
+              validation_status: ''
+            }));
+          } catch (rootError) {
+            driveFiles = [];
+            console.warn('File root folder guru gagal dibaca:', rootError);
+          }
+        } else {
+          driveFiles = groupedFiles;
+        }
+
+        renderFiles();
         setText('statFiles', driveFiles.length);
-        return filesResponse;
+        updateValidationSummary();
+
+        return {
+          success: true,
+          folder: teacherFolder,
+          folders: documentFolders,
+          files: driveFiles
+        };
       } catch (error) {
         driveFiles = [];
+        documentFolders = [];
         renderFolderInfo();
         renderFiles(error.message);
         setText('statFiles', 0);
@@ -1060,16 +1176,149 @@
       }
     }
 
+    /************************************************************
+     * MEMBENTUK PEMETAAN:
+     * JENIS_DOKUMEN -> FOLDER GOOGLE DRIVE
+     ************************************************************/
+    function buildDocumentFolderRows(rows) {
+      const seen = {};
+      const result = [];
+
+      (rows || []).forEach(row => {
+        const jenis = String(
+          row.jenis_dokumen ||
+          row.jenis ||
+          row.dokumen ||
+          ''
+        ).trim();
+
+        if (!jenis) return;
+
+        const key = normalizeDocumentType(jenis);
+        if (seen[key]) return;
+
+        const folderId = String(
+          row.folder_id ||
+          row.folderId ||
+          row.id_folder ||
+          row.id_validasi ||
+          ''
+        ).trim();
+
+        const folderUrl = String(
+          row.link_folder ||
+          row.LINK_FOLDER ||
+          row.folder_url ||
+          row.folderUrl ||
+          row.link ||
+          ''
+        ).trim();
+
+        // Tidak membuat kartu folder jika benar-benar tidak ada
+        // informasi folder. Data validasi tetap dipakai untuk status.
+        if (!folderId && !folderUrl) return;
+
+        seen[key] = true;
+
+        result.push({
+          jenis: jenis,
+          folderId: folderId,
+          folderUrl: folderUrl || makeDriveFolderUrl(folderId),
+          status: row.status || '',
+          idValidasi: row.id_validasi || ''
+        });
+      });
+
+      // Urutan sesuai tampilan administrasi yang umum digunakan.
+      const order = [
+        'administrasi pembelajaran',
+        'modul ajar',
+        'penilaian',
+        'dokumentasi'
+      ];
+
+      result.sort((a, b) => {
+        const ia = documentTypeOrderIndex(a.jenis, order);
+        const ib = documentTypeOrderIndex(b.jenis, order);
+
+        if (ia !== ib) return ia - ib;
+        return a.jenis.localeCompare(b.jenis, 'id');
+      });
+
+      return result;
+    }
+
+    function documentTypeOrderIndex(value, order) {
+      const key = normalizeDocumentType(value);
+      const index = order.findIndex(item =>
+        key === item ||
+        key.includes(item) ||
+        item.includes(key)
+      );
+
+      return index === -1 ? 999 : index;
+    }
+
+    function normalizeDocumentType(value) {
+      return String(value || '')
+        .trim()
+        .toLowerCase()
+        .replace(/[\/\\_-]+/g, ' ')
+        .replace(/\s+/g, ' ');
+    }
+
+    function makeDriveFolderUrl(folderId) {
+      const id = String(folderId || '').trim();
+      return id
+        ? 'https://drive.google.com/drive/folders/' + encodeURIComponent(id)
+        : '';
+    }
+
+    /************************************************************
+     * TOMBOL ↗ PADA KARTU DOKUMEN
+     * Membuka FOLDER sesuai JENIS_DOKUMEN, BUKAN FILE.
+     ************************************************************/
+    function openDocumentFolderByFile(index, event) {
+      if (event) event.preventDefault();
+
+      const file = driveFiles[Number(index)];
+
+      if (!file) {
+        showToast('Data dokumen tidak ditemukan.', 'error');
+        return;
+      }
+
+      const url = String(
+        file.folder_url ||
+        makeDriveFolderUrl(file.folder_id) ||
+        ''
+      ).trim();
+
+      if (!url) {
+        showToast(
+          'Link folder untuk jenis dokumen "' +
+          (file.document_type || 'dokumen ini') +
+          '" belum tersedia.',
+          'error'
+        );
+        return;
+      }
+
+      window.open(url, '_blank', 'noopener');
+    }
+
     async function openTeacherFolder(event) {
       if (event) event.preventDefault();
+
       try {
-        showToast('Menyiapkan folder guru dan 4 folder administrasi...', 'info');
+        showToast('Menyiapkan folder guru...', 'info');
         await loadDocuments(true);
+
         if (teacherFolder?.url) {
           window.open(teacherFolder.url, '_blank', 'noopener');
           showToast('Folder Google Drive siap dibuka.', 'success');
         } else {
-          throw new Error('Link folder tidak tersedia.');
+          throw new Error('Link folder guru tidak tersedia.');
         }
       } catch (error) {
         showToast(error.message || 'Folder gagal disiapkan.', 'error');
@@ -1087,6 +1336,7 @@
 
       box.classList.remove('hidden');
       setText('folderName', teacherFolder.name || 'Folder Guru');
+
       const link = $('folderUrl');
       if (link) {
         link.href = teacherFolder.url || '#';
@@ -1109,15 +1359,26 @@
       }
 
       const q = String($('fileSearch')?.value || '').trim().toLowerCase();
-      const files = driveFiles.filter(file => String(file.name || '').toLowerCase().includes(q));
 
-      setText('fileCountText', `${files.length} file${q ? ' ditemukan' : ''}`);
+      const files = driveFiles.filter(file => {
+        const nameText = String(file.name || '').toLowerCase();
+        const typeText = String(file.document_type || '').toLowerCase();
+        return !q || nameText.includes(q) || typeText.includes(q);
+      });
+
+      setText(
+        'fileCountText',
+        `${files.length} file${q ? ' ditemukan' : ''}`
+      );
 
       if (!files.length) {
         container.innerHTML = `
           <div class="flex min-h-48 flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 p-6 text-center">
             <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
-              <svg width="25" height="25" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5"/></svg>
+              <svg width="25" height="25" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/>
+                <path d="M14 2v5h5"/>
+              </svg>
             </div>
             <div class="mt-4 font-bold text-slate-700">${q ? 'File tidak ditemukan' : 'Belum ada dokumen'}</div>
             <p class="mt-1 text-xs text-slate-500">${q ? 'Coba kata kunci lain.' : 'Folder administrasi guru masih kosong.'}</p>
@@ -1127,31 +1388,52 @@
 
       container.innerHTML = `
         <div class="grid gap-3 md:grid-cols-2">
-          ${files.map(fileCard).join('')}
+          ${files.map(file => fileCard(file)).join('')}
         </div>`;
     }
 
     function fileCard(file) {
+      const fileIndex = driveFiles.indexOf(file);
       const icon = getFileIcon(file.mime_type, file.name);
       const size = formatBytes(file.size);
       const updated = formatDate(file.updated);
+      const documentType = String(file.document_type || '').trim();
+
+      const typeBadge = documentType
+        ? `<span class="font-semibold text-blue-600">${escapeHtml(documentType)}</span><span>•</span>`
+        : '';
 
       return `
         <div class="group rounded-2xl border border-slate-200 p-4 transition hover:border-blue-200 hover:bg-blue-50/30">
           <div class="flex gap-3">
-            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">${icon}</div>
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+              ${icon}
+            </div>
+
             <div class="min-w-0 flex-1">
-              <div class="truncate text-sm font-bold text-slate-800" title="${escapeHtml(file.name || '')}">${escapeHtml(file.name || 'Tanpa nama')}</div>
-              <div class="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-slate-400">
+              <div class="truncate text-sm font-bold text-slate-800"
+                   title="${escapeHtml(file.name || '')}">
+                ${escapeHtml(file.name || 'Tanpa nama')}
+              </div>
+
+              <div class="mt-1 flex flex-wrap gap-x-2 gap-y-1 text-[11px] text-slate-400">
+                ${typeBadge}
                 <span>${escapeHtml(size)}</span>
                 <span>•</span>
                 <span>${escapeHtml(updated)}</span>
               </div>
             </div>
-            <button type="button" onclick="openTeacherFolder(event)"
-               class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-500 hover:bg-blue-600 hover:text-white"
-               title="Buka folder Google Drive">
-              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 17 7-7M9 7h5v5"/><path d="M17 13v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/></svg>
+
+            <!-- TOMBOL ↗ SEKARANG MEMBUKA FOLDER JENIS DOKUMEN -->
+            <button type="button"
+                    onclick="openDocumentFolderByFile(${fileIndex}, event)"
+                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-500 hover:bg-blue-600 hover:text-white"
+                    title="Buka folder ${escapeHtml(documentType || 'dokumen')}"
+                    aria-label="Buka folder ${escapeHtml(documentType || 'dokumen')}">
+              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="m7 17 7-7M9 7h5v5"/>
+                <path d="M17 13v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/>
+              </svg>
             </button>
           </div>
         </div>`;
