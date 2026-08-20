@@ -1,1699 +1,3328 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#2563eb">
-  <title>SIMPEL-KS | Portal Guru</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- GitHub Pages compatible: semua resource dari CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>SDN Ranuklindungan I | Website Resmi</title>
 
-  <style>
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
-    body {
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 12% 8%, rgba(255,255,255,.18), transparent 28%),
-        radial-gradient(circle at 88% 18%, rgba(255,255,255,.10), transparent 30%),
-        linear-gradient(135deg, #0f3d68 0%, #1769aa 45%, #0b2f52 100%);
-      background-attachment: fixed;
-      color: #0f172a;
+<meta name="description"
+content="Website resmi SDN Ranuklindungan I. Informasi profil, akademik, PPDB, berita, kegiatan, fasilitas, dan layanan sekolah.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:root{
+    --primary:#075985;
+    --primary-dark:#043b56;
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --secondary:#0ea5e9;
+    --accent:#f59e0b;
+    --green:#16a34a;
+    --red:#dc2626;
+
+    --dark:#0f172a;
+    --text:#334155;
+    --muted:#64748b;
+    --light:#f8fafc;
+    --white:#ffffff;
+    --border:#e2e8f0;
+
+    --shadow:0 15px 45px rgba(15,23,42,.09);
+    --radius:20px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    color:var(--text);
+    background:#fff;
+    line-height:1.6;
+    overflow-x:hidden;
+}
+
+h1,h2,h3,h4{
+    font-family:'Poppins',sans-serif;
+    color:var(--dark);
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+button{
+    font-family:inherit;
+}
+
+.container{
+    width:min(1180px,92%);
+    margin:auto;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+    background:var(--primary-dark);
+    color:white;
+    font-size:13px;
+}
+
+.topbar-content{
+    min-height:38px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.topbar-left,
+.topbar-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.topbar i{
+    margin-right:6px;
+    color:#7dd3fc;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(255,255,255,.97);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
+}
+
+.navbar{
+    min-height:82px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:245px;
+}
+
+.logo{
+    width:54px;
+    height:54px;
+    border-radius:14px;
+    object-fit:cover;
+    background:#e0f2fe;
+    border:1px solid #bae6fd;
+}
+
+.brand-text strong{
+    display:block;
+    font-size:17px;
+    line-height:1.2;
+}
+
+.brand-text span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+.nav-menu{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:14px;
+}
+
+.nav-menu > a:not(.nav-cta):not(.nav-simpel-ks){
+    font-size:13px;
+    font-weight:600;
+    color:#475569;
+    padding:10px 5px;
+    transition:.25s;
+}
+
+.nav-menu > a:not(.nav-cta):not(.nav-simpel-ks):hover{
+    color:var(--primary);
+}
+
+
+/* =========================================================
+   SIMPEL-KS BUTTON
+========================================================= */
+
+.nav-simpel-ks{
+    background:var(--blue);
+    color:white !important;
+
+    padding:11px 16px;
+    border-radius:11px;
+
+    font-size:13px;
+    font-weight:800 !important;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    box-shadow:0 7px 20px rgba(37,99,235,.25);
+
+    transition:.25s;
+}
+
+.nav-simpel-ks:hover{
+    background:var(--blue-dark);
+    color:white !important;
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+}
+
+.nav-simpel-ks i{
+    font-size:12px;
+}
+
+
+/* =========================================================
+   PPDB CTA
+========================================================= */
+
+.nav-cta{
+    background:var(--accent);
+    color:white !important;
+
+    padding:11px 16px;
+    border-radius:11px;
+
+    font-size:13px;
+    font-weight:800 !important;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    box-shadow:0 7px 20px rgba(245,158,11,.25);
+
+    transition:.25s;
+}
+
+.nav-cta:hover{
+    transform:translateY(-2px);
+    background:#d97706;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.menu-toggle{
+    display:none;
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    background:#eff6ff;
+    color:var(--primary);
+    place-items:center;
+    font-size:20px;
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:680px;
+
+    display:flex;
+    align-items:center;
+
+    position:relative;
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        90deg,
+        rgba(2,24,40,.90) 0%,
+        rgba(2,24,40,.70) 45%,
+        rgba(2,24,40,.15) 100%
+    ),
+    url('assets/hero-sekolah.jpg') center/cover no-repeat;
+}
+
+.hero-content{
+    color:white;
+    max-width:700px;
+    padding:100px 0;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px 14px;
+    border-radius:30px;
+
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.25);
+
+    font-size:13px;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    color:white;
+    font-size:clamp(40px,5vw,66px);
+    line-height:1.08;
+    margin-bottom:22px;
+}
+
+.hero h1 span{
+    color:#7dd3fc;
+}
+
+.hero p{
+    font-size:18px;
+    max-width:620px;
+    color:#e2e8f0;
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+
+    padding:14px 22px;
+    border-radius:12px;
+
+    font-weight:700;
+    font-size:14px;
+
+    border:2px solid transparent;
+
+    transition:.25s;
+}
+
+.btn-primary{
+    background:var(--accent);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#d97706;
+    transform:translateY(-2px);
+}
+
+.btn-blue{
+    background:var(--blue);
+    color:white;
+}
+
+.btn-blue:hover{
+    background:var(--blue-dark);
+    transform:translateY(-2px);
+}
+
+.btn-outline{
+    color:white;
+    border-color:rgba(255,255,255,.5);
+    background:rgba(255,255,255,.08);
+}
+
+.btn-outline:hover{
+    background:white;
+    color:var(--primary);
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section{
+    padding:90px 0;
+}
+
+.section-light{
+    background:var(--light);
+}
+
+.section-header{
+    text-align:center;
+    max-width:720px;
+    margin:0 auto 50px;
+}
+
+.section-label{
+    color:var(--secondary);
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.section-header h2{
+    font-size:34px;
+    line-height:1.25;
+    margin-bottom:12px;
+}
+
+.section-header p{
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.stats{
+    margin-top:-60px;
+    position:relative;
+    z-index:5;
+}
+
+.stats-grid{
+    background:white;
+    border-radius:20px;
+    box-shadow:var(--shadow);
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+
+    overflow:hidden;
+}
+
+.stat{
+    text-align:center;
+    padding:28px 15px;
+    border-right:1px solid var(--border);
+}
+
+.stat:last-child{
+    border-right:none;
+}
+
+.stat i{
+    font-size:25px;
+    color:var(--secondary);
+    margin-bottom:8px;
+}
+
+.stat strong{
+    display:block;
+    font-family:'Poppins';
+    font-size:30px;
+    color:var(--dark);
+}
+
+.stat span{
+    color:var(--muted);
+    font-size:13px;
+}
+
+
+/* =========================================================
+   PROFIL
+========================================================= */
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.about-image{
+    position:relative;
+}
+
+.about-image > img{
+    width:100%;
+    height:430px;
+    object-fit:cover;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+
+.principal-card{
+    position:absolute;
+    right:-25px;
+    bottom:-25px;
+
+    background:white;
+    padding:18px;
+
+    border-radius:16px;
+    box-shadow:var(--shadow);
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.principal-card img{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.principal-card strong{
+    font-size:14px;
+}
+
+.principal-card span{
+    display:block;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.about-text h2{
+    font-size:35px;
+    margin-bottom:18px;
+}
+
+.about-text p{
+    color:var(--muted);
+    margin-bottom:20px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.feature{
+    display:flex;
+    gap:12px;
+}
+
+.feature-icon{
+    flex:none;
+
+    width:42px;
+    height:42px;
+
+    border-radius:12px;
+
+    background:#e0f2fe;
+    color:var(--primary);
+
+    display:grid;
+    place-items:center;
+}
+
+.feature h4{
+    font-size:14px;
+    margin-bottom:2px;
+}
+
+.feature p{
+    font-size:12px;
+    margin:0;
+}
+
+
+/* =========================================================
+   PROGRAM
+========================================================= */
+
+.program-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.program-card{
+    background:white;
+
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.program-card:hover{
+    transform:translateY(-7px);
+    box-shadow:var(--shadow);
+}
+
+.program-card img{
+    width:100%;
+    height:210px;
+    object-fit:cover;
+}
+
+.program-content{
+    padding:22px;
+}
+
+.program-content h3{
+    font-size:19px;
+    margin-bottom:8px;
+}
+
+.program-content p{
+    font-size:14px;
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   EKSTRAKURIKULER
+========================================================= */
+
+.extra-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.extra{
+    min-height:210px;
+    border-radius:18px;
+    overflow:hidden;
+    position:relative;
+    color:white;
+}
+
+.extra img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    position:absolute;
+}
+
+.extra-overlay{
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+        transparent,
+        rgba(0,0,0,.8)
+    );
+
+    display:flex;
+    align-items:flex-end;
+
+    padding:18px;
+}
+
+.extra h3{
+    color:white;
+    font-size:17px;
+}
+
+
+/* =========================================================
+   BERITA
+========================================================= */
+
+.news-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.news-card{
+    border:1px solid var(--border);
+    border-radius:18px;
+    overflow:hidden;
+    background:white;
+
+    transition:.3s;
+}
+
+.news-card:hover{
+    transform:translateY(-5px);
+    box-shadow:var(--shadow);
+}
+
+.news-card img{
+    width:100%;
+    height:210px;
+    object-fit:cover;
+}
+
+.news-content{
+    padding:20px;
+}
+
+.news-date{
+    color:var(--secondary);
+    font-size:12px;
+    font-weight:700;
+}
+
+.news-content h3{
+    font-size:17px;
+    margin:8px 0;
+}
+
+.news-content p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.read-more{
+    display:inline-flex;
+    margin-top:12px;
+    color:var(--primary);
+    font-weight:700;
+    font-size:13px;
+}
+
+
+/* =========================================================
+   AGENDA
+========================================================= */
+
+.agenda-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.agenda-card,
+.announcement{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:var(--shadow);
+}
+
+.agenda-card h3,
+.announcement h3{
+    margin-bottom:5px;
+}
+
+.agenda-item{
+    display:flex;
+    gap:15px;
+    padding:15px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.agenda-item:last-child{
+    border-bottom:0;
+}
+
+.date-box{
+    flex:none;
+
+    width:58px;
+    height:58px;
+
+    border-radius:12px;
+
+    background:#e0f2fe;
+    color:var(--primary);
+
+    text-align:center;
+    padding-top:7px;
+}
+
+.date-box strong{
+    display:block;
+    font-size:20px;
+}
+
+.date-box span{
+    font-size:10px;
+    font-weight:700;
+}
+
+.agenda-item h4{
+    font-size:14px;
+}
+
+.agenda-item p{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.alert{
+    padding:15px;
+    border-radius:12px;
+
+    background:#fff7ed;
+    border-left:4px solid var(--accent);
+
+    margin-bottom:12px;
+}
+
+.alert strong{
+    display:block;
+    color:#9a3412;
+    font-size:14px;
+}
+
+.alert p{
+    font-size:12px;
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.gallery-item{
+    height:230px;
+    overflow:hidden;
+    border-radius:15px;
+}
+
+.gallery-item:first-child{
+    grid-column:span 2;
+    grid-row:span 2;
+    height:472px;
+}
+
+.gallery-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.06);
+}
+
+
+/* =========================================================
+   TESTIMONIAL
+========================================================= */
+
+.testimonial-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.testimonial{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:var(--shadow);
+}
+
+.quote{
+    color:var(--secondary);
+    font-size:25px;
+}
+
+.testimonial p{
+    color:var(--muted);
+    font-size:14px;
+    margin:10px 0 20px;
+}
+
+.person{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.person img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.person strong{
+    display:block;
+    font-size:13px;
+}
+
+.person span{
+    font-size:11px;
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   AKREDITASI
+========================================================= */
+
+.partners{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.partner{
+    padding:20px 30px;
+
+    border:1px solid var(--border);
+    border-radius:15px;
+
+    background:white;
+
+    font-weight:800;
+    color:#475569;
+
+    box-shadow:0 5px 20px rgba(15,23,42,.04);
+}
+
+
+/* =========================================================
+   PPDB CTA
+========================================================= */
+
+.ppdb-box{
+    background:
+    linear-gradient(
+        135deg,
+        #075985,
+        #0ea5e9
+    );
+
+    border-radius:25px;
+    padding:60px 40px;
+
+    text-align:center;
+    color:white;
+
+    box-shadow:var(--shadow);
+}
+
+.ppdb-box h2{
+    color:white;
+    font-size:34px;
+    margin-bottom:12px;
+}
+
+.ppdb-box p{
+    color:#e0f2fe;
+    max-width:650px;
+    margin:0 auto 25px;
+}
+
+.ppdb-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:30px;
+}
+
+.contact-info{
+    background:var(--primary);
+    color:white;
+
+    padding:35px;
+    border-radius:20px;
+}
+
+.contact-info h2{
+    color:white;
+    margin-bottom:15px;
+}
+
+.contact-info > p{
+    color:#dbeafe;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.contact-item{
+    display:flex;
+    gap:14px;
+    margin-bottom:20px;
+}
+
+.contact-item i{
+    flex:none;
+
+    width:35px;
+    height:35px;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.12);
+
+    display:grid;
+    place-items:center;
+}
+
+.contact-item strong{
+    display:block;
+    font-size:13px;
+}
+
+.contact-item span{
+    color:#dbeafe;
+    font-size:12px;
+}
+
+.map{
+    min-height:400px;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.map iframe{
+    width:100%;
+    height:100%;
+    min-height:400px;
+    border:0;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:#020617;
+    color:#94a3b8;
+    padding-top:60px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
+    gap:35px;
+    padding-bottom:50px;
+}
+
+.footer-brand{
+    color:white;
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+footer p{
+    font-size:13px;
+}
+
+footer h3{
+    color:white;
+    font-size:15px;
+    margin-bottom:15px;
+}
+
+footer ul{
+    list-style:none;
+}
+
+footer li{
+    margin-bottom:9px;
+    font-size:13px;
+}
+
+footer li a:hover{
+    color:white;
+}
+
+.social{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+.social a{
+    width:38px;
+    height:38px;
+
+    display:grid;
+    place-items:center;
+
+    border:1px solid #334155;
+    border-radius:10px;
+
+    transition:.25s;
+}
+
+.social a:hover{
+    background:var(--primary);
+    color:white;
+}
+
+.copyright{
+    border-top:1px solid #1e293b;
+    padding:20px 0;
+    text-align:center;
+    font-size:12px;
+}
+
+
+/* =========================================================
+   SCROLL ANIMATION
+========================================================= */
+
+.animate{
+    opacity:0;
+    transform:translateY(25px);
+    transition:all .7s ease;
+}
+
+.animate.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
+
+@media(max-width:1050px){
+
+    .nav-menu{
+        gap:8px;
     }
-    .glass {
-      background: rgba(255,255,255,.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+
+    .nav-menu > a:not(.nav-cta):not(.nav-simpel-ks){
+        font-size:12px;
     }
-    .sidebar-transition { transition: transform .25s ease, width .25s ease; }
-    .fade-in { animation: fadeIn .25s ease both; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .nav-simpel-ks,
+    .nav-cta{
+        padding:10px 12px;
+        font-size:12px;
     }
-    .spin { animation: spin 1s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .toast { animation: toastIn .25s ease both; }
-    @keyframes toastIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .program-grid,
+    .news-grid{
+        grid-template-columns:repeat(2,1fr);
     }
-    .scrollbar::-webkit-scrollbar { width: 7px; height: 7px; }
-    .scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
-    .scrollbar::-webkit-scrollbar-track { background: transparent; }
-    .nav-active { background: #eff6ff; color: #1d4ed8; }
-    .nav-active .nav-icon { background: #dbeafe; }
-    .status-dot { box-shadow: 0 0 0 4px rgba(34,197,94,.12); }
-    .modal-backdrop { background: rgba(15,23,42,.55); backdrop-filter: blur(3px); }
-  </style>
+
+    .extra-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .footer-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE MOBILE
+========================================================= */
+
+@media(max-width:800px){
+
+    .topbar-right{
+        display:none;
+    }
+
+    .navbar{
+        min-height:70px;
+    }
+
+    .menu-toggle{
+        display:grid;
+    }
+
+    .nav-menu{
+
+        position:absolute;
+
+        top:70px;
+        left:0;
+
+        width:100%;
+
+        background:white;
+
+        display:none;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        padding:18px;
+
+        box-shadow:0 15px 30px rgba(0,0,0,.12);
+
+        border-top:1px solid var(--border);
+    }
+
+    .nav-menu.active{
+        display:flex;
+    }
+
+    .nav-menu > a{
+        width:100%;
+        padding:12px !important;
+    }
+
+    .nav-simpel-ks,
+    .nav-cta{
+        justify-content:center;
+    }
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stat:nth-child(2){
+        border-right:none;
+    }
+
+    .about-grid,
+    .agenda-grid,
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .about-image{
+        margin-bottom:30px;
+    }
+
+    .program-grid,
+    .news-grid,
+    .testimonial-grid{
+        grid-template-columns:1fr;
+    }
+
+    .gallery-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .gallery-item:first-child{
+        grid-column:span 2;
+        height:300px;
+    }
+
+    .gallery-item{
+        height:180px;
+    }
+
+    .hero{
+        min-height:620px;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE SMALL MOBILE
+========================================================= */
+
+@media(max-width:480px){
+
+    .brand{
+        min-width:0;
+    }
+
+    .brand-text strong{
+        font-size:14px;
+    }
+
+    .brand-text span{
+        display:none;
+    }
+
+    .logo{
+        width:46px;
+        height:46px;
+    }
+
+    .hero{
+        min-height:590px;
+    }
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .hero-buttons .btn{
+        width:100%;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    .extra-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stat{
+        padding:20px 8px;
+    }
+
+    .stat strong{
+        font-size:23px;
+    }
+
+    .stat span{
+        font-size:11px;
+    }
+
+    .section{
+        padding:65px 0;
+    }
+
+    .section-header h2{
+        font-size:28px;
+    }
+
+    .about-text h2{
+        font-size:29px;
+    }
+
+    .principal-card{
+        right:10px;
+        bottom:-20px;
+    }
+
+    .ppdb-box{
+        padding:45px 20px;
+    }
+
+    .ppdb-box h2{
+        font-size:28px;
+    }
+
+    .ppdb-buttons{
+        flex-direction:column;
+    }
+
+    .ppdb-buttons .btn{
+        width:100%;
+    }
+}
+
+</style>
 </head>
 
+
 <body>
-  <div id="app" class="min-h-screen">
 
-    <!-- MOBILE OVERLAY -->
-    <div id="sidebarOverlay"
-         class="fixed inset-0 z-30 hidden bg-slate-900/50 lg:hidden"
-         onclick="closeSidebar()"></div>
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar"
-           class="sidebar-transition fixed inset-y-0 left-0 z-40 flex w-72 -translate-x-full flex-col border-r border-slate-200 bg-white lg:translate-x-0">
-      <div class="flex h-20 items-center gap-3 border-b border-slate-100 px-5">
-        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/20">
-          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path>
-          </svg>
+<!-- =======================================================
+     TOP BAR
+======================================================= -->
+
+<div class="topbar">
+
+    <div class="container topbar-content">
+
+        <div class="topbar-left">
+
+            <span>
+                <i class="fa-solid fa-envelope"></i>
+                info@sekolah.sch.id
+            </span>
+
+            <span>
+                <i class="fa-solid fa-phone"></i>
+                (0343) 000000
+            </span>
+
         </div>
-        <div>
-          <div class="text-lg font-extrabold tracking-tight text-slate-900">SIMPEL-KS</div>
-          <div class="text-[11px] font-medium text-slate-500">Portal Administrasi Guru</div>
+
+        <div class="topbar-right">
+
+            <span>
+                <i class="fa-regular fa-clock"></i>
+                Senin–Jumat 07.00–15.00 WIB
+            </span>
+
         </div>
-      </div>
 
-      <div class="scrollbar flex-1 overflow-y-auto px-3 py-5">
-        <div class="mb-3 px-3 text-[10px] font-bold uppercase tracking-widest text-slate-400">Menu Utama</div>
+    </div>
 
-        <button data-section="dashboard" onclick="showSection('dashboard')"
-                class="nav-item nav-active mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold">
-          <span class="nav-icon flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="3" y="15" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/></svg>
-          </span>
-          Dashboard
-        </button>
+</div>
 
-        <button data-section="profil" onclick="showSection('profil')"
-                class="nav-item mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
-          <span class="nav-icon flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>
-          </span>
-          Profil Saya
-        </button>
 
-        <button data-section="dokumen" onclick="showSection('dokumen')"
-                class="nav-item mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
-          <span class="nav-icon flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5M8 12h8M8 16h8"/></svg>
-          </span>
-          Dokumen Saya
-        </button>
 
-        <button data-section="validasi" onclick="showSection('validasi')"
-                class="nav-item mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
-          <span class="nav-icon flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6a2 2 0 0 1 2 2v16H5a2 2 0 0 1-2-2V6h6V2Z"/><path d="M9 2v4H3M8 13l2 2 4-5"/></svg>
-          </span>
-          Status Validasi
-        </button>
+<!-- =======================================================
+     HEADER / NAVIGATION
+======================================================= -->
 
-        <div class="my-5 border-t border-slate-100"></div>
-        <div class="mb-3 px-3 text-[10px] font-bold uppercase tracking-widest text-slate-400">Lainnya</div>
+<header class="header">
 
-        <button onclick="refreshAll()"
-                class="mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
-          <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
-          </span>
-          Muat Ulang Data
-        </button>
+    <div class="container navbar">
 
-        <button onclick="openHelp()"
-                class="mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
-          <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.3 1.75c-.9.9-1.8 1.2-1.8 2.75M12 17h.01"/></svg>
-          </span>
-          Bantuan
-        </button>
-      </div>
 
-      <div class="border-t border-slate-100 p-3">
-        <div class="flex items-center gap-3 rounded-2xl bg-slate-50 p-3">
-          <div id="sideAvatar" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-700">G</div>
-          <div class="min-w-0 flex-1">
-            <div id="sideName" class="truncate text-sm font-bold text-slate-800">Guru</div>
-            <div id="sideRole" class="text-xs text-slate-500">GURU</div>
-          </div>
-          <button onclick="logout()" title="Keluar" class="rounded-lg p-2 text-slate-400 hover:bg-white hover:text-red-600">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M20 4v16"/></svg>
-          </button>
-        </div>
-      </div>
-    </aside>
+        <!-- LOGO -->
 
-    <!-- MAIN -->
-    <div class="min-h-screen lg:pl-72">
-      <!-- TOPBAR -->
-      <header class="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
-        <div class="flex h-20 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          <div class="flex items-center gap-3">
-            <button onclick="toggleSidebar()" class="rounded-xl p-2 text-slate-500 hover:bg-slate-100 lg:hidden">
-              <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-            </button>
-            <div>
-              <div id="pageTitle" class="text-lg font-extrabold text-slate-900 sm:text-xl">Dashboard Guru</div>
-              <div id="pageSubtitle" class="hidden text-xs text-slate-500 sm:block">Ringkasan administrasi Anda</div>
-            </div>
-          </div>
+        <a href="#" class="brand">
 
-          <div class="flex items-center gap-2 sm:gap-4">
-            <div class="hidden items-center gap-2 rounded-full bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700 sm:flex">
-              <span class="status-dot h-2 w-2 rounded-full bg-emerald-500"></span>
-              Sistem Online
-            </div>
+            <img
+                src="assets/logo-sekolah.png"
+                class="logo"
+                alt="Logo SDN Ranuklindungan I">
 
-            <button onclick="refreshAll()" class="rounded-xl border border-slate-200 bg-white p-2.5 text-slate-500 hover:bg-slate-50" title="Refresh">
-              <svg id="topRefreshIcon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
-            </button>
+            <div class="brand-text">
 
-            <div class="h-8 w-px bg-slate-200"></div>
+                <strong>
+                    SDN RANUKLINDUNGAN I
+                </strong>
 
-            <button onclick="showSection('profil')" class="flex items-center gap-2 rounded-xl p-1.5 hover:bg-slate-50">
-              <div id="topAvatar" class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white">G</div>
-              <div class="hidden text-left sm:block">
-                <div id="topName" class="max-w-36 truncate text-sm font-bold text-slate-800">Guru</div>
-                <div class="text-[11px] text-slate-500">Profil Saya</div>
-              </div>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <main class="p-4 sm:p-6 lg:p-8">
-
-        <!-- DASHBOARD -->
-        <section id="section-dashboard" class="section-panel fade-in">
-          <div class="mb-6 overflow-hidden rounded-3xl bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 p-6 text-white shadow-xl shadow-blue-900/10 sm:p-8">
-            <div class="flex flex-col justify-between gap-6 md:flex-row md:items-center">
-              <div>
-                <div class="mb-2 text-sm font-medium text-blue-100">Selamat datang kembali 👋</div>
-                <h1 class="text-2xl font-extrabold tracking-tight sm:text-3xl">
-                  <span id="welcomeName">Guru</span>
-                </h1>
-                <p class="mt-2 max-w-2xl text-sm leading-6 text-blue-100">
-                  Kelola profil dan administrasi dokumen Anda melalui Portal Guru SIMPEL-KS.
-                </p>
-              </div>
-              <div class="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
-                <div class="text-xs text-blue-100">Status akun</div>
-                <div class="mt-1 flex items-center gap-2 text-lg font-bold">
-                  <span class="h-2.5 w-2.5 rounded-full bg-emerald-300"></span>
-                  AKTIF
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- STAT CARDS -->
-          <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">Dokumen</div>
-                  <div id="statFiles" class="mt-2 text-3xl font-extrabold text-slate-900">0</div>
-                  <div class="mt-1 text-xs text-slate-500">file di folder administrasi</div>
-                </div>
-                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
-                  <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5"/></svg>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">Terverifikasi</div>
-                  <div id="statVerified" class="mt-2 text-3xl font-extrabold text-emerald-600">0</div>
-                  <div class="mt-1 text-xs text-slate-500">dokumen tervalidasi</div>
-                </div>
-                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
-                  <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/><circle cx="12" cy="12" r="9"/></svg>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">Perlu Revisi</div>
-                  <div id="statRevision" class="mt-2 text-3xl font-extrabold text-amber-600">0</div>
-                  <div class="mt-1 text-xs text-slate-500">dokumen perlu diperbaiki</div>
-                </div>
-                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-amber-600">
-                  <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.6 2.8 17a2 2 0 0 0 1.75 3h14.9a2 2 0 0 0 1.75-3l-7.5-13.4a2 2 0 0 0-3.4 0Z"/></svg>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">Belum Lengkap</div>
-                  <div id="statIncomplete" class="mt-2 text-3xl font-extrabold text-red-600">0</div>
-                  <div class="mt-1 text-xs text-slate-500">dokumen belum lengkap</div>
-                </div>
-                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-600">
-                  <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-6 grid gap-6 xl:grid-cols-3">
-            <!-- PROFILE CARD -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div class="mb-5 flex items-center justify-between">
-                <h2 class="font-extrabold text-slate-900">Profil Singkat</h2>
-                <button onclick="showSection('profil')" class="text-xs font-bold text-blue-600 hover:underline">Lihat profil</button>
-              </div>
-              <div class="flex items-center gap-4">
-                <div id="dashAvatar" class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-xl font-extrabold text-blue-700">G</div>
-                <div class="min-w-0">
-                  <div id="dashName" class="truncate text-base font-extrabold text-slate-900">-</div>
-                  <div id="dashJabatan" class="mt-1 text-sm text-slate-500">Guru</div>
-                  <div id="dashGuruId" class="mt-2 inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600">ID: -</div>
-                </div>
-              </div>
-              <div class="mt-5 space-y-3 border-t border-slate-100 pt-5 text-sm">
-                <div class="flex items-center justify-between gap-3"><span class="text-slate-500">Username</span><span id="dashUsername" class="font-semibold text-slate-800">-</span></div>
-                <div class="flex items-center justify-between gap-3"><span class="text-slate-500">Email</span><span id="dashEmail" class="max-w-[60%] truncate font-semibold text-slate-800">-</span></div>
-              </div>
-            </div>
-
-            <!-- VALIDATION SUMMARY -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm xl:col-span-2">
-              <div class="mb-5 flex items-center justify-between">
-                <div>
-                  <h2 class="font-extrabold text-slate-900">Ringkasan Validasi</h2>
-                  <p class="mt-1 text-xs text-slate-500">Status administrasi berdasarkan data VALIDASI_DOKUMEN.</p>
-                </div>
-                <button onclick="showSection('validasi')" class="rounded-xl bg-blue-50 px-3 py-2 text-xs font-bold text-blue-700 hover:bg-blue-100">Lihat semua</button>
-              </div>
-              <div id="validationSummary" class="space-y-3">
-                <div class="h-12 animate-pulse rounded-xl bg-slate-100"></div>
-                <div class="h-12 animate-pulse rounded-xl bg-slate-100"></div>
-                <div class="h-12 animate-pulse rounded-xl bg-slate-100"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-6 rounded-2xl border border-blue-100 bg-blue-50 p-5">
-            <div class="flex gap-4">
-              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white">
-                <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
-              </div>
-              <div>
-                <div class="font-bold text-blue-900">Informasi</div>
-                <p class="mt-1 text-sm leading-6 text-blue-800">
-                  Dokumen administrasi tersimpan pada Google Drive yang dikelola SIMPEL-KS.
-                  Gunakan menu <b>Dokumen Saya</b> untuk melihat file yang tersedia.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- PROFIL -->
-        <section id="section-profil" class="section-panel hidden fade-in">
-          <div class="mb-6">
-            <h2 class="text-xl font-extrabold text-slate-900">Profil Saya</h2>
-            <p class="mt-1 text-sm text-slate-500">Informasi akun guru yang digunakan untuk mengakses SIMPEL-KS.</p>
-          </div>
-
-          <div class="grid gap-6 lg:grid-cols-3">
-            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div class="flex flex-col items-center text-center">
-                <div id="profileAvatar" class="flex h-28 w-28 items-center justify-center rounded-3xl bg-blue-100 text-4xl font-extrabold text-blue-700">G</div>
-                <h3 id="profileName" class="mt-5 text-xl font-extrabold text-slate-900">-</h3>
-                <p id="profileJabatan" class="mt-1 text-sm text-slate-500">Guru</p>
-                <span class="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700">
-                  <span class="h-2 w-2 rounded-full bg-emerald-500"></span> AKUN AKTIF
+                <span>
+                    Sekolah Dasar Negeri • Inspiratif • Berkarakter
                 </span>
-              </div>
+
             </div>
 
-            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-2">
-              <h3 class="mb-5 font-extrabold text-slate-900">Detail Akun</h3>
-              <div class="grid gap-5 sm:grid-cols-2">
-                <InfoField label="Nama Lengkap" id="profileNameField"/>
-                <InfoField label="User ID" id="profileUserId"/>
-                <InfoField label="Username" id="profileUsername"/>
-                <InfoField label="Role" id="profileRole"/>
-                <InfoField label="Guru ID" id="profileGuruId"/>
-                <InfoField label="Jabatan" id="profileJabatanField"/>
-                <InfoField label="Email" id="profileEmail"/>
-                <InfoField label="Status" id="profileStatus"/>
-              </div>
-              <div class="mt-6 rounded-xl bg-slate-50 p-4 text-xs leading-5 text-slate-500">
-                Data profil diambil dari akun pada sheet <b>USERS</b>. Perubahan data akun dilakukan melalui Administrator.
-              </div>
-            </div>
-          </div>
+        </a>
 
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h3 class="font-extrabold text-slate-900">Data pada DATA_GURU</h3>
-            <p class="mt-1 text-sm text-slate-500">Data guru yang ditemukan berdasarkan Guru ID atau nama.</p>
-            <div id="teacherDataBox" class="mt-5">
-              <div class="rounded-xl bg-slate-50 p-5 text-sm text-slate-500">Memuat data...</div>
-            </div>
-          </div>
-        </section>
 
-        <!-- DOKUMEN -->
-        <section id="section-dokumen" class="section-panel hidden fade-in">
-          <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <h2 class="text-xl font-extrabold text-slate-900">Dokumen Saya</h2>
-              <p class="mt-1 text-sm text-slate-500">File administrasi yang tersedia di folder Google Drive Anda.</p>
-            </div>
-            <button onclick="loadDocuments(true)" class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700">
-              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
-              Refresh Dokumen
-            </button>
-          </div>
 
-          <div id="folderInfo" class="mb-5 hidden rounded-2xl border border-blue-100 bg-blue-50 p-4">
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <div class="text-xs font-bold uppercase tracking-wide text-blue-600">Folder Administrasi</div>
-                <div id="folderName" class="mt-1 font-extrabold text-blue-900">-</div>
-              </div>
-              <a id="folderUrl" href="#" target="_blank" rel="noopener" onclick="openTeacherFolder(event)" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-bold text-blue-700 shadow-sm hover:bg-blue-100">
-                Buka Folder
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 7-7M7 5h5v5"/></svg>
-              </a>
-            </div>
-          </div>
+        <!-- NAVIGATION -->
 
-          <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <div class="flex flex-col gap-3 border-b border-slate-100 p-5 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h3 class="font-extrabold text-slate-900">Daftar File</h3>
-                <div id="fileCountText" class="mt-1 text-xs text-slate-500">0 file</div>
-              </div>
-              <div class="relative">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><path d="m11 11 4 4"/></svg>
-                <input id="fileSearch" oninput="renderFiles()" type="search" placeholder="Cari nama file..."
-                       class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 sm:w-64">
-              </div>
-            </div>
-            <div id="filesContainer" class="p-5">
-              <div class="flex min-h-48 items-center justify-center text-sm text-slate-400">Memuat dokumen...</div>
-            </div>
-          </div>
-        </section>
+        <nav class="nav-menu" id="navMenu">
 
-        <!-- VALIDASI -->
-        <section id="section-validasi" class="section-panel hidden fade-in">
-          <div class="mb-6">
-            <h2 class="text-xl font-extrabold text-slate-900">Status Validasi</h2>
-            <p class="mt-1 text-sm text-slate-500">Status administrasi berdasarkan data VALIDASI_DOKUMEN.</p>
-          </div>
+            <a href="#profil">
+                Profil
+            </a>
 
-          <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <ValidationCard id="valWaiting" label="Menunggu" color="blue" icon="clock"/>
-            <ValidationCard id="valVerified" label="Terverifikasi" color="emerald" icon="check"/>
-            <ValidationCard id="valRevision" label="Revisi" color="amber" icon="warning"/>
-            <ValidationCard id="valIncomplete" label="Belum Lengkap" color="red" icon="alert"/>
-          </div>
+            <a href="#akademik">
+                Akademik
+            </a>
 
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <div class="flex flex-col gap-3 border-b border-slate-100 p-5 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h3 class="font-extrabold text-slate-900">Rincian Dokumen</h3>
-                <p id="validationFilterInfo" class="mt-1 text-xs text-slate-500">Menampilkan data yang terkait dengan Anda.</p>
-              </div>
-              <select id="validationStatusFilter" onchange="renderValidation()" class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-blue-400">
-                <option value="">Semua status</option>
-                <option value="MENUNGGU">Menunggu</option>
-                <option value="TERVERIFIKASI">Terverifikasi</option>
-                <option value="REVISI">Revisi</option>
-                <option value="BELUM LENGKAP">Belum Lengkap</option>
-              </select>
-            </div>
-            <div id="validationContainer" class="overflow-x-auto">
-              <div class="flex min-h-48 items-center justify-center p-5 text-sm text-slate-400">Memuat data validasi...</div>
-            </div>
-          </div>
-        </section>
+            <a href="#ppdb">
+                PPDB
+            </a>
 
-      </main>
+            <a href="#berita">
+                Berita
+            </a>
 
-      <footer class="border-t border-slate-200 bg-white px-4 py-5 text-center text-xs text-slate-400 sm:px-6 lg:px-8">
-        SIMPEL-KS &copy; <span id="year"></span> · Portal Administrasi Guru
-      </footer>
-    </div>
-  </div>
+            <a href="#fasilitas">
+                Fasilitas
+            </a>
 
-  <!-- TOAST -->
-  <div id="toastContainer" class="fixed bottom-5 right-5 z-[80] flex max-w-[calc(100vw-2rem)] flex-col gap-2"></div>
+            <a href="#kontak">
+                Kontak
+            </a>
 
-  <!-- HELP MODAL -->
-  <div id="helpModal" class="modal-backdrop fixed inset-0 z-[70] hidden items-center justify-center p-4">
-    <div class="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl">
-      <div class="flex items-start justify-between gap-4">
-        <div>
-          <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
-            <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.3 1.75c-.9.9-1.8 1.2-1.8 2.75M12 17h.01"/></svg>
-          </div>
-          <h3 class="mt-4 text-xl font-extrabold text-slate-900">Bantuan Portal Guru</h3>
+
+            <!-- =================================================
+                 SIMPEL-KS
+                 MENU INI MENUJU login.html
+            ================================================== -->
+
+            <a
+                href="login.html"
+                class="nav-simpel-ks"
+                title="Masuk ke SIMPEL-KS">
+
+                <i class="fa-solid fa-lock"></i>
+
+                SIMPEL-KS
+
+            </a>
+
+
+            <!-- PPDB -->
+
+            <a
+                href="#ppdb"
+                class="nav-cta">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Daftar Sekarang
+
+            </a>
+
+        </nav>
+
+
+        <!-- MOBILE MENU BUTTON -->
+
+        <div
+            class="menu-toggle"
+            id="menuToggle"
+            onclick="toggleMenu()">
+
+            <i class="fa-solid fa-bars"></i>
+
         </div>
-        <button onclick="closeHelp()" class="rounded-xl p-2 text-slate-400 hover:bg-slate-100">
-          <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg>
-        </button>
-      </div>
-      <div class="mt-5 space-y-3 text-sm leading-6 text-slate-600">
-        <p><b>Dashboard:</b> melihat ringkasan dokumen dan validasi.</p>
-        <p><b>Profil Saya:</b> melihat informasi akun guru.</p>
-        <p><b>Dokumen Saya:</b> membuka file administrasi yang tersimpan di Google Drive.</p>
-        <p><b>Status Validasi:</b> melihat status dokumen yang berkaitan dengan nama/Guru ID Anda.</p>
-        <p class="rounded-xl bg-amber-50 p-3 text-amber-800">Jika dokumen belum muncul, pastikan akun guru memiliki <b>Guru ID</b> yang benar pada sheet USERS dan folder Drive dapat dibuat/dibaca oleh akun Apps Script.</p>
-      </div>
-      <button onclick="closeHelp()" class="mt-6 w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold text-white hover:bg-blue-700">Mengerti</button>
+
     </div>
-  </div>
 
-  <!-- LOGOUT MODAL -->
-  <div id="logoutModal" class="modal-backdrop fixed inset-0 z-[70] hidden items-center justify-center p-4">
-    <div class="w-full max-w-sm rounded-3xl bg-white p-6 text-center shadow-2xl">
-      <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600">
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M20 4v16"/></svg>
-      </div>
-      <h3 class="mt-4 text-xl font-extrabold text-slate-900">Keluar dari akun?</h3>
-      <p class="mt-2 text-sm leading-6 text-slate-500">Sesi login akan dihapus dari perangkat ini.</p>
-      <div class="mt-6 flex gap-3">
-        <button onclick="closeLogout()" class="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50">Batal</button>
-        <button onclick="confirmLogout()" class="flex-1 rounded-xl bg-red-600 px-4 py-3 text-sm font-bold text-white hover:bg-red-700">Keluar</button>
-      </div>
-    </div>
-  </div>
+</header>
 
-  <script>
-    /************************************************************
-     * SIMPEL-KS | GURU.HTML
-     * Kompatibel dengan Code.gs yang diberikan:
-     * - GET  ?action=getdataguru
-     * - GET  ?action=getvalidasidokumen
-     * - GET  ?action=drive&folder_id=...
-     * - POST {action:"createfolder", guru_id, nama}
-     * - POST {action:"getfiles", folder_id}
-     *
-     * Login diasumsikan disimpan oleh login.html pada localStorage
-     * dengan object user dari response handleLogin().
-     ************************************************************/
 
-    const CONFIG = {
-      API_URL: 'https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec',
-      LOGIN_URL: 'https://bajangan118-tech.github.io/simple-ks/login.html',
-      STORAGE_KEYS: ['simpelks_user', 'simpel_ks_user', 'user', 'currentUser']
-    };
 
-    let currentUser = null;
-    let teacherRows = [];
-    let validationRows = [];
-    let driveFiles = [];
-    let teacherFolder = null;
-    // Pemetaan folder berdasarkan JENIS_DOKUMEN.
-    let documentFolders = [];
+<!-- =======================================================
+     HERO
+======================================================= -->
 
-    const $ = (id) => document.getElementById(id);
+<section class="hero">
 
-    function InfoField({label, id}) {
-      return '';
-    }
+    <div class="container">
 
-    // Komponen kecil yang dipasang ulang sebagai HTML agar file tetap standalone.
-    function infoFieldHtml(label, id) {
-      return `
-        <div>
-          <div class="text-[11px] font-bold uppercase tracking-wide text-slate-400">${escapeHtml(label)}</div>
-          <div id="${escapeHtml(id)}" class="mt-1 min-h-6 text-sm font-semibold text-slate-800">-</div>
-        </div>`;
-    }
+        <div class="hero-content">
 
-    function ValidationCard({id,label,color,icon}) {
-      return '';
-    }
+            <div class="hero-badge">
 
-    /***********************
-     * INIT
-     ***********************/
-    document.addEventListener('DOMContentLoaded', init);
+                <i class="fa-solid fa-school"></i>
 
-    async function init() {
-      $('year').textContent = new Date().getFullYear();
+                Selamat Datang di Website Resmi Sekolah
 
-      // Isi field profil yang dibuat secara dinamis.
-      const grid = document.querySelector('#section-profil .grid.gap-5');
-      if (grid) {
-        grid.innerHTML = [
-          infoFieldHtml('Nama Lengkap','profileNameField'),
-          infoFieldHtml('User ID','profileUserId'),
-          infoFieldHtml('Username','profileUsername'),
-          infoFieldHtml('Role','profileRole'),
-          infoFieldHtml('Guru ID','profileGuruId'),
-          infoFieldHtml('Jabatan','profileJabatanField'),
-          infoFieldHtml('Email','profileEmail'),
-          infoFieldHtml('Status','profileStatus')
-        ].join('');
-      }
+            </div>
 
-      // Isi kartu validasi.
-      const cards = document.querySelector('#section-validasi .grid.gap-4');
-      if (cards) {
-        cards.innerHTML = [
-          validationCardHtml('valWaiting','Menunggu','blue','clock'),
-          validationCardHtml('valVerified','Terverifikasi','emerald','check'),
-          validationCardHtml('valRevision','Revisi','amber','warning'),
-          validationCardHtml('valIncomplete','Belum Lengkap','red','alert')
-        ].join('');
-      }
 
-      // Versi tanpa login: ambil user dari localStorage, parameter URL,
-      // lalu fallback ke akun guru default.
-      currentUser = getUserFromUrl() || getStoredGuruUser() || {
-        nama: 'Sugeng Hidayat',
-        guru_id: 'GURU-001',
-        user_id: 'GURU-001',
-        username: 'sugeng',
-        role: 'GURU',
-        jabatan: 'Guru',
-        email: ''
-      };
-      saveUser(currentUser);
+            <h1>
 
-      renderUser();
-      showSection('dashboard');
-      await refreshAll();
-    }
+                Tumbuh,
+                <span>Belajar</span>,
+                dan Menginspirasi
 
-    /***********************
-     * SESSION
-     ***********************/
-    function getStoredUser() {
-      for (const key of CONFIG.STORAGE_KEYS) {
-        try {
-          const raw = localStorage.getItem(key);
-          if (!raw) continue;
-          const parsed = JSON.parse(raw);
-          const user = parsed && parsed.user ? parsed.user : parsed;
-          if (user && (user.username || user.user_id || user.nama)) return user;
-        } catch (e) {}
-      }
-      return null;
-    }
+            </h1>
 
-    function getStoredGuruUser() {
-      const user = getStoredUser();
-      if (!user) return null;
-      return normalizeRole(user.role) === 'GURU' ? user : null;
-    }
 
-    function getUserFromUrl() {
-      try {
-        const p = new URLSearchParams(window.location.search);
-        const guruId = String(p.get('guru_id') || '').trim();
-        const nama = String(p.get('nama') || '').trim();
-        if (!guruId && !nama) return null;
-        return {
-          guru_id: guruId || 'GURU-001',
-          user_id: guruId || 'GURU-001',
-          nama: nama || 'Guru',
-          username: p.get('username') || '',
-          role: 'GURU',
-          jabatan: p.get('jabatan') || 'Guru',
-          email: p.get('email') || ''
-        };
-      } catch (e) { return null; }
-    }
+            <p>
 
-    function saveUser(user) {
-      localStorage.setItem(CONFIG.STORAGE_KEYS[0], JSON.stringify(user));
-    }
+                Membangun generasi yang berkarakter,
+                mandiri, kreatif, literat, dan siap
+                menghadapi masa depan melalui
+                pembelajaran yang bermakna.
 
-    function clearUserStorage() {
-      CONFIG.STORAGE_KEYS.forEach(key => {
-        try { localStorage.removeItem(key); } catch (e) {}
-      });
-      // Hapus beberapa kemungkinan key sesi tambahan tanpa mengganggu data aplikasi.
-      ['simpelks_session', 'simpel_ks_session', 'sessionUser'].forEach(key => {
-        try { localStorage.removeItem(key); } catch (e) {}
-      });
-    }
-
-    function redirectToLogin(message) {
-      if (message) console.warn(message);
-      window.location.href = CONFIG.LOGIN_URL;
-    }
-
-    function getRoleRedirect(role) {
-      const r = normalizeRole(role);
-      if (r === 'KEPSEK') return CONFIG.LOGIN_URL.replace('login.html', 'ks.html');
-      if (r === 'ADMIN') return CONFIG.LOGIN_URL.replace('login.html', 'admin.html');
-      return CONFIG.LOGIN_URL;
-    }
-
-    function normalizeRole(value) {
-      return String(value || '').trim().toUpperCase();
-    }
-
-    function renderUser() {
-      const u = currentUser || {};
-      const name = u.nama || u.name || 'Guru';
-      const initials = getInitials(name);
-      const role = normalizeRole(u.role) || 'GURU';
-      const guruId = u.guru_id || '-';
-      const jabatan = u.jabatan || 'Guru';
-      const username = u.username || '-';
-      const email = u.email || '-';
-
-      ['sideAvatar','topAvatar','dashAvatar','profileAvatar'].forEach(id => {
-        if ($(id)) $(id).textContent = initials;
-      });
-
-      setText('sideName', name);
-      setText('sideRole', role);
-      setText('topName', name);
-      setText('welcomeName', name);
-      setText('dashName', name);
-      setText('dashJabatan', jabatan);
-      setText('dashGuruId', 'ID: ' + guruId);
-      setText('dashUsername', username);
-      setText('dashEmail', email);
-
-      setText('profileName', name);
-      setText('profileJabatan', jabatan);
-      setText('profileNameField', name);
-      setText('profileUserId', u.user_id || '-');
-      setText('profileUsername', username);
-      setText('profileRole', role);
-      setText('profileGuruId', guruId);
-      setText('profileJabatanField', jabatan);
-      setText('profileEmail', email);
-      setText('profileStatus', 'AKTIF');
-    }
-
-    /***********************
-     * API
-     ***********************/
-    function apiUrl(action, params = {}) {
-      const base = String(CONFIG.API_URL || '').trim();
-      if (!base || base.includes('PASTE_DEPLOYMENT_ID_ANDA')) {
-        throw new Error('API_URL belum diisi pada Guru.html.');
-      }
-
-      const url = new URL(base);
-      url.searchParams.set('action', action);
-      Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined && value !== null && value !== '') {
-          url.searchParams.set(key, value);
-        }
-      });
-      return url.toString();
-    }
-
-    async function apiGet(action, params = {}) {
-      const response = await fetch(apiUrl(action, params), {
-        method: 'GET',
-        cache: 'no-store',
-        redirect: 'follow'
-      });
-
-      if (!response.ok) {
-        throw new Error('Server mengembalikan HTTP ' + response.status);
-      }
-
-      const data = await response.json();
-      if (data && data.success === false) {
-        throw new Error(data.message || 'Permintaan gagal.');
-      }
-      return data;
-    }
-
-    async function apiPost(payload) {
-      const response = await fetch(apiUrl('status'), {
-        method: 'POST',
-        headers: {'Content-Type': 'text/plain;charset=utf-8'},
-        body: JSON.stringify(payload),
-        redirect: 'follow'
-      });
-
-      if (!response.ok) {
-        throw new Error('Server mengembalikan HTTP ' + response.status);
-      }
-
-      const data = await response.json();
-      if (data && data.success === false) {
-        throw new Error(data.message || 'Permintaan gagal.');
-      }
-      return data;
-    }
-
-    /***********************
-     * LOAD ALL
-     ***********************/
-    async function refreshAll() {
-      setRefreshing(true);
-
-      const jobs = [
-        loadTeacherData(),
-        loadValidationData(),
-        loadDocuments(false)
-      ];
-
-      const results = await Promise.allSettled(jobs);
-
-      const failed = results.filter(r => r.status === 'rejected');
-      if (failed.length) {
-        console.warn('Sebagian data gagal dimuat:', failed);
-      }
-
-      updateDashboardStats();
-      setRefreshing(false);
-    }
-
-    /***********************
-     * DATA GURU
-     ***********************/
-    async function loadTeacherData() {
-      try {
-        const data = await apiGet('getdataguru');
-        teacherRows = Array.isArray(data.data) ? data.data : [];
-        renderTeacherData();
-        return data;
-      } catch (error) {
-        teacherRows = [];
-        renderTeacherData(error.message);
-        throw error;
-      }
-    }
-
-    function getMyTeacherRows() {
-      const u = currentUser || {};
-      const myGuruId = normalizeComparable(u.guru_id);
-      const myName = normalizeComparable(u.nama);
-
-      return teacherRows.filter(row => {
-        const rowId = normalizeComparable(row.guru_id || row.id || row.user_id);
-        const rowName = normalizeComparable(row.nama);
-        if (myGuruId && rowId && myGuruId === rowId) return true;
-        if (myName && rowName && myName === rowName) return true;
-        return false;
-      });
-    }
-
-    function renderTeacherData(errorMessage = '') {
-      const box = $('teacherDataBox');
-      if (!box) return;
-
-      if (errorMessage) {
-        box.innerHTML = `<div class="rounded-xl bg-red-50 p-4 text-sm text-red-700">${escapeHtml(errorMessage)}</div>`;
-        return;
-      }
-
-      const rows = getMyTeacherRows();
-      if (!rows.length) {
-        box.innerHTML = `
-          <div class="rounded-xl border border-dashed border-slate-300 p-6 text-center">
-            <div class="font-semibold text-slate-700">Data guru tidak ditemukan</div>
-            <p class="mt-1 text-xs leading-5 text-slate-500">
-              Pencocokan dilakukan menggunakan Guru ID atau nama pada akun USERS dengan DATA_GURU.
             </p>
-          </div>`;
-        return;
-      }
 
-      const g = rows[0];
-      box.innerHTML = `
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          ${miniData('Nama', g.nama)}
-          ${miniData('NIP', g.nip)}
-          ${miniData('Gol. Ruang', g.gol_ruang)}
-          ${miniData('Jabatan', g.jabatan)}
-          ${miniData('Status', g.status)}
-          ${miniData('Administrasi', g.administrasi)}
-        </div>`;
-    }
 
-    function miniData(label, value) {
-      return `
-        <div class="rounded-xl bg-slate-50 p-4">
-          <div class="text-[10px] font-bold uppercase tracking-wide text-slate-400">${escapeHtml(label)}</div>
-          <div class="mt-1 break-words text-sm font-bold text-slate-800">${escapeHtml(value || '-')}</div>
-        </div>`;
-    }
+            <div class="hero-buttons">
 
-    /***********************
-     * VALIDASI
-     ***********************/
-    async function loadValidationData() {
-      try {
-        const data = await apiGet('getvalidasidokumen');
-        const all = Array.isArray(data.data) ? data.data : [];
-        validationRows = filterValidationForUser(all);
-        renderValidation();
-        updateValidationSummary();
-        return data;
-      } catch (error) {
-        validationRows = [];
-        renderValidation(error.message);
-        updateValidationSummary();
-        throw error;
-      }
-    }
+                <a
+                    href="#ppdb"
+                    class="btn btn-primary">
 
-    function filterValidationForUser(rows) {
-      const u = currentUser || {};
-      const name = normalizeComparable(u.nama);
-      const guruId = normalizeComparable(u.guru_id);
+                    <i class="fa-solid fa-user-plus"></i>
 
-      // VALIDASI_DOKUMEN pada Code.gs tidak mengembalikan guru_id khusus.
-      // Karena itu pencocokan dilakukan pada nama_guru, dengan fallback
-      // ke guru_id bila data server di masa depan menyediakannya.
-      const filtered = rows.filter(row => {
-        const rowName = normalizeComparable(row.nama_guru);
-        const rowGuruId = normalizeComparable(row.guru_id || row.guru_id_user);
+                    PPDB / Daftar Sekarang
 
-        if (guruId && rowGuruId && guruId === rowGuruId) return true;
-        if (name && rowName && name === rowName) return true;
-        return false;
-      });
+                </a>
 
-      return filtered;
-    }
 
-    function getValidationBucket(status) {
-      const s = normalizeStatus(status);
+                <a
+                    href="#fasilitas"
+                    class="btn btn-outline">
 
-      if (['TERVERIFIKASI','DISETUJUI','VALID','DISETUJUI/VALID'].includes(s)) return 'TERVERIFIKASI';
-      if (['REVISI','PERLU REVISI','PERLU DIREVISI','DITOLAK'].includes(s)) return 'REVISI';
-      if (['BELUM LENGKAP','BELUM_LENGKAP','BELUMLENGKAP','BELUM'].includes(s)) return 'BELUM LENGKAP';
-      if (['MENUNGGU','MENUNGGU VALIDASI','PENDING','BELUM DIVALIDASI'].includes(s)) return 'MENUNGGU';
-      return 'LAINNYA';
-    }
+                    <i class="fa-solid fa-images"></i>
 
-    function normalizeStatus(value) {
-      return String(value || '').trim().toUpperCase().replace(/\s+/g, ' ');
-    }
+                    Lihat Sekolah
 
-    function updateValidationSummary() {
-      const count = {
-        MENUNGGU: 0,
-        TERVERIFIKASI: 0,
-        REVISI: 0,
-        'BELUM LENGKAP': 0
-      };
+                </a>
 
-      validationRows.forEach(row => {
-        const bucket = getValidationBucket(row.status);
-        if (count[bucket] !== undefined) count[bucket]++;
-      });
 
-      setText('valWaiting', count.MENUNGGU);
-      setText('valVerified', count.TERVERIFIKASI);
-      setText('valRevision', count.REVISI);
-      setText('valIncomplete', count['BELUM LENGKAP']);
+                <!-- SIMPEL-KS DI HERO -->
 
-      setText('statVerified', count.TERVERIFIKASI);
-      setText('statRevision', count.REVISI);
-      setText('statIncomplete', count['BELUM LENGKAP']);
+                <a
+                    href="login.html"
+                    class="btn btn-blue">
 
-      const summary = $('validationSummary');
-      if (summary) {
-        const items = [
-          ['Menunggu', count.MENUNGGU, 'blue'],
-          ['Terverifikasi', count.TERVERIFIKASI, 'emerald'],
-          ['Perlu Revisi', count.REVISI, 'amber'],
-          ['Belum Lengkap', count['BELUM LENGKAP'], 'red']
-        ];
-        summary.innerHTML = items.map(([label, value, color]) => `
-          <div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
-            <div class="flex items-center gap-3">
-              <span class="h-2.5 w-2.5 rounded-full bg-${color}-500"></span>
-              <span class="text-sm font-semibold text-slate-700">${label}</span>
+                    <i class="fa-solid fa-lock"></i>
+
+                    Masuk SIMPEL-KS
+
+                </a>
+
             </div>
-            <span class="text-sm font-extrabold text-${color}-700">${value}</span>
-          </div>
-        `).join('');
-      }
-    }
 
-    function renderValidation(errorMessage = '') {
-      const container = $('validationContainer');
-      if (!container) return;
+        </div>
 
-      if (errorMessage) {
-        container.innerHTML = `<div class="p-6 text-sm text-red-700">${escapeHtml(errorMessage)}</div>`;
-        return;
-      }
+    </div>
 
-      const filter = normalizeStatus($('validationStatusFilter')?.value || '');
-      let rows = validationRows.slice();
+</section>
 
-      if (filter) {
-        rows = rows.filter(row => getValidationBucket(row.status) === filter);
-      }
 
-      if (!rows.length) {
-        container.innerHTML = `
-          <div class="flex min-h-56 flex-col items-center justify-center p-6 text-center">
-            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
-              <svg width="25" height="25" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5"/></svg>
+
+<!-- =======================================================
+     STATISTIK
+======================================================= -->
+
+<section class="stats">
+
+    <div class="container">
+
+        <div class="stats-grid">
+
+
+            <div class="stat">
+
+                <i class="fa-solid fa-user-graduate"></i>
+
+                <strong>
+                    300+
+                </strong>
+
+                <span>
+                    Peserta Didik
+                </span>
+
             </div>
-            <div class="mt-4 font-bold text-slate-700">Belum ada data validasi</div>
-            <p class="mt-1 text-xs text-slate-500">Tidak ada dokumen yang cocok dengan akun Anda.</p>
-          </div>`;
-        return;
-      }
 
-      container.innerHTML = `
-        <table class="min-w-[900px] w-full text-left text-sm">
-          <thead class="bg-slate-50 text-[11px] uppercase tracking-wide text-slate-500">
-            <tr>
-              <th class="px-5 py-3 font-bold">Dokumen</th>
-              <th class="px-5 py-3 font-bold">Status</th>
-              <th class="px-5 py-3 font-bold">Deadline</th>
-              <th class="px-5 py-3 font-bold">Selesai</th>
-              <th class="px-5 py-3 font-bold">Catatan</th>
-              <th class="px-5 py-3 font-bold">Validator</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100">
-            ${rows.map(row => `
-              <tr class="hover:bg-slate-50/70">
-                <td class="px-5 py-4">
-                  <div class="font-bold text-slate-800">${escapeHtml(row.jenis_dokumen || '-')}</div>
-                  <div class="mt-1 text-[11px] text-slate-400">ID: ${escapeHtml(row.id_validasi || '-')}</div>
-                </td>
-                <td class="px-5 py-4">${statusBadge(row.status)}</td>
-                <td class="px-5 py-4 whitespace-nowrap text-slate-600">${escapeHtml(row.tanggal_deadline || '-')}</td>
-                <td class="px-5 py-4 whitespace-nowrap text-slate-600">${escapeHtml(row.tanggal_selesai || '-')}</td>
-                <td class="max-w-xs px-5 py-4 text-slate-600">${escapeHtml(row.catatan || '-')}</td>
-                <td class="px-5 py-4 text-slate-600">${escapeHtml(row.validator || '-')}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>`;
-    }
 
-    function statusBadge(status) {
-      const bucket = getValidationBucket(status);
-      const map = {
-        'TERVERIFIKASI': ['bg-emerald-50','text-emerald-700','TERVERIFIKASI'],
-        'REVISI': ['bg-amber-50','text-amber-700','REVISI'],
-        'BELUM LENGKAP': ['bg-red-50','text-red-700','BELUM LENGKAP'],
-        'MENUNGGU': ['bg-blue-50','text-blue-700','MENUNGGU']
-      };
-      const [bg, text, label] = map[bucket] || ['bg-slate-100','text-slate-600',String(status || 'UNKNOWN').toUpperCase()];
-      return `<span class="inline-flex rounded-full px-2.5 py-1 text-[10px] font-extrabold ${bg} ${text}">${escapeHtml(label)}</span>`;
-    }
+            <div class="stat">
 
-    /***********************
-     * DRIVE / DOCUMENTS
-     ***********************/
-    async function loadDocuments(force = false) {
-      try {
-        const u = currentUser || {};
-        const guruId = String(u.guru_id || '').trim();
+                <i class="fa-solid fa-chalkboard-user"></i>
 
-        if (!guruId) {
-          teacherFolder = null;
-          driveFiles = [];
-          documentFolders = [];
-          renderFiles('Akun guru belum memiliki Guru ID.');
-          return;
-        }
+                <strong>
+                    20+
+                </strong>
 
-        /********************************************************
-         * 1. SIAPKAN ROOT FOLDER GURU
-         *    Tetap menggunakan endpoint Code.gs lama.
-         ********************************************************/
-        const folderResponse = await apiPost({
-          action: 'createfolder',
-          guru_id: guruId,
-          nama: u.nama || 'GURU'
-        });
+                <span>
+                    Guru & Tendik
+                </span>
 
-        teacherFolder = folderResponse.folder || null;
-        renderFolderInfo();
+            </div>
 
-        if (!teacherFolder || !teacherFolder.id) {
-          throw new Error('Folder guru tidak dapat disiapkan.');
-        }
 
-        /********************************************************
-         * 2. AMBIL DATA VALIDASI UNTUK MENGETAHUI
-         *    JENIS_DOKUMEN DAN FOLDER YANG SESUAI.
-         *
-         * Dukungan dibuat fleksibel:
-         * - link_folder / LINK_FOLDER bila dikirim backend
-         * - folder_url / folderUrl bila tersedia
-         * - id_validasi sebagai ID folder (sesuai backend versi
-         *   yang menyimpan ID subfolder pada ID_VALIDASI)
-         ********************************************************/
-        const validationResponse = await apiGet('getvalidasidokumen');
-        const allValidation = Array.isArray(validationResponse.data)
-          ? validationResponse.data
-          : [];
+            <div class="stat">
 
-        validationRows = filterValidationForUser(allValidation);
+                <i class="fa-solid fa-trophy"></i>
 
-        const folderRows = buildDocumentFolderRows(validationRows);
+                <strong>
+                    25+
+                </strong>
 
-        /********************************************************
-         * 3. AMBIL FILE DARI SETIAP FOLDER JENIS DOKUMEN.
-         *    FILE TETAP DITAMPILKAN SEPERTI TAMPILAN LAMA,
-         *    TETAPI TOMBOL ↗ MEMBUKA FOLDER INDUKNYA.
-         ********************************************************/
-        documentFolders = await Promise.all(
-          folderRows.map(async (row) => {
-            let files = [];
-            let folderUrl = row.folderUrl || makeDriveFolderUrl(row.folderId);
+                <span>
+                    Prestasi Siswa
+                </span>
 
-            // Jika folderId tersedia, baca isi folder tersebut.
-            if (row.folderId) {
-              try {
-                const result = await apiPost({
-                  action: 'getfiles',
-                  folder_id: row.folderId
-                });
+            </div>
 
-                files = Array.isArray(result.files)
-                  ? result.files
-                  : [];
 
-                // Gunakan URL yang dikembalikan server bila tersedia.
-                if (result.folder && result.folder.url) {
-                  folderUrl = result.folder.url;
-                }
-              } catch (e) {
-                console.warn(
-                  'Folder jenis dokumen "' + row.jenis + '" tidak dapat dibaca:',
-                  e
-                );
-              }
+            <div class="stat">
+
+                <i class="fa-solid fa-people-group"></i>
+
+                <strong>
+                    10+
+                </strong>
+
+                <span>
+                    Ekstrakurikuler
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     PROFIL / SAMBUTAN
+======================================================= -->
+
+<section
+    class="section"
+    id="profil">
+
+    <div class="container">
+
+        <div class="about-grid">
+
+
+            <div class="about-image animate">
+
+                <img
+                    src="assets/kepala-sekolah.jpg"
+                    alt="Kepala Sekolah">
+
+                <div class="principal-card">
+
+                    <img
+                        src="assets/kepala-sekolah.jpg"
+                        alt="Kepala Sekolah">
+
+                    <div>
+
+                        <strong>
+                            Nama Kepala Sekolah
+                        </strong>
+
+                        <span>
+                            Kepala Sekolah
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="about-text animate">
+
+                <div class="section-label">
+                    Sambutan Kepala Sekolah
+                </div>
+
+                <h2>
+                    Selamat Datang di Sekolah Kami
+                </h2>
+
+                <p>
+
+                    Puji syukur ke hadirat Tuhan Yang Maha Esa.
+                    Selamat datang di website resmi SDN
+                    Ranuklindungan I.
+
+                </p>
+
+                <p>
+
+                    Website ini menjadi media informasi
+                    sekaligus jembatan komunikasi antara
+                    sekolah, peserta didik, orang tua,
+                    dan masyarakat.
+
+                </p>
+
+                <div class="features">
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+
+                            <i class="fa-solid fa-heart"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Pendidikan Karakter
+                            </h4>
+
+                            <p>
+                                Membentuk peserta didik
+                                berakhlak dan berkarakter.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+
+                            <i class="fa-solid fa-lightbulb"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Pembelajaran Inovatif
+                            </h4>
+
+                            <p>
+                                Mendorong kreativitas
+                                dan kemampuan berpikir.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+
+                            <i class="fa-solid fa-book-open"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Literasi & Numerasi
+                            </h4>
+
+                            <p>
+                                Membangun kemampuan dasar
+                                yang kuat.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+
+                            <i class="fa-solid fa-users"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Kolaborasi
+                            </h4>
+
+                            <p>
+                                Sekolah, keluarga, dan
+                                masyarakat bersinergi.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     AKADEMIK
+======================================================= -->
+
+<section
+    class="section section-light"
+    id="akademik">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Program Pendidikan
+            </div>
+
+            <h2>
+                Belajar dengan Cara yang Bermakna
+            </h2>
+
+            <p>
+
+                Program pendidikan dirancang untuk
+                mengembangkan potensi akademik,
+                karakter, kreativitas, dan keterampilan
+                peserta didik.
+
+            </p>
+
+        </div>
+
+
+        <div class="program-grid">
+
+
+            <div class="program-card animate">
+
+                <img
+                    src="assets/program-akademik.jpg"
+                    alt="Program Akademik">
+
+                <div class="program-content">
+
+                    <h3>
+                        Pembelajaran Akademik
+                    </h3>
+
+                    <p>
+
+                        Pembelajaran berbasis Kurikulum
+                        Merdeka yang aktif, kontekstual,
+                        dan berpusat pada peserta didik.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="program-card animate">
+
+                <img
+                    src="assets/literasi.jpg"
+                    alt="Literasi dan Numerasi">
+
+                <div class="program-content">
+
+                    <h3>
+                        Literasi & Numerasi
+                    </h3>
+
+                    <p>
+
+                        Penguatan kemampuan membaca,
+                        memahami, bernalar, berhitung,
+                        dan memecahkan masalah.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="program-card animate">
+
+                <img
+                    src="assets/projek.jpg"
+                    alt="Projek Pembelajaran">
+
+                <div class="program-content">
+
+                    <h3>
+                        Projek & Pengembangan Diri
+                    </h3>
+
+                    <p>
+
+                        Peserta didik belajar melalui
+                        projek, kolaborasi, kreativitas,
+                        dan pengalaman nyata.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     EKSTRAKURIKULER
+======================================================= -->
+
+<section
+    class="section"
+    id="fasilitas">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Pengembangan Diri
+            </div>
+
+            <h2>
+                Ekstrakurikuler & Aktivitas Siswa
+            </h2>
+
+            <p>
+
+                Berbagai kegiatan untuk mengembangkan
+                bakat, minat, karakter, dan keterampilan
+                peserta didik.
+
+            </p>
+
+        </div>
+
+
+        <div class="extra-grid">
+
+
+            <div class="extra animate">
+
+                <img
+                    src="assets/pramuka.jpg"
+                    alt="Pramuka">
+
+                <div class="extra-overlay">
+
+                    <h3>
+                        Pramuka
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="extra animate">
+
+                <img
+                    src="assets/olahraga.jpg"
+                    alt="Olahraga">
+
+                <div class="extra-overlay">
+
+                    <h3>
+                        Olahraga
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="extra animate">
+
+                <img
+                    src="assets/seni.jpg"
+                    alt="Seni dan Budaya">
+
+                <div class="extra-overlay">
+
+                    <h3>
+                        Seni & Budaya
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="extra animate">
+
+                <img
+                    src="assets/sains.jpg"
+                    alt="Sains dan Teknologi">
+
+                <div class="extra-overlay">
+
+                    <h3>
+                        Sains & Teknologi
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     BERITA
+======================================================= -->
+
+<section
+    class="section section-light"
+    id="berita">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Informasi Sekolah
+            </div>
+
+            <h2>
+                Berita & Prestasi Terbaru
+            </h2>
+
+            <p>
+                Informasi terbaru mengenai kegiatan,
+                program, dan prestasi sekolah.
+            </p>
+
+        </div>
+
+
+        <div class="news-grid">
+
+
+            <article class="news-card animate">
+
+                <img
+                    src="assets/berita-1.jpg"
+                    alt="Berita Sekolah">
+
+                <div class="news-content">
+
+                    <span class="news-date">
+                        12 Agustus 2026
+                    </span>
+
+                    <h3>
+                        Kegiatan Pembelajaran Aktif dan Kreatif
+                    </h3>
+
+                    <p>
+
+                        Peserta didik mengikuti kegiatan
+                        pembelajaran dengan pendekatan
+                        yang menyenangkan dan bermakna.
+
+                    </p>
+
+                    <a
+                        href="#"
+                        class="read-more">
+
+                        Baca Selengkapnya →
+
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="news-card animate">
+
+                <img
+                    src="assets/berita-2.jpg"
+                    alt="Prestasi Siswa">
+
+                <div class="news-content">
+
+                    <span class="news-date">
+                        10 Agustus 2026
+                    </span>
+
+                    <h3>
+                        Siswa Meraih Prestasi Tingkat Kecamatan
+                    </h3>
+
+                    <p>
+
+                        Prestasi membanggakan kembali diraih
+                        oleh peserta didik dalam berbagai bidang.
+
+                    </p>
+
+                    <a
+                        href="#"
+                        class="read-more">
+
+                        Baca Selengkapnya →
+
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="news-card animate">
+
+                <img
+                    src="assets/berita-3.jpg"
+                    alt="Kegiatan Sekolah">
+
+                <div class="news-content">
+
+                    <span class="news-date">
+                        08 Agustus 2026
+                    </span>
+
+                    <h3>
+                        Program Sekolah dan Orang Tua
+                    </h3>
+
+                    <p>
+
+                        Sekolah terus memperkuat kolaborasi
+                        bersama orang tua dalam mendukung
+                        pendidikan anak.
+
+                    </p>
+
+                    <a
+                        href="#"
+                        class="read-more">
+
+                        Baca Selengkapnya →
+
+                    </a>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     AGENDA & PENGUMUMAN
+======================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Agenda Sekolah
+            </div>
+
+            <h2>
+                Agenda & Pengumuman
+            </h2>
+
+        </div>
+
+
+        <div class="agenda-grid">
+
+
+            <!-- AGENDA -->
+
+            <div class="agenda-card animate">
+
+                <h3>
+                    Agenda Mendatang
+                </h3>
+
+
+                <div class="agenda-item">
+
+                    <div class="date-box">
+
+                        <strong>
+                            20
+                        </strong>
+
+                        <span>
+                            AGT
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Rapat Orang Tua/Wali
+                        </h4>
+
+                        <p>
+                            08.00 WIB • Aula Sekolah
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="agenda-item">
+
+                    <div class="date-box">
+
+                        <strong>
+                            25
+                        </strong>
+
+                        <span>
+                            AGT
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Kegiatan Ekstrakurikuler
+                        </h4>
+
+                        <p>
+                            13.00 WIB • Lingkungan Sekolah
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="agenda-item">
+
+                    <div class="date-box">
+
+                        <strong>
+                            30
+                        </strong>
+
+                        <span>
+                            AGT
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Evaluasi Pembelajaran
+                        </h4>
+
+                        <p>
+                            Sesuai jadwal masing-masing kelas
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PENGUMUMAN -->
+
+            <div class="announcement animate">
+
+                <h3>
+                    <i class="fa-solid fa-bullhorn"></i>
+                    Pengumuman Penting
+                </h3>
+
+                <br>
+
+
+                <div class="alert">
+
+                    <strong>
+                        Informasi PPDB
+                    </strong>
+
+                    <p>
+
+                        Informasi pendaftaran peserta didik
+                        baru dapat diperoleh melalui menu PPDB.
+
+                    </p>
+
+                </div>
+
+
+                <div class="alert">
+
+                    <strong>
+                        Informasi Akademik
+                    </strong>
+
+                    <p>
+
+                        Orang tua/wali diharapkan selalu
+                        memperhatikan informasi terbaru
+                        dari sekolah.
+
+                    </p>
+
+                </div>
+
+
+                <div class="alert">
+
+                    <strong>
+                        Informasi Sekolah
+                    </strong>
+
+                    <p>
+
+                        Pengumuman resmi sekolah akan
+                        ditampilkan melalui halaman ini.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     GALERI
+======================================================= -->
+
+<section class="section section-light">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Galeri
+            </div>
+
+            <h2>
+                Aktivitas & Lingkungan Sekolah
+            </h2>
+
+            <p>
+
+                Dokumentasi kegiatan nyata peserta didik
+                dan lingkungan SDN Ranuklindungan I.
+
+            </p>
+
+        </div>
+
+
+        <div class="gallery-grid">
+
+
+            <div class="gallery-item animate">
+
+                <img
+                    src="assets/gallery-1.jpg"
+                    alt="Kegiatan Sekolah">
+
+            </div>
+
+
+            <div class="gallery-item animate">
+
+                <img
+                    src="assets/gallery-2.jpg"
+                    alt="Kegiatan Sekolah">
+
+            </div>
+
+
+            <div class="gallery-item animate">
+
+                <img
+                    src="assets/gallery-3.jpg"
+                    alt="Kegiatan Sekolah">
+
+            </div>
+
+
+            <div class="gallery-item animate">
+
+                <img
+                    src="assets/gallery-4.jpg"
+                    alt="Kegiatan Sekolah">
+
+            </div>
+
+
+            <div class="gallery-item animate">
+
+                <img
+                    src="assets/gallery-5.jpg"
+                    alt="Kegiatan Sekolah">
+
+            </div>
+
+
+        </div>
+
+
+        <br><br>
+
+
+        <div style="text-align:center">
+
+            <a
+                href="#"
+                class="btn btn-blue">
+
+                <i class="fa-solid fa-vr-cardboard"></i>
+
+                Virtual Tour 360°
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     TESTIMONI
+======================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Social Proof
+            </div>
+
+            <h2>
+                Apa Kata Mereka?
+            </h2>
+
+        </div>
+
+
+        <div class="testimonial-grid">
+
+
+            <div class="testimonial animate">
+
+                <div class="quote">
+                    <i class="fa-solid fa-quote-left"></i>
+                </div>
+
+                <p>
+
+                    Sekolah memberikan ruang kepada anak
+                    untuk berkembang sesuai dengan potensi
+                    dan minatnya.
+
+                </p>
+
+                <div class="person">
+
+                    <img
+                        src="assets/testimoni-1.jpg"
+                        alt="Orang Tua">
+
+                    <div>
+
+                        <strong>
+                            Nama Orang Tua
+                        </strong>
+
+                        <span>
+                            Orang Tua Siswa
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="testimonial animate">
+
+                <div class="quote">
+                    <i class="fa-solid fa-quote-left"></i>
+                </div>
+
+                <p>
+
+                    Kegiatan pembelajaran membuat saya
+                    lebih percaya diri untuk mencoba
+                    hal-hal baru.
+
+                </p>
+
+                <div class="person">
+
+                    <img
+                        src="assets/testimoni-2.jpg"
+                        alt="Siswa">
+
+                    <div>
+
+                        <strong>
+                            Nama Siswa
+                        </strong>
+
+                        <span>
+                            Peserta Didik
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="testimonial animate">
+
+                <div class="quote">
+                    <i class="fa-solid fa-quote-left"></i>
+                </div>
+
+                <p>
+
+                    Sekolah terus berkembang dan terbuka
+                    terhadap inovasi pembelajaran.
+
+                </p>
+
+                <div class="person">
+
+                    <img
+                        src="assets/testimoni-3.jpg"
+                        alt="Alumni">
+
+                    <div>
+
+                        <strong>
+                            Nama Alumni
+                        </strong>
+
+                        <span>
+                            Alumni
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     AKREDITASI & MITRA
+======================================================= -->
+
+<section class="section section-light">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Kepercayaan
+            </div>
+
+            <h2>
+                Akreditasi & Kemitraan
+            </h2>
+
+        </div>
+
+
+        <div class="partners">
+
+
+            <div class="partner">
+
+                <i class="fa-solid fa-school"></i>
+                AKREDITASI SEKOLAH
+
+            </div>
+
+
+            <div class="partner">
+
+                <i class="fa-solid fa-building-columns"></i>
+                DINAS PENDIDIKAN
+
+            </div>
+
+
+            <div class="partner">
+
+                <i class="fa-solid fa-laptop"></i>
+                MITRA TEKNOLOGI
+
+            </div>
+
+
+            <div class="partner">
+
+                <i class="fa-solid fa-handshake"></i>
+                KOMITE SEKOLAH
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     PPDB
+======================================================= -->
+
+<section
+    class="section"
+    id="ppdb">
+
+    <div class="container">
+
+        <div class="ppdb-box">
+
+            <h2>
+                Mari Bergabung Bersama Kami
+            </h2>
+
+            <p>
+
+                Dapatkan informasi lengkap mengenai
+                penerimaan peserta didik baru dan
+                proses pendaftaran.
+
+            </p>
+
+
+            <div class="ppdb-buttons">
+
+
+                <a
+                    href="#"
+                    class="btn btn-primary">
+
+                    <i class="fa-solid fa-file-pen"></i>
+
+                    Daftar Sekarang
+
+                </a>
+
+
+                <a
+                    href="#"
+                    class="btn btn-outline">
+
+                    <i class="fa-solid fa-download"></i>
+
+                    Download Brosur
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     CONTACT
+======================================================= -->
+
+<section
+    class="section section-light"
+    id="kontak">
+
+    <div class="container">
+
+        <div class="contact-grid">
+
+
+            <!-- INFORMASI -->
+
+            <div class="contact-info animate">
+
+                <h2>
+                    Hubungi Kami
+                </h2>
+
+                <p>
+
+                    Silakan hubungi sekretariat sekolah
+                    untuk mendapatkan informasi lebih lanjut.
+
+                </p>
+
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <div>
+
+                        <strong>
+                            Alamat
+                        </strong>
+
+                        <span>
+
+                            SDN Ranuklindungan I,
+                            Kecamatan Grati,
+                            Kabupaten Pasuruan,
+                            Jawa Timur
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                    <div>
+
+                        <strong>
+                            WhatsApp Center
+                        </strong>
+
+                        <span>
+                            08XX-XXXX-XXXX
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <div>
+
+                        <strong>
+                            Email
+                        </strong>
+
+                        <span>
+                            info@sekolah.sch.id
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    <div>
+
+                        <strong>
+                            Jam Layanan
+                        </strong>
+
+                        <span>
+                            Senin–Jumat • 07.00–15.00 WIB
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- GOOGLE MAPS -->
+
+            <div class="map animate">
+
+                <iframe
+                    src="https://www.google.com/maps?q=SDN%20Ranuklindungan%20I&output=embed"
+                    loading="lazy"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+
+            <!-- BRAND -->
+
+            <div>
+
+                <div class="footer-brand">
+
+                    SDN RANUKLINDUNGAN I
+
+                </div>
+
+                <p>
+
+                    Membangun generasi berkarakter,
+                    kreatif, mandiri, dan siap menghadapi
+                    masa depan.
+
+                </p>
+
+
+                <div class="social">
+
+
+                    <a
+                        href="#"
+                        aria-label="Instagram">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        aria-label="YouTube">
+
+                        <i class="fa-brands fa-youtube"></i>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        aria-label="Facebook">
+
+                        <i class="fa-brands fa-facebook"></i>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        aria-label="TikTok">
+
+                        <i class="fa-brands fa-tiktok"></i>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MENU -->
+
+            <div>
+
+                <h3>
+                    Menu
+                </h3>
+
+                <ul>
+
+                    <li>
+                        <a href="#profil">
+                            Profil
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#akademik">
+                            Akademik
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#ppdb">
+                            PPDB
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#berita">
+                            Berita
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#fasilitas">
+                            Fasilitas
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- INFORMASI -->
+
+            <div>
+
+                <h3>
+                    Informasi
+                </h3>
+
+                <ul>
+
+                    <li>
+                        <a href="#">
+                            Pengumuman
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Agenda
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Prestasi
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Galeri
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Brosur
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- LAYANAN -->
+
+            <div>
+
+                <h3>
+                    Layanan
+                </h3>
+
+                <ul>
+
+                    <li>
+
+                        <a href="login.html">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            SIMPEL-KS
+
+                        </a>
+
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            PPDB Online
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Download
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Kontak Sekolah
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Kebijakan Privasi
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 SDN Ranuklindungan I.
+            Semua Hak Dilindungi.
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =======================================================
+     JAVASCRIPT
+======================================================= -->
+
+<script>
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function toggleMenu(){
+
+    const menu =
+        document.getElementById("navMenu");
+
+    menu.classList.toggle("active");
+
+}
+
+
+/* =========================================================
+   TUTUP MENU SAAT LINK DIKLIK
+========================================================= */
+
+document
+.querySelectorAll(".nav-menu a")
+.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        document
+        .getElementById("navMenu")
+        .classList.remove("active");
+
+    });
+
+});
+
+
+
+/* =========================================================
+   ANIMATION ON SCROLL
+========================================================= */
+
+const observer =
+new IntersectionObserver(
+
+    (entries) => {
+
+        entries.forEach(entry => {
+
+            if(entry.isIntersecting){
+
+                entry
+                .target
+                .classList
+                .add("show");
+
+                observer
+                .unobserve(entry.target);
+
             }
 
-            return {
-              ...row,
-              folderUrl: folderUrl,
-              files: files
-            };
-          })
-        );
-
-        /********************************************************
-         * 4. GABUNGKAN SEMUA FILE DARI FOLDER JENIS DOKUMEN.
-         *    Metadata documentType + folderUrl ikut disimpan,
-         *    sehingga tombol ↗ selalu membuka folder jenisnya.
-         ********************************************************/
-        const groupedFiles = [];
-
-        documentFolders.forEach(folder => {
-          (folder.files || []).forEach(file => {
-            groupedFiles.push({
-              ...file,
-              document_type: folder.jenis || '',
-              folder_id: folder.folderId || '',
-              folder_url: folder.folderUrl || '',
-              validation_status: folder.status || ''
-            });
-          });
         });
 
-        /********************************************************
-         * 5. FALLBACK:
-         *    Bila VALIDASI_DOKUMEN belum memiliki pemetaan folder,
-         *    tetap tampilkan file root guru seperti perilaku lama.
-         ********************************************************/
-        if (!groupedFiles.length) {
-          try {
-            const rootResponse = await apiPost({
-              action: 'getfiles',
-              folder_id: teacherFolder.id
-            });
+    },
 
-            const rootFiles = Array.isArray(rootResponse.files)
-              ? rootResponse.files
-              : [];
-
-            driveFiles = rootFiles.map(file => ({
-              ...file,
-              document_type: '',
-              folder_id: teacherFolder.id,
-              folder_url: teacherFolder.url || makeDriveFolderUrl(teacherFolder.id),
-              validation_status: ''
-            }));
-          } catch (rootError) {
-            driveFiles = [];
-            console.warn('File root folder guru gagal dibaca:', rootError);
-          }
-        } else {
-          driveFiles = groupedFiles;
-        }
-
-        renderFiles();
-        setText('statFiles', driveFiles.length);
-        updateValidationSummary();
-
-        return {
-          success: true,
-          folder: teacherFolder,
-          folders: documentFolders,
-          files: driveFiles
-        };
-      } catch (error) {
-        driveFiles = [];
-        documentFolders = [];
-        renderFolderInfo();
-        renderFiles(error.message);
-        setText('statFiles', 0);
-        throw error;
-      }
+    {
+        threshold:.12
     }
 
-    /************************************************************
-     * MEMBENTUK PEMETAAN:
-     * JENIS_DOKUMEN -> FOLDER GOOGLE DRIVE
-     ************************************************************/
-    function buildDocumentFolderRows(rows) {
-      const seen = {};
-      const result = [];
+);
 
-      (rows || []).forEach(row => {
-        const jenis = String(
-          row.jenis_dokumen ||
-          row.jenis ||
-          row.dokumen ||
-          ''
-        ).trim();
 
-        if (!jenis) return;
+document
+.querySelectorAll(".animate")
+.forEach(element => {
 
-        const key = normalizeDocumentType(jenis);
-        if (seen[key]) return;
+    observer.observe(element);
 
-        const folderId = String(
-          row.folder_id ||
-          row.folderId ||
-          row.id_folder ||
-          row.id_validasi ||
-          ''
-        ).trim();
+});
 
-        const folderUrl = String(
-          row.link_folder ||
-          row.LINK_FOLDER ||
-          row.folder_url ||
-          row.folderUrl ||
-          row.link ||
-          ''
-        ).trim();
 
-        // Tidak membuat kartu folder jika benar-benar tidak ada
-        // informasi folder. Data validasi tetap dipakai untuk status.
-        if (!folderId && !folderUrl) return;
 
-        seen[key] = true;
+/* =========================================================
+   CLOSE MENU WHEN CLICKING OUTSIDE
+========================================================= */
 
-        result.push({
-          jenis: jenis,
-          folderId: folderId,
-          folderUrl: folderUrl || makeDriveFolderUrl(folderId),
-          status: row.status || '',
-          idValidasi: row.id_validasi || ''
-        });
-      });
+document.addEventListener("click", function(event){
 
-      // Urutan sesuai tampilan administrasi yang umum digunakan.
-      const order = [
-        'administrasi pembelajaran',
-        'modul ajar',
-        'penilaian',
-        'dokumentasi'
-      ];
+    const menu =
+        document.getElementById("navMenu");
 
-      result.sort((a, b) => {
-        const ia = documentTypeOrderIndex(a.jenis, order);
-        const ib = documentTypeOrderIndex(b.jenis, order);
+    const toggle =
+        document.getElementById("menuToggle");
 
-        if (ia !== ib) return ia - ib;
-        return a.jenis.localeCompare(b.jenis, 'id');
-      });
+    if(
+        window.innerWidth <= 800 &&
+        !menu.contains(event.target) &&
+        !toggle.contains(event.target)
+    ){
 
-      return result;
+        menu.classList.remove("active");
+
     }
 
-    function documentTypeOrderIndex(value, order) {
-      const key = normalizeDocumentType(value);
-      const index = order.findIndex(item =>
-        key === item ||
-        key.includes(item) ||
-        item.includes(key)
-      );
+});
 
-      return index === -1 ? 999 : index;
+
+/* =========================================================
+   ESC KEY CLOSE MENU
+========================================================= */
+
+document.addEventListener("keydown", function(event){
+
+    if(event.key === "Escape"){
+
+        document
+        .getElementById("navMenu")
+        .classList.remove("active");
+
     }
 
-    function normalizeDocumentType(value) {
-      return String(value || '')
-        .trim()
-        .toLowerCase()
-        .replace(/[\/\\_-]+/g, ' ')
-        .replace(/\s+/g, ' ');
-    }
+});
 
-    function makeDriveFolderUrl(folderId) {
-      const id = String(folderId || '').trim();
-      return id
-        ? 'https://drive.google.com/drive/folders/' + encodeURIComponent(id)
-        : '';
-    }
 
-    /************************************************************
-     * TOMBOL ↗ PADA KARTU DOKUMEN
-     * Membuka FOLDER sesuai JENIS_DOKUMEN, BUKAN FILE.
-     ************************************************************/
-    function openDocumentFolderByFile(index, event) {
-      if (event) event.preventDefault();
+</script>
 
-      const file = driveFiles[Number(index)];
 
-      if (!file) {
-        showToast('Data dokumen tidak ditemukan.', 'error');
-        return;
-      }
-
-      const url = String(
-        file.folder_url ||
-        makeDriveFolderUrl(file.folder_id) ||
-        ''
-      ).trim();
-
-      if (!url) {
-        showToast(
-          'Link folder untuk jenis dokumen "' +
-          (file.document_type || 'dokumen ini') +
-          '" belum tersedia.',
-          'error'
-        );
-        return;
-      }
-
-      window.open(url, '_blank', 'noopener');
-    }
-
-    async function openTeacherFolder(event) {
-      if (event) event.preventDefault();
-
-      try {
-        showToast('Menyiapkan folder guru...', 'info');
-        await loadDocuments(true);
-
-        if (teacherFolder?.url) {
-          window.open(teacherFolder.url, '_blank', 'noopener');
-          showToast('Folder Google Drive siap dibuka.', 'success');
-        } else {
-          throw new Error('Link folder guru tidak tersedia.');
-        }
-      } catch (error) {
-        showToast(error.message || 'Folder gagal disiapkan.', 'error');
-      }
-    }
-
-    function renderFolderInfo() {
-      const box = $('folderInfo');
-      if (!box) return;
-
-      if (!teacherFolder) {
-        box.classList.add('hidden');
-        return;
-      }
-
-      box.classList.remove('hidden');
-      setText('folderName', teacherFolder.name || 'Folder Guru');
-
-      const link = $('folderUrl');
-      if (link) {
-        link.href = teacherFolder.url || '#';
-        link.classList.toggle('pointer-events-none', !teacherFolder.url);
-      }
-    }
-
-    function renderFiles(errorMessage = '') {
-      const container = $('filesContainer');
-      if (!container) return;
-
-      if (errorMessage) {
-        container.innerHTML = `
-          <div class="flex min-h-48 flex-col items-center justify-center rounded-xl bg-red-50 p-6 text-center">
-            <div class="font-bold text-red-800">Dokumen tidak dapat dimuat</div>
-            <p class="mt-1 max-w-xl text-xs leading-5 text-red-600">${escapeHtml(errorMessage)}</p>
-          </div>`;
-        setText('fileCountText', '0 file');
-        return;
-      }
-
-      const q = String($('fileSearch')?.value || '').trim().toLowerCase();
-
-      const files = driveFiles.filter(file => {
-        const nameText = String(file.name || '').toLowerCase();
-        const typeText = String(file.document_type || '').toLowerCase();
-        return !q || nameText.includes(q) || typeText.includes(q);
-      });
-
-      setText(
-        'fileCountText',
-        `${files.length} file${q ? ' ditemukan' : ''}`
-      );
-
-      if (!files.length) {
-        container.innerHTML = `
-          <div class="flex min-h-48 flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 p-6 text-center">
-            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
-              <svg width="25" height="25" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/>
-                <path d="M14 2v5h5"/>
-              </svg>
-            </div>
-            <div class="mt-4 font-bold text-slate-700">${q ? 'File tidak ditemukan' : 'Belum ada dokumen'}</div>
-            <p class="mt-1 text-xs text-slate-500">${q ? 'Coba kata kunci lain.' : 'Folder administrasi guru masih kosong.'}</p>
-          </div>`;
-        return;
-      }
-
-      container.innerHTML = `
-        <div class="grid gap-3 md:grid-cols-2">
-          ${files.map(file => fileCard(file)).join('')}
-        </div>`;
-    }
-
-    function fileCard(file) {
-      const fileIndex = driveFiles.indexOf(file);
-      const icon = getFileIcon(file.mime_type, file.name);
-      const size = formatBytes(file.size);
-      const updated = formatDate(file.updated);
-      const documentType = String(file.document_type || '').trim();
-
-      const typeBadge = documentType
-        ? `<span class="font-semibold text-blue-600">${escapeHtml(documentType)}</span><span>•</span>`
-        : '';
-
-      return `
-        <div class="group rounded-2xl border border-slate-200 p-4 transition hover:border-blue-200 hover:bg-blue-50/30">
-          <div class="flex gap-3">
-            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-              ${icon}
-            </div>
-
-            <div class="min-w-0 flex-1">
-              <div class="truncate text-sm font-bold text-slate-800"
-                   title="${escapeHtml(file.name || '')}">
-                ${escapeHtml(file.name || 'Tanpa nama')}
-              </div>
-
-              <div class="mt-1 flex flex-wrap gap-x-2 gap-y-1 text-[11px] text-slate-400">
-                ${typeBadge}
-                <span>${escapeHtml(size)}</span>
-                <span>•</span>
-                <span>${escapeHtml(updated)}</span>
-              </div>
-            </div>
-
-            <!-- TOMBOL ↗ SEKARANG MEMBUKA FOLDER JENIS DOKUMEN -->
-            <button type="button"
-                    onclick="openDocumentFolderByFile(${fileIndex}, event)"
-                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-500 hover:bg-blue-600 hover:text-white"
-                    title="Buka folder ${escapeHtml(documentType || 'dokumen')}"
-                    aria-label="Buka folder ${escapeHtml(documentType || 'dokumen')}">
-              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="m7 17 7-7M9 7h5v5"/>
-                <path d="M17 13v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/>
-              </svg>
-            </button>
-          </div>
-        </div>`;
-    }
-
-    function getFileIcon(mime, name) {
-      const m = String(mime || '').toLowerCase();
-      const n = String(name || '').toLowerCase();
-      let type = 'file';
-      if (m.includes('pdf') || n.endsWith('.pdf')) type = 'pdf';
-      else if (m.includes('spreadsheet') || /\.(xlsx?|csv)$/.test(n)) type = 'sheet';
-      else if (m.includes('document') || /\.(docx?|odt)$/.test(n)) type = 'doc';
-      else if (m.includes('presentation') || /\.(pptx?|odp)$/.test(n)) type = 'slide';
-      else if (m.startsWith('image/') || /\.(png|jpe?g|gif|webp)$/.test(n)) type = 'image';
-
-      const paths = {
-        pdf: '<path d="M5 2h8l4 4v16H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M13 2v5h5"/><path d="M7 15h2a1.5 1.5 0 0 0 0-3H7v5M11 12v5h2M16 12h-3v5"/>',
-        sheet: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 3v18M3 9h18M3 15h18"/>',
-        doc: '<path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5M8 12h8M8 16h6"/>',
-        slide: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 20v2M16 20v2M3 8h18"/>',
-        image: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>',
-        file: '<path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5"/>'
-      };
-      return `<svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">${paths[type]}</svg>`;
-    }
-
-    /***********************
-     * DASHBOARD
-     ***********************/
-    function updateDashboardStats() {
-      // statFiles diatur saat loadDocuments.
-      updateValidationSummary();
-    }
-
-    /***********************
-     * NAVIGATION
-     ***********************/
-    const sectionMeta = {
-      dashboard: ['Dashboard Guru', 'Ringkasan administrasi Anda'],
-      profil: ['Profil Saya', 'Informasi akun guru'],
-      dokumen: ['Dokumen Saya', 'File administrasi pada Google Drive'],
-      validasi: ['Status Validasi', 'Status administrasi dokumen Anda']
-    };
-
-    function showSection(name) {
-      document.querySelectorAll('.section-panel').forEach(panel => panel.classList.add('hidden'));
-      const target = $('section-' + name);
-      if (target) target.classList.remove('hidden');
-
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('nav-active');
-        const icon = item.querySelector('.nav-icon');
-        if (icon) {
-          icon.classList.remove('bg-blue-50','text-blue-600');
-          icon.classList.add('bg-slate-100','text-slate-500');
-        }
-      });
-
-      const active = document.querySelector(`[data-section="${name}"]`);
-      if (active) {
-        active.classList.add('nav-active');
-        const icon = active.querySelector('.nav-icon');
-        if (icon) {
-          icon.classList.remove('bg-slate-100','text-slate-500');
-          icon.classList.add('bg-blue-50','text-blue-600');
-        }
-      }
-
-      const meta = sectionMeta[name] || sectionMeta.dashboard;
-      setText('pageTitle', meta[0]);
-      setText('pageSubtitle', meta[1]);
-
-      closeSidebar();
-
-      if (name === 'dokumen' && !driveFiles.length) loadDocuments(false).catch(()=>{});
-      if (name === 'validasi') renderValidation();
-    }
-
-    /***********************
-     * SIDEBAR
-     ***********************/
-    function toggleSidebar() {
-      const sidebar = $('sidebar');
-      const overlay = $('sidebarOverlay');
-      if (!sidebar || !overlay) return;
-
-      const open = sidebar.classList.contains('translate-x-0');
-      if (open) closeSidebar();
-      else {
-        sidebar.classList.remove('-translate-x-full');
-        sidebar.classList.add('translate-x-0');
-        overlay.classList.remove('hidden');
-      }
-    }
-
-    function closeSidebar() {
-      const sidebar = $('sidebar');
-      const overlay = $('sidebarOverlay');
-      if (!sidebar || !overlay) return;
-
-      if (window.innerWidth < 1024) {
-        sidebar.classList.add('-translate-x-full');
-        sidebar.classList.remove('translate-x-0');
-        overlay.classList.add('hidden');
-      }
-    }
-
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 1024) {
-        $('sidebar')?.classList.remove('-translate-x-full');
-        $('sidebar')?.classList.add('translate-x-0');
-        $('sidebarOverlay')?.classList.add('hidden');
-      } else {
-        $('sidebar')?.classList.add('-translate-x-full');
-        $('sidebar')?.classList.remove('translate-x-0');
-      }
-    });
-
-    /***********************
-     * LOGOUT
-     ***********************/
-    function logout() {
-      $('logoutModal').classList.remove('hidden');
-      $('logoutModal').classList.add('flex');
-    }
-
-    function closeLogout() {
-      $('logoutModal').classList.add('hidden');
-      $('logoutModal').classList.remove('flex');
-    }
-
-    function confirmLogout() {
-      clearUserStorage();
-      closeLogout();
-      window.location.href = CONFIG.LOGIN_URL;
-    }
-
-    /***********************
-     * HELP
-     ***********************/
-    function openHelp() {
-      $('helpModal').classList.remove('hidden');
-      $('helpModal').classList.add('flex');
-    }
-
-    function closeHelp() {
-      $('helpModal').classList.add('hidden');
-      $('helpModal').classList.remove('flex');
-    }
-
-    /***********************
-     * UI HELPERS
-     ***********************/
-    function setText(id, value) {
-      const el = $(id);
-      if (el) el.textContent = value ?? '-';
-    }
-
-    function getInitials(name) {
-      const parts = String(name || 'G').trim().split(/\s+/).filter(Boolean);
-      if (!parts.length) return 'G';
-      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-    }
-
-    function normalizeComparable(value) {
-      return String(value || '').trim().toUpperCase().replace(/\s+/g, ' ');
-    }
-
-    function formatBytes(bytes) {
-      const n = Number(bytes);
-      if (!Number.isFinite(n) || n <= 0) return '-';
-      const units = ['B','KB','MB','GB','TB'];
-      const i = Math.min(Math.floor(Math.log(n) / Math.log(1024)), units.length - 1);
-      return `${(n / Math.pow(1024, i)).toFixed(i ? 1 : 0)} ${units[i]}`;
-    }
-
-    function formatDate(value) {
-      if (!value) return '-';
-      const d = new Date(value);
-      if (isNaN(d.getTime())) return String(value);
-      return d.toLocaleDateString('id-ID', {
-        day: '2-digit', month: 'short', year: 'numeric'
-      });
-    }
-
-    function escapeHtml(value) {
-      return String(value ?? '')
-        .replace(/&/g,'&amp;')
-        .replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;')
-        .replace(/'/g,'&#039;');
-    }
-
-    function escapeAttribute(value) {
-      const safe = String(value || '');
-      return escapeHtml(safe).replace(/`/g, '&#096;');
-    }
-
-    function setRefreshing(active) {
-      const icon = $('topRefreshIcon');
-      if (icon) icon.classList.toggle('spin', active);
-    }
-
-    function showToast(message, type = 'info') {
-      const container = $('toastContainer');
-      if (!container) return;
-
-      const styles = {
-        success: ['bg-emerald-600','✓'],
-        error: ['bg-red-600','!'],
-        warning: ['bg-amber-500','!'],
-        info: ['bg-slate-800','i']
-      };
-      const [bg, symbol] = styles[type] || styles.info;
-
-      const item = document.createElement('div');
-      item.className = `toast flex items-center gap-3 rounded-2xl ${bg} px-4 py-3 text-sm font-semibold text-white shadow-xl`;
-      item.innerHTML = `
-        <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-xs font-extrabold">${symbol}</span>
-        <span>${escapeHtml(message)}</span>`;
-      container.appendChild(item);
-
-      setTimeout(() => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(8px)';
-        item.style.transition = 'all .2s ease';
-        setTimeout(() => item.remove(), 220);
-      }, 3500);
-    }
-
-    function validationCardHtml(id, label, color, icon) {
-      const icons = {
-        clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-        check: '<path d="M20 6 9 17l-5-5"/><circle cx="12" cy="12" r="9"/>',
-        warning: '<path d="M12 9v4M12 17h.01"/><path d="m10.3 3.6-7.5 13.4a2 2 0 0 0 1.75 3h14.9a2 2 0 0 0 1.75-3L13.7 3.6a2 2 0 0 0-3.4 0Z"/>',
-        alert: '<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 17h.01"/>'
-      };
-      return `
-        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">${escapeHtml(label)}</div>
-              <div id="${escapeHtml(id)}" class="mt-2 text-3xl font-extrabold text-${color}-600">0</div>
-            </div>
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-${color}-50 text-${color}-600">
-              <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2">${icons[icon]}</svg>
-            </div>
-          </div>
-        </div>`;
-    }
-
-    // Jika browser menekan Escape, tutup modal.
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        closeHelp();
-        closeLogout();
-      }
-    });
-  </script>
 </body>
 </html>
