@@ -368,12 +368,18 @@
           <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <h2 class="text-xl font-extrabold text-slate-900">Dokumen Saya</h2>
-              <p class="mt-1 text-sm text-slate-500">Dokumen administrasi guru berdasarkan jenis dokumen.</p>
+              <p class="mt-1 text-sm text-white">Dokumen administrasi guru berdasarkan jenis dokumen.</p>
             </div>
-            <button onclick="loadDocuments(true)" class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700">
-              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
-              Muat Ulang
-            </button>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="createTeacherFolder()" class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 hover:bg-emerald-700">
+                <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                Buat Folder
+              </button>
+              <button onclick="loadDocuments(true)" class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700">
+                <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
+                Muat Ulang
+              </button>
+            </div>
           </div>
 
           <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -1041,6 +1047,10 @@
         ]
       }
     ];
+
+    function createTeacherFolder() {
+      showToast('Fitur Buat Folder belum diaktifkan. Struktur Google Drive akan ditentukan terlebih dahulu.', 'info');
+    }
 
     async function loadDocuments(force = false) {
       const container = $('documentTypeContainer');
