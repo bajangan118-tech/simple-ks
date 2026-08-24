@@ -97,6 +97,22 @@
   </div>
 </main>
 
+<!-- ADMIN LOGIN MODAL -->
+<div id="loginModal" class="modal-backdrop fixed inset-0 z-[90] flex items-center justify-center p-4">
+  <div class="w-full max-w-md rounded-3xl bg-white p-7 shadow-2xl">
+    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-3xl">🔐</div>
+    <div class="mt-5 text-center"><h2 class="text-2xl font-extrabold">Akses Administrator</h2><p class="mt-1 text-sm text-slate-500">Masukkan username dan sandi Administrator.</p></div>
+    <form onsubmit="submitAdminLogin(event)" class="mt-6 space-y-4">
+      <input id="adminLoginUsername" required autocomplete="username" placeholder="Username" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 outline-none focus:border-blue-400">
+      <input id="adminLoginPassword" required type="password" autocomplete="current-password" placeholder="Sandi" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 outline-none focus:border-blue-400">
+      <div id="adminLoginError" class="hidden rounded-xl bg-red-50 px-3 py-3 text-sm font-semibold text-red-700"></div>
+      <button id="adminLoginSubmit" class="w-full rounded-xl bg-blue-600 px-4 py-3 font-bold text-white">Masuk sebagai Admin</button>
+      <button type="button" onclick="window.location.href=CONFIG.RESET_URL" class="w-full rounded-xl bg-amber-50 px-4 py-3 text-sm font-bold text-amber-700">Reset Sandi</button>
+      <p class="text-center text-[11px] text-slate-400">Akun default <b>sugeng</b> tidak dapat diubah atau dihapus.</p>
+    </form>
+  </div>
+</div>
+
 <!-- ADD USER MODAL -->
 <div id="addModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-4">
   <div class="w-full max-w-xl rounded-3xl bg-white p-6 shadow-2xl">
@@ -126,6 +142,7 @@
         <select id="addRole" class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none">
           <option value="GURU">GURU</option>
           <option value="KEPSEK">KEPSEK</option>
+          <option value="ADMIN">ADMIN</option>
           <option value="ADMIN">ADMIN</option>
         </select>
       </label>
@@ -192,10 +209,13 @@
 <script>
 const CONFIG = {
   API_URL: 'https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec',
-  LOGIN_URL: 'login.html'
+  RESET_URL: 'reset.html',
+  DEFAULT_ADMIN_USERNAME: 'sugeng',
+  DEFAULT_ADMIN_PASSWORD: '110477'
 };
 
 let currentUser = null;
+let adminPassword = "";
 let users = [];
 let busy = false;
 
@@ -235,20 +255,33 @@ function getStoredUser(){
 }
 
 function ensureAdmin(){
-  currentUser = getStoredUser();
-
-  if(!currentUser || normalizeRole(currentUser.role) !== 'ADMIN'){
-    alert('Akses ditolak. Halaman ini hanya untuk Administrator.');
-    window.location.replace(CONFIG.LOGIN_URL);
-    return false;
-  }
-
-  $('adminName').textContent = currentUser.nama || currentUser.username || 'Administrator';
-  $('adminRole').textContent = 'ADMIN';
-  return true;
+  try{
+    const raw=sessionStorage.getItem('simpelks_admin_user');
+    if(sessionStorage.getItem('simpelks_admin_authenticated')==='true' && raw){
+      const u=JSON.parse(raw);
+      if(normalizeRole(u.role)==='ADMIN'){currentUser=u; adminPassword=sessionStorage.getItem('simpelks_admin_password')||''; hideAdminLogin(); $('adminName').textContent=u.nama||u.username||'Administrator'; $('adminRole').textContent='ADMIN'; return true;}
+    }
+  }catch(e){}
+  showAdminLogin(); return false;
+}
+function showAdminLogin(){ $('loginModal').classList.remove('hidden'); $('loginModal').classList.add('flex'); }
+function hideAdminLogin(){ $('loginModal').classList.add('hidden'); $('loginModal').classList.remove('flex'); }
+async function submitAdminLogin(e){
+  e.preventDefault(); const u=$('adminLoginUsername').value.trim(), p=$('adminLoginPassword').value, b=$('adminLoginSubmit'), er=$('adminLoginError'); er.classList.add('hidden'); b.disabled=true; b.textContent='Memverifikasi...';
+  try{
+    const r=await apiPost({action:'admin_auth',username:u,password:p});
+    if(!r.success) throw new Error(r.message||'Login Admin gagal.');
+    currentUser=r.user; adminPassword=p; sessionStorage.setItem('simpelks_admin_authenticated','true'); sessionStorage.setItem('simpelks_admin_user',JSON.stringify(currentUser)); sessionStorage.setItem('simpelks_admin_password',p); hideAdminLogin(); $('adminName').textContent=currentUser.nama||currentUser.username; $('adminRole').textContent='ADMIN'; await loadUsers();
+  }catch(err){er.textContent=err.message;er.classList.remove('hidden');}finally{b.disabled=false;b.textContent='Masuk sebagai Admin';}
 }
 
+
 async function apiPost(payload){
+  if(payload.action !== 'admin_auth'){
+    payload.admin_username = currentUser?.username || '';
+    payload.admin_password = adminPassword;
+    payload.admin_user_id = currentUser?.user_id || '';
+  }
   const response = await fetch(CONFIG.API_URL, {
     method:'POST',
     headers:{'Content-Type':'text/plain;charset=utf-8'},
@@ -367,6 +400,7 @@ async function submitAddUser(event){
 }
 
 function openReset(userId, username){
+  if(String(username||'').toLowerCase()==='sugeng'){showToast('Akun admin default sugeng tidak dapat diubah.','error');return;}
   $('resetUserId').value = userId;
   $('resetInfo').textContent = `Masukkan sandi baru untuk akun @${username}.`;
   $('resetPassword').value = '';
@@ -407,6 +441,7 @@ async function submitReset(event){
 }
 
 function openDelete(userId, username, nama){
+  if(String(username||'').toLowerCase()==='sugeng'){showToast('Akun admin default sugeng tidak dapat dihapus.','error');return;}
   $('deleteUserId').value = userId;
   $('deleteInfo').innerHTML = `Anda akan menghapus akun <b>@${escapeHtml(username)}</b> (${escapeHtml(nama)}). Tindakan ini tidak dapat dibatalkan.`;
   $('deleteModal').classList.remove('hidden');
@@ -439,8 +474,8 @@ async function submitDelete(){
 
 function openLogout(){ if(confirm('Keluar dari panel Admin?')) confirmLogout(); }
 function confirmLogout(){
-  ['simpelks_logged_in','simpelks_user_id','simpelks_username','simpelks_nama','simpelks_role','simpelks_email','simpelks_guru_id','simpelks_jabatan','simpelks_login_time','simpelks_user'].forEach(k=>sessionStorage.removeItem(k));
-  window.location.replace(CONFIG.LOGIN_URL);
+  ['simpelks_admin_authenticated','simpelks_admin_user','simpelks_admin_password'].forEach(k=>sessionStorage.removeItem(k));
+  currentUser=null; adminPassword=''; showAdminLogin();
 }
 
 function showToast(message,type='info'){
