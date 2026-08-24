@@ -173,20 +173,32 @@
     <p id="resetInfo" class="mt-1 text-sm text-slate-500"></p>
     <form onsubmit="submitReset(event)" class="mt-5">
       <input id="resetUserId" type="hidden">
-      <label>
-        <span class="text-xs font-bold text-slate-500">Sandi Baru</span>
-        <input id="resetPassword" required minlength="6" type="password" autocomplete="new-password"
-          class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none focus:border-blue-400">
-      </label>
-      <label class="mt-4 flex items-center gap-2 text-sm">
-        <input id="resetShow" type="checkbox" onchange="toggleResetPassword()">
-        Tampilkan sandi baru
-      </label>
+      <div class="rounded-xl border border-blue-100 bg-blue-50 p-4 text-sm leading-6 text-blue-900">
+        Sistem akan membuat <b>sandi sementara otomatis</b>. Setelah reset berhasil, sandi sementara hanya ditampilkan sekali di layar Admin.
+      </div>
       <div class="mt-6 flex justify-end gap-2">
         <button type="button" onclick="closeReset()" class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold">Batal</button>
-        <button id="resetSubmit" class="rounded-xl bg-amber-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-700">Simpan Sandi Baru</button>
+        <button id="resetSubmit" class="rounded-xl bg-amber-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-700">Reset & Buat Sandi Sementara</button>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- TEMPORARY PASSWORD RESULT MODAL -->
+<div id="tempPasswordModal" class="modal-backdrop fixed inset-0 z-[70] hidden items-center justify-center p-4">
+  <div class="w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl">
+    <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-2xl">✓</div>
+    <h3 class="mt-4 text-xl font-extrabold text-center">Reset Berhasil</h3>
+    <p id="tempPasswordInfo" class="mt-1 text-center text-sm text-slate-500"></p>
+    <div class="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+      <div class="text-xs font-bold uppercase tracking-wide text-emerald-700">Sandi Sementara</div>
+      <div class="mt-2 flex items-center gap-2">
+        <input id="temporaryPassword" readonly class="min-w-0 flex-1 rounded-xl border border-emerald-200 bg-white px-3 py-3 text-center font-mono text-lg font-extrabold tracking-widest text-slate-900">
+        <button type="button" onclick="copyTemporaryPassword()" class="rounded-xl bg-emerald-600 px-3 py-3 text-xs font-bold text-white hover:bg-emerald-700">Salin</button>
+      </div>
+      <p class="mt-3 text-[11px] leading-5 text-emerald-800">Simpan atau berikan sandi ini kepada pengguna. Demi keamanan, sandi sementara tidak disimpan sebagai teks biasa di Spreadsheet.</p>
+    </div>
+    <button type="button" onclick="closeTempPassword()" class="mt-5 w-full rounded-xl bg-slate-800 px-4 py-3 font-bold text-white hover:bg-slate-900">Tutup</button>
   </div>
 </div>
 
@@ -402,41 +414,55 @@ async function submitAddUser(event){
 function openReset(userId, username){
   if(String(username||'').toLowerCase()==='sugeng'){showToast('Akun admin default sugeng tidak dapat diubah.','error');return;}
   $('resetUserId').value = userId;
-  $('resetInfo').textContent = `Masukkan sandi baru untuk akun @${username}.`;
-  $('resetPassword').value = '';
-  $('resetShow').checked = false;
-  $('resetPassword').type = 'password';
+  $('resetInfo').textContent = `Reset sandi akun @${username}? Sistem akan membuat sandi sementara secara otomatis.`;
   $('resetModal').classList.remove('hidden');
   $('resetModal').classList.add('flex');
 }
 function closeReset(){ $('resetModal').classList.add('hidden'); $('resetModal').classList.remove('flex'); }
 
-function toggleResetPassword(){
-  $('resetPassword').type = $('resetShow').checked ? 'text' : 'password';
-}
-
 async function submitReset(event){
   event.preventDefault();
   const button = $('resetSubmit');
   button.disabled = true;
-  button.textContent = 'Menyimpan...';
+  button.textContent = 'Membuat Sandi...';
 
   try{
     const result = await apiPost({
       action:'admin_reset_password',
-      admin_user_id: currentUser?.user_id || '',
-      target_user_id: $('resetUserId').value,
-      new_password: $('resetPassword').value
+      admin_user_id: currentUser?.user_id || 'ADMIN_DEFAULT',
+      admin_username: currentUser?.username || CONFIG.DEFAULT_ADMIN_USERNAME,
+      admin_password: currentUser?.username?.toLowerCase() === CONFIG.DEFAULT_ADMIN_USERNAME ? CONFIG.DEFAULT_ADMIN_PASSWORD : '',
+      target_user_id: $('resetUserId').value
     });
     if(!result.success) throw new Error(result.message || 'Gagal reset sandi.');
     closeReset();
-    showToast('Sandi berhasil direset.','success');
+    showTemporaryPassword(result.username || 'pengguna', result.temporary_password || '');
     await loadUsers();
   }catch(err){
     showToast(err.message,'error');
   }finally{
     button.disabled = false;
-    button.textContent = 'Simpan Sandi Baru';
+    button.textContent = 'Reset & Buat Sandi Sementara';
+  }
+}
+
+function showTemporaryPassword(username,password){
+  $('tempPasswordInfo').textContent = `Sandi sementara untuk @${username} telah dibuat.`;
+  $('temporaryPassword').value = password;
+  $('tempPasswordModal').classList.remove('hidden');
+  $('tempPasswordModal').classList.add('flex');
+  setTimeout(()=>{ try{ $('temporaryPassword').select(); }catch(e){} },100);
+}
+function closeTempPassword(){ $('tempPasswordModal').classList.add('hidden'); $('tempPasswordModal').classList.remove('flex'); }
+async function copyTemporaryPassword(){
+  const value=$('temporaryPassword').value;
+  try{
+    await navigator.clipboard.writeText(value);
+    showToast('Sandi sementara berhasil disalin.','success');
+  }catch(e){
+    $('temporaryPassword').select();
+    document.execCommand('copy');
+    showToast('Sandi sementara disalin.','success');
   }
 }
 
