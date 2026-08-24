@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMPEL-KS — Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .modal-backdrop{background:rgba(15,23,42,.55);backdrop-filter:blur(4px)}
+    .toast{animation:toastIn .2s ease-out}
+    @keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  </style>
+</head>
+<body class="min-h-screen bg-slate-100 text-slate-800">
+
+<header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo-sd.png" class="h-11 w-11 rounded-xl object-contain" alt="Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="text-lg font-extrabold tracking-tight">SIMPEL-KS</div>
+        <div class="text-xs font-semibold text-slate-500">Panel Administrator</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="hidden text-right sm:block">
+        <div id="adminName" class="text-sm font-bold">Administrator</div>
+        <div id="adminRole" class="text-xs text-slate-500">ADMIN</div>
+      </div>
+      <button onclick="openLogout()" class="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-xs font-bold text-red-700 hover:bg-red-100">Keluar</button>
+    </div>
+  </div>
+</header>
+
+<main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
+  <div class="mb-6">
+    <h1 class="text-2xl font-extrabold text-slate-900">Manajemen Akun</h1>
+    <p class="mt-1 text-sm text-slate-500">Kelola akun pengguna SIMPEL-KS dari sheet USERS.</p>
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-3">
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div class="text-xs font-bold uppercase tracking-wide text-slate-400">Total Akun</div>
+      <div id="statTotal" class="mt-2 text-3xl font-extrabold">0</div>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div class="text-xs font-bold uppercase tracking-wide text-slate-400">Akun Aktif</div>
+      <div id="statActive" class="mt-2 text-3xl font-extrabold text-emerald-600">0</div>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div class="text-xs font-bold uppercase tracking-wide text-slate-400">Administrator</div>
+      <div id="statAdmin" class="mt-2 text-3xl font-extrabold text-blue-600">0</div>
+    </div>
+  </div>
+
+  <section class="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div class="flex flex-col gap-4 border-b border-slate-100 p-5 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <h2 class="font-extrabold text-slate-900">Daftar Pengguna</h2>
+        <p class="mt-1 text-xs text-slate-500">Password tidak ditampilkan dalam bentuk teks biasa. Sistem menyimpan password sebagai SHA-256.</p>
+      </div>
+      <div class="flex flex-col gap-2 sm:flex-row">
+        <input id="searchUser" oninput="renderUsers()" type="search" placeholder="Cari username / nama / role..."
+          class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-blue-400 sm:w-72">
+        <button onclick="openAddUser()" class="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-blue-700">
+          + Tambah Akun
+        </button>
+        <button onclick="loadUsers(true)" class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50">
+          ↻ Muat Ulang
+        </button>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-[1050px] w-full text-left text-sm">
+        <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+          <tr>
+            <th class="px-5 py-3">Pengguna</th>
+            <th class="px-5 py-3">Role</th>
+            <th class="px-5 py-3">Guru ID</th>
+            <th class="px-5 py-3">Password Hash</th>
+            <th class="px-5 py-3">Status</th>
+            <th class="px-5 py-3 text-right">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="userTable">
+          <tr><td colspan="6" class="px-5 py-12 text-center text-slate-400">Memuat data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+    <b>Catatan keamanan:</b> halaman Admin dapat melihat <b>username dan password hash</b>, tetapi bukan password asli.
+    Untuk mengganti password, gunakan tombol <b>Reset Sandi</b>.
+  </div>
+</main>
+
+<!-- ADD USER MODAL -->
+<div id="addModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <div class="w-full max-w-xl rounded-3xl bg-white p-6 shadow-2xl">
+    <div class="flex items-start justify-between">
+      <div>
+        <h3 class="text-xl font-extrabold">Tambah Akun</h3>
+        <p class="mt-1 text-sm text-slate-500">Data akan ditambahkan ke sheet USERS.</p>
+      </div>
+      <button onclick="closeAddUser()" class="rounded-xl p-2 text-slate-400 hover:bg-slate-100">✕</button>
+    </div>
+
+    <form id="addForm" onsubmit="submitAddUser(event)" class="mt-5 grid gap-4 sm:grid-cols-2">
+      <label class="sm:col-span-2">
+        <span class="text-xs font-bold text-slate-500">Nama Lengkap</span>
+        <input id="addNama" required class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none focus:border-blue-400">
+      </label>
+      <label>
+        <span class="text-xs font-bold text-slate-500">Username</span>
+        <input id="addUsername" required maxlength="100" autocomplete="off" class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none focus:border-blue-400">
+      </label>
+      <label>
+        <span class="text-xs font-bold text-slate-500">Password Awal</span>
+        <input id="addPassword" required minlength="6" type="password" autocomplete="new-password" class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none focus:border-blue-400">
+      </label>
+      <label>
+        <span class="text-xs font-bold text-slate-500">Role</span>
+        <select id="addRole" class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none">
+          <option value="GURU">GURU</option>
+          <option value="KEPSEK">KEPSEK</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
+      </label>
+      <label>
+        <span class="text-xs font-bold text-slate-500">Guru ID</span>
+        <input id="addGuruId" placeholder="Opsional" class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none">
+      </label>
+      <label>
+        <span class="text-xs font-bold text-slate-500">Email</span>
+        <input id="addEmail" type="email" class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none">
+      </label>
+      <label>
+        <span class="text-xs font-bold text-slate-500">Jabatan</span>
+        <input id="addJabatan" placeholder="Guru / Kepala Sekolah / Admin" class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none">
+      </label>
+      <div class="sm:col-span-2 flex justify-end gap-2 pt-2">
+        <button type="button" onclick="closeAddUser()" class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold">Batal</button>
+        <button id="addSubmit" type="submit" class="rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-blue-700">Simpan Akun</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- RESET MODAL -->
+<div id="resetModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <div class="w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl">
+    <h3 class="text-xl font-extrabold">Reset Sandi</h3>
+    <p id="resetInfo" class="mt-1 text-sm text-slate-500"></p>
+    <form onsubmit="submitReset(event)" class="mt-5">
+      <input id="resetUserId" type="hidden">
+      <label>
+        <span class="text-xs font-bold text-slate-500">Sandi Baru</span>
+        <input id="resetPassword" required minlength="6" type="password" autocomplete="new-password"
+          class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none focus:border-blue-400">
+      </label>
+      <label class="mt-4 flex items-center gap-2 text-sm">
+        <input id="resetShow" type="checkbox" onchange="toggleResetPassword()">
+        Tampilkan sandi baru
+      </label>
+      <div class="mt-6 flex justify-end gap-2">
+        <button type="button" onclick="closeReset()" class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold">Batal</button>
+        <button id="resetSubmit" class="rounded-xl bg-amber-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-700">Simpan Sandi Baru</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div id="deleteModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <div class="w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl">
+    <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-600">⚠</div>
+    <h3 class="mt-4 text-xl font-extrabold">Hapus Akun?</h3>
+    <p id="deleteInfo" class="mt-2 text-sm leading-6 text-slate-500"></p>
+    <input id="deleteUserId" type="hidden">
+    <div class="mt-6 flex justify-end gap-2">
+      <button onclick="closeDelete()" class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold">Batal</button>
+      <button onclick="submitDelete()" id="deleteSubmit" class="rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-red-700">Hapus Akun</button>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer" class="fixed bottom-5 right-5 z-[100] flex max-w-[calc(100vw-2rem)] flex-col gap-2"></div>
+
+<script>
+const CONFIG = {
+  API_URL: 'https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec',
+  LOGIN_URL: 'login.html'
+};
+
+let currentUser = null;
+let users = [];
+let busy = false;
+
+function $(id){ return document.getElementById(id); }
+
+function escapeHtml(value){
+  return String(value ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+  }[c]));
+}
+
+function normalizeRole(role){
+  return String(role || '').trim().toUpperCase().replace(/[\s_-]+/g,'');
+}
+
+function getStoredUser(){
+  const keys = ['simpelks_user','simpel_ks_user','currentUser','user'];
+  for(const key of keys){
+    try{
+      const raw = sessionStorage.getItem(key) || localStorage.getItem(key);
+      if(!raw) continue;
+      const parsed = JSON.parse(raw);
+      if(parsed && typeof parsed === 'object') return parsed;
+    }catch(e){}
+  }
+
+  const role = sessionStorage.getItem('simpelks_role');
+  const logged = sessionStorage.getItem('simpelks_logged_in');
+  if(logged === 'true' && role){
+    return {
+      role,
+      nama: sessionStorage.getItem('simpelks_nama') || 'Administrator',
+      username: sessionStorage.getItem('simpelks_username') || ''
+    };
+  }
+  return null;
+}
+
+function ensureAdmin(){
+  currentUser = getStoredUser();
+
+  if(!currentUser || normalizeRole(currentUser.role) !== 'ADMIN'){
+    alert('Akses ditolak. Halaman ini hanya untuk Administrator.');
+    window.location.replace(CONFIG.LOGIN_URL);
+    return false;
+  }
+
+  $('adminName').textContent = currentUser.nama || currentUser.username || 'Administrator';
+  $('adminRole').textContent = 'ADMIN';
+  return true;
+}
+
+async function apiPost(payload){
+  const response = await fetch(CONFIG.API_URL, {
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(payload)
+  });
+  const text = await response.text();
+  let result;
+  try{ result = JSON.parse(text); }
+  catch(e){ throw new Error('Response server bukan JSON yang valid.'); }
+  return result;
+}
+
+async function loadUsers(showMessage=false){
+  if(busy) return;
+  busy = true;
+  $('userTable').innerHTML = '<tr><td colspan="6" class="px-5 py-12 text-center text-slate-400">Memuat akun...</td></tr>';
+
+  try{
+    const result = await apiPost({
+      action:'admin_get_users',
+      admin_user_id: currentUser?.user_id || '',
+      admin_username: currentUser?.username || ''
+    });
+
+    if(!result.success) throw new Error(result.message || 'Gagal mengambil data pengguna.');
+
+    users = Array.isArray(result.users) ? result.users : [];
+    renderUsers();
+    updateStats();
+    if(showMessage) showToast('Data pengguna berhasil dimuat.','success');
+  }catch(err){
+    $('userTable').innerHTML = `<tr><td colspan="6" class="px-5 py-12 text-center text-red-500">${escapeHtml(err.message)}</td></tr>`;
+    showToast(err.message,'error');
+  }finally{
+    busy = false;
+  }
+}
+
+function updateStats(){
+  $('statTotal').textContent = users.length;
+  $('statActive').textContent = users.filter(u => String(u.status||'').toUpperCase() === 'AKTIF').length;
+  $('statAdmin').textContent = users.filter(u => normalizeRole(u.role) === 'ADMIN').length;
+}
+
+function renderUsers(){
+  const q = $('searchUser').value.trim().toLowerCase();
+  const filtered = users.filter(u =>
+    [u.username,u.nama,u.role,u.guru_id,u.email].some(v => String(v||'').toLowerCase().includes(q))
+  );
+
+  if(!filtered.length){
+    $('userTable').innerHTML = '<tr><td colspan="6" class="px-5 py-12 text-center text-slate-400">Tidak ada akun yang ditemukan.</td></tr>';
+    return;
+  }
+
+  $('userTable').innerHTML = filtered.map(u => {
+    const active = String(u.status||'').toUpperCase() === 'AKTIF';
+    const role = normalizeRole(u.role);
+    return `
+      <tr class="border-t border-slate-100 hover:bg-slate-50">
+        <td class="px-5 py-4">
+          <div class="font-bold text-slate-900">${escapeHtml(u.nama || '-')}</div>
+          <div class="mt-0.5 text-xs text-slate-500">@${escapeHtml(u.username || '-')}</div>
+          ${u.email ? `<div class="mt-0.5 text-xs text-slate-400">${escapeHtml(u.email)}</div>` : ''}
+        </td>
+        <td class="px-5 py-4"><span class="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-700">${escapeHtml(role || '-')}</span></td>
+        <td class="px-5 py-4 text-xs font-semibold text-slate-600">${escapeHtml(u.guru_id || '-')}</td>
+        <td class="max-w-[330px] px-5 py-4">
+          <code class="block truncate rounded-lg bg-slate-100 px-2 py-1 text-[11px] text-slate-600" title="${escapeHtml(u.password_hash || '')}">${escapeHtml(u.password_hash || '-')}</code>
+        </td>
+        <td class="px-5 py-4">
+          <span class="rounded-full px-2.5 py-1 text-xs font-bold ${active ? 'bg-emerald-50 text-emerald-700':'bg-slate-100 text-slate-500'}">${escapeHtml(u.status || '-')}</span>
+        </td>
+        <td class="px-5 py-4">
+          <div class="flex justify-end gap-2">
+            <button onclick="openReset('${escapeHtml(u.user_id)}','${escapeHtml(u.username)}')" class="rounded-lg bg-amber-50 px-3 py-2 text-xs font-bold text-amber-700 hover:bg-amber-100">Reset Sandi</button>
+            <button onclick="openDelete('${escapeHtml(u.user_id)}','${escapeHtml(u.username)}','${escapeHtml(u.nama)}')" class="rounded-lg bg-red-50 px-3 py-2 text-xs font-bold text-red-700 hover:bg-red-100">Hapus</button>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+function openAddUser(){ $('addModal').classList.remove('hidden'); $('addModal').classList.add('flex'); }
+function closeAddUser(){ $('addModal').classList.add('hidden'); $('addModal').classList.remove('flex'); $('addForm').reset(); }
+
+async function submitAddUser(event){
+  event.preventDefault();
+  const button = $('addSubmit');
+  button.disabled = true;
+  button.textContent = 'Menyimpan...';
+
+  try{
+    const result = await apiPost({
+      action:'admin_add_user',
+      admin_user_id: currentUser?.user_id || '',
+      username: $('addUsername').value.trim(),
+      password: $('addPassword').value,
+      nama: $('addNama').value.trim(),
+      role: $('addRole').value,
+      guru_id: $('addGuruId').value.trim(),
+      email: $('addEmail').value.trim(),
+      jabatan: $('addJabatan').value.trim()
+    });
+
+    if(!result.success) throw new Error(result.message || 'Gagal menambah akun.');
+    closeAddUser();
+    showToast('Akun berhasil ditambahkan.','success');
+    await loadUsers();
+  }catch(err){
+    showToast(err.message,'error');
+  }finally{
+    button.disabled = false;
+    button.textContent = 'Simpan Akun';
+  }
+}
+
+function openReset(userId, username){
+  $('resetUserId').value = userId;
+  $('resetInfo').textContent = `Masukkan sandi baru untuk akun @${username}.`;
+  $('resetPassword').value = '';
+  $('resetShow').checked = false;
+  $('resetPassword').type = 'password';
+  $('resetModal').classList.remove('hidden');
+  $('resetModal').classList.add('flex');
+}
+function closeReset(){ $('resetModal').classList.add('hidden'); $('resetModal').classList.remove('flex'); }
+
+function toggleResetPassword(){
+  $('resetPassword').type = $('resetShow').checked ? 'text' : 'password';
+}
+
+async function submitReset(event){
+  event.preventDefault();
+  const button = $('resetSubmit');
+  button.disabled = true;
+  button.textContent = 'Menyimpan...';
+
+  try{
+    const result = await apiPost({
+      action:'admin_reset_password',
+      admin_user_id: currentUser?.user_id || '',
+      target_user_id: $('resetUserId').value,
+      new_password: $('resetPassword').value
+    });
+    if(!result.success) throw new Error(result.message || 'Gagal reset sandi.');
+    closeReset();
+    showToast('Sandi berhasil direset.','success');
+    await loadUsers();
+  }catch(err){
+    showToast(err.message,'error');
+  }finally{
+    button.disabled = false;
+    button.textContent = 'Simpan Sandi Baru';
+  }
+}
+
+function openDelete(userId, username, nama){
+  $('deleteUserId').value = userId;
+  $('deleteInfo').innerHTML = `Anda akan menghapus akun <b>@${escapeHtml(username)}</b> (${escapeHtml(nama)}). Tindakan ini tidak dapat dibatalkan.`;
+  $('deleteModal').classList.remove('hidden');
+  $('deleteModal').classList.add('flex');
+}
+function closeDelete(){ $('deleteModal').classList.add('hidden'); $('deleteModal').classList.remove('flex'); }
+
+async function submitDelete(){
+  const button = $('deleteSubmit');
+  button.disabled = true;
+  button.textContent = 'Menghapus...';
+
+  try{
+    const result = await apiPost({
+      action:'admin_delete_user',
+      admin_user_id: currentUser?.user_id || '',
+      target_user_id: $('deleteUserId').value
+    });
+    if(!result.success) throw new Error(result.message || 'Gagal menghapus akun.');
+    closeDelete();
+    showToast('Akun berhasil dihapus.','success');
+    await loadUsers();
+  }catch(err){
+    showToast(err.message,'error');
+  }finally{
+    button.disabled = false;
+    button.textContent = 'Hapus Akun';
+  }
+}
+
+function openLogout(){ if(confirm('Keluar dari panel Admin?')) confirmLogout(); }
+function confirmLogout(){
+  ['simpelks_logged_in','simpelks_user_id','simpelks_username','simpelks_nama','simpelks_role','simpelks_email','simpelks_guru_id','simpelks_jabatan','simpelks_login_time','simpelks_user'].forEach(k=>sessionStorage.removeItem(k));
+  window.location.replace(CONFIG.LOGIN_URL);
+}
+
+function showToast(message,type='info'){
+  const el=document.createElement('div');
+  const cls=type==='success'?'bg-emerald-600':type==='error'?'bg-red-600':'bg-slate-800';
+  el.className=`toast rounded-xl ${cls} px-4 py-3 text-sm font-semibold text-white shadow-xl`;
+  el.textContent=message;
+  $('toastContainer').appendChild(el);
+  setTimeout(()=>el.remove(),4000);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  if(!ensureAdmin()) return;
+  loadUsers();
+});
+</script>
+</body>
+</html>
