@@ -89,6 +89,65 @@ button,input,select,textarea{font-family:inherit} button{cursor:pointer} a{text-
 .deadline-status{margin-top:10px;font-size:10px;color:#64748b}
 .deadline-status.success{color:#15803d}.deadline-status.error{color:#b91c1c}
 
+
+/* ADMINISTRASI GURU - VALIDATOR */
+.admin-validation-toolbar{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-bottom:16px;flex-wrap:wrap
+}
+.admin-validation-toolbar p{font-size:10px;color:var(--muted);line-height:1.6}
+.admin-teacher-list{display:grid;gap:16px}
+.admin-teacher-card{
+  background:#fff;border:1px solid var(--border);border-radius:16px;
+  box-shadow:var(--shadow);overflow:hidden
+}
+.admin-teacher-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px 18px;background:#f8fafc;border-bottom:1px solid var(--border)
+}
+.admin-teacher-identity{display:flex;align-items:center;gap:11px}
+.admin-teacher-avatar{
+  width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:800
+}
+.admin-teacher-head strong{display:block;color:var(--dark);font-size:13px}
+.admin-teacher-head span{font-size:9px;color:var(--muted)}
+.admin-doc-row{
+  display:grid;grid-template-columns:minmax(220px,1.1fr) 110px minmax(260px,2fr) 145px 82px;
+  gap:10px;align-items:center;padding:13px 18px;border-bottom:1px solid #f1f5f9
+}
+.admin-doc-row:last-child{border-bottom:0}
+.admin-doc-title{font-size:10px;font-weight:800;color:#334155;line-height:1.35}
+.admin-doc-title small{display:block;margin-top:4px;font-size:8px;font-weight:500;color:#94a3b8}
+.admin-percent{
+  width:100%;padding:9px 8px;border:1px solid var(--border);border-radius:9px;
+  background:#fff;font-size:10px;font-weight:800;outline:none
+}
+.admin-percent.p0{color:#dc2626;background:#fef2f2}
+.admin-percent.p25,.admin-percent.p50,.admin-percent.p75{color:#b45309;background:#fffbeb}
+.admin-percent.p100{color:#15803d;background:#f0fdf4}
+.admin-validator-note{
+  width:100%;min-height:42px;max-height:90px;resize:vertical;padding:9px 10px;
+  border:1px solid var(--border);border-radius:9px;font-size:10px;outline:none
+}
+.admin-validator-note:focus,.admin-percent:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.admin-row-meta{font-size:8px;color:#64748b;line-height:1.55}
+.admin-row-meta strong{font-size:8px;color:#334155}
+.admin-save-btn{
+  border:0;border-radius:9px;padding:9px 10px;background:var(--primary);
+  color:#fff;font-size:9px;font-weight:800
+}
+.admin-save-btn:hover{background:var(--primary-dark)}
+.admin-save-btn:disabled{opacity:.6;cursor:not-allowed}
+.admin-doc-empty{padding:40px 20px;text-align:center;color:#64748b;font-size:11px}
+@media(max-width:1100px){
+  .admin-doc-row{grid-template-columns:minmax(180px,1fr) 100px minmax(220px,1.5fr) 130px 75px}
+}
+@media(max-width:800px){
+  .admin-doc-row{grid-template-columns:1fr}
+  .admin-save-btn{width:100%}
+}
+
 /* MODAL */
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:2000}.modal.show{display:flex}.modal-box{width:100%;max-width:650px;background:#fff;border-radius:18px;box-shadow:0 25px 60px rgba(0,0,0,.2);overflow:hidden;animation:modalIn .2s ease}
 @keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}.modal-header{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}.modal-header h3{font-family:'Poppins';color:var(--dark);font-size:15px}.modal-close{border:0;background:#f1f5f9;width:32px;height:32px;border-radius:8px;color:#64748b}.modal-body{padding:20px}.modal-footer{padding:15px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}.document-preview{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:35px;text-align:center}.document-preview i{font-size:45px;color:#ef4444;margin-bottom:12px}.document-preview strong{display:block;color:var(--dark);font-size:13px}.document-preview span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
@@ -239,12 +298,48 @@ button,input,select,textarea{font-family:inherit} button{cursor:pointer} a{text-
 
 <!-- ADMINISTRASI -->
 <section class="page-section" id="section-administrasi">
-  <div class="welcome"><div><h2>Administrasi Guru</h2><p>Monitoring kelengkapan seluruh administrasi guru.</p></div></div>
+  <div class="welcome">
+    <div>
+      <h2>Administrasi Guru</h2>
+      <p>Berikan persentase kelengkapan dan catatan validator untuk empat kelompok administrasi setiap guru.</p>
+    </div>
+    <div class="welcome-date">
+      <strong id="adminValidationTeacherCount">0 Guru</strong>
+      <span>Penilaian Kepala Sekolah</span>
+    </div>
+  </div>
+
   <div class="kpi-grid">
     <div class="kpi"><div class="kpi-icon blue"><i class="fa-solid fa-users"></i></div><div class="kpi-value" id="adminTotalGuru">0</div><div class="kpi-label">Guru & Tendik</div></div>
     <div class="kpi"><div class="kpi-icon green"><i class="fa-solid fa-circle-check"></i></div><div class="kpi-value" id="adminGuruLengkap">0</div><div class="kpi-label">Administrasi Lengkap</div></div>
-    <div class="kpi"><div class="kpi-icon yellow"><i class="fa-solid fa-rotate-left"></i></div><div class="kpi-value" id="adminGuruPerluRevisi">0</div><div class="kpi-label">Belum Lengkap</div></div>
-    <div class="kpi"><div class="kpi-icon red"><i class="fa-solid fa-chart-line"></i></div><div class="kpi-value" id="adminRataRata">0%</div><div class="kpi-label">Rata-rata Administrasi</div></div>
+    <div class="kpi"><div class="kpi-icon yellow"><i class="fa-solid fa-chart-simple"></i></div><div class="kpi-value" id="adminDinilai">0</div><div class="kpi-label">Baris Sudah Dinilai</div></div>
+    <div class="kpi"><div class="kpi-icon red"><i class="fa-solid fa-chart-line"></i></div><div class="kpi-value" id="adminRataRata">0%</div><div class="kpi-label">Rata-rata Penilaian</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <h3>Penilaian Administrasi Per Guru</h3>
+        <span>Data tersimpan pada sheet VALIDASI_DOKUMEN</span>
+      </div>
+      <button class="btn btn-light" onclick="refreshAdministrasiGuru()">
+        <i class="fa-solid fa-rotate"></i> Refresh
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="admin-validation-toolbar">
+        <p>
+          Pilihan nilai: <strong>0%, 25%, 50%, 75%, 100%</strong>.
+          Saat nilai menjadi <strong>100%</strong>, kolom TANGGAL_SELESAI otomatis diisi.
+          Nama validator diambil dari <strong>Nama Kepala Sekolah</strong> pada menu Pengaturan.
+        </p>
+        <input id="adminGuruSearch" class="form-control" style="max-width:280px"
+               placeholder="Cari nama guru..." oninput="renderAdministrasiGuru()">
+      </div>
+      <div id="administrasiGuruContainer" class="admin-teacher-list">
+        <div class="admin-doc-empty"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data administrasi guru...</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -394,7 +489,7 @@ function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").
 function pct(v){const n=Number(v);if(!Number.isFinite(n))return"0%";const x=Math.round(n*10)/10;return(Number.isInteger(x)?x:x.toFixed(1))+"%"}
 function parseAdmin(v){if(v==null)return null;const s=String(v).trim().replace(",",".");if(!s)return null;const n=parseFloat(s.replace("%",""));return Number.isFinite(n)&&n>=0&&n<=100?n:null}
 function rowsOf(r){if(Array.isArray(r))return r;if(r&&Array.isArray(r.data))return r.data;if(r&&Array.isArray(r.rows))return r.rows;if(r&&Array.isArray(r.records))return r.records;return[]}
-function validStatus(v){const s=String(v??"").trim().toUpperCase();if(s.includes("REVISI")||s.includes("KEMBALI")||s.includes("DITOLAK"))return"revisi";if(s.includes("VALID")||s.includes("TERVERIFIKASI")||s.includes("DISETUJUI")||s.includes("SETUJU"))return"valid";return"menunggu"}
+function validStatus(v){const s=String(v??"").trim().toUpperCase();const p=parseInt(s.replace("%",""),10);if(Number.isFinite(p)){if(p>=100)return"valid";if(p>0)return"revisi";return"menunggu"}if(s.includes("REVISI")||s.includes("KEMBALI")||s.includes("DITOLAK"))return"revisi";if(s.includes("VALID")||s.includes("TERVERIFIKASI")||s.includes("DISETUJUI")||s.includes("SETUJU"))return"valid";return"menunggu"}
 async function api(action,params={}){const qs=new URLSearchParams({action,...params,_:Date.now()});const r=await fetch(DATA_GURU_API+"?"+qs.toString(),{method:"GET",cache:"no-store",redirect:"follow"});if(!r.ok)throw Error("HTTP "+r.status);const j=await r.json();if(j&&j.success===false)throw Error(j.message||"Gagal mengambil data");return j}
 async function apiPost(payload){const r=await fetch(DATA_GURU_API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload),redirect:"follow"});const text=await r.text();let j;try{j=JSON.parse(text)}catch(e){throw Error("Respons server tidak valid.")}if(!r.ok||j&&j.success===false)throw Error((j&&j.message)||("HTTP "+r.status));return j}
 
@@ -424,6 +519,12 @@ function showSection(section){
  window.scrollTo({top:0,behavior:"smooth"});
  if((section==="guru"||section==="administrasi")&&!DATA_GURU_ROWS.length)loadDataGuru();
  if(section==="validasi"&&!VALIDASI_DOKUMEN_ROWS.length)loadValidasiDokumen();
+ if(section==="administrasi"){
+   Promise.allSettled([
+     DATA_GURU_ROWS.length?Promise.resolve():loadDataGuru(),
+     VALIDASI_DOKUMEN_ROWS.length?Promise.resolve():loadValidasiDokumen()
+   ]).then(()=>renderAdministrasiGuru());
+ }
  if(section==="pengaturan"){loadUsers();loadPengaturanLocal();loadDeadlineSetting(false)}
  if(section==="grafik")createStatistikChart();
 }
@@ -451,7 +552,7 @@ function updateGuruUI(){
 }
 async function loadDataGuru(){
  const t=document.getElementById("guruTableBody");if(t)t.innerHTML='<tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Guru</h3></div></td></tr>';
- try{const j=await api("getDataGuru");DATA_GURU_ROWS=rowsOf(j);DATA_GURU_FILTERED=[...DATA_GURU_ROWS];renderGuru();updateGuruUI();txt("guruDataInfo","Terhubung • Sheet DATA_GURU • "+DATA_GURU_ROWS.length+" data")}
+ try{const j=await api("getDataGuru");DATA_GURU_ROWS=rowsOf(j);DATA_GURU_FILTERED=[...DATA_GURU_ROWS];renderGuru();updateGuruUI();txt("guruDataInfo","Terhubung • Sheet DATA_GURU • "+DATA_GURU_ROWS.length+" data");if(document.getElementById("section-administrasi")?.classList.contains("active-section"))renderAdministrasiGuru()}
  catch(x){DATA_GURU_ROWS=[];DATA_GURU_FILTERED=[];renderGuru();txt("guruDataInfo","Gagal: "+x.message)}
 }
 function renderGuru(){
@@ -474,15 +575,17 @@ async function loadValidasiDokumen(){
    id:gf(r,["id_validasi","ID_VALIDASI"]),guru:gf(r,["guru","nama_guru","NAMA_GURU","nama"])||"-",
    dokumen:gf(r,["dokumen","jenis_dokumen","JENIS_DOKUMEN","jenis"])||"-",
    tanggal:gf(r,["tanggal_validasi","TANGGAL_VALIDASI","tanggal_upload","tanggal"])||"-",
+   rawStatus:gf(r,["status","STATUS"])||"0%",
    status:validStatus(gf(r,["status","STATUS"])),
    ket:gf(r,["keterangan","catatan","CATATAN"])||"-",
    deadline:gf(r,["tanggal_deadline","TANGGAL_DEADLINE","deadline"]),
    catatanDeadline:gf(r,["catatan_deadline","CATATAN_DEADLINE"]),
+   catatanValidator:gf(r,["catatan_validator","CATATAN_VALIDATOR"]),
    tanggalSelesai:gf(r,["tanggal_selesai","TANGGAL_SELESAI"]),
    validator:gf(r,["validator","VALIDATOR"]),aksi:gf(r,["aksi_terakhir","AKSI_TERAKHIR"]),
    fileUrl:gf(r,["link_folder","LINK_FOLDER","file_url","FILE_URL","url","URL"])
   }));
-  VALIDASI_DOKUMEN_FILTERED=[...VALIDASI_DOKUMEN_ROWS];renderValidasi();updateValidasiUI();renderValidationDashboard();populateValidationFilters();txt("validasiDataInfo","Terhubung • VALIDASI_DOKUMEN • "+VALIDASI_DOKUMEN_ROWS.length+" dokumen");
+  VALIDASI_DOKUMEN_FILTERED=[...VALIDASI_DOKUMEN_ROWS];renderValidasi();updateValidasiUI();renderValidationDashboard();populateValidationFilters();updateAdministrasiSummary();if(document.getElementById("section-administrasi")?.classList.contains("active-section"))renderAdministrasiGuru();txt("validasiDataInfo","Terhubung • VALIDASI_DOKUMEN • "+VALIDASI_DOKUMEN_ROWS.length+" dokumen");
  }catch(x){VALIDASI_DOKUMEN_ROWS=[];VALIDASI_DOKUMEN_FILTERED=[];renderValidasi();updateValidasiUI();renderValidationDashboard();txt("validasiDataInfo","Koneksi VALIDASI_DOKUMEN gagal: "+x.message)}
 }
 function updateValidasiUI(){const m=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="menunggu").length,v=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="valid").length,r=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;txt("validasiMenunggu",m);txt("validasiTerverifikasi",v);txt("validasiRevisi",r);txt("validasiTotal",VALIDASI_DOKUMEN_ROWS.length);txt("validasiWelcomeCount",m+" Menunggu");txt("dashboardDokumenRevisi",r);txt("dashboardDokumenTerverifikasi",v);txt("validasiMenuBadge",r)}
@@ -502,6 +605,213 @@ function populateValidationFilters(){
 function filterDokumen(){const g=document.getElementById("filterGuru")?.value||"",s=document.getElementById("filterStatus")?.value||"",j=document.getElementById("filterJenis")?.value||"";VALIDASI_DOKUMEN_FILTERED=VALIDASI_DOKUMEN_ROWS.filter(r=>(!g||r.guru===g)&&(!s||r.status===s)&&(!j||r.dokumen===j));renderValidasi()}
 function refreshValidasi(){loadDataGuru();loadValidasiDokumen()}
 function exportValidasi(){alert("Fitur ekspor dapat dikembangkan ke Excel/PDF melalui Google Apps Script.")}
+
+
+/* =========================================================
+   ADMINISTRASI GURU - PENILAIAN KEPALA SEKOLAH
+========================================================= */
+const ADMIN_DOC_TYPES=[
+  "ADMINISTRASI PEMBELAJARAN",
+  "ASESMEN DAN PENILAIAN",
+  "ADMINISTRASI KELAS",
+  "DOKUMENTASI KEGIATAN"
+];
+
+function adminNormalize(v){
+  return String(v||"").trim().toUpperCase().replace(/\s+/g," ");
+}
+
+function adminInitials(name){
+  return String(name||"?").trim().split(/\s+/).filter(Boolean)
+    .slice(0,2).map(x=>x[0]).join("").toUpperCase();
+}
+
+function getKepalaSekolahName(){
+  const input=document.getElementById("settingNamaKepala");
+  const value=input?.value?.trim();
+  if(value)return value;
+  try{
+    const d=JSON.parse(localStorage.getItem("SIMPEL_KS_PENGATURAN")||"{}");
+    if(d.namaKepala)return String(d.namaKepala).trim();
+  }catch(e){}
+  return "Kepala Sekolah";
+}
+
+function getAdminRow(nama,jenis){
+  const n=adminNormalize(nama),j=adminNormalize(jenis);
+  return VALIDASI_DOKUMEN_ROWS.find(r=>
+    adminNormalize(r.guru)===n &&
+    adminNormalize(r.dokumen)===j
+  )||null;
+}
+
+function getAdminPercent(row){
+  if(!row)return 0;
+  const raw=String(row.rawStatus||"0").replace("%","").trim();
+  const n=parseInt(raw,10);
+  if([0,25,50,75,100].includes(n))return n;
+  if(row.status==="valid")return 100;
+  return 0;
+}
+
+function updateAdminPercentClass(select){
+  if(!select)return;
+  select.classList.remove("p0","p25","p50","p75","p100");
+  select.classList.add("p"+String(select.value||0));
+}
+
+function renderAdministrasiGuru(){
+  const box=document.getElementById("administrasiGuruContainer");
+  if(!box)return;
+
+  const q=(document.getElementById("adminGuruSearch")?.value||"").toLowerCase().trim();
+
+  const teachers=DATA_GURU_ROWS
+    .map(g=>({
+      nama:String(gf(g,["nama","NAMA","Nama"])).trim(),
+      nip:String(gf(g,["nip","NIP","Nip"])).trim(),
+      status:String(gf(g,["status","STATUS","Status"])).trim()
+    }))
+    .filter(g=>g.nama && (!q||g.nama.toLowerCase().includes(q)||g.nip.toLowerCase().includes(q)));
+
+  txt("adminValidationTeacherCount",teachers.length+" Guru");
+
+  if(!teachers.length){
+    box.innerHTML='<div class="admin-doc-empty"><i class="fa-solid fa-users-slash"></i><br>Tidak ada data guru yang sesuai.</div>';
+    updateAdministrasiSummary();
+    return;
+  }
+
+  box.innerHTML=teachers.map((g,ti)=>{
+    const rows=ADMIN_DOC_TYPES.map((jenis,ji)=>{
+      const row=getAdminRow(g.nama,jenis);
+      const p=getAdminPercent(row);
+      const note=row?.catatanValidator||"";
+      const validator=row?.validator||"";
+      const selesai=row?.tanggalSelesai||"";
+      const rid="adm_"+ti+"_"+ji;
+      return `
+        <div class="admin-doc-row">
+          <div class="admin-doc-title">
+            ${esc(jenis)}
+            <small>${row?.id?("ID: "+esc(row.id)):"Belum ada penilaian tersimpan"}</small>
+          </div>
+
+          <select id="${rid}_percent" class="admin-percent p${p}"
+                  onchange="updateAdminPercentClass(this)">
+            <option value="0" ${p===0?"selected":""}>0%</option>
+            <option value="25" ${p===25?"selected":""}>25%</option>
+            <option value="50" ${p===50?"selected":""}>50%</option>
+            <option value="75" ${p===75?"selected":""}>75%</option>
+            <option value="100" ${p===100?"selected":""}>100%</option>
+          </select>
+
+          <textarea id="${rid}_note" class="admin-validator-note"
+                    placeholder="Tulis catatan validator...">${esc(note)}</textarea>
+
+          <div class="admin-row-meta">
+            <strong>Validator:</strong> ${esc(validator||"-")}<br>
+            <strong>Selesai:</strong> ${esc(selesai||"-")}
+          </div>
+
+          <button id="${rid}_btn" class="admin-save-btn"
+                  onclick='saveAdministrasiGuru(${JSON.stringify(g.nama)},${JSON.stringify(jenis)},${JSON.stringify(rid)})'>
+            Simpan
+          </button>
+        </div>`;
+    }).join("");
+
+    return `
+      <div class="admin-teacher-card">
+        <div class="admin-teacher-head">
+          <div class="admin-teacher-identity">
+            <div class="admin-teacher-avatar">${esc(adminInitials(g.nama))}</div>
+            <div>
+              <strong>${esc(g.nama)}</strong>
+              <span>${g.nip?("NIP: "+esc(g.nip)+" • "):""}${esc(g.status||"")}</span>
+            </div>
+          </div>
+        </div>
+        ${rows}
+      </div>`;
+  }).join("");
+
+  updateAdministrasiSummary();
+}
+
+function updateAdministrasiSummary(){
+  const rows=[];
+  DATA_GURU_ROWS.forEach(g=>{
+    const nama=String(gf(g,["nama","NAMA","Nama"])).trim();
+    if(!nama)return;
+    ADMIN_DOC_TYPES.forEach(jenis=>{
+      const r=getAdminRow(nama,jenis);
+      rows.push(getAdminPercent(r));
+    });
+  });
+
+  const dinilai=rows.filter(v=>v>0).length;
+  const avg=rows.length?rows.reduce((a,b)=>a+b,0)/rows.length:0;
+  let lengkapGuru=0;
+
+  DATA_GURU_ROWS.forEach(g=>{
+    const nama=String(gf(g,["nama","NAMA","Nama"])).trim();
+    if(!nama)return;
+    const allComplete=ADMIN_DOC_TYPES.every(jenis=>getAdminPercent(getAdminRow(nama,jenis))===100);
+    if(allComplete)lengkapGuru++;
+  });
+
+  txt("adminTotalGuru",DATA_GURU_ROWS.length);
+  txt("adminGuruLengkap",lengkapGuru);
+  txt("adminDinilai",dinilai);
+  txt("adminRataRata",pct(avg));
+}
+
+async function saveAdministrasiGuru(namaGuru,jenisDokumen,rowId){
+  const percentEl=document.getElementById(rowId+"_percent");
+  const noteEl=document.getElementById(rowId+"_note");
+  const btn=document.getElementById(rowId+"_btn");
+  const validator=getKepalaSekolahName();
+
+  if(!validator||validator==="Kepala Sekolah"){
+    const lanjut=confirm('Nama Kepala Sekolah pada menu Pengaturan masih bernilai "Kepala Sekolah". Tetap simpan dengan nama tersebut?');
+    if(!lanjut)return;
+  }
+
+  try{
+    btn.disabled=true;
+    btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i>';
+
+    const result=await apiPost({
+      action:"updateadministrasiguru",
+      nama_guru:namaGuru,
+      jenis_dokumen:jenisDokumen,
+      persentase:Number(percentEl.value||0),
+      validator:validator,
+      catatan_validator:noteEl.value.trim()
+    });
+
+    await loadValidasiDokumen();
+    renderAdministrasiGuru();
+
+    alert(result.message||"Penilaian administrasi berhasil disimpan.");
+  }catch(e){
+    alert("Gagal menyimpan penilaian administrasi:\n"+e.message);
+  }finally{
+    if(document.getElementById(rowId+"_btn")){
+      document.getElementById(rowId+"_btn").disabled=false;
+      document.getElementById(rowId+"_btn").textContent="Simpan";
+    }
+  }
+}
+
+async function refreshAdministrasiGuru(){
+  const box=document.getElementById("administrasiGuruContainer");
+  if(box)box.innerHTML='<div class="admin-doc-empty"><i class="fa-solid fa-spinner fa-spin"></i> Memuat ulang data...</div>';
+  await Promise.allSettled([loadDataGuru(),loadValidasiDokumen()]);
+  renderAdministrasiGuru();
+}
+
 
 /* =========================================================
    DASHBOARD VALIDATION
