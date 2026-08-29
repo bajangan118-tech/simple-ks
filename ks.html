@@ -148,6 +148,34 @@ button,input,select,textarea{font-family:inherit} button{cursor:pointer} a{text-
   .admin-save-btn{width:100%}
 }
 
+
+/* MONITORING KINERJA */
+.kinerja-table-wrap{overflow-x:auto;border:2px solid #111827;border-radius:12px;background:#fff}
+.kinerja-table{width:100%;border-collapse:collapse;min-width:850px}
+.kinerja-table th,.kinerja-table td{border:1px solid #111827;padding:12px 11px;text-align:center;vertical-align:middle}
+.kinerja-table th{background:#2563eb;color:#fff;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+.kinerja-table th:nth-child(1){background:#1d4ed8}
+.kinerja-table th:nth-child(2){background:#2563eb}
+.kinerja-table th:nth-child(3){background:#0284c7}
+.kinerja-table th:nth-child(4){background:#0891b2}
+.kinerja-table th:nth-child(5){background:#0f766e}
+.kinerja-table td{font-size:11px;color:#0f172a}
+.kinerja-table td:nth-child(1){background:#eff6ff;text-align:left;font-weight:700}
+.kinerja-table td:nth-child(2){background:#f0f9ff;text-align:left}
+.kinerja-table td:nth-child(3){background:#fef3c7}
+.kinerja-table td:nth-child(4){background:#dcfce7}
+.kinerja-table td:nth-child(5){background:#f3e8ff}
+.kinerja-action{border:0;border-radius:9px;padding:9px 12px;font-size:9px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:108px;transition:.2s}
+.kinerja-action:hover{transform:translateY(-1px);box-shadow:0 5px 12px rgba(15,23,42,.15)}
+.kinerja-observasi1{background:#f59e0b;color:#fff}
+.kinerja-observasi2{background:#16a34a;color:#fff}
+.kinerja-view{background:#7c3aed;color:#fff}
+.kinerja-view.missing{background:#94a3b8}
+.kinerja-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.kinerja-toolbar p{font-size:10px;color:#64748b}
+.kinerja-search{max-width:290px}
+@media(max-width:650px){.kinerja-action{width:100%;min-width:0}.kinerja-toolbar .kinerja-search{max-width:none;width:100%}}
+
 /* MODAL */
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:2000}.modal.show{display:flex}.modal-box{width:100%;max-width:650px;background:#fff;border-radius:18px;box-shadow:0 25px 60px rgba(0,0,0,.2);overflow:hidden;animation:modalIn .2s ease}
 @keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}.modal-header{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}.modal-header h3{font-family:'Poppins';color:var(--dark);font-size:15px}.modal-close{border:0;background:#f1f5f9;width:32px;height:32px;border-radius:8px;color:#64748b}.modal-body{padding:20px}.modal-footer{padding:15px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}.document-preview{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:35px;text-align:center}.document-preview i{font-size:45px;color:#ef4444;margin-bottom:12px}.document-preview strong{display:block;color:var(--dark);font-size:13px}.document-preview span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
@@ -344,7 +372,33 @@ button,input,select,textarea{font-family:inherit} button{cursor:pointer} a{text-
 </section>
 
 <!-- KINERJA -->
-<section class="page-section" id="section-kinerja"><div class="welcome"><div><h2>Monitoring Kinerja</h2><p>Ringkasan kinerja dan keteraturan administrasi guru.</p></div></div><div class="card"><div class="empty-state"><i class="fa-solid fa-chart-line"></i><h3>Monitoring Kinerja</h3><p>Modul penilaian kinerja akan terhubung dengan data administrasi dan supervisi.</p></div></div></section>
+<section class="page-section" id="section-kinerja">
+  <div class="welcome">
+    <div><h2>Monitoring Kinerja</h2><p>Akses observasi kinerja guru dan folder asesmen &amp; penilaian.</p></div>
+    <div class="welcome-date"><strong id="kinerjaGuruCount">0 Guru</strong><span>Data Guru Aktif</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div><h3>Daftar Monitoring Kinerja Guru</h3><span>Observasi 1, Observasi 2, dan folder ASESMEN DAN PENILAIAN</span></div>
+      <button class="btn btn-light" onclick="refreshKinerja()"><i class="fa-solid fa-rotate"></i> Refresh</button>
+    </div>
+    <div class="card-body">
+      <div class="kinerja-toolbar">
+        <p>Pilih observasi untuk membuka halaman penilaian atau klik <strong>View</strong> untuk membuka folder asesmen guru.</p>
+        <input id="kinerjaSearch" class="form-control kinerja-search" placeholder="Cari nama guru atau jabatan..." oninput="renderKinerja()">
+      </div>
+      <div class="kinerja-table-wrap">
+        <table class="kinerja-table">
+          <thead><tr><th>Nama Guru</th><th>Jabatan</th><th>Observasi 1</th><th>Observasi 2</th><th>View</th></tr></thead>
+          <tbody id="kinerjaTableBody">
+            <tr><td colspan="5"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat data...</h3></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- PEMBINAAN -->
 <section class="page-section" id="section-pembinaan"><div class="welcome"><div><h2>Catatan Pembinaan</h2><p>Catatan digital pembinaan dan tindak lanjut guru.</p></div><button class="btn btn-light" onclick="buatCatatan()"><i class="fa-solid fa-plus"></i> Tambah Catatan</button></div><div class="card"><div class="empty-state"><i class="fa-solid fa-comments"></i><h3>Catatan Pembinaan</h3><p>Siap dikembangkan dengan Google Spreadsheet.</p></div></div></section>
@@ -517,8 +571,14 @@ function showSection(section){
  if(sectionTitles[section]){txt("pageTitle",sectionTitles[section].title);txt("pageSubtitle",sectionTitles[section].subtitle)}
  if(window.innerWidth<=950)closeSidebar();
  window.scrollTo({top:0,behavior:"smooth"});
- if((section==="guru"||section==="administrasi")&&!DATA_GURU_ROWS.length)loadDataGuru();
- if(section==="validasi"&&!VALIDASI_DOKUMEN_ROWS.length)loadValidasiDokumen();
+ if((section==="guru"||section==="administrasi"||section==="kinerja")&&!DATA_GURU_ROWS.length)loadDataGuru();
+ if((section==="validasi"||section==="kinerja")&&!VALIDASI_DOKUMEN_ROWS.length)loadValidasiDokumen();
+ if(section==="kinerja"){
+   Promise.allSettled([
+     DATA_GURU_ROWS.length?Promise.resolve():loadDataGuru(),
+     VALIDASI_DOKUMEN_ROWS.length?Promise.resolve():loadValidasiDokumen()
+   ]).then(()=>renderKinerja());
+ }
  if(section==="administrasi"){
    Promise.allSettled([
      DATA_GURU_ROWS.length?Promise.resolve():loadDataGuru(),
@@ -552,7 +612,7 @@ function updateGuruUI(){
 }
 async function loadDataGuru(){
  const t=document.getElementById("guruTableBody");if(t)t.innerHTML='<tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat Data Guru</h3></div></td></tr>';
- try{const j=await api("getDataGuru");DATA_GURU_ROWS=rowsOf(j);DATA_GURU_FILTERED=[...DATA_GURU_ROWS];renderGuru();updateGuruUI();txt("guruDataInfo","Terhubung • Sheet DATA_GURU • "+DATA_GURU_ROWS.length+" data");if(document.getElementById("section-administrasi")?.classList.contains("active-section"))renderAdministrasiGuru()}
+ try{const j=await api("getDataGuru");DATA_GURU_ROWS=rowsOf(j);DATA_GURU_FILTERED=[...DATA_GURU_ROWS];renderGuru();updateGuruUI();txt("guruDataInfo","Terhubung • Sheet DATA_GURU • "+DATA_GURU_ROWS.length+" data");if(document.getElementById("section-administrasi")?.classList.contains("active-section"))renderAdministrasiGuru();if(document.getElementById("section-kinerja")?.classList.contains("active-section"))renderKinerja()}
  catch(x){DATA_GURU_ROWS=[];DATA_GURU_FILTERED=[];renderGuru();txt("guruDataInfo","Gagal: "+x.message)}
 }
 function renderGuru(){
@@ -563,6 +623,83 @@ function renderGuru(){
 }
 function filterDataGuru(){const q=(document.getElementById("guruSearch")?.value||"").toLowerCase().trim(),s=(document.getElementById("guruStatusFilter")?.value||"").toUpperCase();DATA_GURU_FILTERED=DATA_GURU_ROWS.filter(g=>{const n=String(gf(g,["nama","NAMA"])).toLowerCase(),p=String(gf(g,["nip","NIP"])).toLowerCase(),st=String(gf(g,["status","STATUS"])).toUpperCase();return(!q||n.includes(q)||p.includes(q))&&(!s||st===s)});renderGuru()}
 function resetFilterGuru(){document.getElementById("guruSearch").value="";document.getElementById("guruStatusFilter").value="";DATA_GURU_FILTERED=[...DATA_GURU_ROWS];renderGuru()}
+
+/* =========================================================
+   MONITORING KINERJA
+========================================================= */
+function kinerjaNormalize(v){
+  return String(v||"").trim().toUpperCase().replace(/\s+/g," ");
+}
+
+function getAsesmenFolderLink(namaGuru){
+  const nama=kinerjaNormalize(namaGuru);
+  const jenis="ASESMEN DAN PENILAIAN";
+  const row=VALIDASI_DOKUMEN_ROWS.find(r=>
+    kinerjaNormalize(r.guru)===nama &&
+    kinerjaNormalize(r.dokumen)===jenis &&
+    String(r.fileUrl||"").trim()
+  );
+  return row?String(row.fileUrl||"").trim():"";
+}
+
+function openObservasi1(namaGuru){
+  const url="observasi-1.html?guru="+encodeURIComponent(namaGuru||"");
+  window.location.href=url;
+}
+
+function openObservasi2(namaGuru){
+  const url="observasi-2.html?guru="+encodeURIComponent(namaGuru||"");
+  window.location.href=url;
+}
+
+function openAsesmenFolder(namaGuru){
+  const url=getAsesmenFolderLink(namaGuru);
+  if(!url){
+    alert('Folder "ASESMEN DAN PENILAIAN" untuk '+namaGuru+' belum ditemukan. Pastikan folder guru sudah dibuat dan LINK_FOLDER tersimpan.');
+    return;
+  }
+  window.open(url,"_blank","noopener,noreferrer");
+}
+
+function renderKinerja(){
+  const body=document.getElementById("kinerjaTableBody");
+  if(!body)return;
+
+  const q=(document.getElementById("kinerjaSearch")?.value||"").toLowerCase().trim();
+  const rows=DATA_GURU_ROWS
+    .map(g=>({
+      nama:String(gf(g,["nama","NAMA","Nama"])||"").trim(),
+      jabatan:String(gf(g,["jabatan","JABATAN","Jabatan"])||"-").trim(),
+      status:String(gf(g,["status","STATUS","Status"])||"").trim().toUpperCase()
+    }))
+    .filter(g=>g.nama)
+    .filter(g=>!q||g.nama.toLowerCase().includes(q)||g.jabatan.toLowerCase().includes(q));
+
+  txt("kinerjaGuruCount",rows.length+" Guru");
+
+  if(!rows.length){
+    body.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="fa-solid fa-users-slash"></i><h3>Data Guru Tidak Ditemukan</h3><p>Belum ada data guru yang sesuai.</p></div></td></tr>';
+    return;
+  }
+
+  body.innerHTML=rows.map(g=>{
+    const folder=getAsesmenFolderLink(g.nama);
+    return `<tr>
+      <td><i class="fa-solid fa-user-tie" style="margin-right:7px;color:#2563eb"></i>${esc(g.nama)}</td>
+      <td>${esc(g.jabatan||"-")}</td>
+      <td><button class="kinerja-action kinerja-observasi1" onclick='openObservasi1(${JSON.stringify(g.nama)})'><i class="fa-solid fa-clipboard-check"></i> Observasi 1</button></td>
+      <td><button class="kinerja-action kinerja-observasi2" onclick='openObservasi2(${JSON.stringify(g.nama)})'><i class="fa-solid fa-clipboard-list"></i> Observasi 2</button></td>
+      <td><button class="kinerja-action kinerja-view ${folder?"":"missing"}" onclick='openAsesmenFolder(${JSON.stringify(g.nama)})' title="Buka folder ASESMEN DAN PENILAIAN"><i class="fa-solid fa-folder-open"></i> View</button></td>
+    </tr>`;
+  }).join("");
+}
+
+async function refreshKinerja(){
+  const body=document.getElementById("kinerjaTableBody");
+  if(body)body.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><h3>Memuat ulang data...</h3></div></td></tr>';
+  await Promise.allSettled([loadDataGuru(),loadValidasiDokumen()]);
+  renderKinerja();
+}
 
 /* =========================================================
    VALIDASI
@@ -585,7 +722,7 @@ async function loadValidasiDokumen(){
    validator:gf(r,["validator","VALIDATOR"]),aksi:gf(r,["aksi_terakhir","AKSI_TERAKHIR"]),
    fileUrl:gf(r,["link_folder","LINK_FOLDER","file_url","FILE_URL","url","URL"])
   }));
-  VALIDASI_DOKUMEN_FILTERED=[...VALIDASI_DOKUMEN_ROWS];renderValidasi();updateValidasiUI();renderValidationDashboard();populateValidationFilters();updateAdministrasiSummary();if(document.getElementById("section-administrasi")?.classList.contains("active-section"))renderAdministrasiGuru();txt("validasiDataInfo","Terhubung • VALIDASI_DOKUMEN • "+VALIDASI_DOKUMEN_ROWS.length+" dokumen");
+  VALIDASI_DOKUMEN_FILTERED=[...VALIDASI_DOKUMEN_ROWS];renderValidasi();updateValidasiUI();renderValidationDashboard();populateValidationFilters();updateAdministrasiSummary();if(document.getElementById("section-administrasi")?.classList.contains("active-section"))renderAdministrasiGuru();if(document.getElementById("section-kinerja")?.classList.contains("active-section"))renderKinerja();txt("validasiDataInfo","Terhubung • VALIDASI_DOKUMEN • "+VALIDASI_DOKUMEN_ROWS.length+" dokumen");
  }catch(x){VALIDASI_DOKUMEN_ROWS=[];VALIDASI_DOKUMEN_FILTERED=[];renderValidasi();updateValidasiUI();renderValidationDashboard();txt("validasiDataInfo","Koneksi VALIDASI_DOKUMEN gagal: "+x.message)}
 }
 function updateValidasiUI(){const m=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="menunggu").length,v=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="valid").length,r=VALIDASI_DOKUMEN_ROWS.filter(x=>x.status==="revisi").length;txt("validasiMenunggu",m);txt("validasiTerverifikasi",v);txt("validasiRevisi",r);txt("validasiTotal",VALIDASI_DOKUMEN_ROWS.length);txt("validasiWelcomeCount",m+" Menunggu");txt("dashboardDokumenRevisi",r);txt("dashboardDokumenTerverifikasi",v);txt("validasiMenuBadge",r)}
