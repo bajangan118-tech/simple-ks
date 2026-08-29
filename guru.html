@@ -170,6 +170,14 @@
               <svg id="topRefreshIcon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
             </button>
 
+            <button onclick="openNotifications()" class="relative rounded-xl border border-slate-200 bg-white p-2.5 text-slate-500 hover:bg-blue-50 hover:text-blue-600" title="Notifikasi Kepala Sekolah">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+                <path d="M10 21h4"/>
+              </svg>
+              <span id="notificationBadge" class="absolute -right-1 -top-1 hidden min-w-5 rounded-full bg-red-600 px-1.5 py-0.5 text-center text-[9px] font-extrabold leading-4 text-white">0</span>
+            </button>
+
             <div class="h-8 w-px bg-slate-200"></div>
 
             <button onclick="showSection('profil')" class="flex items-center gap-2 rounded-xl p-1.5 hover:bg-slate-50">
@@ -337,7 +345,15 @@
             </div>
 
             <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-2">
-              <h3 class="mb-5 font-extrabold text-slate-900">Detail Akun</h3>
+              <div class="mb-5 flex items-center justify-between gap-3">
+                <h3 class="font-extrabold text-slate-900">Detail Akun</h3>
+                <button onclick="openEditProfile()" class="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-3.5 py-2 text-xs font-bold text-white hover:bg-blue-700">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+                  </svg>
+                  Edit
+                </button>
+              </div>
               <div class="grid gap-5 sm:grid-cols-2">
                 <InfoField label="Nama Lengkap" id="profileNameField"/>
                 <InfoField label="User ID" id="profileUserId"/>
@@ -349,7 +365,7 @@
                 <InfoField label="Status" id="profileStatus"/>
               </div>
               <div class="mt-6 rounded-xl bg-slate-50 p-4 text-xs leading-5 text-slate-500">
-                Data profil diambil dari akun pada sheet <b>USERS</b>. Perubahan data akun dilakukan melalui Administrator.
+                Data profil utama diambil dari sheet <b>USERS</b>. Guru dapat mengubah <b>Jabatan</b> dan <b>Email</b> melalui tombol Edit.
               </div>
             </div>
           </div>
@@ -460,6 +476,76 @@
         <p class="rounded-xl bg-amber-50 p-3 text-amber-800">Jika folder belum muncul, pastikan akun guru memiliki <b>Guru ID</b> yang benar pada sheet USERS, Apps Script memiliki izin Google Drive, dan backend sudah menjalankan aksi <b>createfolder</b>.</p>
       </div>
       <button onclick="closeHelp()" class="mt-6 w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold text-white hover:bg-blue-700">Mengerti</button>
+    </div>
+  </div>
+
+
+  <!-- EDIT PROFIL MODAL -->
+  <div id="editProfileModal" class="modal-backdrop fixed inset-0 z-[75] hidden items-center justify-center p-4">
+    <div class="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+            <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-xl font-extrabold text-slate-900">Edit Profil</h3>
+          <p class="mt-1 text-sm text-slate-500">Anda dapat mengubah Jabatan dan Email.</p>
+        </div>
+        <button onclick="closeEditProfile()" class="rounded-xl p-2 text-slate-400 hover:bg-slate-100">
+          <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+
+      <form class="mt-6 space-y-4" onsubmit="saveProfileEdit(event)">
+        <div>
+          <label class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500">Jabatan</label>
+          <input id="editProfileJabatan" required
+                 class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-400 focus:bg-white"
+                 placeholder="Contoh: Guru Kelas IV">
+        </div>
+        <div>
+          <label class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500">Email</label>
+          <input id="editProfileEmail" type="email"
+                 class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-400 focus:bg-white"
+                 placeholder="nama@sekolah.sch.id">
+        </div>
+        <div class="rounded-xl bg-blue-50 p-4 text-xs leading-5 text-blue-800">
+          Jabatan akan diperbarui pada akun USERS dan disinkronkan ke DATA_GURU bila nama guru ditemukan.
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button type="button" onclick="closeEditProfile()" class="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50">Batal</button>
+          <button id="saveProfileBtn" type="submit" class="flex-1 rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold text-white hover:bg-blue-700">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- NOTIFIKASI MODAL -->
+  <div id="notificationModal" class="modal-backdrop fixed inset-0 z-[75] hidden items-center justify-center p-4">
+    <div class="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl">
+      <div class="flex items-start justify-between gap-4 border-b border-slate-100 p-6">
+        <div>
+          <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-50 text-amber-600">
+            <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+              <path d="M10 21h4"/>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-xl font-extrabold text-slate-900">Notifikasi Kepala Sekolah</h3>
+          <p class="mt-1 text-sm text-slate-500">Deadline dan catatan validator untuk administrasi Anda.</p>
+        </div>
+        <button onclick="closeNotifications()" class="rounded-xl p-2 text-slate-400 hover:bg-slate-100">
+          <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div id="notificationList" class="scrollbar flex-1 space-y-3 overflow-y-auto p-6">
+        <div class="rounded-xl bg-slate-50 p-5 text-sm text-slate-500">Memuat notifikasi...</div>
+      </div>
+      <div class="border-t border-slate-100 p-4">
+        <button onclick="closeNotifications()" class="w-full rounded-xl bg-slate-900 px-4 py-3 text-sm font-bold text-white hover:bg-slate-800">Tutup</button>
+      </div>
     </div>
   </div>
 
@@ -770,7 +856,7 @@
     }
 
     async function apiPost(payload) {
-      const response = await fetch(apiUrl('status'), {
+      const response = await fetch(apiUrl(payload?.action || 'status'), {
         method: 'POST',
         headers: {'Content-Type': 'text/plain;charset=utf-8'},
         body: JSON.stringify(payload),
@@ -827,16 +913,34 @@
       }
     }
 
+    function normalizePersonName(value) {
+      return String(value || '')
+        .toUpperCase()
+        .replace(/,.*$/g, '')
+        .replace(/\b(S\.?PD\.?|M\.?PD\.?|S\.?PDI\.?|M\.?PDI\.?|S\.?AG\.?|M\.?AG\.?|DR\.?|H\.?|HJ\.?)\b/g, ' ')
+        .replace(/[^A-Z0-9 ]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
     function getMyTeacherRows() {
       const u = currentUser || {};
       const myGuruId = normalizeComparable(u.guru_id);
       const myName = normalizeComparable(u.nama);
+      const mySimpleName = normalizePersonName(u.nama);
 
+      // DATA_GURU saat ini terutama memakai kolom NAMA, bukan guru_id.
+      // Prioritas: guru_id bila suatu saat tersedia, lalu nama exact,
+      // kemudian nama yang dinormalisasi (gelar/tanda baca diabaikan).
       return teacherRows.filter(row => {
         const rowId = normalizeComparable(row.guru_id || row.id || row.user_id);
         const rowName = normalizeComparable(row.nama);
+        const rowSimpleName = normalizePersonName(row.nama);
+
         if (myGuruId && rowId && myGuruId === rowId) return true;
         if (myName && rowName && myName === rowName) return true;
+        if (mySimpleName && rowSimpleName && mySimpleName === rowSimpleName) return true;
+
         return false;
       });
     }
@@ -863,6 +967,17 @@
       }
 
       const g = rows[0];
+
+      // Sinkronkan field profil tampilan dengan DATA_GURU bila tersedia.
+      // Email tetap berasal dari USERS.
+      if (g.nama) currentUser.nama = g.nama;
+      if (g.jabatan) currentUser.jabatan = g.jabatan;
+      if (g.status) currentUser.status = g.status;
+      currentUser.nip = g.nip || currentUser.nip || '';
+      currentUser.gol_ruang = g.gol_ruang || currentUser.gol_ruang || '';
+      saveUser(currentUser);
+      renderUser();
+
       box.innerHTML = `
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           ${miniData('Nama', g.nama)}
@@ -892,6 +1007,7 @@
         validationRows = filterValidationForUser(all);
         renderValidation();
         updateValidationSummary();
+        updateNotificationBadge();
         return data;
       } catch (error) {
         validationRows = [];
@@ -924,6 +1040,12 @@
     function getValidationBucket(status) {
       const s = normalizeStatus(status);
 
+      const p = parseInt(s.replace('%',''), 10);
+      if (Number.isFinite(p)) {
+        if (p >= 100) return 'TERVERIFIKASI';
+        if (p > 0) return 'REVISI';
+        return 'MENUNGGU';
+      }
       if (['TERVERIFIKASI','DISETUJUI','VALID','DISETUJUI/VALID'].includes(s)) return 'TERVERIFIKASI';
       if (['REVISI','PERLU REVISI','PERLU DIREVISI','DITOLAK'].includes(s)) return 'REVISI';
       if (['BELUM LENGKAP','BELUM_LENGKAP','BELUMLENGKAP','BELUM'].includes(s)) return 'BELUM LENGKAP';
@@ -1014,6 +1136,7 @@
               <th class="px-5 py-3 font-bold">Deadline</th>
               <th class="px-5 py-3 font-bold">Selesai</th>
               <th class="px-5 py-3 font-bold">Catatan</th>
+              <th class="px-5 py-3 font-bold">Catatan Validator</th>
               <th class="px-5 py-3 font-bold">Validator</th>
             </tr>
           </thead>
@@ -1027,7 +1150,8 @@
                 <td class="px-5 py-4">${statusBadge(row.status)}</td>
                 <td class="px-5 py-4 whitespace-nowrap text-slate-600">${escapeHtml(row.tanggal_deadline || '-')}</td>
                 <td class="px-5 py-4 whitespace-nowrap text-slate-600">${escapeHtml(row.tanggal_selesai || '-')}</td>
-                <td class="max-w-xs px-5 py-4 text-slate-600">${escapeHtml(row.catatan || '-')}</td>
+                <td class="max-w-xs px-5 py-4 text-slate-600">${escapeHtml(row.catatan || row.catatan_deadline || '-')}</td>
+                <td class="max-w-xs px-5 py-4 text-slate-600">${escapeHtml(row.catatan_validator || '-')}</td>
                 <td class="px-5 py-4 text-slate-600">${escapeHtml(row.validator || '-')}</td>
               </tr>
             `).join('')}
@@ -1399,6 +1523,178 @@
       return `<svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">${paths[type]}</svg>`;
     }
 
+
+    /***********************
+     * EDIT PROFIL
+     ***********************/
+    function openEditProfile() {
+      const u = currentUser || {};
+      $('editProfileJabatan').value = u.jabatan || 'Guru';
+      $('editProfileEmail').value = u.email || '';
+      $('editProfileModal').classList.remove('hidden');
+      $('editProfileModal').classList.add('flex');
+      setTimeout(() => $('editProfileJabatan')?.focus(), 80);
+    }
+
+    function closeEditProfile() {
+      $('editProfileModal')?.classList.add('hidden');
+      $('editProfileModal')?.classList.remove('flex');
+    }
+
+    async function saveProfileEdit(event) {
+      event.preventDefault();
+
+      const jabatan = String($('editProfileJabatan')?.value || '').trim();
+      const email = String($('editProfileEmail')?.value || '').trim();
+      const btn = $('saveProfileBtn');
+
+      if (!jabatan) {
+        showToast('Jabatan wajib diisi.', 'warning');
+        return;
+      }
+
+      try {
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Menyimpan...';
+        }
+
+        const result = await apiPost({
+          action: 'updateguruprofile',
+          user_id: currentUser?.user_id || '',
+          username: currentUser?.username || '',
+          nama: currentUser?.nama || '',
+          jabatan,
+          email
+        });
+
+        currentUser = {
+          ...currentUser,
+          jabatan,
+          email
+        };
+
+        saveUser(currentUser);
+        renderUser();
+        closeEditProfile();
+
+        // Ambil ulang DATA_GURU agar sinkronisasi jabatan langsung terlihat.
+        await loadTeacherData().catch(() => {});
+
+        showToast(result.message || 'Profil berhasil diperbarui.', 'success');
+      } catch (error) {
+        showToast(error.message || 'Gagal memperbarui profil.', 'error');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'Simpan';
+        }
+      }
+    }
+
+    /***********************
+     * NOTIFIKASI
+     ***********************/
+    function getNotificationRows() {
+      return validationRows.filter(row => {
+        return String(row.catatan_deadline || '').trim() ||
+               String(row.catatan_validator || '').trim() ||
+               String(row.validator || '').trim() ||
+               String(row.tanggal_deadline || '').trim();
+      });
+    }
+
+    function updateNotificationBadge() {
+      const badge = $('notificationBadge');
+      if (!badge) return;
+
+      const count = getNotificationRows().length;
+      badge.textContent = count > 99 ? '99+' : String(count);
+      badge.classList.toggle('hidden', count === 0);
+    }
+
+    function openNotifications() {
+      renderNotifications();
+      $('notificationModal').classList.remove('hidden');
+      $('notificationModal').classList.add('flex');
+    }
+
+    function closeNotifications() {
+      $('notificationModal')?.classList.add('hidden');
+      $('notificationModal')?.classList.remove('flex');
+    }
+
+    function renderNotifications() {
+      const list = $('notificationList');
+      if (!list) return;
+
+      const rows = getNotificationRows();
+
+      if (!rows.length) {
+        list.innerHTML = `
+          <div class="rounded-2xl border border-dashed border-slate-300 p-8 text-center">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+                <path d="M10 21h4"/>
+              </svg>
+            </div>
+            <div class="mt-4 font-bold text-slate-700">Belum ada notifikasi</div>
+            <p class="mt-1 text-xs text-slate-500">Catatan Kepala Sekolah dan deadline akan tampil di sini.</p>
+          </div>`;
+        return;
+      }
+
+      list.innerHTML = rows.map(row => {
+        const deadline = row.tanggal_deadline || '-';
+        const validator = row.validator || 'Kepala Sekolah';
+        const catDeadline = row.catatan_deadline || '';
+        const catValidator = row.catatan_validator || '';
+        const status = row.status || '-';
+
+        return `
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-start gap-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/>
+                  <path d="M14 2v5h5"/>
+                </svg>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div class="font-extrabold text-slate-900">${escapeHtml(row.jenis_dokumen || 'Administrasi Guru')}</div>
+                  ${statusBadge(status)}
+                </div>
+
+                <div class="mt-3 grid gap-2 text-xs sm:grid-cols-2">
+                  <div class="rounded-xl bg-amber-50 p-3">
+                    <div class="font-bold uppercase tracking-wide text-amber-700">Tanggal Deadline</div>
+                    <div class="mt-1 font-semibold text-amber-900">${escapeHtml(deadline)}</div>
+                  </div>
+                  <div class="rounded-xl bg-blue-50 p-3">
+                    <div class="font-bold uppercase tracking-wide text-blue-700">Validator</div>
+                    <div class="mt-1 font-semibold text-blue-900">${escapeHtml(validator)}</div>
+                  </div>
+                </div>
+
+                ${catDeadline ? `
+                  <div class="mt-3 rounded-xl bg-slate-50 p-3 text-sm leading-6 text-slate-700">
+                    <div class="mb-1 text-[10px] font-extrabold uppercase tracking-wide text-slate-400">Catatan Kepala Sekolah</div>
+                    ${escapeHtml(catDeadline)}
+                  </div>` : ''}
+
+                ${catValidator ? `
+                  <div class="mt-3 rounded-xl border border-blue-100 bg-blue-50/60 p-3 text-sm leading-6 text-blue-900">
+                    <div class="mb-1 text-[10px] font-extrabold uppercase tracking-wide text-blue-500">Catatan Validator</div>
+                    ${escapeHtml(catValidator)}
+                  </div>` : ''}
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
     /***********************
      * DASHBOARD
      ***********************/
@@ -1631,6 +1927,8 @@
       if (e.key === 'Escape') {
         closeHelp();
         closeLogout();
+        closeEditProfile();
+        closeNotifications();
       }
     });
   </script>
