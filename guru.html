@@ -111,6 +111,17 @@
           Status Validasi
         </button>
 
+        <button data-section="kinerja" onclick="showSection('kinerja')"
+                class="nav-item mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
+          <span class="nav-icon flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/>
+              <path d="m4 7 5-3 5 4 6-5"/>
+            </svg>
+          </span>
+          Hasil Kinerja Guru
+        </button>
+
         <div class="my-5 border-t border-slate-100"></div>
         <div class="mb-3 px-3 text-[10px] font-bold uppercase tracking-widest text-slate-400">Lainnya</div>
 
@@ -443,6 +454,74 @@
           </div>
         </section>
 
+        <!-- HASIL KINERJA GURU -->
+        <section id="section-kinerja" class="section-panel hidden fade-in">
+          <div class="mb-6">
+            <h2 class="text-xl font-extrabold text-slate-900">Hasil Kinerja Guru</h2>
+            <p class="mt-1 text-sm text-slate-500">Kinerja Praktik Pembelajaran berdasarkan hasil Penilaian Observasi 1 dan Observasi 2.</p>
+          </div>
+
+          <div class="space-y-6">
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <div class="flex flex-col gap-3 border-b border-slate-200 bg-blue-600 p-5 text-white sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h3 class="font-extrabold">Kinerja Praktik Pembelajaran — Observasi 1</h3>
+                  <p class="mt-1 text-xs text-blue-100">Data hasil penilaian Observasi 1 milik akun guru yang sedang masuk.</p>
+                </div>
+                <button onclick="loadGuruPerformance(1,true)" class="rounded-xl bg-white/15 px-3 py-2 text-xs font-bold text-white hover:bg-white/25">Muat Ulang</button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-[1100px] w-full border-collapse text-sm">
+                  <thead>
+                    <tr class="bg-blue-600 text-white">
+                      <th class="border border-black px-3 py-3 text-left">Hari</th>
+                      <th class="border border-black px-3 py-3 text-left">Tanggal Observasi</th>
+                      <th class="border border-black px-3 py-3 text-left">Jam Observasi</th>
+                      <th class="border border-black px-3 py-3 text-left">Waktu Mulai Observasi</th>
+                      <th class="border border-black px-3 py-3 text-left">Waktu Berakhir Observasi</th>
+                      <th class="border border-black px-3 py-3 text-left">Nama Observer</th>
+                      <th class="border border-black px-3 py-3 text-center">Nilai Akhir</th>
+                    </tr>
+                  </thead>
+                  <tbody id="kinerjaObs1Body">
+                    <tr><td colspan="7" class="border border-black px-4 py-8 text-center text-slate-400">Buka menu untuk memuat hasil Observasi 1.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div id="kinerjaObs1Info" class="border-t border-slate-200 px-5 py-3 text-xs text-slate-500"></div>
+            </div>
+
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <div class="flex flex-col gap-3 border-b border-slate-200 bg-blue-600 p-5 text-white sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h3 class="font-extrabold">Kinerja Praktik Pembelajaran — Observasi 2</h3>
+                  <p class="mt-1 text-xs text-blue-100">Siap digunakan setelah API Web App Observasi 2 ditempel pada CONFIG.</p>
+                </div>
+                <button onclick="loadGuruPerformance(2,true)" class="rounded-xl bg-white/15 px-3 py-2 text-xs font-bold text-white hover:bg-white/25">Muat Ulang</button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-[1100px] w-full border-collapse text-sm">
+                  <thead>
+                    <tr class="bg-blue-600 text-white">
+                      <th class="border border-black px-3 py-3 text-left">Hari</th>
+                      <th class="border border-black px-3 py-3 text-left">Tanggal Observasi</th>
+                      <th class="border border-black px-3 py-3 text-left">Jam Observasi</th>
+                      <th class="border border-black px-3 py-3 text-left">Waktu Mulai Observasi</th>
+                      <th class="border border-black px-3 py-3 text-left">Waktu Berakhir Observasi</th>
+                      <th class="border border-black px-3 py-3 text-left">Nama Observer</th>
+                      <th class="border border-black px-3 py-3 text-center">Nilai Akhir</th>
+                    </tr>
+                  </thead>
+                  <tbody id="kinerjaObs2Body">
+                    <tr><td colspan="7" class="border border-black px-4 py-8 text-center text-slate-400">API Observasi 2 belum diisi.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div id="kinerjaObs2Info" class="border-t border-slate-200 px-5 py-3 text-xs text-slate-500"></div>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <footer class="border-t border-slate-200 bg-white px-4 py-5 text-center text-xs text-slate-400 sm:px-6 lg:px-8">
@@ -581,6 +660,8 @@
 
     const CONFIG = {
       API_URL: 'https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec',
+      OBSERVASI_1_API_URL: 'https://script.google.com/macros/s/AKfycbxqBo16Io_TlAcW_GWXgZ_XFEHq08-jnahOuoCE7piACiOE6m3xvo-pTeQKoWAL0Kj7/exec',
+      OBSERVASI_2_API_URL: 'PASTE_API_URL_OBSERVASI_2_DI_SINI',
       LOGIN_URL: 'https://bajangan118-tech.github.io/simple-ks/login.html',
       STORAGE_KEYS: [
         'simpelks_user',
@@ -604,6 +685,7 @@
     let teacherFolder = null;
     // Pemetaan folder berdasarkan JENIS_DOKUMEN.
     let documentFolders = [];
+    let guruPerformanceLoaded = {1:false,2:false};
 
     const $ = (id) => document.getElementById(id);
 
@@ -872,6 +954,131 @@
         throw new Error(data.message || 'Permintaan gagal.');
       }
       return data;
+    }
+
+
+    /***********************
+     * HASIL KINERJA GURU
+     ***********************/
+    function performanceApiBase(observationNumber) {
+      return observationNumber === 1
+        ? String(CONFIG.OBSERVASI_1_API_URL || '').trim()
+        : String(CONFIG.OBSERVASI_2_API_URL || '').trim();
+    }
+
+    function performanceApiUrl(observationNumber, action, params = {}) {
+      const base = performanceApiBase(observationNumber);
+      if (!base || base.includes('PASTE_API_URL_OBSERVASI_2')) {
+        throw new Error('API Observasi ' + observationNumber + ' belum diisi.');
+      }
+      const url = new URL(base);
+      url.searchParams.set('action', action);
+      Object.entries(params).forEach(([key,value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          url.searchParams.set(key,value);
+        }
+      });
+      url.searchParams.set('_', Date.now());
+      return url.toString();
+    }
+
+    async function performanceGet(observationNumber, action, params = {}) {
+      const response = await fetch(performanceApiUrl(observationNumber, action, params), {
+        method:'GET',
+        cache:'no-store',
+        redirect:'follow'
+      });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const data = await response.json();
+      if (data && data.success === false) throw new Error(data.message || 'Permintaan gagal.');
+      return data;
+    }
+
+    async function performancePost(observationNumber, payload) {
+      const base = performanceApiBase(observationNumber);
+      if (!base || base.includes('PASTE_API_URL_OBSERVASI_2')) {
+        throw new Error('API Observasi ' + observationNumber + ' belum diisi.');
+      }
+      const response = await fetch(base, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify(payload),
+        redirect:'follow'
+      });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const data = await response.json();
+      if (data && data.success === false) throw new Error(data.message || 'Permintaan gagal.');
+      return data;
+    }
+
+    async function loadGuruPerformance(observationNumber, force = false) {
+      if (!force && guruPerformanceLoaded[observationNumber]) return;
+
+      const body = $('kinerjaObs' + observationNumber + 'Body');
+      const info = $('kinerjaObs' + observationNumber + 'Info');
+      if (!body) return;
+
+      const nama = String((currentUser && currentUser.nama) || '').trim();
+
+      if (observationNumber === 2 &&
+          (!CONFIG.OBSERVASI_2_API_URL || CONFIG.OBSERVASI_2_API_URL.includes('PASTE_API_URL_OBSERVASI_2'))) {
+        body.innerHTML = `<tr><td colspan="7" class="border border-black px-4 py-8 text-center text-amber-700">API Observasi 2 belum diisi. Tempel URL Web App Observasi 2 pada <b>CONFIG.OBSERVASI_2_API_URL</b>.</td></tr>`;
+        if (info) info.textContent = 'Menunggu API Observasi 2.';
+        return;
+      }
+
+      body.innerHTML = `<tr><td colspan="7" class="border border-black px-4 py-8 text-center text-slate-500">Memuat hasil Observasi ${observationNumber}...</td></tr>`;
+      if (info) info.textContent = '';
+
+      try {
+        const result = await performanceGet(observationNumber, 'getgurukinerja', {nama_guru:nama});
+        const rows = Array.isArray(result.data) ? result.data : [];
+        renderGuruPerformance(observationNumber, rows);
+
+        // Saat menu dibuka, catat bahwa hasil telah dibaca.
+        await performancePost(observationNumber, {
+          action:'markgurukinerjaread',
+          nama_guru:nama
+        });
+
+        guruPerformanceLoaded[observationNumber] = true;
+        if (info) {
+          info.textContent = rows.length
+            ? `${rows.length} data Observasi ${observationNumber} ditampilkan • STATUS tercatat SUDAH DIBACA`
+            : `Belum ada data Observasi ${observationNumber} untuk ${nama || 'akun ini'}.`;
+        }
+      } catch (error) {
+        body.innerHTML = `<tr><td colspan="7" class="border border-black px-4 py-8 text-center text-red-700">${escapeHtml(error.message)}</td></tr>`;
+        if (info) info.textContent = 'Data gagal dimuat.';
+      }
+    }
+
+    function renderGuruPerformance(observationNumber, rows) {
+      const body = $('kinerjaObs' + observationNumber + 'Body');
+      if (!body) return;
+
+      if (!rows.length) {
+        body.innerHTML = `<tr><td colspan="7" class="border border-black px-4 py-8 text-center text-slate-400">Belum ada hasil Penilaian Observasi ${observationNumber}.</td></tr>`;
+        return;
+      }
+
+      body.innerHTML = rows.map(row => `
+        <tr class="bg-white hover:bg-blue-50">
+          <td class="border border-black px-3 py-3 font-semibold text-slate-800">${escapeHtml(row.hari || '-')}</td>
+          <td class="border border-black px-3 py-3">${escapeHtml(row.tanggal_observasi || '-')}</td>
+          <td class="border border-black px-3 py-3">${escapeHtml(row.jam_observasi || '-')}</td>
+          <td class="border border-black px-3 py-3">${escapeHtml(row.waktu_mulai_observasi || '-')}</td>
+          <td class="border border-black px-3 py-3">${escapeHtml(row.waktu_berakhir_observasi || '-')}</td>
+          <td class="border border-black px-3 py-3">${escapeHtml(row.nama_observer || '-')}</td>
+          <td class="border border-black px-3 py-3 text-center text-base font-extrabold text-blue-700">${escapeHtml(formatPerformanceScore(row.nilai_akhir))}</td>
+        </tr>
+      `).join('');
+    }
+
+    function formatPerformanceScore(value) {
+      if (value === null || value === undefined || value === '') return '-';
+      const n = Number(value);
+      return Number.isFinite(n) ? n.toFixed(2).replace(/\.00$/,'') : String(value);
     }
 
     /***********************
@@ -1711,7 +1918,9 @@
       profil: ['Profil Saya', 'Informasi akun guru'],
       dokumen: ['Dokumen Saya', 'File administrasi pada Google Drive'],
       validasi: ['Status Validasi', 'Status administrasi dokumen Anda']
-    };
+  ,
+        kinerja: ['Hasil Kinerja Guru', 'Hasil Penilaian Observasi 1 dan Observasi 2']
+      };
 
     function showSection(name) {
       document.querySelectorAll('.section-panel').forEach(panel => panel.classList.add('hidden'));
@@ -1745,6 +1954,10 @@
 
       if (name === 'dokumen' && !documentFolders.length) loadDocuments(false).catch(()=>{});
       if (name === 'validasi') renderValidation();
+      if (name === 'kinerja') {
+        loadGuruPerformance(1,false).catch(()=>{});
+        loadGuruPerformance(2,false).catch(()=>{});
+      }
     }
 
     /***********************
