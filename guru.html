@@ -613,7 +613,7 @@
             </svg>
           </div>
           <h3 class="mt-4 text-xl font-extrabold text-slate-900">Notifikasi Kepala Sekolah</h3>
-          <p class="mt-1 text-sm text-slate-500">Deadline dan catatan validator untuk administrasi Anda.</p>
+          <p class="mt-1 text-sm text-slate-500">Hasil observasi baru, deadline, dan catatan Kepala Sekolah.</p>
         </div>
         <button onclick="closeNotifications()" class="rounded-xl p-2 text-slate-400 hover:bg-slate-100">
           <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg>
@@ -686,6 +686,7 @@
     // Pemetaan folder berdasarkan JENIS_DOKUMEN.
     let documentFolders = [];
     let guruPerformanceLoaded = {1:false,2:false};
+    let guruPerformanceNotifications = {1:[],2:[]};
 
     const $ = (id) => document.getElementById(id);
 
@@ -1011,6 +1012,76 @@
       return data;
     }
 
+
+    function hasObservationApi(observationNumber) {
+      const base = performanceApiBase(observationNumber);
+      return !!base && !base.includes('PASTE_API_URL_OBSERVASI_2');
+    }
+
+    function isPerformanceUnread(row) {
+      const status = String((row && row.status) || '').trim().toUpperCase();
+      return status !== 'SUDAH DIBACA';
+    }
+
+    async function loadPerformanceNotifications() {
+      const nama = String((currentUser && currentUser.nama) || '').trim();
+      if (!nama) return;
+
+      const tasks = [1,2].map(async observationNumber => {
+        if (!hasObservationApi(observationNumber)) {
+          guruPerformanceNotifications[observationNumber] = [];
+          return;
+        }
+
+        try {
+          const result = await performanceGet(
+            observationNumber,
+            'getgurukinerja',
+            {nama_guru:nama}
+          );
+          const rows = Array.isArray(result.data) ? result.data : [];
+          guruPerformanceNotifications[observationNumber] = rows.filter(isPerformanceUnread);
+        } catch (error) {
+          console.warn('Notifikasi Observasi ' + observationNumber + ' gagal dimuat:', error);
+          guruPerformanceNotifications[observationNumber] = [];
+        }
+      });
+
+      await Promise.allSettled(tasks);
+      updateNotificationBadge();
+      if (!$('notificationModal')?.classList.contains('hidden')) {
+        renderNotifications();
+      }
+    }
+
+    function getUnreadPerformanceNotifications() {
+      const rows = [];
+      [1,2].forEach(observationNumber => {
+        (guruPerformanceNotifications[observationNumber] || []).forEach(row => {
+          rows.push({...row, observation_number:observationNumber});
+        });
+      });
+      return rows;
+    }
+
+    function clearPerformanceNotifications(observationNumber) {
+      guruPerformanceNotifications[observationNumber] = [];
+      updateNotificationBadge();
+      if (!$('notificationModal')?.classList.contains('hidden')) {
+        renderNotifications();
+      }
+    }
+
+    function openPerformanceFromNotification(observationNumber) {
+      closeNotifications();
+      showSection('kinerja');
+      loadGuruPerformance(observationNumber,true).catch(()=>{});
+      setTimeout(() => {
+        const table = $('kinerjaObs' + observationNumber + 'Body');
+        if (table) table.scrollIntoView({behavior:'smooth', block:'center'});
+      }, 250);
+    }
+
     async function loadGuruPerformance(observationNumber, force = false) {
       if (!force && guruPerformanceLoaded[observationNumber]) return;
 
@@ -1040,6 +1111,9 @@
           action:'markgurukinerjaread',
           nama_guru:nama
         });
+
+        // Setelah backend mencatat SUDAH DIBACA, hapus indikator merah/notifikasi observasi.
+        clearPerformanceNotifications(observationNumber);
 
         guruPerformanceLoaded[observationNumber] = true;
         if (info) {
@@ -1099,6 +1173,11 @@
       if (failed.length) {
         console.warn('Sebagian data gagal dimuat:', failed);
       }
+
+      // Cek hasil Observasi setelah identitas guru selesai disinkronkan.
+      await loadPerformanceNotifications().catch(error => {
+        console.warn('Notifikasi hasil kinerja gagal dimuat:', error);
+      });
 
       updateDashboardStats();
       setRefreshing(false);
@@ -1811,17 +1890,55 @@
       });
     }
 
+    function validationNotificationFingerprint() {
+      return getNotificationRows().map(row => [
+        row.jenis_dokumen || '',
+        row.tanggal_deadline || '',
+        row.validator || '',
+        row.catatan_deadline || '',
+        row.catatan_validator || '',
+        row.status || ''
+      ].join('|')).sort().join('||');
+    }
+
+    function getUnreadValidationNotificationCount() {
+      const rows = getNotificationRows();
+      if (!rows.length) return 0;
+
+      let seen = '';
+      try { seen = localStorage.getItem('simpelks_validation_notification_seen') || ''; } catch (e) {}
+      return seen === validationNotificationFingerprint() ? 0 : rows.length;
+    }
+
+    function markValidationNotificationsSeen() {
+      try {
+        localStorage.setItem(
+          'simpelks_validation_notification_seen',
+          validationNotificationFingerprint()
+        );
+      } catch (e) {}
+    }
+
     function updateNotificationBadge() {
       const badge = $('notificationBadge');
       if (!badge) return;
 
-      const count = getNotificationRows().length;
+      const unreadPerformance = getUnreadPerformanceNotifications().length;
+      const unreadValidation = getUnreadValidationNotificationCount();
+      const count = unreadPerformance + unreadValidation;
+
       badge.textContent = count > 99 ? '99+' : String(count);
       badge.classList.toggle('hidden', count === 0);
     }
 
     function openNotifications() {
       renderNotifications();
+
+      // Deadline/catatan dianggap dibaca setelah panel Notifikasi dibuka.
+      // Hasil observasi tetap BELUM DIBACA sampai guru membuka Hasil Kinerja Guru.
+      markValidationNotificationsSeen();
+      updateNotificationBadge();
+
       $('notificationModal').classList.remove('hidden');
       $('notificationModal').classList.add('flex');
     }
@@ -1836,8 +1953,9 @@
       if (!list) return;
 
       const rows = getNotificationRows();
+      const performanceRows = getUnreadPerformanceNotifications();
 
-      if (!rows.length) {
+      if (!rows.length && !performanceRows.length) {
         list.innerHTML = `
           <div class="rounded-2xl border border-dashed border-slate-300 p-8 text-center">
             <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
@@ -1847,12 +1965,61 @@
               </svg>
             </div>
             <div class="mt-4 font-bold text-slate-700">Belum ada notifikasi</div>
-            <p class="mt-1 text-xs text-slate-500">Catatan Kepala Sekolah dan deadline akan tampil di sini.</p>
+            <p class="mt-1 text-xs text-slate-500">Hasil observasi baru, catatan Kepala Sekolah, dan deadline akan tampil di sini.</p>
           </div>`;
         return;
       }
 
-      list.innerHTML = rows.map(row => {
+      const performanceHtml = performanceRows.map(row => {
+        const obs = Number(row.observation_number || 1);
+        const tanggal = row.tanggal_observasi || '-';
+        const observer = row.nama_observer || 'Kepala Sekolah';
+        const nilai = formatPerformanceScore(row.nilai_akhir);
+
+        return `
+          <div class="rounded-2xl border-2 border-red-200 bg-red-50/70 p-5 shadow-sm">
+            <div class="flex items-start gap-4">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-red-600 text-white">
+                <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/>
+                  <path d="m4 7 5-3 5 4 6-5"/>
+                </svg>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <div class="text-base font-extrabold text-red-800">Cek Nilai Praktik Pembelajaran</div>
+                    <div class="mt-1 text-xs font-semibold text-red-600">Hasil Penilaian Observasi ${obs} sudah tersedia.</div>
+                  </div>
+                  <span class="rounded-full bg-red-600 px-2.5 py-1 text-[10px] font-extrabold text-white">BARU</span>
+                </div>
+
+                <div class="mt-3 grid gap-2 text-xs sm:grid-cols-3">
+                  <div class="rounded-xl bg-white p-3">
+                    <div class="font-bold uppercase tracking-wide text-slate-400">Tanggal</div>
+                    <div class="mt-1 font-semibold text-slate-800">${escapeHtml(tanggal)}</div>
+                  </div>
+                  <div class="rounded-xl bg-white p-3">
+                    <div class="font-bold uppercase tracking-wide text-slate-400">Observer</div>
+                    <div class="mt-1 font-semibold text-slate-800">${escapeHtml(observer)}</div>
+                  </div>
+                  <div class="rounded-xl bg-white p-3">
+                    <div class="font-bold uppercase tracking-wide text-slate-400">Nilai Akhir</div>
+                    <div class="mt-1 text-lg font-extrabold text-blue-700">${escapeHtml(nilai)}</div>
+                  </div>
+                </div>
+
+                <button onclick="openPerformanceFromNotification(${obs})"
+                        class="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-extrabold text-white hover:bg-blue-700">
+                  Cek Hasil Kinerja
+                  <span aria-hidden="true">→</span>
+                </button>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+
+      const validationHtml = rows.map(row => {
         const deadline = row.tanggal_deadline || '-';
         const validator = row.validator || 'Kepala Sekolah';
         const catDeadline = row.catatan_deadline || '';
@@ -1900,6 +2067,8 @@
             </div>
           </div>`;
       }).join('');
+
+      list.innerHTML = performanceHtml + validationHtml;
     }
 
     /***********************
