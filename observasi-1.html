@@ -36,7 +36,7 @@
 <div class="app" id="mainApp">
   <div class="topbar">
     <div class="brand"><div class="brand-icon"><i class="fa-solid fa-clipboard-check"></i></div><div><h1>SIMPEL-KS • Observasi Praktik Mengajar 1</h1><p>Instrumen observasi pembelajaran yang berpusat pada murid</p></div></div>
-    <div class="top-actions"><button class="btn btn-light" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i><span>Kembali</span></button><button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i><span>Cetak</span></button></div>
+    <div class="top-actions"><button class="btn btn-light" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i><span>Kembali</span></button><button class="btn btn-primary" id="btnPrintSpreadsheet" onclick="printSavedSpreadsheet()"><i class="fa-solid fa-print"></i><span>Cetak Spreadsheet</span></button></div>
   </div>
 
   <section class="hero"><h2>Form Observasi Pembelajaran</h2><p>Penilaian terdiri dari tiga kategori: lingkungan kelas yang nyaman, proses belajar mengajar yang efektif, serta asesmen dan umpan balik. Berikan skor 1–4 pada seluruh aspek berdasarkan bukti observasi.</p><div class="security"><i class="fa-solid fa-lock"></i> Akses khusus Kepala Sekolah</div></section>
@@ -122,7 +122,84 @@ function renderRubrics(){const c=document.getElementById("rubricContainer");c.in
 function scoreChanged(id){const it=RUBRICS.find(x=>x.id===id),el=document.getElementById("score_"+id);let v=parseInt(el.value,10);if(!Number.isFinite(v)){document.getElementById("note_"+id).value="";calcTotals();return}if(v<1)v=1;if(v>4)v=4;el.value=v;document.getElementById("note_"+id).value=makeNarrative(it,v);calcTotals()}
 function calcTotals(){const sums={I:0,II:0,III:0};let filled=0;RUBRICS.forEach(it=>{const n=parseInt(document.getElementById("score_"+it.id)?.value,10);if(n>=1&&n<=4){sums[it.section]+=n;filled++}});document.getElementById("section_I").textContent=`${sums.I} / 24`;document.getElementById("section_II").textContent=`${sums.II} / 20`;document.getElementById("section_III").textContent=`${sums.III} / 8`;document.getElementById("sumI").textContent=`${sums.I} / 24`;document.getElementById("sumII").textContent=`${sums.II} / 20`;document.getElementById("sumIII").textContent=`${sums.III} / 8`;const total=sums.I+sums.II+sums.III;document.getElementById("sumAll").textContent=`${total} / 52`;document.getElementById("finalScore").textContent=((total/52)*100).toFixed(2);const status=document.getElementById("saveStatus");status.textContent=filled===13?"Seluruh 13 aspek telah dinilai. Hasil siap disimpan.":`Skor terisi ${filled} dari 13 aspek.`;status.className="status "+(filled===13?"ok":"");return{sums,total,final:(total/52)*100,filled}}
 function validateForm(){const calc=calcTotals();if(!document.getElementById("namaGuru").value.trim())return"Nama guru tidak tersedia.";if(!document.getElementById("jumlahMurid").value)return"Jumlah murid wajib diisi.";if(!document.getElementById("tanggalObservasi").value)return"Tanggal observasi wajib dipilih.";if(!document.getElementById("mulaiKelas").value)return"Waktu dimulainya kelas wajib diisi.";if(calc.filled!==13)return"Semua 13 aspek harus diberi skor 1–4.";return""}
-async function saveObservation(){const err=validateForm();if(err){alert(err);return}if(OBSERVASI_API_URL.includes("PASTE_WEB_APP_URL_HERE")){alert("URL Web App Observasi belum dipasang pada OBSERVASI_API_URL di observasi-1.html.");return}const btn=document.getElementById("btnSave"),status=document.getElementById("saveStatus");const end=nowTime();document.getElementById("akhirKelas").value=end;document.getElementById("akhirObservasi").value=end;const calc=calcTotals();const payload={action:"saveobservasi1",observer_role:"KEPSEK",nama_guru:document.getElementById("namaGuru").value,jabatan:document.getElementById("jabatanGuru").value,kelas:document.getElementById("kelasGuru").value,nama_sekolah:"SDN BAJANGAN",jumlah_murid:document.getElementById("jumlahMurid").value,nama_observer:document.getElementById("namaObserver").value,tanggal_observasi:document.getElementById("tanggalObservasi").value,mulai_kelas:document.getElementById("mulaiKelas").value,mulai_observasi:document.getElementById("mulaiObservasi").value,akhir_kelas:end,akhir_observasi:end,total_i:calc.sums.I,total_ii:calc.sums.II,total_iii:calc.sums.III,total_skor:calc.total,nilai_akhir:calc.final.toFixed(2),catatan_umum:document.getElementById("catatanUmum").value.trim(),items:RUBRICS.map(it=>({id:it.id,section:it.section,aspek:it.title,skor:Number(document.getElementById("score_"+it.id).value),catatan:document.getElementById("note_"+it.id).value}))};try{btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';status.textContent="Mengirim hasil observasi ke Google Spreadsheet...";const r=await fetch(OBSERVASI_API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload),redirect:"follow"});const text=await r.text();let j;try{j=JSON.parse(text)}catch(e){throw Error("Respons server bukan JSON: "+text.slice(0,120))}if(!r.ok||j.success===false)throw Error(j.message||("HTTP "+r.status));status.textContent="Berhasil disimpan ke sheet "+(j.sheet_name||payload.nama_guru)+" • "+end;status.className="status ok";alert("Hasil Observasi 1 berhasil disimpan.\nSheet: "+(j.sheet_name||payload.nama_guru)+"\nNilai akhir: "+payload.nilai_akhir)}catch(e){status.textContent="Gagal menyimpan: "+e.message;status.className="status err";alert("Gagal menyimpan hasil observasi:\n"+e.message)}finally{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-floppy-disk"></i> Simpan Hasil Observasi'}}
+async function saveObservation(){const err=validateForm();if(err){alert(err);return}if(OBSERVASI_API_URL.includes("PASTE_WEB_APP_URL_HERE")){alert("URL Web App Observasi belum dipasang pada OBSERVASI_API_URL di observasi-1.html.");return}const btn=document.getElementById("btnSave"),status=document.getElementById("saveStatus");const end=nowTime();document.getElementById("akhirKelas").value=end;document.getElementById("akhirObservasi").value=end;const calc=calcTotals();const payload={action:"saveobservasi1",observer_role:"KEPSEK",nama_guru:document.getElementById("namaGuru").value,jabatan:document.getElementById("jabatanGuru").value,kelas:document.getElementById("kelasGuru").value,nama_sekolah:"SDN BAJANGAN",jumlah_murid:document.getElementById("jumlahMurid").value,nama_observer:document.getElementById("namaObserver").value,tanggal_observasi:document.getElementById("tanggalObservasi").value,mulai_kelas:document.getElementById("mulaiKelas").value,mulai_observasi:document.getElementById("mulaiObservasi").value,akhir_kelas:end,akhir_observasi:end,total_i:calc.sums.I,total_ii:calc.sums.II,total_iii:calc.sums.III,total_skor:calc.total,nilai_akhir:calc.final.toFixed(2),catatan_umum:document.getElementById("catatanUmum").value.trim(),items:RUBRICS.map(it=>({id:it.id,section:it.section,aspek:it.title,skor:Number(document.getElementById("score_"+it.id).value),catatan:document.getElementById("note_"+it.id).value}))};try{btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';status.textContent="Mengirim hasil observasi ke Google Spreadsheet...";const r=await fetch(OBSERVASI_API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload),redirect:"follow"});const text=await r.text();let j;try{j=JSON.parse(text)}catch(e){throw Error("Respons server bukan JSON: "+text.slice(0,120))}if(!r.ok||j.success===false)throw Error(j.message||("HTTP "+r.status));lastSavedSpreadsheetUrl=j.template_file_url||"";lastSavedSpreadsheetId=j.template_file_id||spreadsheetIdFromUrl(lastSavedSpreadsheetUrl);status.textContent="Berhasil disimpan ke sheet "+(j.sheet_name||payload.nama_guru)+" • Spreadsheet observasi siap dicetak";status.className="status ok";alert("Hasil Observasi 1 berhasil disimpan.\nSheet: "+(j.sheet_name||payload.nama_guru)+"\nNilai akhir: "+payload.nilai_akhir+"\n\nFile Spreadsheet Observasi juga sudah tersimpan di folder ASESMEN DAN PENILAIAN.")}catch(e){status.textContent="Gagal menyimpan: "+e.message;status.className="status err";alert("Gagal menyimpan hasil observasi:\n"+e.message)}finally{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-floppy-disk"></i> Simpan Hasil Observasi'}}
+
+
+let lastSavedSpreadsheetUrl="";
+let lastSavedSpreadsheetId="";
+
+function spreadsheetIdFromUrl(url){
+  const m=String(url||"").match(/\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+  return m?m[1]:"";
+}
+
+function openSpreadsheetPrint(id){
+  if(!id){
+    alert("ID Spreadsheet Observasi tidak tersedia.");
+    return;
+  }
+  const url="https://docs.google.com/spreadsheets/d/"+encodeURIComponent(id)+
+    "/export?format=pdf&portrait=true&fitw=true&sheetnames=false&printtitle=false"+
+    "&pagenumbers=false&gridlines=false&fzr=false";
+  window.open(url,"_blank","noopener");
+}
+
+async function printSavedSpreadsheet(){
+  const nama=document.getElementById("namaGuru").value.trim();
+  if(!nama){
+    alert("Nama guru tidak tersedia.");
+    return;
+  }
+
+  if(lastSavedSpreadsheetId){
+    openSpreadsheetPrint(lastSavedSpreadsheetId);
+    return;
+  }
+
+  if(OBSERVASI_API_URL.includes("PASTE_WEB_APP_URL_HERE")){
+    alert("URL Web App Observasi belum dipasang pada OBSERVASI_API_URL.");
+    return;
+  }
+
+  const btn=document.getElementById("btnPrintSpreadsheet");
+  const original=btn.innerHTML;
+
+  try{
+    btn.disabled=true;
+    btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i><span>Mencari...</span>';
+
+    const qs=new URLSearchParams({
+      action:"getobservasi1file",
+      nama_guru:nama,
+      _:Date.now()
+    });
+
+    const r=await fetch(OBSERVASI_API_URL+"?"+qs.toString(),{
+      method:"GET",
+      cache:"no-store",
+      redirect:"follow"
+    });
+
+    const text=await r.text();
+    let j;
+    try{j=JSON.parse(text)}catch(e){throw Error("Respons server bukan JSON.");}
+    if(!r.ok||j.success===false)throw Error(j.message||("HTTP "+r.status));
+    if(!j.found||!j.spreadsheet_id){
+      alert(j.message||"Spreadsheet Observasi 1 belum ditemukan untuk guru ini.");
+      return;
+    }
+
+    lastSavedSpreadsheetId=j.spreadsheet_id;
+    lastSavedSpreadsheetUrl=j.spreadsheet_url||"";
+    openSpreadsheetPrint(lastSavedSpreadsheetId);
+
+  }catch(e){
+    alert("Gagal membuka Spreadsheet Observasi:\n"+e.message);
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML=original;
+  }
+}
 
 let repeatObservationAllowed=false;
 
@@ -145,6 +222,9 @@ async function checkExistingObservation(namaGuru){
   let j;
   try{j=JSON.parse(text)}catch(e){throw Error("Respons pengecekan observasi bukan JSON.")}
   if(!r.ok||j.success===false)throw Error(j.message||("HTTP "+r.status));
+  if(j&&j.observasi_terakhir&&j.observasi_terakhir.spreadsheet_id){
+    lastSavedSpreadsheetId=j.observasi_terakhir.spreadsheet_id;
+  }
   return j;
 }
 
