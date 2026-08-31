@@ -128,7 +128,9 @@ let repeatObservationAllowed=false;
 
 async function checkExistingObservation(namaGuru){
   if(!namaGuru)return {sudah_dinilai:false};
-  if(OBSERVASI_API_URL.includes("PASTE_WEB_APP_URL_HERE"))return {sudah_dinilai:false};
+  if(OBSERVASI_API_URL.includes("PASTE_WEB_APP_URL_HERE")){
+    throw Error("URL Web App Observasi belum dipasang pada OBSERVASI_API_URL.");
+  }
   const qs=new URLSearchParams({
     action:"checkobservasi1",
     nama_guru:namaGuru,
@@ -206,7 +208,12 @@ async function init(){
       }
     }catch(e){
       console.error("Gagal mengecek REKAP_OBSERVASI_1:",e);
-      repeatObservationAllowed=true;
+      repeatObservationAllowed=false;
+      alert(
+        "Pengecekan riwayat Observasi 1 gagal.\n\n"+
+        e.message+
+        "\n\nHalaman tidak akan melewati pengecekan secara otomatis."
+      );
     }
   }else{
     repeatObservationAllowed=true;
