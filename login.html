@@ -8,10 +8,10 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Login | SIMPEL-KS</title>
+<title>Login | KEPO-IN</title>
 
 <meta name="description"
-      content="SIMPEL-KS - Sistem Monitoring dan Penilaian Efektivitas Administrasi Kepala Sekolah">
+      content="KEPO-IN - Sistem Monitoring dan Penilaian Efektivitas Administrasi Kepala Sekolah">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -1413,7 +1413,7 @@ body::before{
         <div class="brand-text">
 
             <div class="brand-title">
-                SIMPEL-KS
+                KEPO-IN
             </div>
 
             <div class="brand-subtitle">
@@ -1467,7 +1467,7 @@ body::before{
     Selamat Datang di
 
     <span>
-        SIMPEL-KS
+        KEPO-IN
     </span>
 
 </h1>
@@ -1553,7 +1553,7 @@ body::before{
 
 <p>
     Pilih jenis pengguna untuk melanjutkan
-    ke sistem SIMPEL-KS.
+    ke sistem KEPO-IN.
 </p>
 
 </div>
@@ -1789,7 +1789,7 @@ Ingat saya
 
 <div class="footer">
 
-    SIMPEL-KS © 2026
+   KEPO-IN © 2026
 
     <br>
 
@@ -2260,7 +2260,7 @@ async function handleLogin(event){
 
 
         console.log(
-            "SIMPEL-KS RAW RESPONSE:",
+            "KEPO-IN RAW RESPONSE:",
             responseText
         );
 
@@ -2293,7 +2293,7 @@ async function handleLogin(event){
 
 
         console.log(
-            "SIMPEL-KS LOGIN RESULT:",
+            "KEPO-IN LOGIN RESULT:",
             result
         );
 
@@ -2406,7 +2406,7 @@ async function handleLogin(event){
         if(remember){
 
             localStorage.setItem(
-                "simpelks_last_username",
+                "kepo-in_last_username",
                 username
             );
 
@@ -2415,7 +2415,7 @@ async function handleLogin(event){
         else{
 
             localStorage.removeItem(
-                "simpelks_last_username"
+                "kepoin_last_username"
             );
 
         }
@@ -2458,7 +2458,7 @@ async function handleLogin(event){
     catch(error){
 
         console.error(
-            "SIMPEL-KS LOGIN ERROR:",
+            "KEPO-IN LOGIN ERROR:",
             error
         );
 
@@ -2495,55 +2495,55 @@ function saveSession(
 
 
     sessionStorage.setItem(
-        "simpelks_logged_in",
+        "kepoin_logged_in",
         "true"
     );
 
 
     sessionStorage.setItem(
-        "simpelks_user_id",
+        "kepoin_user_id",
         user.user_id || ""
     );
 
 
     sessionStorage.setItem(
-        "simpelks_username",
+        "kepoin_username",
         user.username || ""
     );
 
 
     sessionStorage.setItem(
-        "simpelks_nama",
+        "kepoin_nama",
         user.nama || ""
     );
 
 
     sessionStorage.setItem(
-        "simpelks_role",
+        "kepoin_role",
         serverRole || ""
     );
 
 
     sessionStorage.setItem(
-        "simpelks_email",
+        "kepoin_email",
         user.email || ""
     );
 
 
     sessionStorage.setItem(
-        "simpelks_guru_id",
+        "kepoin_guru_id",
         user.guru_id || ""
     );
 
 
     sessionStorage.setItem(
-        "simpelks_jabatan",
+        "kepoin_jabatan",
         user.jabatan || ""
     );
 
 
     sessionStorage.setItem(
-        "simpelks_login_time",
+        "kepoin_login_time",
         loginTime
     );
 
@@ -2556,7 +2556,7 @@ function saveSession(
     try{
 
         sessionStorage.setItem(
-            "simpelks_user",
+            "kepoin_user",
             JSON.stringify(user)
         );
 
@@ -2699,14 +2699,14 @@ function checkExistingSession(){
 
     const loggedIn =
         sessionStorage.getItem(
-            "simpelks_logged_in"
+            "kepoin_logged_in"
         );
 
 
     const role =
         normalizeRole(
             sessionStorage.getItem(
-                "simpelks_role"
+                "kepoin_role"
             )
         );
 
@@ -2761,7 +2761,7 @@ window.addEventListener(
 
         const lastUsername =
             localStorage.getItem(
-                "simpelks_last_username"
+                "kepoin_last_username"
             );
 
 
@@ -2793,7 +2793,7 @@ window.addEventListener(
         );
 
         console.log(
-            "SIMPEL-KS LOGIN"
+            "KEPO-IN LOGIN"
         );
 
         console.log(
