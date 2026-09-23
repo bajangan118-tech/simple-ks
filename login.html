@@ -1,2111 +1,222 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>Login | KEPO-IN</title>
-
-<meta name="description"
-      content="KEPO-IN (Kepala Sekolah Portal Intelijen) — portal digital untuk monitoring, observasi, administrasi, dan kinerja sekolah berbasis data.">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet">
-
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0756ad">
+<meta name="description" content="KEPO-IN — Kepala Sekolah Portal Intelijen. Kepo-in Kerja, Bukan Gosip.">
+<title>KEPO-IN | Login</title>
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-
-/* =========================================================
-   ROOT
-========================================================= */
-
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
-
-    --primary:#2563eb;
-    --primary-dark:#1d4ed8;
-
-    --secondary:#0f172a;
-
-    --text:#1e293b;
-    --muted:#64748b;
-
-    --border:#e2e8f0;
-
-    --bg:#f8fafc;
-
-    --white:#ffffff;
-
-    --danger:#dc2626;
-
-    --success:#16a34a;
-
+  --blue:#075be8;--cyan:#08baf0;--navy:#05285d;--ink:#10254c;
+  --muted:#6d7f9e;--line:#d7e2f0;--glass:rgba(255,255,255,.18);
 }
-
-
-/* =========================================================
-   BODY
-========================================================= */
-
+html{min-height:100%;background:#0a5cae}
 body{
-
-    font-family:'Inter',sans-serif;
-
-    min-height:100vh;
-
-    color:var(--text);
-
-    background:
-
-        radial-gradient(
-            circle at 15% 15%,
-            rgba(255,255,255,.25),
-            transparent 24%
-        ),
-
-        radial-gradient(
-            circle at 85% 85%,
-            rgba(255,255,255,.16),
-            transparent 25%
-        ),
-
-        linear-gradient(
-            135deg,
-            #071a3d 0%,
-            #0b2f6b 20%,
-            #1456a0 45%,
-            #0c4b91 65%,
-            #061b3d 100%
-        );
-
-    background-attachment:fixed;
-
-    position:relative;
-
-    overflow-x:hidden;
-
+  min-height:100svh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);overflow-x:hidden;
+  background:
+    radial-gradient(circle at 83% 18%,rgba(255,255,255,.92),rgba(192,227,255,.75) 18%,transparent 38%),
+    radial-gradient(circle at 18% 76%,rgba(6,63,117,.66),transparent 31%),
+    linear-gradient(145deg,#073c82 0%,#0875cf 48%,#dff3ff 100%);
 }
-
-
-/* =========================================================
-   METALLIC SHINE
-========================================================= */
-
-body::before{
-
-    content:"";
-
-    position:fixed;
-
-    inset:0;
-
-    pointer-events:none;
-
-    background:
-
-        linear-gradient(
-            115deg,
-            transparent 20%,
-            rgba(255,255,255,.08) 35%,
-            transparent 50%
-        );
-
-    animation:
-        metallicShine 8s linear infinite;
-
-    z-index:0;
-
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.17;
+  background-image:linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px);
+  background-size:46px 46px;mask-image:linear-gradient(to bottom,black,transparent 70%);
 }
-
-
-@keyframes metallicShine{
-
-    0%{
-        transform:translateX(-100%);
-    }
-
-    100%{
-        transform:translateX(100%);
-    }
-
+.top-wave{
+  position:fixed;left:-8vw;top:-27vw;width:74vw;height:45vw;border-radius:0 0 70% 45%;
+  background:linear-gradient(145deg,#063a80,#006ac6);transform:rotate(-7deg);
+  box-shadow:0 4px 0 rgba(91,176,255,.35);z-index:0;
 }
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header{
-
-    height:76px;
-
-    background:
-        rgba(5,22,52,.82);
-
-    backdrop-filter:
-        blur(15px);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.15);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:0 6%;
-
-    position:relative;
-
-    z-index:10;
-
+.bottom-wave{
+  position:fixed;right:-15vw;bottom:-25vw;width:75vw;height:43vw;border-radius:60% 0 0 0;
+  background:linear-gradient(145deg,#00b6ef,#0754c8 55%,#063576);
+  transform:rotate(-9deg);border-top:3px solid rgba(255,255,255,.8);z-index:0;
 }
-
-
-.brand{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:13px;
-
+.page{position:relative;z-index:2;min-height:100svh;padding:34px 44px 28px}
+.brand{display:flex;align-items:center;gap:15px;color:white;max-width:540px}
+.brand-mark{
+  width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-size:33px;
+  border:2px solid rgba(255,255,255,.8);background:linear-gradient(145deg,#eaf7ff,#76cfff);
+  box-shadow:0 12px 30px rgba(0,0,0,.16)
 }
-
-
-.logo{
-
-    width:48px;
-
-    height:48px;
-
-    object-fit:contain;
-
-    border-radius:12px;
-
-    background:#fff;
-
-    padding:3px;
-
+.brand h1{font-size:40px;line-height:.95;letter-spacing:-2px}
+.brand h1 span{color:#2ac5ff}
+.brand h2{font-size:17px;margin-top:6px}
+.brand p{margin-top:5px;color:#8be3ff;font-style:italic;font-weight:700}
+.status{
+  position:absolute;right:42px;top:39px;color:#fff;padding:12px 22px;border:1px solid rgba(255,255,255,.45);
+  border-radius:999px;background:rgba(29,99,169,.28);backdrop-filter:blur(14px);display:flex;align-items:center;gap:12px
 }
-
-
-.brand-text{
-
-    display:flex;
-
-    flex-direction:column;
-
+.status-dot{width:14px;height:14px;border-radius:50%;background:#13ed5a;box-shadow:0 0 15px #13ed5a}
+.status strong{display:block;font-size:13px} .status small{font-size:10px;color:#e4f4ff}
+.quote{position:absolute;left:44px;top:310px;color:#fff;width:190px;font-size:24px;font-style:italic;line-height:1.35}
+.quote:before{content:"“";display:block;font-size:56px;line-height:.6;font-weight:900}
+.quote:after{content:"";display:block;width:44px;height:3px;background:#7ee5ff;margin-top:20px}
+.hand-note{position:absolute;right:44px;top:285px;width:205px;color:#0752a1;font-family:"Segoe Print","Bradley Hand",cursive;font-size:24px;line-height:1.25;transform:rotate(-4deg)}
+.features{
+  position:absolute;left:34px;bottom:125px;width:205px;padding:18px;border:1px solid rgba(255,255,255,.28);
+  border-radius:22px;background:rgba(10,55,103,.38);backdrop-filter:blur(14px);color:#fff
 }
+.feature{display:flex;align-items:center;gap:12px;padding:10px 0}
+.feature-icon{width:37px;height:37px;border-radius:50%;display:grid;place-items:center;background:#0b7cff;font-weight:900}
+.feature b{font-size:11px;display:block} .feature span{font-size:9px;color:#dcefff}
+.school-sign{position:absolute;right:40px;bottom:24px;color:white;text-align:right}
+.school-sign strong{font-size:18px} .school-sign small{display:block;margin-top:4px;color:#bfe2ff}
 
-
-.brand-title{
-
-    font-size:20px;
-
-    font-weight:800;
-
-    color:#fff;
-
-    letter-spacing:-.5px;
-
+.login-card{
+  width:min(520px,calc(100vw - 32px));margin:-6px auto 30px;background:rgba(255,255,255,.96);
+  border:1px solid rgba(255,255,255,.9);border-radius:30px;padding:34px 52px 38px;
+  box-shadow:0 30px 75px rgba(3,47,96,.30);backdrop-filter:blur(20px)
 }
-
-
-.brand-subtitle{
-
-    font-size:10px;
-
-    font-weight:600;
-
-    color:#cbd5e1;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-
-}
-
-
-.header-badge{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    padding:8px 13px;
-
-    border-radius:30px;
-
-    background:
-        rgba(255,255,255,.10);
-
-    border:
-        1px solid rgba(255,255,255,.15);
-
-    color:#dbeafe;
-
-    font-size:12px;
-
-    font-weight:700;
-
-}
-
-
-.status-dot{
-
-    width:7px;
-
-    height:7px;
-
-    background:#22c55e;
-
-    border-radius:50%;
-
-    box-shadow:
-        0 0 0 4px rgba(34,197,94,.12);
-
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.main{
-
-    min-height:
-        calc(100vh - 76px);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:45px 20px;
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-
-.login-wrapper{
-
-    width:100%;
-
-    max-width:1050px;
-
-    display:grid;
-
-    grid-template-columns:
-        1.05fr .95fr;
-
-    background:
-        rgba(255,255,255,.97);
-
-    border-radius:28px;
-
-    overflow:hidden;
-
-    box-shadow:
-
-        0 30px 80px
-        rgba(0,0,0,.35),
-
-        0 5px 20px
-        rgba(0,0,0,.18);
-
-}
-
-
-/* =========================================================
-   LEFT PANEL
-========================================================= */
-
-.info-panel{
-
-    position:relative;
-
-    padding:55px;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            #071d46,
-            #0c3d82 45%,
-            #0878b8
-        );
-
-    color:#fff;
-
-    overflow:hidden;
-
-}
-
-
-.info-panel::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:350px;
-
-    height:350px;
-
-    border-radius:50%;
-
-    background:
-        rgba(255,255,255,.08);
-
-    top:-160px;
-
-    right:-140px;
-
-}
-
-
-.info-panel::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:260px;
-
-    height:260px;
-
-    border-radius:50%;
-
-    background:
-        rgba(255,255,255,.06);
-
-    bottom:-130px;
-
-    left:-120px;
-
-}
-
-
-.info-content{
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-
-.big-logo{
-
-    width:82px;
-
-    height:82px;
-
-    background:#fff;
-
-    border-radius:20px;
-
-    padding:8px;
-
-    object-fit:contain;
-
-    margin-bottom:25px;
-
-    box-shadow:
-        0 12px 30px rgba(0,0,0,.25);
-
-}
-
-
-.info-panel h1{
-
-    font-size:34px;
-
-    line-height:1.15;
-
-    letter-spacing:-1px;
-
-    margin-bottom:16px;
-
-}
-
-
-.info-panel h1 span{
-
-    color:#93c5fd;
-
-}
-
-
-.info-panel p{
-
-    font-size:14px;
-
-    line-height:1.8;
-
-    color:#dbeafe;
-
-    max-width:430px;
-
-}
-
-
-.feature-list{
-
-    list-style:none;
-
-    margin-top:35px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:15px;
-
-}
-
-
-.feature{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:13px;
-
-    font-size:13px;
-
-    font-weight:500;
-
-    color:#eff6ff;
-
-}
-
-
-.feature-icon{
-
-    width:34px;
-
-    height:34px;
-
-    border-radius:10px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:
-        rgba(255,255,255,.13);
-
-    border:
-        1px solid rgba(255,255,255,.12);
-
-    font-size:16px;
-
-}
-
-
-/* =========================================================
-   LOGIN PANEL
-========================================================= */
-
-.login-panel{
-
-    padding:55px 50px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    background:
-        rgba(255,255,255,.98);
-
-}
-
-
-.login-heading{
-
-    margin-bottom:30px;
-
-}
-
-
-.login-heading h2{
-
-    font-size:27px;
-
-    font-weight:800;
-
-    color:var(--secondary);
-
-    margin-bottom:8px;
-
-}
-
-
-.login-heading p{
-
-    font-size:13px;
-
-    color:var(--muted);
-
-    line-height:1.6;
-
-}
-
-
-/* =========================================================
-   ROLE
-========================================================= */
-
-.role-title{
-
-    font-size:12px;
-
-    font-weight:700;
-
-    color:#475569;
-
-    margin-bottom:12px;
-
-}
-
-
-.role-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:10px;
-
-}
-
-
+.chart-wrap{height:180px;display:flex;align-items:center;justify-content:center}
+.chart-wrap img{width:230px;max-width:78%;height:auto;mix-blend-mode:multiply;filter:drop-shadow(0 16px 14px rgba(4,83,135,.15))}
+.login-card h3{text-align:center;font-size:34px;letter-spacing:-1.5px;color:#071c60}
+.login-card h3 span{background:linear-gradient(90deg,#075bea,#0ac2ed);-webkit-background-clip:text;background-clip:text;color:transparent}
+.portal-name{text-align:center;font-size:9px;letter-spacing:4px;font-weight:900;margin-top:5px;color:#294b7c}
+.login-sub{text-align:center;color:#7083a0;font-style:italic;font-size:12px;margin:14px 0 20px}
+.divider{width:50px;height:3px;background:linear-gradient(90deg,#0bc1f1,#075bea);border-radius:99px;margin:0 auto 20px}
+
+.role-title{font-size:9px;font-weight:900;letter-spacing:1.5px;color:#6f809a;margin-bottom:8px;text-align:center}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}
 .role-btn{
-
-    border:
-        1px solid var(--border);
-
-    background:#fff;
-
-    border-radius:14px;
-
-    padding:14px 8px;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-    color:#475569;
-
-    font-family:inherit;
-
+  border:1px solid var(--line);background:white;border-radius:14px;padding:10px;cursor:pointer;color:#60718d;
+  font-weight:800;display:flex;align-items:center;justify-content:center;gap:7px;transition:.2s
 }
-
-
-.role-btn:hover{
-
-    border-color:#93c5fd;
-
-    background:#eff6ff;
-
-    transform:
-        translateY(-2px);
-
-}
-
-
-.role-btn.active{
-
-    border-color:
-        var(--primary);
-
-    background:#eff6ff;
-
-    color:
-        var(--primary);
-
-    box-shadow:
-        0 5px 15px
-        rgba(37,99,235,.12);
-
-}
-
-
-.role-icon{
-
-    width:40px;
-
-    height:40px;
-
-    margin:
-        auto auto 8px;
-
-    border-radius:12px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:#f1f5f9;
-
-    font-size:19px;
-
-}
-
-
-.role-btn.active .role-icon{
-
-    background:#dbeafe;
-
-}
-
-
-.role-name{
-
-    font-size:11px;
-
-    font-weight:700;
-
-}
-
-
-/* =========================================================
-   LOGIN FORM
-========================================================= */
-
-.login-form{
-
-    margin-top:25px;
-
-    display:none;
-
-    animation:
-        fadeUp .35s ease;
-
-}
-
-
-.login-form.show{
-
-    display:block;
-
-}
-
-
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:
-            translateY(10px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-/* =========================================================
-   SELECTED ROLE
-========================================================= */
-
-.selected-role{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:11px 13px;
-
-    border-radius:11px;
-
-    background:#f8fafc;
-
-    border:
-        1px solid var(--border);
-
-    margin-bottom:18px;
-
-}
-
-
-.selected-role-left{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    font-size:12px;
-
-    font-weight:700;
-
-}
-
-
-.selected-role-icon{
-
-    width:30px;
-
-    height:30px;
-
-    border-radius:8px;
-
-    background:#dbeafe;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-}
-
-
-.change-role{
-
-    border:none;
-
-    background:none;
-
-    color:var(--primary);
-
-    font-size:11px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    font-family:inherit;
-
-}
-
-
-/* =========================================================
-   FORM
-========================================================= */
-
-.form-group{
-
-    margin-bottom:16px;
-
-}
-
-
-.form-group label{
-
-    display:block;
-
-    font-size:12px;
-
-    font-weight:700;
-
-    color:#334155;
-
-    margin-bottom:8px;
-
-}
-
-
-.input-wrapper{
-
-    position:relative;
-
-}
-
-
-.input-icon{
-
-    position:absolute;
-
-    left:14px;
-
-    top:50%;
-
-    transform:
-        translateY(-50%);
-
-    color:#94a3b8;
-
-    font-size:16px;
-
-    pointer-events:none;
-
-}
-
-
+.role-btn:hover,.role-btn.active{border-color:#1d8ef1;background:#edf7ff;color:#075bea;box-shadow:0 7px 18px rgba(7,91,232,.12)}
+.role-btn .role-icon{font-size:18px}
+.selected-role{display:flex;align-items:center;justify-content:center;gap:7px;color:#49617f;font-size:11px;margin-bottom:10px}
+.change-role{border:0;background:transparent;color:#075bea;font-weight:800;cursor:pointer}
+
+.login-form{display:none} .login-form.show{display:block}
+.field{position:relative;margin-bottom:11px}
+.field-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#71829b;font-size:17px}
 .form-input{
-
-    width:100%;
-
-    height:48px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:12px;
-
-    outline:none;
-
-    padding:
-        0 43px;
-
-    font-family:inherit;
-
-    font-size:13px;
-
-    color:var(--text);
-
-    transition:.2s;
-
-    background:#fff;
-
+  width:100%;height:52px;border:1px solid #cedbea;border-radius:14px;padding:0 48px 0 47px;
+  outline:none;font-size:15px;color:#21395c;background:#fff;transition:.2s
 }
-
-
-.form-input:focus{
-
-    border-color:#60a5fa;
-
-    box-shadow:
-        0 0 0 4px
-        rgba(37,99,235,.08);
-
-}
-
-
-.form-input:disabled{
-
-    background:#f8fafc;
-
-    cursor:not-allowed;
-
-}
-
-
-.password-toggle{
-
-    position:absolute;
-
-    right:13px;
-
-    top:50%;
-
-    transform:
-        translateY(-50%);
-
-    border:none;
-
-    background:none;
-
-    cursor:pointer;
-
-    color:#94a3b8;
-
-    font-size:16px;
-
-}
-
-
-/* =========================================================
-   OPTIONS
-========================================================= */
-
-.form-options{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    margin:
-        3px 0 20px;
-
-}
-
-
-.remember{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    font-size:11px;
-
-    color:#64748b;
-
-    cursor:pointer;
-
-}
-
-
-.remember input{
-
-    accent-color:
-        var(--primary);
-
-}
-
-
-.forgot{
-
-    color:
-        var(--primary);
-
-    font-size:11px;
-
-    font-weight:600;
-
-    text-decoration:none;
-
-}
-
-
-/* =========================================================
-   LOGIN BUTTON
-========================================================= */
-
+.form-input:focus{border-color:#168cf0;box-shadow:0 0 0 4px rgba(22,140,240,.10)}
+.password-toggle{position:absolute;right:13px;top:50%;transform:translateY(-50%);border:0;background:transparent;cursor:pointer;font-size:18px}
+.options{display:flex;justify-content:space-between;align-items:center;font-size:11px;margin:10px 1px 18px}
+.remember{display:flex;align-items:center;gap:7px} .remember input{width:18px;height:18px;accent-color:#075bea}
+.forgot{color:#075bea;text-decoration:none;font-weight:700}
 .login-button{
-
-    width:100%;
-
-    height:49px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #1d4ed8,
-            #075985
-        );
-
-    color:#fff;
-
-    font-family:inherit;
-
-    font-size:13px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 10px 22px
-        rgba(37,99,235,.28);
-
-    transition:.25s;
-
+  width:100%;height:55px;border:0;border-radius:16px;color:white;font-size:16px;font-weight:900;cursor:pointer;
+  background:linear-gradient(100deg,#075bea,#0bb9ed);box-shadow:0 12px 24px rgba(7,91,232,.25);transition:.2s
 }
+.login-button:hover{transform:translateY(-1px);box-shadow:0 16px 28px rgba(7,91,232,.30)}
+.login-button:disabled{opacity:.65;cursor:wait;transform:none}
+.alert{display:none;margin:12px 0 0;padding:11px 13px;border-radius:12px;font-size:11px;line-height:1.5}
+.alert.show{display:block} .alert.error{background:#fff1f2;color:#be123c;border:1px solid #fecdd3}
+.alert.success{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0} .alert.info{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+.back-sep{display:flex;align-items:center;gap:14px;color:#7d8ca4;font-size:11px;margin:24px 0 14px}
+.back-sep:before,.back-sep:after{content:"";height:1px;background:#a8bfd9;flex:1}
+.home-link{display:flex;justify-content:center;align-items:center;gap:9px;height:46px;border:1px solid #a8c9f0;border-radius:999px;color:#0754c8;text-decoration:none;font-weight:800;font-size:12px}
+.trust-strip{display:none}
 
-
-.login-button:hover:not(:disabled){
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 13px 28px
-        rgba(37,99,235,.35);
-
+@media(max-width:1050px){
+  .quote,.hand-note,.features,.school-sign{display:none}
+  .page{padding:25px 20px}
+  .login-card{margin:30px auto}
 }
-
-
-.login-button:active{
-
-    transform:
-        translateY(0);
-
+@media(max-width:650px){
+  body{background:linear-gradient(155deg,#064187 0%,#0879ce 42%,#dff4ff 100%)}
+  .top-wave{width:130vw;height:62vw;top:-31vw;left:-20vw}
+  .bottom-wave{width:120vw;height:60vw;bottom:-38vw}
+  .page{padding:18px 12px 26px}
+  .brand{gap:10px}
+  .brand-mark{width:48px;height:48px;font-size:22px}
+  .brand h1{font-size:25px;letter-spacing:-1px}
+  .brand h2{font-size:11px;margin-top:3px}
+  .brand p{font-size:9px;margin-top:3px}
+  .status{position:static;margin:18px auto 0;width:max-content;padding:8px 13px}
+  .status-dot{width:10px;height:10px}
+  .login-card{margin:16px auto 0;padding:23px 18px 25px;border-radius:24px}
+  .chart-wrap{height:125px}
+  .chart-wrap img{width:175px}
+  .login-card h3{font-size:27px}
+  .portal-name{font-size:7px;letter-spacing:2.3px}
+  .login-sub{font-size:10px;margin:10px 0 14px}
+  .divider{margin-bottom:15px}
+  .role-grid{gap:8px}
+  .role-btn{font-size:11px;padding:9px 6px}
+  .form-input{height:50px;font-size:16px}
+  .login-button{height:52px}
+  .trust-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}
+  .trust-item{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:9px 5px;text-align:center;color:white;font-size:8px;backdrop-filter:blur(8px)}
+  .trust-item b{display:block;font-size:15px;margin-bottom:3px}
 }
-
-
-.login-button:disabled{
-
-    cursor:not-allowed;
-
-    opacity:.7;
-
+@media(max-width:370px){
+  .brand h2,.brand p{display:none}
+  .login-card{padding-left:14px;padding-right:14px}
+  .login-card h3{font-size:24px}
+  .options{font-size:10px}
 }
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.login-button.loading{
-
-    position:relative;
-
-}
-
-
-.login-button.loading::before{
-
-    content:"";
-
-    display:inline-block;
-
-    width:13px;
-
-    height:13px;
-
-    border:
-        2px solid rgba(255,255,255,.4);
-
-    border-top-color:#fff;
-
-    border-radius:50%;
-
-    margin-right:8px;
-
-    vertical-align:-2px;
-
-    animation:
-        spin .7s linear infinite;
-
-}
-
-
-@keyframes spin{
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-
-/* =========================================================
-   ALERT
-========================================================= */
-
-.alert{
-
-    display:none;
-
-    padding:
-        11px 13px;
-
-    border-radius:10px;
-
-    font-size:11px;
-
-    margin-bottom:15px;
-
-    line-height:1.5;
-
-}
-
-
-.alert.show{
-
-    display:block;
-
-}
-
-
-.alert.error{
-
-    background:#fef2f2;
-
-    color:#b91c1c;
-
-    border:
-        1px solid #fecaca;
-
-}
-
-
-.alert.info{
-
-    background:#eff6ff;
-
-    color:#1d4ed8;
-
-    border:
-        1px solid #bfdbfe;
-
-}
-
-
-.alert.success{
-
-    background:#f0fdf4;
-
-    color:#15803d;
-
-    border:
-        1px solid #bbf7d0;
-
-}
-
-
-/* =========================================================
-   NOTE
-========================================================= */
-
-.login-note{
-
-    text-align:center;
-
-    margin-top:17px;
-
-    font-size:10px;
-
-    color:#94a3b8;
-
-    line-height:1.6;
-
-}
-
-
-.footer{
-
-    text-align:center;
-
-    margin-top:22px;
-
-    color:#94a3b8;
-
-    font-size:10px;
-
-    line-height:1.6;
-
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:850px){
-
-    .login-wrapper{
-
-        grid-template-columns:1fr;
-
-        max-width:550px;
-
-    }
-
-
-    .info-panel{
-
-        padding:35px;
-
-    }
-
-
-    .info-panel h1{
-
-        font-size:28px;
-
-    }
-
-
-    .feature-list{
-
-        display:grid;
-
-        grid-template-columns:
-            1fr 1fr;
-
-    }
-
-
-    .login-panel{
-
-        padding:40px 35px;
-
-    }
-
-}
-
-
-@media(max-width:520px){
-
-    .header{
-
-        padding:
-            0 18px;
-
-    }
-
-
-    .header-badge{
-
-        display:none;
-
-    }
-
-
-    .brand-title{
-
-        font-size:17px;
-
-    }
-
-
-    .brand-subtitle{
-
-        font-size:8px;
-
-    }
-
-
-    .main{
-
-        padding:
-            20px 12px;
-
-    }
-
-
-    .login-wrapper{
-
-        border-radius:20px;
-
-    }
-
-
-    .info-panel{
-
-        padding:
-            30px 25px;
-
-    }
-
-
-    .big-logo{
-
-        width:65px;
-
-        height:65px;
-
-    }
-
-
-    .info-panel h1{
-
-        font-size:25px;
-
-    }
-
-
-    .feature-list{
-
-        grid-template-columns:1fr;
-
-        margin-top:25px;
-
-    }
-
-
-    .login-panel{
-
-        padding:
-            30px 22px;
-
-    }
-
-
-    .login-heading h2{
-
-        font-size:23px;
-
-    }
-
-
-    .role-grid{
-
-        gap:7px;
-
-    }
-
-
-    .role-btn{
-
-        padding:
-            12px 5px;
-
-    }
-
-}
-
-
-/* =========================================================
-   KEPO-IN — GEN Z ART DIRECTION + MOBILE FIRST OVERRIDE
-   Existing authentication logic is intentionally untouched.
-========================================================= */
-:root{
-    --k-blue:#2563eb;
-    --k-cyan:#06b6d4;
-    --k-violet:#7c3aed;
-    --k-ink:#08142d;
-    --k-lime:#bef264;
-}
-
-body{
-    background:
-      radial-gradient(circle at 10% 15%,rgba(34,211,238,.22),transparent 25%),
-      radial-gradient(circle at 92% 12%,rgba(168,85,247,.22),transparent 27%),
-      radial-gradient(circle at 85% 90%,rgba(190,242,100,.12),transparent 23%),
-      linear-gradient(145deg,#06142f 0%,#0b2453 48%,#071a3b 100%);
-}
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:.16;
-    background-image:
-      linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
-    background-size:42px 42px;
-    mask-image:linear-gradient(to bottom,black,transparent 80%);
-    z-index:0;
-}
-.header{
-    height:78px;
-    background:rgba(5,17,43,.68);
-    border-bottom:1px solid rgba(255,255,255,.12);
-}
-.logo{
-    border-radius:15px;
-    box-shadow:0 8px 24px rgba(0,0,0,.18);
-}
-.brand-title{
-    background:linear-gradient(90deg,#fff,#7dd3fc,#c4b5fd);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    font-size:21px;
-}
-.brand-subtitle{
-    text-transform:none;
-    letter-spacing:.35px;
-    color:#bfdbfe;
-}
-.header-badge{
-    background:rgba(255,255,255,.08);
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
-}
-.login-wrapper{
-    max-width:1080px;
-    border:1px solid rgba(255,255,255,.22);
-    box-shadow:0 34px 100px rgba(0,0,0,.38);
-}
-.info-panel{
-    padding:58px;
-    background:
-      radial-gradient(circle at 85% 10%,rgba(34,211,238,.26),transparent 26%),
-      radial-gradient(circle at 10% 90%,rgba(168,85,247,.22),transparent 28%),
-      linear-gradient(145deg,#081a3a,#123e85 50%,#075985);
-}
-.info-panel::before{
-    width:290px;height:290px;
-    border:1px solid rgba(255,255,255,.14);
-    background:transparent;
-    top:-110px;right:-90px;
-}
-.info-panel::after{
-    width:210px;height:210px;
-    background:rgba(190,242,100,.08);
-}
-.big-logo{
-    border-radius:24px;
-    transform:rotate(-2deg);
-}
-.info-panel h1{
-    font-size:39px;
-    letter-spacing:-1.6px;
-    max-width:470px;
-}
-.info-panel h1 span{
-    color:#67e8f9;
-    position:relative;
-}
-.info-panel p{max-width:470px}
-.vibe-tagline{
-    margin-top:22px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:13px 15px;
-    border:1px solid rgba(255,255,255,.16);
-    background:rgba(255,255,255,.08);
-    border-radius:16px;
-    backdrop-filter:blur(8px);
-}
-.vibe-tagline>span{
-    width:38px;height:38px;
-    display:grid;place-items:center;
-    border-radius:12px;
-    background:rgba(255,255,255,.12);
-    font-size:19px;
-}
-.vibe-tagline b{display:block;font-size:12px;color:#fff}
-.vibe-tagline small{display:block;margin-top:3px;font-size:10px;color:#bfdbfe;line-height:1.4}
-.feature-list{gap:12px;margin-top:28px}
-.feature{
-    padding:10px 12px;
-    border-radius:14px;
-    background:rgba(255,255,255,.055);
-    border:1px solid rgba(255,255,255,.08);
-}
-.feature-icon{
-    flex:0 0 34px;
-    background:rgba(255,255,255,.12);
-}
-.login-panel{
-    position:relative;
-    padding:55px 52px;
-    background:
-      radial-gradient(circle at 100% 0%,rgba(219,234,254,.55),transparent 30%),
-      #fff;
-}
-.login-panel::before{
-    content:"01 / ACCESS";
-    position:absolute;
-    right:24px;
-    top:20px;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:1.4px;
-    color:#94a3b8;
-}
-.login-heading h2{
-    font-size:29px;
-    letter-spacing:-.8px;
-}
-.role-btn{
-    min-height:105px;
-    position:relative;
-    overflow:hidden;
-}
-.role-btn::after{
-    content:"";
-    position:absolute;
-    width:60px;height:60px;
-    border-radius:50%;
-    right:-28px;bottom:-28px;
-    background:rgba(37,99,235,.06);
-}
-.role-btn.active{
-    border-color:#60a5fa;
-    background:linear-gradient(145deg,#eff6ff,#eef2ff);
-    box-shadow:0 10px 25px rgba(37,99,235,.12);
-}
-.role-icon{font-size:21px}
-.form-input{
-    height:52px;
-    border-radius:14px;
-    background:#fbfdff;
-}
-.login-button{
-    height:53px;
-    border-radius:15px;
-    font-size:13px;
-    background:linear-gradient(120deg,#2563eb,#7c3aed 62%,#0891b2);
-    background-size:180% 180%;
-    animation:buttonGlow 6s ease infinite;
-}
-@keyframes buttonGlow{
-    0%,100%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-}
-.footer{color:#94a3b8}
-
-/* Tablet */
-@media(max-width:850px){
-    .main{align-items:flex-start;padding:26px 16px 40px}
-    .login-wrapper{max-width:620px}
-    .info-panel{padding:38px 36px}
-    .info-panel h1{font-size:32px}
-    .feature-list{grid-template-columns:1fr 1fr}
-    .login-panel{padding:42px 36px}
-}
-
-/* Phone — compact, thumb-friendly, no horizontal overflow */
-@media(max-width:520px){
-    body{background-attachment:scroll}
-    .header{
-        height:66px;
-        padding:0 14px;
-        position:sticky;
-        top:0;
-        z-index:30;
-    }
-    .logo{width:40px;height:40px;border-radius:12px}
-    .brand{gap:9px;min-width:0}
-    .brand-title{font-size:16px}
-    .brand-subtitle{
-        max-width:220px;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        font-size:8px;
-    }
-    .main{
-        min-height:calc(100svh - 66px);
-        padding:14px 10px 28px;
-    }
-    .login-wrapper{
-        border-radius:24px;
-        overflow:hidden;
-        box-shadow:0 18px 50px rgba(0,0,0,.3);
-    }
-    .info-panel{
-        padding:26px 22px 24px;
-        min-height:auto;
-    }
-    .big-logo{
-        width:58px;height:58px;
-        margin-bottom:18px;
-        border-radius:17px;
-    }
-    .info-panel h1{
-        font-size:29px;
-        line-height:1.08;
-        margin-bottom:12px;
-    }
-    .info-panel p{
-        font-size:12px;
-        line-height:1.65;
-    }
-    .vibe-tagline{margin-top:16px;padding:11px 12px}
-    .feature-list{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:8px;
-        margin-top:18px;
-    }
-    .feature{
-        align-items:flex-start;
-        gap:8px;
-        padding:9px;
-        font-size:10px;
-        line-height:1.35;
-    }
-    .feature-icon{
-        width:28px;height:28px;
-        flex-basis:28px;
-        border-radius:9px;
-        font-size:13px;
-    }
-    .login-panel{
-        padding:31px 20px 27px;
-    }
-    .login-panel::before{top:13px;right:16px;font-size:7px}
-    .login-heading{margin-bottom:22px}
-    .login-heading h2{font-size:24px;margin-bottom:6px}
-    .login-heading p{font-size:11px}
-    .role-title{font-size:10px}
-    .role-grid{gap:9px}
-    .role-btn{
-        min-height:90px;
-        padding:12px 7px;
-        border-radius:15px;
-    }
-    .role-icon{width:36px;height:36px;font-size:18px}
-    .role-name{font-size:10px}
-    .login-form{margin-top:20px}
-    .selected-role{padding:9px 11px}
-    .form-group{margin-bottom:14px}
-    .form-input{
-        height:50px;
-        font-size:16px; /* prevents iOS zoom on focus */
-    }
-    .form-options{margin-bottom:18px}
-    .login-button{height:52px}
-    .footer{margin-top:18px}
-}
-
-/* Very small phones */
-@media(max-width:360px){
-    .brand-subtitle{display:none}
-    .info-panel{padding:23px 18px}
-    .info-panel h1{font-size:26px}
-    .feature-list{grid-template-columns:1fr}
-    .login-panel{padding:29px 17px 24px}
-    .role-grid{grid-template-columns:1fr 1fr}
-}
-
-/* Respect accessibility settings */
-@media(prefers-reduced-motion:reduce){
-    *,*::before,*::after{
-        animation-duration:.01ms!important;
-        animation-iteration-count:1!important;
-        scroll-behavior:auto!important;
-    }
-}
-
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
-
 </head>
-
-
 <body>
+<div class="top-wave"></div><div class="bottom-wave"></div>
+<div class="page">
+  <header class="brand">
+    <div class="brand-mark">🎓</div>
+    <div>
+      <h1>KEPO-<span>IN</span></h1>
+      <h2>Kepala Sekolah Portal Intelijen</h2>
+      <p>Kepo-in Kerja, Bukan Gosip.</p>
+    </div>
+  </header>
 
+  <div class="status"><span class="status-dot"></span><div><strong>Sistem Online</strong><small>Siap Melayani</small></div></div>
+  <div class="quote">Data<br>Menjadi Cerita<br>Perubahan</div>
+  <div class="hand-note">Bersama Data,<br>Wujudkan Sekolah<br>yang Lebih Baik</div>
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
+  <aside class="features">
+    <div class="feature"><div class="feature-icon">✓</div><div><b>Aman</b><span>& Terpercaya</span></div></div>
+    <div class="feature"><div class="feature-icon">⚡</div><div><b>Akses Cepat</b><span>& Mudah</span></div></div>
+    <div class="feature"><div class="feature-icon">▥</div><div><b>Berbasis Data</b><span>untuk Tindak Lanjut</span></div></div>
+  </aside>
 
-<header class="header">
+  <main class="login-card">
+    <div class="chart-wrap"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAMAAzAMBEQACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYDBAcBAv/EAEcQAAEDAwAFBgcLDAMBAAAAAAEAAgMEBREGEiExURMiQWFxgQdSkaGxssEUIyQlMjNCYnOi0RUWJkNTcnSCksLh8DSD0mP/xAAaAQEAAwEBAQAAAAAAAAAAAAAAAgMEBQEG/8QANBEBAAIBAwIDBgQGAgMAAAAAAAECAwQRMRIhIjJBBRNRYXGBIzNCsZGhwdHh8BTxJDRD/9oADAMBAAIRAxEAPwDuKAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBlAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBB5kIIue70kNVKyWojaGADV3uJ7OHR5eCurgyWjesMmTWYcdpi9o7enqwnSS3NcA50oBGQeSO0K2NFmnvt/Nnn2tponaZn+EpSmqI6mBk0TtZjxlpxjKzWrNLdMuhjyVy1i9eJZ1FMQEBAQEBAQEBAQEBAQEBAQEBAQEHmcINWule1rY4MctKcNz0DpPcpVjdVltO21eZ4/uo1+Y2G9yxRghrGNG1dbSzvi3fN+0YiNRMR6RDWm28j9n/c5bKev1/pDnZe01+n9ZXuwD4mpPswuFqp/Ht9X13s7/1Mf0hJKhsEBAQEBAQEBAQEBAQEBAQEBAQEBB8TSNijdI84a0FxPABOezyZiI3lq0kT3uNVKOe8Ya0/Rb0Dt4qVvgrpXeeqeZUbSZ36R1Q4Bo+6F1tL+VD5z2jO+pt9mrIT7z9n/c5bacT9XLyz4o+n9ZdAsWyzUIP7BnoXA1P51vrL7HQRtpMf0j9kgqWsQEBAQEBAQEBAQEBAQEBAQEBAQeOdqoNGb4ZUCL9TC4GT6zugd2/yKXEKbeO3T6R+/o3WnYornMNJZf0puIzuewfcauzpvyq/76vlvaEf+Tf7ftD5edkf2YPpW3FHZy80+L7OjWkattpBwiaPMvns/wCbafm+10kbYKR8obqqaBAQEBAQEBAQEBAQEBAQEBAQEHhOAg1K6oczUihANRLkRtO4cXHqH+OlSiPVVkvMdo5VrSK81llq4aSiEIY6LXc97NZzjnad616fBTLEzZzdbqsmmmtMe3f4tP8AOS6lkTmzs52cjkxjYVtposE77x/Nzb+1dVHrH8FWulS6pvM08hBfIGueQMZOMegBSikY7dFeELXtmrOW3M/9N+Q8xp/+LT5lrxd4+7m5+d/l/R06hbq0UA4RtHmXzeTveX3OGNsdY+TZUFogICAgICAgICAgICAgICAgICDHUSshidJI4NaBklexG87I2tFY3lrUUJc59VOCJZAMNP0G9DfaV7afSFeOn6rc/spGn7sX2nb0ch7V0dF5Jcf2r+bXf4NJkb5KSAxjI5wJ71vx2iJndx8lLWiNkBcMx3aRjuhjdg3qq9onK146WjT90vlr4WuDwPeWDDgRjmDqWjFbtHb4/u52bHvM949P2dVgaBDGODR6F83bmX3VPLDIvEhAQEBAQEBAQEBAQEBAQEBAQeOOAgjzmvqtU/8AHgdtPjycOwensU/LH1UzHvLbekfv/j9/o3wOCguc18I0rW32FhPO5AYHeV0tF5JcP2pHjj6Nqx4NriJHSfStNuWHF5VS0gI/OSq6msH3QoU863JG2FNNpZJIYXBpIMEXqBbaZIrH8f3cm+G1+/x2/aHUotkTP3Qvm55fdV4h9rx6ICAgICAgICAgICAgICAgIPDuQaVbO8uZSwOxLKMl3iN6T+ClWPWVV5tPgrz+yIv1+Zo4aOnjpeUZKx2OdjV1cf8ApXYcHvt53Z8+prporWI333/ls8otJ31cDZo6MBrsgZk61dOi25t/Jnr7S6uKqD4QKqSp0gppXsDA6D5IOdxIV+KkYvDE7s2pyf8AI8Uxtsn9Hzm0U5459KunllxxtVT788HSevHilg+4FCnnWZY/BX2haPclK3G0RMHmCWnlDHXtEfRd2/JHYuPL6aOHqPRAQEBAQEBAQEBAQEBAQEBBr1dS2mhdI7Ljua0b3E7gF7WN+EL2isbsdDTuiDpJ3a9TLzpHegDqG5e2nedo4Rx0msdVuZ/3t9P88qL4VZNSrtQHSyX0sW7Q/q+zm+1eaff+jHo4c2mEni71itk8ubh8isadPLb3SY2n3Mdn8xVVvPDVEb45WbR+Uiz02I351d2OtWTyox18PKl3l5dpRdMgtPKM2f8AW1Qr51mWPwnSaL5MA6mry/Eo4o8v2XUbguQ+keoCAgICAgICAgICAgICAgIPHEBpJOABtR5M7RvKPos1kzayT5oD4O3iPH7+jqU58MdMfdVSJvPXPHp/f7pAqC5zDwwy8nXWccWTeli36H9X2cv2lXfp+5os7NkgP1n+sVuty5eLyqvp674/pf4U+kqmfPDVH5Urdo4fiSjP1faVbKikeFQb09/51XQgtwZW9JH6tqqp51uWI91EOoUnKCaAOY0jLdzieHUl9+mfu8xRHVX7fuvC5D6EQEBAQEBAQEBAQEBAQEBB5kcUEZI78ozOgYM0rD767xz4o6uPkU/LG/qomfez0xx6/P5f79ERpVpdHo1W0lPLRumZURudrMeAW4IGNXp38VZgwTl37q9Tqfcbdt931TaVtqYGTxwucx4y0ahBPfnCvnR/Nmr7Qmf0ue+Fq5i4XKylsMkIZHUAteWnO2LaME+fClixzhnbfky5Yz45nbbZLaJO+Iaf953rFbLcufijwqrp+/4/g/hvaVTPnho/+Urlo4c2Sk+z9pVsz3Z8ceFQryWHSa46u1xqAD5AqsfnW54/Dh1aj21UPHXavcvkkxR46/WF0XId8QEBAQEBAQEBAQEBAQEHmQgjK+aSeb3DRlzXuGZZgPmm9XRrHoHfwzOsbR1SpyWm09Ffv8v8tynp2U8TIomhrG7AFGZ3WVrFY2cr8NMwju9nGcEwS4/qatujnlg19d4hs6OPJsdET4h9YrZZz8ceGFU8JT8XG0fZT+mNU5PNDTjj8Kfqsmh7ibBTfz+sVfbllx+VVNPXE6RQYx/xhv7SqJnxtMflSuej7pRZaMBrNkW8u/wre6isRFXPqxxdpRXgkFxrMbOOQFDH5k88eCHX7ftracdPKBMv5cvcEfiVXRcl3BAQEBAQEBAQEBAQEBB4XAb03EVNcX1Mz6e1gSPadWSc/Nxnh9Y9Q71OK+sqZvNp6afxUvSnSWq0UvdNQxuEsMsPKyuI573knLs+xasNK5YmZhi1OS+HbplJQ36pe1kzHykuaCA4jGD1K+dPT4KI1OWe8TLn/hYuEtwuNoklaGclHI3DTnWyWn2KuuOMU9l9ss5qeKE/o0/Nho/3D6xWq3LFj4VLwlu+MrT9lN6WKm/nhqxR+FP1WbQ536PU3a71irpllpHZWPCDqi+RkOGtyLcAcMlUfraYj8OVzsLwLJR84fNBXbqIjs5zNJraV1hGce73D7+FVj5lPNHhh2K0vBuVNk/rEzfly9wfmVXfK5btGUHqAgICAgICAgICDwnCDDU1cNLC6aoeI4273OXsRMztDy1orG8q9LdorpVz08lS6lggIElOwkTvyARrY2saQQcbyOCvrjnbwxuzWzRv4p2+XrLdiu1ugbHBAwxQNAa3VZqtYOGF5OHJMby8jU4o2rHDlXhkqI/zutxDgWPosgtO/nFW6W3T2lXra9dItCdoH5oac5JHJN1c9i2zLDHCleEl/wALt2DnLX+xU5OYXY/LKzaLvzo/SEdDXes5XT8VFOFV8I7ta62prdpEMpPVzmqjJ5oasXkmE5o3c6SksFMyadjXAu2Hf8oq7aZ7snVFeyoaZXGGs0hbJC/LTC1oOMccqq3bJtLTTvimVhpNJjTW+nhhgaTHGBrOd09iv6Y5Y5yTEdoUyCtc6+VU0mGk1ckmevXJVGPzNuojesbOgaJ3qorNJKKOWqkcC4uIB5u4q7Lt0Tsw0rebRu6xDM8fIcQsM0ieWqt714ltMq3jGuNYcdyqnHC+usvHmjdnZVxnfkdqhOOYaaavHb5MzHh+1pyoNETExvD6R6ICAgICDwuwgw1NXBSQmaplZFG0ZL5HBoC9iJmdoRtetY3mVbZptR1Va6koqeSV7Xloe5wa0kdYycdy1xorTTqmXOye0q0ye7rWZn+TC6av93+7K2OCqDXZiiaSGwj6oOwu+sfIFKMFJr2lGdXfq36XMtNrtPSeEuSppHSQx1UcJ1uJDQ0juwvcETSemXupmmWnXTlaaq9U8fztWwHpA3+ha/d/CGDqiPVznwg3GGruVulp5C8MY5jnOzx3be1U5Y6Lw16eYvjtCfg0mMFJDFFCHakbQXPf1cMe1aOj1ZfeTvtEKppfdJ6+aklkYzmawGoNwPes+eNpjZr0s9UTu26e7zR0MMLah7WNbgNacdKviY2ZbVtvMNG6RVNZLC+DWe5gdrF2TvIwqclZtMTC/DeuOsxaeWzDTV3JNbyYAAxtO9XR17bM95xzO+719kNTMJal5a/GzU4KM4+qd5exqeivTDfjs8WAHSSuwMAEqyKSonUS24bZAHfMt353L2KVV2z2+Kx6N0oprhFM6PUjaDziMAbF5kiOnsYr2tk3nhc/yvBHkAOe4Dc0LH7uZb92N98edkcLGni4l3m2YXvuY9ZR8UteS51Eh2ylufFGPRtU4x1j0NplM6KvMs1RISTsAyTlZtV6Q3aGu02lY1jdEQEBAQY6h7o4JHsALmtJAKQTwpzdIbtcrOyptkUQqM6szNhMZ6dUH5XVtC3xp8dbeJxba7NMdvuj2S08j9eqe+prBvFWffAephAA7grPdzEbRHb5I++rfm3dR6m6y0ulFdNqgOL9Zm0gDYPYtGLfyzwz56RPeGKq0nrZsl9S7qVu1IVdN57qzeH1Vxq6OaMvlMJOTvxkj8AqMteq0TX0a9PaMdLVt6t0mokceTppTniMK7qn4M21Y5linss9wLOWAj1M4xtVd8U35W01VcW/S3G2aTAD5iceKFP3cqf+RX4M8FohYBrN1z9banu4RnUT6NltBCwc2MD+VSikK5y2n1ZW0wJ5rT2AL3aIR6pn5tyG21L8EQkDi5eTaISjHafRstskmQ6WVgHAKM5IWRp7zy2YLdShus4l5yRtOzeoe8mV0aavq22Mhi+ajY3uUZtMrK4qV4h9GoAUVm3waz66OORxkka3LRgntKPO0er7p5qmtOLfR1NSc4zHEcDvOweVRm9Y5lKtL28td0rSaNaQVQBmZTUTD+1k5R4/lbs+8qramkcL66TLPPZbtH7O60xyCSqNRJJguOoGAY4D/KyZcs5J4bcGCMUT35S6qXiAgICD4nbrwvbxaQg5Ro9cRbrq7Wd8HmeYpeDSDhrvYe1dKI66bfDh8/njpt1xxxK6VtFDVR6k8THj6wzhQpeYl7Naz2c90hslKy5ytLCWnBBJPDiuli2vTeXNy5LY7zEI1lqpGfJgb3qzohXOe8+rM2BjNjIwOwblLphGbzPMvoRa+xrdbs2ryY29XkTuyR0MrjzY3eT/AEqM2hZWl54hmZbJeUa12q3Wzjb2fioTlrC6unyWbDbTCNj5S48AMKE5p9IWxo/jLMyjpYv1bSeJKhOSZXV09Ksoc1oxGGjsChvK2K1jiHw+bic968SYJayOMZe9rB1lDePVgoqiorgBbqOprMk4MMTi3ed7tw7yozeteZexE3nwxumqXRW/1eDI2nowd/Kv13Dubs86pnU0jju0V0mWeeyXpNAoTtuNwqJzja2P3tvd0qm2qt+mF9dHSPNO6eotGbNRYMFvgLvHe3XPlKpnJaeZaK4qV4hKhoAAGwDoCgse6oQAMIPUBAQEBB47cg5XppaPybfXSxs+C1wLxwa/c4ecEdvUtuDJvt8nN1WLa3ylN6OXdk9v5GpkaJoMNJcflDoKtvSZnqj1c6s9Pht6MN9FNWsBiJ5Zu52NmOBV+CbUn5Kc9Iyccodtu/aP7cLROZVXST+qWeGGOAODPpDDiRvVVrzblox4K0fXvbRgNbgdWxRmZWxjpHEPDJ/oUVkREME07WTxDIzh+fMvHrBPWxsyXyNAHEr3Z5No9WKnqZa44t1LUVWfpRMLm/1bvKVCb1rzKVa2v5Y3StLovpBWYL4oaNh/avy4dw/FU21NI4aK6TJPeeyWpdAIjg3G4zy8WwgMHl2lVW1Np4hdXR0/VO6dt+iljonB8VugfIN0kreUd287OO5UWyXtzLRXDjrxCawAMdCgtMIGAg9QEBAQEBAQEBAQQ2ltoF4sssDABPH77A7xXgHHlGR3qzFfotuqzY+umzndil94kDgQ4OwWneD0grqUnwuLePF82+6VSGJ0wG0leDXnuEMQJfI1vaU7nVER3YoKqatfqUNJUVOdzo2Eg9+5RtetfNKVYtfyxP8AD+6Ug0a0gq8ERRUjT9KaTJHcFROppHDRXSZbc9knTeD9jnCS53SolcPowAMHWMnJPmVM6q36YX10Vf1TunLfojYaAtdDbYZHg55SozK4HqLs47lTbNkt6tFMGOnEJxrWtGGgAcAFWue4CBhAQEBAQEBAQEBAQEBAQEHjkHPNJbTUUF4lmoKOWeOt5+pEzOq/p/Fb9Plr07WnbZy9Xgt19VI33atPo7pJWEH3NBSNP0p5dvkAJ8ynbVY447oV0ma3O0f79EpTeD/XObpdp5Rv5OnYIx2EnJPdhUW1lv0xsvr7Pr+q0ynKDROxUJa+G3xve3c+bMjh2F2VRbNktzLTTT4qd4qnI2NYwBjQ0cAMKte+kBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQf//Z" alt="Grafik peningkatan kinerja KEPO-IN"></div>
+    <h3>Masuk & <span>Kepo-in</span></h3>
+    <div class="portal-name">KEPALA SEKOLAH PORTAL INTELIJEN</div>
+    <p class="login-sub">Satu Login, Banyak Informasi untuk Kemajuan Sekolah</p>
+    <div class="divider"></div>
 
-    <div class="brand">
-
-        <img
-            class="logo"
-            src="https://bajangan118-tech.github.io/simple-ks/assets/logo_sd.png"
-            alt="Logo Sekolah"
-            onerror="this.style.display='none';"
-        >
-
-        <div class="brand-text">
-
-            <div class="brand-title">
-                KEPO-IN
-            </div>
-
-            <div class="brand-subtitle">
-                Kepala Sekolah Portal Intelijen
-            </div>
-
-        </div>
-
+    <div class="role-title">PILIH PERAN</div>
+    <div class="role-grid">
+      <button type="button" class="role-btn" onclick="selectRole('kepsek')"><span class="role-icon">👨‍💼</span>Kepala Sekolah</button>
+      <button type="button" class="role-btn" onclick="selectRole('guru')"><span class="role-icon">👨‍🏫</span>Guru</button>
     </div>
 
+    <form id="loginForm" class="login-form" onsubmit="handleLogin(event)">
+      <div class="selected-role"><span id="selectedRoleIcon">👤</span><span id="selectedRoleName">Pengguna</span><button type="button" class="change-role" onclick="changeRole()">Ganti</button></div>
+      <div class="field"><span class="field-icon">♙</span><input id="username" class="form-input" type="text" autocomplete="username" placeholder="Username"></div>
+      <div class="field"><span class="field-icon">▣</span><input id="password" class="form-input" type="password" autocomplete="current-password" placeholder="Password"><button id="passwordToggle" class="password-toggle" type="button" onclick="togglePassword()" aria-label="Tampilkan sandi">👁</button></div>
+      <div class="options">
+        <label class="remember"><input id="remember" type="checkbox"> Ingat saya</label>
+        <a class="forgot" href="#" onclick="forgotPassword(event)">Lupa password?</a>
+      </div>
+      <button id="loginButton" class="login-button" type="submit">Masuk</button>
+      <div id="alert" class="alert" role="alert"></div>
+    </form>
 
-    <div class="header-badge">
+    <div class="back-sep">atau kembali ke</div>
+    <a class="home-link" href="index.html">⌂ &nbsp; Beranda Website SDN Bajangan</a>
+  </main>
 
-        <span class="status-dot"></span>
+  <div class="trust-strip">
+    <div class="trust-item"><b>✓</b>Aman</div>
+    <div class="trust-item"><b>⚡</b>Akses Cepat</div>
+    <div class="trust-item"><b>▥</b>Berbasis Data</div>
+  </div>
 
-        Ready to Kepo-in
-
-    </div>
-
-</header>
-
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
-<main class="main">
-
-<div class="login-wrapper">
-
-
-<!-- =========================================================
-     INFO PANEL
-========================================================= -->
-
-<section class="info-panel">
-
-<div class="info-content">
-
-
-<img
-    class="big-logo"
-    src="https://bajangan118-tech.github.io/simple-ks/assets/logo_sd.png"
-    alt="Logo Sekolah"
-    onerror="this.style.display='none';"
->
-
-
-<h1>
-        Kepo-in <span>Kerja</span>,<br>
-        bukan Gosip.
-    </h1>
-
-
-<p>
-        <strong>KEPO-IN</strong> — <em>Kepala Sekolah Portal Intelijen</em> —
-        adalah ruang digital untuk membaca progres kerja, administrasi, observasi,
-        dan kinerja sekolah secara lebih ringkas, transparan, dan berbasis bukti.
-    </p>
-    <div class="vibe-tagline">
-        <span>⚡</span>
-        <div><b>Stay curious. Stay evidence-based.</b><small>Yang dikepoin datanya, yang ditindaklanjuti kerjanya.</small></div>
-    </div>
-
-
-<ul class="feature-list">
-
-
-<li class="feature">
-
-    <span class="feature-icon">
-        📊
-    </span>
-
-    Pantau progres tanpa drama
-
-</li>
-
-
-<li class="feature">
-
-    <span class="feature-icon">
-        ✓
-    </span>
-
-    Validasi kerja lebih sat-set
-
-</li>
-
-
-<li class="feature">
-
-    <span class="feature-icon">
-        📁
-    </span>
-
-    Bukti kerja rapi & terintegrasi
-
-</li>
-
-
-<li class="feature">
-
-    <span class="feature-icon">
-        🔐
-    </span>
-
-    Akses aman sesuai peran
-
-</li>
-
-
-</ul>
-
-
+  <div class="school-sign"><strong>SDN Bajangan</strong><small>Cerdas · Berkarakter · Berprestasi</small></div>
 </div>
-
-</section>
-
-
-<!-- =========================================================
-     LOGIN PANEL
-========================================================= -->
-
-<section class="login-panel">
-
-
-<div class="login-heading">
-
-<h2>
-    Masuk & Kepo-in 👀
-</h2>
-
-<p>
-    Pilih peranmu, masuk ke portal, lalu lihat progres kerja yang perlu ditindaklanjuti.
-</p>
-
-</div>
-
-
-<div class="role-title">
-    KAMU MASUK SEBAGAI APA?
-</div>
-
-
-<!-- =========================================================
-     ROLE
-========================================================= -->
-
-<div class="role-grid">
-
-
-<button
-    type="button"
-    class="role-btn"
-    data-role="kepsek"
-    onclick="selectRole('kepsek')"
->
-
-    <div class="role-icon">
-        👨‍💼
-    </div>
-
-    <div class="role-name">
-        Kepala Sekolah
-    </div>
-
-</button>
-
-
-<button
-    type="button"
-    class="role-btn"
-    data-role="guru"
-    onclick="selectRole('guru')"
->
-
-    <div class="role-icon">
-        👨‍🏫
-    </div>
-
-    <div class="role-name">
-        Guru
-    </div>
-
-</button>
-
-
-</div>
-
-
-<!-- =========================================================
-     LOGIN FORM
-========================================================= -->
-
-<form
-    id="loginForm"
-    class="login-form"
-    autocomplete="on"
-    onsubmit="handleLogin(event)"
->
-
-
-<div class="selected-role">
-
-
-<div class="selected-role-left">
-
-<span
-    class="selected-role-icon"
-    id="selectedRoleIcon"
->
-    👨‍💼
-</span>
-
-
-<span id="selectedRoleName">
-    Kepala Sekolah
-</span>
-
-
-</div>
-
-
-<button
-    type="button"
-    class="change-role"
-    onclick="changeRole()"
->
-    Ganti
-</button>
-
-
-</div>
-
-
-<div
-    id="alert"
-    class="alert"
-></div>
-
-
-<!-- USERNAME -->
-
-<div class="form-group">
-
-<label for="username">
-    Username
-</label>
-
-
-<div class="input-wrapper">
-
-<span class="input-icon">
-    👤
-</span>
-
-
-<input
-    type="text"
-    id="username"
-    class="form-input"
-    placeholder="Masukkan username"
-    autocomplete="username"
-    maxlength="100"
-    required
->
-
-</div>
-
-</div>
-
-
-<!-- PASSWORD -->
-
-<div class="form-group">
-
-<label for="password">
-    Sandi
-</label>
-
-
-<div class="input-wrapper">
-
-<span class="input-icon">
-    🔒
-</span>
-
-
-<input
-    type="password"
-    id="password"
-    class="form-input"
-    placeholder="Masukkan sandi"
-    autocomplete="current-password"
-    maxlength="200"
-    required
->
-
-
-<button
-    type="button"
-    class="password-toggle"
-    id="passwordToggle"
-    onclick="togglePassword()"
-    aria-label="Tampilkan sandi"
->
-    👁
-</button>
-
-
-</div>
-
-</div>
-
-
-<!-- OPTIONS -->
-
-<div class="form-options">
-
-
-<label class="remember">
-
-<input
-    type="checkbox"
-    id="remember"
->
-
-Ingat saya
-
-</label>
-
-
-<a
-    href="#"
-    class="forgot"
-    onclick="forgotPassword(event)"
->
-    Lupa sandi?
-</a>
-
-
-</div>
-
-
-<!-- LOGIN BUTTON -->
-
-<button
-    type="submit"
-    class="login-button"
-    id="loginButton"
->
-    Kepo-in Sekarang →
-</button>
-
-
-<div class="login-note">
-
-    🔐 Aman & terkontrol. Gunakan akun resmi yang diberikan administrator sekolah.
-
-</div>
-
-
-</form>
-
-
-<div class="footer">
-
-   KEPO-IN © 2026
-
-    <br>
-
-    Kepala Sekolah Portal Intelijen • Kepo-in Kerja bukan Gosip
-
-</div>
-
-
-</section>
-
-</div>
-
-</main>
-
-
 <script>
 
 /* =========================================================
@@ -3119,6 +1230,6 @@ window.addEventListener(
 </script>
 
 
-</body>
 
+</body>
 </html>
