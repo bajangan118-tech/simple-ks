@@ -11,7 +11,7 @@
 <title>Login | KEPO-IN</title>
 
 <meta name="description"
-      content="KEPO-IN - Sistem Monitoring dan Penilaian Efektivitas Administrasi Kepala Sekolah">
+      content="KEPO-IN (Kepala Sekolah Portal Intelijen) — portal digital untuk monitoring, observasi, administrasi, dan kinerja sekolah berbasis data.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -1387,6 +1387,314 @@ body::before{
 
 }
 
+
+/* =========================================================
+   KEPO-IN — GEN Z ART DIRECTION + MOBILE FIRST OVERRIDE
+   Existing authentication logic is intentionally untouched.
+========================================================= */
+:root{
+    --k-blue:#2563eb;
+    --k-cyan:#06b6d4;
+    --k-violet:#7c3aed;
+    --k-ink:#08142d;
+    --k-lime:#bef264;
+}
+
+body{
+    background:
+      radial-gradient(circle at 10% 15%,rgba(34,211,238,.22),transparent 25%),
+      radial-gradient(circle at 92% 12%,rgba(168,85,247,.22),transparent 27%),
+      radial-gradient(circle at 85% 90%,rgba(190,242,100,.12),transparent 23%),
+      linear-gradient(145deg,#06142f 0%,#0b2453 48%,#071a3b 100%);
+}
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.16;
+    background-image:
+      linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+    background-size:42px 42px;
+    mask-image:linear-gradient(to bottom,black,transparent 80%);
+    z-index:0;
+}
+.header{
+    height:78px;
+    background:rgba(5,17,43,.68);
+    border-bottom:1px solid rgba(255,255,255,.12);
+}
+.logo{
+    border-radius:15px;
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
+}
+.brand-title{
+    background:linear-gradient(90deg,#fff,#7dd3fc,#c4b5fd);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    font-size:21px;
+}
+.brand-subtitle{
+    text-transform:none;
+    letter-spacing:.35px;
+    color:#bfdbfe;
+}
+.header-badge{
+    background:rgba(255,255,255,.08);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.login-wrapper{
+    max-width:1080px;
+    border:1px solid rgba(255,255,255,.22);
+    box-shadow:0 34px 100px rgba(0,0,0,.38);
+}
+.info-panel{
+    padding:58px;
+    background:
+      radial-gradient(circle at 85% 10%,rgba(34,211,238,.26),transparent 26%),
+      radial-gradient(circle at 10% 90%,rgba(168,85,247,.22),transparent 28%),
+      linear-gradient(145deg,#081a3a,#123e85 50%,#075985);
+}
+.info-panel::before{
+    width:290px;height:290px;
+    border:1px solid rgba(255,255,255,.14);
+    background:transparent;
+    top:-110px;right:-90px;
+}
+.info-panel::after{
+    width:210px;height:210px;
+    background:rgba(190,242,100,.08);
+}
+.big-logo{
+    border-radius:24px;
+    transform:rotate(-2deg);
+}
+.info-panel h1{
+    font-size:39px;
+    letter-spacing:-1.6px;
+    max-width:470px;
+}
+.info-panel h1 span{
+    color:#67e8f9;
+    position:relative;
+}
+.info-panel p{max-width:470px}
+.vibe-tagline{
+    margin-top:22px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 15px;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.08);
+    border-radius:16px;
+    backdrop-filter:blur(8px);
+}
+.vibe-tagline>span{
+    width:38px;height:38px;
+    display:grid;place-items:center;
+    border-radius:12px;
+    background:rgba(255,255,255,.12);
+    font-size:19px;
+}
+.vibe-tagline b{display:block;font-size:12px;color:#fff}
+.vibe-tagline small{display:block;margin-top:3px;font-size:10px;color:#bfdbfe;line-height:1.4}
+.feature-list{gap:12px;margin-top:28px}
+.feature{
+    padding:10px 12px;
+    border-radius:14px;
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.08);
+}
+.feature-icon{
+    flex:0 0 34px;
+    background:rgba(255,255,255,.12);
+}
+.login-panel{
+    position:relative;
+    padding:55px 52px;
+    background:
+      radial-gradient(circle at 100% 0%,rgba(219,234,254,.55),transparent 30%),
+      #fff;
+}
+.login-panel::before{
+    content:"01 / ACCESS";
+    position:absolute;
+    right:24px;
+    top:20px;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1.4px;
+    color:#94a3b8;
+}
+.login-heading h2{
+    font-size:29px;
+    letter-spacing:-.8px;
+}
+.role-btn{
+    min-height:105px;
+    position:relative;
+    overflow:hidden;
+}
+.role-btn::after{
+    content:"";
+    position:absolute;
+    width:60px;height:60px;
+    border-radius:50%;
+    right:-28px;bottom:-28px;
+    background:rgba(37,99,235,.06);
+}
+.role-btn.active{
+    border-color:#60a5fa;
+    background:linear-gradient(145deg,#eff6ff,#eef2ff);
+    box-shadow:0 10px 25px rgba(37,99,235,.12);
+}
+.role-icon{font-size:21px}
+.form-input{
+    height:52px;
+    border-radius:14px;
+    background:#fbfdff;
+}
+.login-button{
+    height:53px;
+    border-radius:15px;
+    font-size:13px;
+    background:linear-gradient(120deg,#2563eb,#7c3aed 62%,#0891b2);
+    background-size:180% 180%;
+    animation:buttonGlow 6s ease infinite;
+}
+@keyframes buttonGlow{
+    0%,100%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+}
+.footer{color:#94a3b8}
+
+/* Tablet */
+@media(max-width:850px){
+    .main{align-items:flex-start;padding:26px 16px 40px}
+    .login-wrapper{max-width:620px}
+    .info-panel{padding:38px 36px}
+    .info-panel h1{font-size:32px}
+    .feature-list{grid-template-columns:1fr 1fr}
+    .login-panel{padding:42px 36px}
+}
+
+/* Phone — compact, thumb-friendly, no horizontal overflow */
+@media(max-width:520px){
+    body{background-attachment:scroll}
+    .header{
+        height:66px;
+        padding:0 14px;
+        position:sticky;
+        top:0;
+        z-index:30;
+    }
+    .logo{width:40px;height:40px;border-radius:12px}
+    .brand{gap:9px;min-width:0}
+    .brand-title{font-size:16px}
+    .brand-subtitle{
+        max-width:220px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        font-size:8px;
+    }
+    .main{
+        min-height:calc(100svh - 66px);
+        padding:14px 10px 28px;
+    }
+    .login-wrapper{
+        border-radius:24px;
+        overflow:hidden;
+        box-shadow:0 18px 50px rgba(0,0,0,.3);
+    }
+    .info-panel{
+        padding:26px 22px 24px;
+        min-height:auto;
+    }
+    .big-logo{
+        width:58px;height:58px;
+        margin-bottom:18px;
+        border-radius:17px;
+    }
+    .info-panel h1{
+        font-size:29px;
+        line-height:1.08;
+        margin-bottom:12px;
+    }
+    .info-panel p{
+        font-size:12px;
+        line-height:1.65;
+    }
+    .vibe-tagline{margin-top:16px;padding:11px 12px}
+    .feature-list{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+        margin-top:18px;
+    }
+    .feature{
+        align-items:flex-start;
+        gap:8px;
+        padding:9px;
+        font-size:10px;
+        line-height:1.35;
+    }
+    .feature-icon{
+        width:28px;height:28px;
+        flex-basis:28px;
+        border-radius:9px;
+        font-size:13px;
+    }
+    .login-panel{
+        padding:31px 20px 27px;
+    }
+    .login-panel::before{top:13px;right:16px;font-size:7px}
+    .login-heading{margin-bottom:22px}
+    .login-heading h2{font-size:24px;margin-bottom:6px}
+    .login-heading p{font-size:11px}
+    .role-title{font-size:10px}
+    .role-grid{gap:9px}
+    .role-btn{
+        min-height:90px;
+        padding:12px 7px;
+        border-radius:15px;
+    }
+    .role-icon{width:36px;height:36px;font-size:18px}
+    .role-name{font-size:10px}
+    .login-form{margin-top:20px}
+    .selected-role{padding:9px 11px}
+    .form-group{margin-bottom:14px}
+    .form-input{
+        height:50px;
+        font-size:16px; /* prevents iOS zoom on focus */
+    }
+    .form-options{margin-bottom:18px}
+    .login-button{height:52px}
+    .footer{margin-top:18px}
+}
+
+/* Very small phones */
+@media(max-width:360px){
+    .brand-subtitle{display:none}
+    .info-panel{padding:23px 18px}
+    .info-panel h1{font-size:26px}
+    .feature-list{grid-template-columns:1fr}
+    .login-panel{padding:29px 17px 24px}
+    .role-grid{grid-template-columns:1fr 1fr}
+}
+
+/* Respect accessibility settings */
+@media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+    }
+}
+
 </style>
 
 </head>
@@ -1417,7 +1725,7 @@ body::before{
             </div>
 
             <div class="brand-subtitle">
-                Sistem Administrasi Sekolah
+                Kepala Sekolah Portal Intelijen
             </div>
 
         </div>
@@ -1429,7 +1737,7 @@ body::before{
 
         <span class="status-dot"></span>
 
-        Sistem Aktif
+        Ready to Kepo-in
 
     </div>
 
@@ -1463,24 +1771,20 @@ body::before{
 
 
 <h1>
-
-    Selamat Datang di
-
-    <span>
-        KEPO-IN
-    </span>
-
-</h1>
+        Kepo-in <span>Kerja</span>,<br>
+        bukan Gosip.
+    </h1>
 
 
 <p>
-
-    Sistem Monitoring & Penilaian Efektivitas
-    Administrasi Kepala Sekolah untuk membantu
-    pengelolaan administrasi sekolah secara cepat,
-    tertib, dan berbasis data.
-
-</p>
+        <strong>KEPO-IN</strong> — <em>Kepala Sekolah Portal Intelijen</em> —
+        adalah ruang digital untuk membaca progres kerja, administrasi, observasi,
+        dan kinerja sekolah secara lebih ringkas, transparan, dan berbasis bukti.
+    </p>
+    <div class="vibe-tagline">
+        <span>⚡</span>
+        <div><b>Stay curious. Stay evidence-based.</b><small>Yang dikepoin datanya, yang ditindaklanjuti kerjanya.</small></div>
+    </div>
 
 
 <ul class="feature-list">
@@ -1492,7 +1796,7 @@ body::before{
         📊
     </span>
 
-    Dashboard monitoring sekolah
+    Pantau progres tanpa drama
 
 </li>
 
@@ -1503,7 +1807,7 @@ body::before{
         ✓
     </span>
 
-    Validasi administrasi guru
+    Validasi kerja lebih sat-set
 
 </li>
 
@@ -1514,7 +1818,7 @@ body::before{
         📁
     </span>
 
-    Dokumen digital terintegrasi Google Drive
+    Bukti kerja rapi & terintegrasi
 
 </li>
 
@@ -1525,7 +1829,7 @@ body::before{
         🔐
     </span>
 
-    Akses berdasarkan hak pengguna
+    Akses aman sesuai peran
 
 </li>
 
@@ -1548,19 +1852,18 @@ body::before{
 <div class="login-heading">
 
 <h2>
-    Masuk ke Aplikasi
+    Masuk & Kepo-in 👀
 </h2>
 
 <p>
-    Pilih jenis pengguna untuk melanjutkan
-    ke sistem KEPO-IN.
+    Pilih peranmu, masuk ke portal, lalu lihat progres kerja yang perlu ditindaklanjuti.
 </p>
 
 </div>
 
 
 <div class="role-title">
-    PILIH AKSES PENGGUNA
+    KAMU MASUK SEBAGAI APA?
 </div>
 
 
@@ -1771,15 +2074,13 @@ Ingat saya
     class="login-button"
     id="loginButton"
 >
-    Masuk ke Sistem
+    Kepo-in Sekarang →
 </button>
 
 
 <div class="login-note">
 
-    Akses sistem dilindungi.
-    Gunakan akun yang telah diberikan
-    oleh administrator sekolah.
+    🔐 Aman & terkontrol. Gunakan akun resmi yang diberikan administrator sekolah.
 
 </div>
 
@@ -1793,7 +2094,7 @@ Ingat saya
 
     <br>
 
-    Sistem Monitoring & Penilaian Efektivitas Administrasi
+    Kepala Sekolah Portal Intelijen • Kepo-in Kerja bukan Gosip
 
 </div>
 
@@ -2415,6 +2716,9 @@ async function handleLogin(event){
         else{
 
             localStorage.removeItem(
+                "kepo-in_last_username"
+            );
+            localStorage.removeItem(
                 "kepoin_last_username"
             );
 
@@ -2598,7 +2902,7 @@ function resetLoginButton(){
 
 
     button.textContent =
-        "Masuk ke Sistem";
+        "Kepo-in Sekarang →";
 
 }
 
