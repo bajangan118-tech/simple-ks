@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIMPEL-KS | Dashboard Kepala Sekolah</title>
-<meta name="description" content="SIMPEL-KS - Sistem Monitoring & Penilaian Efektifitas Administrasi Kepala Sekolah">
+<title>KEPO-IN | Dashboard Kepala Sekolah</title>
+<meta name="description" content="KEPO-IN - Kepala Sekolah Portal Intelijen">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -184,6 +184,257 @@ button,input,select,textarea{font-family:inherit} button{cursor:pointer} a{text-
 @media(max-width:1200px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.filter-grid{grid-template-columns:repeat(2,1fr)}.deadline-form-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:950px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%}.mobile-toggle{display:block}.dashboard-grid,.bottom-grid{grid-template-columns:1fr}}
 @media(max-width:650px){.content{padding:16px}.top-header{padding:0 16px}.page-title h1{font-size:17px}.page-title p{display:none}.welcome{padding:22px;align-items:flex-start;flex-direction:column}.welcome-date{text-align:left}.kpi-grid{grid-template-columns:1fr 1fr;gap:10px}.kpi{padding:15px}.kpi-value{font-size:23px}.completeness{flex-direction:column;align-items:center}.status-list{width:100%}.filter-grid,.deadline-form-grid,.user-form-grid{grid-template-columns:1fr}.deadline-form-grid .full,.user-form-grid .full{grid-column:auto}}
+
+/* =========================================================
+   KEPO-IN — MOBILE / TABLET RESPONSIVE OVERRIDE
+   Kepala Sekolah Portal Intelijen
+========================================================= */
+:root{
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+  --sidebar:#07152f;
+  --sidebar-hover:#10264d;
+  --bg:#f4f7fb;
+  --radius:18px;
+}
+body{
+  background:
+    radial-gradient(circle at 90% 5%,rgba(37,99,235,.08),transparent 24%),
+    var(--bg);
+}
+.sidebar{
+  background:
+    radial-gradient(circle at 10% 0%,rgba(6,182,212,.15),transparent 25%),
+    linear-gradient(180deg,#07152f 0%,#0b1f43 100%);
+  box-shadow:10px 0 35px rgba(15,23,42,.08);
+}
+.sidebar-header{height:76px}
+.logo-box{
+  background:linear-gradient(135deg,#2563eb,#06b6d4);
+  box-shadow:0 8px 20px rgba(37,99,235,.3);
+}
+.logo-text strong{font-size:18px;letter-spacing:.3px}
+.logo-text span{
+  display:block;
+  margin-top:2px;
+  font-size:7px;
+  letter-spacing:.55px;
+  line-height:1.35;
+}
+.menu-item.active{
+  background:linear-gradient(110deg,#2563eb,#0ea5e9);
+}
+.top-header{
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.welcome{
+  background:
+    radial-gradient(circle at 90% 20%,rgba(255,255,255,.16),transparent 23%),
+    linear-gradient(120deg,#1d4ed8,#2563eb 48%,#0891b2);
+  box-shadow:0 14px 35px rgba(37,99,235,.15);
+}
+.card,.kpi{transition:transform .2s ease,box-shadow .2s ease}
+@media(hover:hover){
+  .kpi:hover,.card:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(15,23,42,.09)}
+}
+
+/* Tablet */
+@media(max-width:950px){
+  .sidebar{
+    width:min(300px,86vw);
+    transform:translateX(-105%);
+    box-shadow:18px 0 55px rgba(0,0,0,.25);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;width:100%}
+  .mobile-toggle{display:grid;place-items:center}
+  .content{padding:20px}
+  .dashboard-grid,.bottom-grid{grid-template-columns:1fr}
+  .top-header{height:70px}
+}
+
+/* Phone */
+@media(max-width:650px){
+  html,body{max-width:100%;overflow-x:hidden}
+  .top-header{
+    height:64px;
+    padding:0 12px;
+    gap:8px;
+  }
+  .header-left{gap:9px;min-width:0}
+  .page-title{min-width:0}
+  .page-title h1{
+    font-size:15px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:205px;
+  }
+  .page-title p{display:none}
+  .header-right{gap:6px}
+  .header-right .icon-button:first-child{display:none}
+  .icon-button,.mobile-toggle{
+    width:36px;height:36px;border-radius:11px;flex:none;
+  }
+  .content{padding:12px}
+  .welcome{
+    padding:19px 17px;
+    border-radius:17px;
+    margin-bottom:13px;
+    gap:12px;
+  }
+  .welcome h2{font-size:18px;line-height:1.25}
+  .welcome p{font-size:10px;line-height:1.55}
+  .welcome-date strong{font-size:12px}
+  .welcome-date span{font-size:9px}
+
+  /* KPI remains readable without making a very long page */
+  .kpi-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+    margin-bottom:13px;
+  }
+  .kpi{
+    min-width:0;
+    padding:13px;
+    border-radius:15px;
+  }
+  .kpi-top{margin-bottom:8px}
+  .kpi-icon{width:36px;height:36px;border-radius:10px;font-size:14px}
+  .kpi-value{font-size:21px}
+  .kpi-label{font-size:9px;line-height:1.35}
+  .kpi-percent{font-size:8px}
+
+  .card{border-radius:16px}
+  .card-header{
+    padding:14px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+  .card-header h3{font-size:12px}
+  .card-header span{font-size:9px}
+  .card-body{padding:14px}
+
+  .completeness{gap:16px}
+  .circle-progress{width:115px;height:115px}
+  .circle-inner{width:88px;height:88px}
+  .circle-inner strong{font-size:23px}
+
+  /* Forms: large touch targets and no iOS focus zoom */
+  .form-control{
+    min-height:46px;
+    padding:11px;
+    border-radius:11px;
+    font-size:16px;
+  }
+  select.form-control{font-size:14px}
+  .btn{
+    min-height:42px;
+    padding:10px 12px;
+    border-radius:11px;
+    justify-content:center;
+  }
+  .filter-grid,.deadline-form-grid,.user-form-grid{gap:9px}
+  .settings-actions .btn{flex:1 1 100%}
+
+  /* General tables scroll horizontally rather than breaking layout */
+  .table-wrapper,.user-table-wrap,.kinerja-table-wrap{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .table-wrapper table,.user-table-wrap table{min-width:720px}
+  th{padding:10px;font-size:9px}
+  td{padding:11px 10px;font-size:10px}
+
+  /* Monitoring kinerja: cards on phone instead of huge horizontal table */
+  .kinerja-table-wrap{border:0;background:transparent;overflow:visible}
+  .kinerja-table{min-width:0;display:block}
+  .kinerja-table thead{display:none}
+  .kinerja-table tbody{display:grid;gap:11px}
+  .kinerja-table tr{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    padding:13px;
+    border:1px solid #dbe4f0;
+    border-radius:15px;
+    background:#fff;
+    box-shadow:0 6px 18px rgba(15,23,42,.05);
+  }
+  .kinerja-table td{
+    display:block;
+    border:0!important;
+    padding:8px!important;
+    border-radius:10px;
+    text-align:left!important;
+    min-width:0;
+  }
+  .kinerja-table td:nth-child(1),
+  .kinerja-table td:nth-child(2){grid-column:1/-1}
+  .kinerja-table td:nth-child(5){grid-column:1/-1}
+  .kinerja-table td:nth-child(1)::before{content:"Nama Guru";display:block;font-size:8px;color:#64748b;margin-bottom:3px}
+  .kinerja-table td:nth-child(2)::before{content:"Jabatan";display:block;font-size:8px;color:#64748b;margin-bottom:3px}
+  .kinerja-action{width:100%;min-height:40px;min-width:0}
+  .kinerja-toolbar{gap:9px}
+  .kinerja-toolbar p{line-height:1.5}
+  .kinerja-search{max-width:none;width:100%}
+
+  /* Administration rows already stack; improve touch layout */
+  .admin-teacher-head{
+    padding:13px;
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .admin-doc-row{padding:13px;gap:9px}
+  .admin-percent{min-height:44px;font-size:14px}
+  .admin-validator-note{min-height:70px;font-size:16px}
+  .admin-save-btn{min-height:43px;font-size:10px}
+
+  /* Modal fits short/small screens */
+  .modal{padding:10px;align-items:flex-end}
+  .modal-box{
+    max-height:92svh;
+    overflow:auto;
+    border-radius:20px 20px 12px 12px;
+  }
+  .modal-header,.modal-body{padding:15px}
+  .modal-footer{
+    padding:12px 15px;
+    position:sticky;
+    bottom:0;
+    background:#fff;
+    flex-wrap:wrap;
+  }
+  .modal-footer .btn{flex:1}
+  .document-preview{padding:25px 15px}
+
+  .deadline-preview{align-items:flex-start}
+  .footer{padding:18px 12px;font-size:8px}
+}
+
+/* Very small phone */
+@media(max-width:380px){
+  .page-title h1{max-width:155px}
+  .header-right .icon-button[title="Profil"]{display:none}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .kpi{padding:11px}
+  .kpi-value{font-size:19px}
+  .content{padding:9px}
+}
+
+/* Motion accessibility */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition:none!important;
+  }
+}
+
 </style>
 </head>
 
@@ -192,8 +443,8 @@ button,input,select,textarea{font-family:inherit} button{cursor:pointer} a{text-
 
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-header">
-    <div class="logo-box"><i class="fa-solid fa-school"></i></div>
-    <div class="logo-text"><strong>SIMPEL-KS</strong><span>SISTEM ADMINISTRASI SEKOLAH</span></div>
+    <div class="logo-box"><i class="fa-solid fa-eye"></i></div>
+    <div class="logo-text"><strong>KEPO-IN</strong><span>KEPALA SEKOLAH PORTAL INTELIJEN</span></div>
   </div>
 
   <div class="sidebar-profile">
@@ -417,7 +668,7 @@ button,input,select,textarea{font-family:inherit} button{cursor:pointer} a{text-
 
 <!-- PENGATURAN -->
 <section class="page-section" id="section-pengaturan">
-  <div class="welcome"><div><h2>Pengaturan Sistem</h2><p>Konfigurasi SIMPEL-KS, profil sekolah, deadline pengumpulan, dan manajemen pengguna.</p></div></div>
+  <div class="welcome"><div><h2>Pengaturan Sistem</h2><p>Konfigurasi KEPO-IN, profil sekolah, deadline pengumpulan, dan manajemen pengguna.</p></div></div>
 
   <div class="card">
     <div class="card-header"><div><h3>Profil & Sistem</h3><span>Pengaturan lokal browser</span></div></div>
@@ -490,11 +741,11 @@ button,input,select,textarea{font-family:inherit} button{cursor:pointer} a{text-
     </div>
   </div>
 
-  <div class="motto"><i class="fa-solid fa-quote-left"></i><p>"Dari Meja Kepsek, Tertibnya Satu Sekolah"</p><span>SIMPEL-KS • Sistem Monitoring & Penilaian Efektifitas Administrasi</span></div>
+  <div class="motto"><i class="fa-solid fa-quote-left"></i><p>"Dari Meja Kepsek, Tertibnya Satu Sekolah"</p><span>KEPO-IN • Sistem Monitoring & Penilaian Efektifitas Administrasi</span></div>
 </section>
 
 </div>
-<footer class="footer">SIMPEL-KS © 2026 • Sistem Monitoring & Penilaian Efektifitas Administrasi Kepala Sekolah</footer>
+<footer class="footer">KEPO-IN © 2026 • Kepala Sekolah Portal Intelijen</footer>
 </main>
 </div>
 
@@ -561,7 +812,7 @@ const sectionTitles={
  laporan:{title:"Laporan Sekolah",subtitle:"Laporan dan rekapitulasi sekolah"},
  grafik:{title:"Grafik & Statistik",subtitle:"Analisis data administrasi sekolah"},
  audit:{title:"Audit Trail",subtitle:"Rekam jejak aktivitas sistem"},
- pengaturan:{title:"Pengaturan Sistem",subtitle:"Konfigurasi SIMPEL-KS"}
+ pengaturan:{title:"Pengaturan Sistem",subtitle:"Konfigurasi KEPO-IN"}
 };
 function showSection(section){
  document.querySelectorAll(".page-section").forEach(x=>x.classList.remove("active-section"));
@@ -1059,7 +1310,7 @@ async function updateUserStatus(userId,status){try{await apiPost({action:"update
 function buatCatatan(){alert("Form Catatan Pembinaan siap diintegrasikan ke Spreadsheet.")}
 function buatSupervisi(){alert("Form Jadwal Supervisi siap diintegrasikan.")}
 function generateReport(){alert("Generator laporan siap dihubungkan dengan Google Apps Script.")}
-function logout(){if(confirm("Apakah Anda yakin ingin keluar dari SIMPEL-KS?")){sessionStorage.clear();window.location.href="login.html"}}
+function logout(){if(confirm("Apakah Anda yakin ingin keluar dari KEPO-IN?")){sessionStorage.clear();window.location.href="login.html"}}
 
 /* =========================================================
    MODAL EVENTS
