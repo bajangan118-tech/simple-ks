@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#2563eb">
-  <title>SIMPEL-KS | Portal Guru</title>
+  <title>KEPO-IN | Portal Guru</title>
 
   <!-- GitHub Pages compatible: semua resource dari CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -71,7 +72,7 @@
           </svg>
         </div>
         <div>
-          <div class="text-lg font-extrabold tracking-tight text-slate-900">SIMPEL-KS</div>
+          <div class="text-lg font-extrabold tracking-tight text-slate-900">KEPO-IN</div>
           <div class="text-[11px] font-medium text-slate-500">Portal Administrasi Guru</div>
         </div>
       </div>
@@ -109,6 +110,17 @@
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6a2 2 0 0 1 2 2v16H5a2 2 0 0 1-2-2V6h6V2Z"/><path d="M9 2v4H3M8 13l2 2 4-5"/></svg>
           </span>
           Status Validasi
+        </button>
+
+        <button data-section="kinerja" onclick="showSection('kinerja')"
+                class="nav-item mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">
+          <span class="nav-icon flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/>
+              <path d="m4 6 6-3 6 5 5-4"/>
+            </svg>
+          </span>
+          Monitoring Kinerja
         </button>
 
         <div class="my-5 border-t border-slate-100"></div>
@@ -203,7 +215,7 @@
                   <span id="welcomeName">Guru</span>
                 </h1>
                 <p class="mt-2 max-w-2xl text-sm leading-6 text-blue-100">
-                  Kelola profil dan administrasi dokumen Anda melalui Portal Guru SIMPEL-KS.
+                  Kelola profil dan administrasi dokumen Anda melalui Portal Guru KEPO-IN.
                 </p>
               </div>
               <div class="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
@@ -317,7 +329,7 @@
               <div>
                 <div class="font-bold text-blue-900">Informasi</div>
                 <p class="mt-1 text-sm leading-6 text-blue-800">
-                  Dokumen administrasi tersimpan pada Google Drive yang dikelola SIMPEL-KS.
+                  Dokumen administrasi tersimpan pada Google Drive yang dikelola KEPO-IN.
                   Gunakan menu <b>Dokumen Saya</b> untuk melihat file yang tersedia.
                 </p>
               </div>
@@ -329,7 +341,7 @@
         <section id="section-profil" class="section-panel hidden fade-in">
           <div class="mb-6">
             <h2 class="text-xl font-extrabold text-slate-900">Profil Saya</h2>
-            <p class="mt-1 text-sm text-slate-500">Informasi akun guru yang digunakan untuk mengakses SIMPEL-KS.</p>
+            <p class="mt-1 text-sm text-slate-500">Informasi akun guru yang digunakan untuk mengakses KEPO-IN.</p>
           </div>
 
           <div class="grid gap-6 lg:grid-cols-3">
@@ -443,10 +455,76 @@
           </div>
         </section>
 
+
+        <!-- MONITORING KINERJA -->
+        <section id="section-kinerja" class="section-panel hidden fade-in">
+          <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <h2 class="text-xl font-extrabold text-slate-900">Monitoring Kinerja</h2>
+              <p class="mt-1 text-sm text-slate-500">Lihat hasil penilaian praktik pembelajaran Anda dan unduh rekap dalam format Excel.</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="loadPerformance(true)"
+                      class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50">
+                <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 1-2.34-5.66"/><path d="M20 4v7h-7"/></svg>
+                Muat Ulang
+              </button>
+              <button id="downloadPerformanceBtn" onclick="downloadPerformanceExcel()"
+                      class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 hover:bg-emerald-700">
+                <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/>
+                </svg>
+                Unduh Excel
+              </button>
+            </div>
+          </div>
+
+          <div class="mb-5 grid gap-4 sm:grid-cols-3">
+            <div class="rounded-2xl border border-blue-100 bg-blue-50 p-5">
+              <div class="text-[10px] font-extrabold uppercase tracking-widest text-blue-500">Jumlah Penilaian</div>
+              <div id="performanceCount" class="mt-2 text-3xl font-extrabold text-blue-900">0</div>
+            </div>
+            <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-5">
+              <div class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-600">Nilai Terakhir</div>
+              <div id="performanceLatestScore" class="mt-2 text-3xl font-extrabold text-emerald-900">-</div>
+            </div>
+            <div class="rounded-2xl border border-violet-100 bg-violet-50 p-5">
+              <div class="text-[10px] font-extrabold uppercase tracking-widest text-violet-600">Observer Terakhir</div>
+              <div id="performanceLatestObserver" class="mt-2 truncate text-base font-extrabold text-violet-900">-</div>
+            </div>
+          </div>
+
+          <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="border-b border-slate-100 p-5">
+              <h3 class="font-extrabold text-slate-900">Hasil Penilaian Kinerja Praktik Pembelajaran</h3>
+              <p class="mt-1 text-xs text-slate-500">Data ditampilkan berdasarkan nama guru yang sedang login.</p>
+            </div>
+            <div class="scrollbar overflow-x-auto">
+              <table class="min-w-[900px] w-full border-collapse">
+                <thead class="bg-blue-600 text-white">
+                  <tr>
+                    <th class="border border-blue-700 px-4 py-3 text-left text-xs font-extrabold">No.</th>
+                    <th class="border border-blue-700 px-4 py-3 text-left text-xs font-extrabold">Hari</th>
+                    <th class="border border-blue-700 px-4 py-3 text-left text-xs font-extrabold">Tanggal Observasi</th>
+                    <th class="border border-blue-700 px-4 py-3 text-left text-xs font-extrabold">Jam Observasi</th>
+                    <th class="border border-blue-700 px-4 py-3 text-left text-xs font-extrabold">Mulai Observasi</th>
+                    <th class="border border-blue-700 px-4 py-3 text-left text-xs font-extrabold">Berakhir Observasi</th>
+                    <th class="border border-blue-700 px-4 py-3 text-left text-xs font-extrabold">Nama Observer</th>
+                    <th class="border border-blue-700 px-4 py-3 text-center text-xs font-extrabold">Nilai Akhir</th>
+                  </tr>
+                </thead>
+                <tbody id="performanceTableBody">
+                  <tr><td colspan="8" class="border border-slate-200 p-8 text-center text-sm text-slate-400">Klik menu Monitoring Kinerja untuk memuat hasil penilaian.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <footer class="border-t border-slate-200 bg-white px-4 py-5 text-center text-xs text-slate-400 sm:px-6 lg:px-8">
-        SIMPEL-KS &copy; <span id="year"></span> · Portal Administrasi Guru
+        KEPO-IN &copy; <span id="year"></span> · Portal Administrasi Guru
       </footer>
     </div>
   </div>
@@ -473,6 +551,7 @@
         <p><b>Profil Saya:</b> melihat informasi akun guru.</p>
         <p><b>Dokumen Saya:</b> membuka file administrasi yang tersimpan di Google Drive.</p>
         <p><b>Status Validasi:</b> melihat status dokumen yang berkaitan dengan nama/Guru ID Anda.</p>
+        <p><b>Monitoring Kinerja:</b> melihat nilai hasil penilaian praktik pembelajaran dan mengunduh rekap dalam format Excel (.xlsx).</p>
         <p class="rounded-xl bg-amber-50 p-3 text-amber-800">Jika folder belum muncul, pastikan akun guru memiliki <b>Guru ID</b> yang benar pada sheet USERS, Apps Script memiliki izin Google Drive, dan backend sudah menjalankan aksi <b>createfolder</b>.</p>
       </div>
       <button onclick="closeHelp()" class="mt-6 w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold text-white hover:bg-blue-700">Mengerti</button>
@@ -566,7 +645,7 @@
 
   <script>
     /************************************************************
-     * SIMPEL-KS | GURU.HTML
+     * KEPO-IN | GURU.HTML
      * Kompatibel dengan Code.gs yang diberikan:
      * - GET  ?action=getdataguru
      * - GET  ?action=getvalidasidokumen
@@ -581,6 +660,7 @@
 
     const CONFIG = {
       API_URL: 'https://script.google.com/macros/s/AKfycby1o3ALHKPONeQWDe-6wWI1LKIKq4i1ZCxJNhbcZ1325fgt-nP3sCOKe1gM-alaaRyc/exec',
+      OBSERVASI_1_API_URL: 'https://script.google.com/macros/s/AKfycbxqBo16Io_TlAcW_GWXgZ_XFEHq08-jnahOuoCE7piACiOE6m3xvo-pTeQKoWAL0Kj7/exec',
       LOGIN_URL: 'https://bajangan118-tech.github.io/simple-ks/login.html',
       STORAGE_KEYS: [
         'simpelks_user',
@@ -604,6 +684,7 @@
     let teacherFolder = null;
     // Pemetaan folder berdasarkan JENIS_DOKUMEN.
     let documentFolders = [];
+    let performanceRows = [];
 
     const $ = (id) => document.getElementById(id);
 
@@ -1695,6 +1776,149 @@
       }).join('');
     }
 
+
+    /***********************
+     * MONITORING KINERJA
+     ***********************/
+    async function performanceGet(action, params = {}) {
+      const base = String(CONFIG.OBSERVASI_1_API_URL || '').trim();
+      if (!base) throw new Error('API Observasi 1 belum dikonfigurasi.');
+      const url = new URL(base);
+      url.searchParams.set('action', action);
+      Object.entries(params).forEach(([key,value]) => {
+        if (value !== undefined && value !== null && value !== '') url.searchParams.set(key, value);
+      });
+      const response = await fetch(url.toString(), {method:'GET', cache:'no-store', redirect:'follow'});
+      if (!response.ok) throw new Error('Server penilaian mengembalikan HTTP ' + response.status);
+      const data = await response.json();
+      if (data && data.success === false) throw new Error(data.message || 'Data kinerja gagal dimuat.');
+      return data;
+    }
+
+    async function performancePost(payload) {
+      const base = String(CONFIG.OBSERVASI_1_API_URL || '').trim();
+      const response = await fetch(base, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify(payload),
+        redirect:'follow'
+      });
+      if (!response.ok) throw new Error('Server penilaian mengembalikan HTTP ' + response.status);
+      return await response.json();
+    }
+
+    async function loadPerformance(force = false) {
+      const body = $('performanceTableBody');
+      const nama = String((currentUser && (currentUser.nama || currentUser.name)) || '').trim();
+      if (!nama) {
+        if (body) body.innerHTML = '<tr><td colspan="8" class="border border-slate-200 p-8 text-center text-sm text-red-600">Nama guru pada sesi login tidak ditemukan.</td></tr>';
+        return;
+      }
+
+      if (body && (force || !performanceRows.length)) {
+        body.innerHTML = '<tr><td colspan="8" class="border border-slate-200 p-8 text-center text-sm text-slate-400">Memuat hasil penilaian...</td></tr>';
+      }
+
+      try {
+        const data = await performanceGet('getgurukinerja', {nama_guru:nama});
+        performanceRows = Array.isArray(data.data) ? data.data : [];
+        renderPerformance();
+
+        // Sesuai alur aplikasi: ketika guru membuka hasil, tandai sebagai sudah dibaca.
+        try {
+          await performancePost({action:'markgurukinerjaread', nama_guru:nama});
+        } catch (readError) {
+          console.warn('Status baca hasil kinerja belum dapat diperbarui:', readError);
+        }
+      } catch (error) {
+        performanceRows = [];
+        renderPerformance(error.message || String(error));
+      }
+    }
+
+    function renderPerformance(errorMessage = '') {
+      const body = $('performanceTableBody');
+      if (!body) return;
+
+      setText('performanceCount', performanceRows.length);
+      const latest = performanceRows.length ? performanceRows[performanceRows.length - 1] : null;
+      setText('performanceLatestScore', latest ? formatPerformanceScore(latest.nilai_akhir) : '-');
+      setText('performanceLatestObserver', latest ? (latest.nama_observer || '-') : '-');
+
+      if (errorMessage) {
+        body.innerHTML = `<tr><td colspan="8" class="border border-slate-200 p-8 text-center text-sm text-red-600">${escapeHtml(errorMessage)}</td></tr>`;
+        return;
+      }
+
+      if (!performanceRows.length) {
+        body.innerHTML = '<tr><td colspan="8" class="border border-slate-200 p-8 text-center text-sm text-slate-500">Belum ada hasil penilaian kinerja untuk akun guru ini.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = performanceRows.map((row,index) => `
+        <tr class="odd:bg-white even:bg-slate-50 hover:bg-blue-50/60">
+          <td class="border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-600">${index + 1}</td>
+          <td class="border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-800">${escapeHtml(row.hari || '-')}</td>
+          <td class="border border-slate-300 px-4 py-3 text-sm text-slate-700">${escapeHtml(row.tanggal_observasi || '-')}</td>
+          <td class="border border-slate-300 px-4 py-3 text-sm text-slate-700">${escapeHtml(row.jam_observasi || '-')}</td>
+          <td class="border border-slate-300 px-4 py-3 text-sm text-slate-700">${escapeHtml(row.waktu_mulai_observasi || '-')}</td>
+          <td class="border border-slate-300 px-4 py-3 text-sm text-slate-700">${escapeHtml(row.waktu_berakhir_observasi || '-')}</td>
+          <td class="border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-800">${escapeHtml(row.nama_observer || '-')}</td>
+          <td class="border border-slate-300 px-4 py-3 text-center">
+            <span class="inline-flex min-w-16 justify-center rounded-full bg-emerald-100 px-3 py-1.5 text-sm font-extrabold text-emerald-700">${escapeHtml(formatPerformanceScore(row.nilai_akhir))}</span>
+          </td>
+        </tr>`).join('');
+    }
+
+    function formatPerformanceScore(value) {
+      if (value === undefined || value === null || value === '') return '-';
+      const n = Number(String(value).replace(',', '.'));
+      if (!Number.isFinite(n)) return String(value);
+      return Number.isInteger(n) ? String(n) : n.toFixed(2);
+    }
+
+    function safeExcelFileName(value) {
+      return String(value || 'Guru')
+        .replace(/[\\/:*?"<>|]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function downloadPerformanceExcel() {
+      if (!performanceRows.length) {
+        showToast('Belum ada data kinerja yang dapat diunduh.', 'warning');
+        return;
+      }
+      if (typeof XLSX === 'undefined') {
+        showToast('Pustaka Excel belum berhasil dimuat. Periksa koneksi internet.', 'error');
+        return;
+      }
+
+      const nama = String((currentUser && currentUser.nama) || 'Guru').trim();
+      const rows = performanceRows.map((row,index) => ({
+        'No.': index + 1,
+        'Nama Guru': nama,
+        'Hari': row.hari || '',
+        'Tanggal Observasi': row.tanggal_observasi || '',
+        'Jam Observasi': row.jam_observasi || '',
+        'Waktu Mulai Observasi': row.waktu_mulai_observasi || '',
+        'Waktu Berakhir Observasi': row.waktu_berakhir_observasi || '',
+        'Nama Observer': row.nama_observer || '',
+        'Nilai Akhir': row.nilai_akhir ?? ''
+      }));
+
+      const ws = XLSX.utils.json_to_sheet(rows);
+      ws['!cols'] = [
+        {wch:6},{wch:28},{wch:12},{wch:19},{wch:18},
+        {wch:22},{wch:24},{wch:28},{wch:14}
+      ];
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Monitoring Kinerja');
+      const date = new Date().toISOString().slice(0,10);
+      XLSX.writeFile(wb, `Monitoring Kinerja - ${safeExcelFileName(nama)} - ${date}.xlsx`);
+      showToast('File Excel Monitoring Kinerja berhasil dibuat.', 'success');
+    }
+
     /***********************
      * DASHBOARD
      ***********************/
@@ -1710,7 +1934,8 @@
       dashboard: ['Dashboard Guru', 'Ringkasan administrasi Anda'],
       profil: ['Profil Saya', 'Informasi akun guru'],
       dokumen: ['Dokumen Saya', 'File administrasi pada Google Drive'],
-      validasi: ['Status Validasi', 'Status administrasi dokumen Anda']
+      validasi: ['Status Validasi', 'Status administrasi dokumen Anda'],
+      kinerja: ['Monitoring Kinerja', 'Hasil penilaian praktik pembelajaran Anda']
     };
 
     function showSection(name) {
@@ -1745,6 +1970,7 @@
 
       if (name === 'dokumen' && !documentFolders.length) loadDocuments(false).catch(()=>{});
       if (name === 'validasi') renderValidation();
+      if (name === 'kinerja') loadPerformance(false).catch(()=>{});
     }
 
     /***********************
