@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SDN Bajangan | Website Resmi</title>
+<title>KEPO-IN | Kepala Sekolah Portal Intelijen</title>
 
 <meta name="description"
-content="Website resmi SDN Bajangan. Informasi profil, akademik, PPDB, berita, kegiatan, fasilitas, dan layanan sekolah.">
+content="KEPO-IN (Kepala Sekolah Portal Intelijen) adalah portal digital sekolah untuk mendukung pemantauan, dokumentasi, refleksi, dan pengambilan keputusan berbasis data secara terintegrasi.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -175,7 +175,7 @@ button{
     gap:14px;
 }
 
-.nav-menu > a:not(.nav-cta):not(.nav-Kepo-in){
+.nav-menu > a:not(.nav-cta):not(.nav-kepo-in){
     font-size:13px;
     font-weight:600;
     color:#475569;
@@ -183,7 +183,7 @@ button{
     transition:.25s;
 }
 
-.nav-menu > a:not(.nav-cta):not(.nav-Kepo-in):hover{
+.nav-menu > a:not(.nav-cta):not(.nav-kepo-in):hover{
     color:var(--primary);
 }
 
@@ -192,7 +192,7 @@ button{
    KEPO-IN BUTTON
 ========================================================= */
 
-.nav-Kepo-in{
+.nav-kepo-in{
     background:var(--blue);
     color:white !important;
 
@@ -212,7 +212,7 @@ button{
     transition:.25s;
 }
 
-.nav-Kepo-in:hover{
+.nav-kepo-in:hover{
     background:var(--blue-dark);
     color:white !important;
     transform:translateY(-2px);
@@ -1387,6 +1387,21 @@ footer li a:hover{
     }
 }
 
+
+/* KEPO-IN BRAND */
+.kepoin-brand{display:flex;align-items:center;gap:11px}
+.kepoin-logo{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;box-shadow:0 10px 28px rgba(37,99,235,.28);position:relative;overflow:hidden}
+.kepoin-logo::after{content:"";position:absolute;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.16);right:-8px;top:-8px}
+.kepoin-logo i{font-size:22px;position:relative;z-index:1}
+.kepoin-wordmark strong{font-size:20px;letter-spacing:-.6px;color:#0f172a}
+.kepoin-wordmark strong span{color:#2563eb}
+.kepoin-wordmark small{display:block;font-size:10px;color:#64748b;font-weight:700;letter-spacing:.2px}
+.kepoin-hero-card{display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:9px 13px;border-radius:12px;background:rgba(125,211,252,.12);border:1px solid rgba(125,211,252,.28);color:#dbeafe;font-size:12px;font-weight:700}
+.kepoin-academic{margin-top:22px;max-width:680px;padding:18px 20px;border-radius:18px;background:rgba(2,24,40,.48);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px)}
+.kepoin-academic .academic-title{color:#7dd3fc;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.4px;margin-bottom:7px}
+.kepoin-academic p{margin:0;font-size:14px;line-height:1.75;color:#e2e8f0}
+@media(max-width:480px){.kepoin-logo{width:46px;height:46px}.kepoin-wordmark strong{font-size:17px}.kepoin-wordmark small{font-size:9px}.kepoin-academic p{font-size:13px}}
+
 </style>
 </head>
 
@@ -1420,7 +1435,7 @@ footer li a:hover{
 
             <span>
                 <i class="fa-regular fa-clock"></i>
-                Senin–Jumat 07.00–15.00 WIB
+                KEPO-IN • Data Cerdas • Kerja Terpantau
             </span>
 
         </div>
@@ -1442,25 +1457,14 @@ footer li a:hover{
 
         <!-- LOGO -->
 
-        <a href="#" class="brand">
-
-            <img
-                src="https://bajangan118-tech.github.io/simple-ks/assets/logo_sd.png"
-                class="logo"
-                alt="Logo SDN BAJANGAN">
-
-            <div class="brand-text">
-
-                <strong>
-                    SDN BAJANGAN
-                </strong>
-
-                <span>
-                    Sekolah Dasar Negeri • Inspiratif • Berkarakter
-                </span>
-
+        <a href="#" class="brand kepoin-brand">
+            <div class="kepoin-logo" aria-label="Logo KEPO-IN">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
             </div>
-
+            <div class="brand-text kepoin-wordmark">
+                <strong>KEPO-<span>IN</span></strong>
+                <small>Kepala Sekolah Portal Intelijen</small>
+            </div>
         </a>
 
 
@@ -1557,28 +1561,40 @@ footer li a:hover{
 
                 <i class="fa-solid fa-school"></i>
 
-                Selamat Datang di Website Resmi Sekolah
+                Portal Digital Kepala Sekolah • Lebih Ringkas, Lebih Insightful
 
             </div>
 
 
             <h1>
-
-                Tumbuh,
-                <span>Belajar</span>,
-                dan Menginspirasi
-
+                KEPO-<span>IN</span><br>
+                Kerja, Bukan Gosip.
             </h1>
 
 
             <p>
-
-                Membangun generasi yang berkarakter,
-                mandiri, kreatif, literat, dan siap
-                menghadapi masa depan melalui
-                pembelajaran yang bermakna.
-
+                <strong>Kepo-in Kerja bukan Gosip.</strong> KEPO-IN membantu kepala sekolah
+                melihat proses, progres, dan bukti kerja sekolah dalam satu ruang digital
+                yang lebih praktis, transparan, dan mudah ditindaklanjuti.
             </p>
+
+            <div class="kepoin-hero-card">
+                <i class="fa-solid fa-bolt"></i>
+                Bukan sekadar lihat data — pahami, refleksikan, lalu tindak lanjuti.
+            </div>
+
+            <div class="kepoin-academic">
+                <div class="academic-title">Narasi Akademik</div>
+                <p>
+                    KEPO-IN (Kepala Sekolah Portal Intelijen) merupakan portal manajemen
+                    berbasis data yang dirancang untuk mendukung kepemimpinan pembelajaran
+                    melalui pemantauan administrasi, dokumentasi kinerja, observasi praktik
+                    pembelajaran, serta penyediaan informasi yang relevan bagi proses refleksi
+                    dan pengambilan keputusan. Integrasi informasi dalam satu ekosistem digital
+                    diharapkan memperkuat efektivitas supervisi akademik, akuntabilitas kerja,
+                    dan budaya perbaikan berkelanjutan di satuan pendidikan.
+                </p>
+            </div>
 
 
             <div class="hero-buttons">
@@ -1589,7 +1605,7 @@ footer li a:hover{
 
                     <i class="fa-solid fa-user-plus"></i>
 
-                    PPDB / Daftar Sekarang
+                    Jelajahi Sekolah
 
                 </a>
 
@@ -1600,7 +1616,7 @@ footer li a:hover{
 
                     <i class="fa-solid fa-images"></i>
 
-                    Lihat Sekolah
+                    Lihat Aktivitas
 
                 </a>
 
@@ -1613,7 +1629,7 @@ footer li a:hover{
 
                     <i class="fa-solid fa-lock"></i>
 
-                    Masuk KEPO-IN
+                    Kepo-in Sekarang
 
                 </a>
 
@@ -1630,6 +1646,28 @@ footer li a:hover{
 <!-- =======================================================
      STATISTIK
 ======================================================= -->
+
+
+<!-- IDENTITAS KEPO-IN -->
+<section class="section" style="padding:72px 0 35px;background:linear-gradient(180deg,#ffffff,#f8fafc)">
+    <div class="container">
+        <div class="section-header animate" style="margin-bottom:34px">
+            <div class="section-label">KEPO-IN • Kepala Sekolah Portal Intelijen</div>
+            <h2>Kepo pada Data, Fokus pada Perbaikan</h2>
+            <p>
+                KEPO-IN memaknai “kepo” secara produktif: rasa ingin tahu profesional terhadap
+                proses kerja, kualitas pembelajaran, kelengkapan administrasi, dan perkembangan
+                kinerja sekolah. Informasi dihimpun untuk membantu kepala sekolah melakukan
+                pemantauan yang objektif, refleksi yang terarah, serta tindak lanjut berbasis bukti.
+            </p>
+        </div>
+        <div class="program-grid">
+            <div class="program-card animate"><div class="program-content"><div class="feature-icon" style="margin-bottom:15px"><i class="fa-solid fa-chart-line"></i></div><h3>Monitor yang Bermakna</h3><p>Melihat progres administrasi dan kinerja secara lebih terstruktur sehingga informasi penting tidak tercecer.</p></div></div>
+            <div class="program-card animate"><div class="program-content"><div class="feature-icon" style="margin-bottom:15px"><i class="fa-solid fa-eye"></i></div><h3>Supervisi Berbasis Bukti</h3><p>Mendukung observasi praktik pembelajaran dan dokumentasi hasil sebagai dasar refleksi serta pembinaan profesional.</p></div></div>
+            <div class="program-card animate"><div class="program-content"><div class="feature-icon" style="margin-bottom:15px"><i class="fa-solid fa-lightbulb"></i></div><h3>Insight untuk Tindak Lanjut</h3><p>Mengubah data menjadi informasi yang lebih mudah dibaca untuk mendukung keputusan dan perbaikan berkelanjutan.</p></div></div>
+        </div>
+    </div>
+</section>
 
 <section class="stats">
 
@@ -2977,7 +3015,7 @@ footer li a:hover{
 
                 <div class="footer-brand">
 
-                    SDN BAJANGAN
+                    KEPO-IN • Kepala Sekolah Portal Intelijen
 
                 </div>
 
