@@ -435,6 +435,167 @@ body{
   }
 }
 
+
+/* =========================================================
+   KEPO-IN 2026 — DASHBOARD KEPALA SEKOLAH 3D VISUAL UPGRADE
+   Lapisan visual saja; API, data, session, navigasi dan JS
+   lama tetap dipertahankan.
+   ========================================================= */
+:root{
+  --kepoin-navy:#051b3b;
+  --kepoin-deep:#06285c;
+  --kepoin-blue:#075be8;
+  --kepoin-cyan:#08baf0;
+  --kepoin-sky:#eaf7ff;
+  --kepoin-ink:#0f172a;
+}
+body{
+  background:
+    radial-gradient(circle at 90% 4%, rgba(8,186,240,.14), transparent 26%),
+    radial-gradient(circle at 15% 88%, rgba(7,91,232,.09), transparent 30%),
+    linear-gradient(135deg,#f8fbff 0%,#eff7ff 50%,#f7fcff 100%) !important;
+}
+body::before,body::after{
+  content:"";
+  position:fixed;
+  pointer-events:none;
+  z-index:-1;
+  border-radius:999px;
+  filter:blur(8px);
+}
+body::before{
+  width:420px;height:420px;right:-170px;top:12%;
+  background:radial-gradient(circle,rgba(8,186,240,.15),rgba(8,186,240,0) 68%);
+}
+body::after{
+  width:460px;height:460px;left:8%;bottom:-250px;
+  background:radial-gradient(circle,rgba(7,91,232,.12),rgba(7,91,232,0) 70%);
+}
+
+/* SIDEBAR 3D */
+.sidebar{
+  background:
+    radial-gradient(circle at 12% 0%,rgba(8,186,240,.22),transparent 27%),
+    linear-gradient(180deg,#041a39 0%,#062b5e 52%,#04172f 100%) !important;
+  border-right:1px solid rgba(255,255,255,.08);
+  box-shadow:22px 0 55px rgba(2,18,46,.16);
+}
+.sidebar .brand-logo,
+.sidebar .logo,
+.sidebar [class*="logo"]{
+  filter:drop-shadow(0 9px 14px rgba(8,186,240,.22));
+}
+.sidebar a,.sidebar button{
+  transition:transform .2s ease,background .2s ease,box-shadow .2s ease,color .2s ease;
+}
+.sidebar a:hover,.sidebar button:hover{
+  transform:translateX(3px);
+}
+.sidebar .active,
+.sidebar .nav-active,
+.sidebar a.active{
+  background:linear-gradient(135deg,rgba(8,186,240,.98),rgba(7,91,232,.98)) !important;
+  box-shadow:0 12px 26px rgba(7,91,232,.28),inset 0 1px 0 rgba(255,255,255,.28);
+}
+
+/* HEADER GLASS */
+header,.topbar,.top-bar{
+  backdrop-filter:blur(18px) saturate(145%);
+  -webkit-backdrop-filter:blur(18px) saturate(145%);
+}
+
+/* HERO / WELCOME */
+.hero,.welcome-card,.welcome-banner,.hero-card{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 86% 12%,rgba(255,255,255,.24),transparent 24%),
+    radial-gradient(circle at 68% 120%,rgba(8,186,240,.36),transparent 38%),
+    linear-gradient(120deg,#05285d 0%,#075be8 57%,#08baf0 100%) !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  box-shadow:0 24px 58px rgba(2,40,105,.22),inset 0 1px 0 rgba(255,255,255,.26) !important;
+}
+.hero::after,.welcome-card::after,.welcome-banner::after,.hero-card::after{
+  content:"";
+  position:absolute;
+  width:145px;height:145px;
+  right:-38px;top:-55px;
+  border:1px solid rgba(255,255,255,.17);
+  border-radius:38px;
+  transform:rotate(28deg);
+  z-index:-1;
+}
+
+/* CARD DEPTH */
+.card,.stat-card,.kpi-card,.panel,.dashboard-card,
+[class*="metric-card"]{
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.card:hover,.stat-card:hover,.kpi-card:hover,.panel:hover,.dashboard-card:hover,
+[class*="metric-card"]:hover{
+  transform:translateY(-4px);
+  box-shadow:0 19px 44px rgba(15,23,42,.11) !important;
+  border-color:rgba(59,130,246,.38) !important;
+}
+.stat-card,.kpi-card,[class*="metric-card"]{
+  position:relative;
+  overflow:hidden;
+}
+.stat-card::after,.kpi-card::after,[class*="metric-card"]::after{
+  content:"";
+  position:absolute;
+  width:84px;height:84px;
+  right:-30px;bottom:-36px;
+  border-radius:999px;
+  background:linear-gradient(145deg,rgba(8,186,240,.10),rgba(7,91,232,.025));
+  pointer-events:none;
+}
+
+/* BUTTON 3D */
+.btn-primary,button.primary,.primary-btn{
+  background:linear-gradient(135deg,#075be8,#08aeea) !important;
+  box-shadow:0 10px 22px rgba(7,91,232,.22),inset 0 1px 0 rgba(255,255,255,.30);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.btn-primary:hover,button.primary:hover,.primary-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 15px 28px rgba(7,91,232,.28),inset 0 1px 0 rgba(255,255,255,.34);
+}
+
+/* TABLE / PANEL */
+table{
+  border-collapse:separate;
+  border-spacing:0;
+}
+thead th{
+  background:linear-gradient(180deg,#f5faff,#eaf4ff);
+}
+tbody tr{
+  transition:background .16s ease,transform .16s ease;
+}
+tbody tr:hover{
+  background:#f7fbff;
+}
+
+/* AVATAR */
+.avatar,.user-avatar,[class*="avatar"]{
+  box-shadow:0 8px 22px rgba(7,91,232,.18);
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .sidebar{box-shadow:24px 0 60px rgba(2,18,46,.32)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
 </style>
 </head>
 
@@ -1019,7 +1180,7 @@ function getKepalaSekolahName(){
   const value=input?.value?.trim();
   if(value)return value;
   try{
-    const d=JSON.parse(localStorage.getItem("SIMPEL_KS_PENGATURAN")||"{}");
+    const d=JSON.parse(localStorage.getItem("KEPOIN_PENGATURAN")||"{}");
     if(d.namaKepala)return String(d.namaKepala).trim();
   }catch(e){}
   return "Kepala Sekolah";
@@ -1237,8 +1398,8 @@ function requestRevision(){const c=document.getElementById("catatanValidasi").va
 /* =========================================================
    LOCAL SETTINGS
 ========================================================= */
-function simpanPengaturan(){const d={namaSekolah:document.getElementById("settingNamaSekolah").value,tahunPelajaran:document.getElementById("settingTahunPelajaran").value,namaKepala:document.getElementById("settingNamaKepala").value,statusSistem:document.getElementById("settingStatusSistem").value};localStorage.setItem("SIMPEL_KS_PENGATURAN",JSON.stringify(d));txt("welcomeTahunPelajaran","Tahun Pelajaran "+d.tahunPelajaran);updateDeadlinePreview();alert("Pengaturan berhasil disimpan.")}
-function loadPengaturanLocal(){try{const raw=localStorage.getItem("SIMPEL_KS_PENGATURAN");if(!raw)return;const d=JSON.parse(raw);if(d.namaSekolah)document.getElementById("settingNamaSekolah").value=d.namaSekolah;if(d.tahunPelajaran)document.getElementById("settingTahunPelajaran").value=d.tahunPelajaran;if(d.namaKepala)document.getElementById("settingNamaKepala").value=d.namaKepala;if(d.statusSistem)document.getElementById("settingStatusSistem").value=d.statusSistem;txt("welcomeTahunPelajaran","Tahun Pelajaran "+(d.tahunPelajaran||"2026/2027"))}catch(e){}}
+function simpanPengaturan(){const d={namaSekolah:document.getElementById("settingNamaSekolah").value,tahunPelajaran:document.getElementById("settingTahunPelajaran").value,namaKepala:document.getElementById("settingNamaKepala").value,statusSistem:document.getElementById("settingStatusSistem").value};localStorage.setItem("KEPOIN_PENGATURAN",JSON.stringify(d));txt("welcomeTahunPelajaran","Tahun Pelajaran "+d.tahunPelajaran);updateDeadlinePreview();alert("Pengaturan berhasil disimpan.")}
+function loadPengaturanLocal(){try{const raw=localStorage.getItem("KEPOIN_PENGATURAN");if(!raw)return;const d=JSON.parse(raw);if(d.namaSekolah)document.getElementById("settingNamaSekolah").value=d.namaSekolah;if(d.tahunPelajaran)document.getElementById("settingTahunPelajaran").value=d.tahunPelajaran;if(d.namaKepala)document.getElementById("settingNamaKepala").value=d.namaKepala;if(d.statusSistem)document.getElementById("settingStatusSistem").value=d.statusSistem;txt("welcomeTahunPelajaran","Tahun Pelajaran "+(d.tahunPelajaran||"2026/2027"))}catch(e){}}
 
 /* =========================================================
    DEADLINE SETTINGS - BARU
