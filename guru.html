@@ -50,6 +50,227 @@
     .nav-active .nav-icon { background: #dbeafe; }
     .status-dot { box-shadow: 0 0 0 4px rgba(34,197,94,.12); }
     .modal-backdrop { background: rgba(15,23,42,.55); backdrop-filter: blur(3px); }
+
+    /* =========================================================
+       KEPO-IN 2026 — VISUAL UPGRADE
+       Hanya lapisan tampilan. Sistem, API, session, dan fungsi
+       JavaScript lama tetap dipertahankan.
+       ========================================================= */
+    :root {
+      --kepoin-navy: #06224a;
+      --kepoin-blue: #075be8;
+      --kepoin-cyan: #08baf0;
+      --kepoin-ink: #0f172a;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      pointer-events: none;
+      border-radius: 999px;
+      filter: blur(12px);
+      opacity: .42;
+    }
+    body::before {
+      width: 360px;
+      height: 360px;
+      top: -120px;
+      right: -90px;
+      background: radial-gradient(circle, rgba(8,186,240,.45), rgba(8,186,240,0) 68%);
+    }
+    body::after {
+      width: 420px;
+      height: 420px;
+      bottom: -190px;
+      left: 18%;
+      background: radial-gradient(circle, rgba(59,130,246,.32), rgba(59,130,246,0) 70%);
+    }
+
+    #sidebar {
+      background:
+        radial-gradient(circle at 20% 0%, rgba(8,186,240,.20), transparent 28%),
+        linear-gradient(180deg, #061c3e 0%, #082b5b 54%, #061a38 100%) !important;
+      border-right: 1px solid rgba(255,255,255,.08) !important;
+      box-shadow: 18px 0 45px rgba(2,18,46,.16);
+    }
+    #sidebar > div:first-child {
+      border-color: rgba(255,255,255,.09) !important;
+    }
+    #sidebar > div:first-child > div:first-child {
+      background: linear-gradient(145deg, #08baf0, #075be8) !important;
+      box-shadow: 0 12px 30px rgba(8,186,240,.28), inset 0 1px 0 rgba(255,255,255,.32) !important;
+      transform: perspective(500px) rotateY(-6deg);
+    }
+    #sidebar > div:first-child .text-slate-900 { color: #fff !important; }
+    #sidebar > div:first-child .text-slate-500 { color: #9fc6ed !important; }
+    #sidebar .text-slate-400 { color: #74a5d2 !important; }
+    #sidebar .text-slate-600 { color: #c1d9ef !important; }
+    #sidebar .nav-item,
+    #sidebar .scrollbar > button {
+      transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
+    }
+    #sidebar .nav-item:hover,
+    #sidebar .scrollbar > button:hover {
+      transform: translateX(3px);
+      background: rgba(255,255,255,.08) !important;
+      color: #fff !important;
+    }
+    #sidebar .nav-active {
+      color: #fff !important;
+      background: linear-gradient(135deg, rgba(8,186,240,.95), rgba(7,91,232,.95)) !important;
+      box-shadow: 0 10px 24px rgba(7,91,232,.28), inset 0 1px 0 rgba(255,255,255,.25);
+    }
+    #sidebar .nav-active .nav-icon {
+      color: #fff !important;
+      background: rgba(255,255,255,.17) !important;
+    }
+    #sidebar .nav-icon,
+    #sidebar .scrollbar > button > span {
+      background: rgba(255,255,255,.08) !important;
+      color: #a9d8ff !important;
+    }
+    #sidebar .my-5,
+    #sidebar > div:last-child {
+      border-color: rgba(255,255,255,.08) !important;
+    }
+    #sidebar > div:last-child > div {
+      background: rgba(255,255,255,.08) !important;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    #sidebar #sideName { color: #fff !important; }
+    #sidebar #sideRole { color: #9fc6ed !important; }
+    #sidebar #sideAvatar {
+      color: #fff !important;
+      background: linear-gradient(145deg, #08baf0, #075be8) !important;
+      box-shadow: 0 7px 18px rgba(8,186,240,.24);
+    }
+
+    header.sticky {
+      background: rgba(255,255,255,.82) !important;
+      border-color: rgba(226,232,240,.75) !important;
+      backdrop-filter: blur(18px) saturate(145%) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(145%) !important;
+      box-shadow: 0 8px 30px rgba(15,23,42,.04);
+    }
+
+    main {
+      position: relative;
+    }
+
+    #section-dashboard > div:first-child {
+      position: relative;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 88% 12%, rgba(255,255,255,.22), transparent 25%),
+        radial-gradient(circle at 65% 120%, rgba(8,186,240,.34), transparent 38%),
+        linear-gradient(120deg, #062c69 0%, #075be8 55%, #08aeea 100%) !important;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 24px 55px rgba(2,40,105,.22), inset 0 1px 0 rgba(255,255,255,.24) !important;
+    }
+    #section-dashboard > div:first-child::before {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      right: 7%;
+      top: -75px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 44px;
+      transform: rotate(28deg);
+      z-index: -1;
+    }
+    #section-dashboard > div:first-child::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: 2%;
+      bottom: -70px;
+      background: rgba(255,255,255,.08);
+      border-radius: 36px;
+      transform: rotate(28deg);
+      z-index: -1;
+    }
+
+    #section-dashboard > .grid.sm\:grid-cols-2 > div,
+    #section-dashboard > .mt-6.grid > div,
+    .section-panel .rounded-2xl.border.bg-white {
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    #section-dashboard > .grid.sm\:grid-cols-2 > div {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(226,232,240,.9) !important;
+      box-shadow: 0 12px 30px rgba(15,23,42,.06), inset 0 1px 0 rgba(255,255,255,.8) !important;
+    }
+    #section-dashboard > .grid.sm\:grid-cols-2 > div::after {
+      content: "";
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      right: -26px;
+      bottom: -30px;
+      border-radius: 999px;
+      background: rgba(59,130,246,.055);
+    }
+    #section-dashboard > .grid.sm\:grid-cols-2 > div:hover,
+    #section-dashboard > .mt-6.grid > div:hover,
+    .section-panel .rounded-2xl.border.bg-white:hover {
+      transform: translateY(-3px);
+      border-color: rgba(96,165,250,.45) !important;
+      box-shadow: 0 18px 42px rgba(15,23,42,.10) !important;
+    }
+
+    #topAvatar, #dashAvatar {
+      background: linear-gradient(145deg, #08baf0, #075be8) !important;
+      color: white !important;
+      box-shadow: 0 8px 20px rgba(7,91,232,.22);
+    }
+
+    .kepoin-quick-action {
+      position: relative;
+      overflow: hidden;
+      min-height: 108px;
+      border: 1px solid rgba(226,232,240,.95);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 10px 28px rgba(15,23,42,.055);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .kepoin-quick-action:hover {
+      transform: translateY(-3px);
+      border-color: rgba(59,130,246,.42);
+      box-shadow: 0 17px 38px rgba(15,23,42,.10);
+    }
+    .kepoin-quick-action::after {
+      content: "";
+      position: absolute;
+      width: 76px;
+      height: 76px;
+      right: -25px;
+      top: -28px;
+      border-radius: 999px;
+      background: linear-gradient(145deg, rgba(8,186,240,.13), rgba(7,91,232,.04));
+    }
+    .kepoin-action-icon {
+      box-shadow: 0 8px 18px rgba(7,91,232,.14);
+    }
+
+    @media (max-width: 1023px) {
+      #sidebar {
+        box-shadow: 24px 0 60px rgba(2,18,46,.34);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
 
@@ -158,7 +379,7 @@
     </aside>
 
     <!-- MAIN -->
-    <div class="min-h-screen lg:pl-72">
+    <div class="min-h-screen bg-gradient-to-br from-slate-50/95 via-blue-50/95 to-cyan-50/90 lg:pl-72">
       <!-- TOPBAR -->
       <header class="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
         <div class="flex h-20 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
@@ -280,6 +501,65 @@
                   <svg width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- QUICK ACTIONS -->
+          <div class="mt-6">
+            <div class="mb-3 flex items-end justify-between gap-4">
+              <div>
+                <h2 class="text-sm font-extrabold text-white/95">Akses Cepat</h2>
+                <p class="mt-1 text-xs text-blue-100/90">Buka layanan utama KEPO-IN tanpa mencari menu.</p>
+              </div>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              <button onclick="showSection('dokumen')" class="kepoin-quick-action rounded-2xl p-4 text-left">
+                <div class="flex items-center gap-3">
+                  <span class="kepoin-action-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5M8 12h8M8 16h8"/></svg>
+                  </span>
+                  <span>
+                    <span class="block text-sm font-extrabold text-slate-900">Dokumen Saya</span>
+                    <span class="mt-1 block text-xs leading-5 text-slate-500">Buka folder administrasi</span>
+                  </span>
+                </div>
+              </button>
+
+              <button onclick="showSection('validasi')" class="kepoin-quick-action rounded-2xl p-4 text-left">
+                <div class="flex items-center gap-3">
+                  <span class="kepoin-action-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6a2 2 0 0 1 2 2v16H5a2 2 0 0 1-2-2V6h6V2Z"/><path d="M9 2v4H3M8 13l2 2 4-5"/></svg>
+                  </span>
+                  <span>
+                    <span class="block text-sm font-extrabold text-slate-900">Status Validasi</span>
+                    <span class="mt-1 block text-xs leading-5 text-slate-500">Pantau hasil pemeriksaan</span>
+                  </span>
+                </div>
+              </button>
+
+              <button onclick="showSection('kinerja')" class="kepoin-quick-action rounded-2xl p-4 text-left">
+                <div class="flex items-center gap-3">
+                  <span class="kepoin-action-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/><path d="m4 6 6-3 6 5 5-4"/></svg>
+                  </span>
+                  <span>
+                    <span class="block text-sm font-extrabold text-slate-900">Monitoring Kinerja</span>
+                    <span class="mt-1 block text-xs leading-5 text-slate-500">Lihat progres administrasi</span>
+                  </span>
+                </div>
+              </button>
+
+              <button onclick="showSection('profil')" class="kepoin-quick-action rounded-2xl p-4 text-left">
+                <div class="flex items-center gap-3">
+                  <span class="kepoin-action-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>
+                  </span>
+                  <span>
+                    <span class="block text-sm font-extrabold text-slate-900">Profil Saya</span>
+                    <span class="mt-1 block text-xs leading-5 text-slate-500">Periksa identitas akun</span>
+                  </span>
+                </div>
+              </button>
             </div>
           </div>
 
