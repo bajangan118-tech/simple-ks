@@ -663,17 +663,17 @@
       OBSERVASI_1_API_URL: 'https://script.google.com/macros/s/AKfycbxqBo16Io_TlAcW_GWXgZ_XFEHq08-jnahOuoCE7piACiOE6m3xvo-pTeQKoWAL0Kj7/exec',
       LOGIN_URL: 'https://bajangan118-tech.github.io/simple-ks/login.html',
       STORAGE_KEYS: [
-        'simpelks_user',
-        'simpel_ks_user',
+        'kepoin_user',
+        'kepoin_user',
         'user',
         'currentUser',
-        'simpelks_user_id',
-        'simpelks_username',
-        'simpelks_nama',
-        'simpelks_role',
-        'simpelks_email',
-        'simpelks_guru_id',
-        'simpelks_jabatan'
+        'kepoin_user_id',
+        'kepoin_username',
+        'kepoin_nama',
+        'kepoin_role',
+        'kepoin_email',
+        'kepoin_guru_id',
+        'kepoin_jabatan'
       ]
     };
 
@@ -814,7 +814,7 @@
       try { stores.push(localStorage); } catch (e) {}
 
       for (const store of stores) {
-        for (const key of ['simpelks_user', 'simpel_ks_user', 'user', 'currentUser']) {
+        for (const key of ['kepoin_user', 'kepoin_user', 'user', 'currentUser']) {
           try {
             const raw = store.getItem(key);
             if (!raw) continue;
@@ -870,8 +870,8 @@
       } catch (e) {}
 
       // Pertahankan kompatibilitas dengan modul KEPO-IN lama.
-      try { localStorage.setItem('simpelks_user', raw); } catch (e) {}
-      try { sessionStorage.setItem('simpelks_user', raw); } catch (e) {}
+      try { localStorage.setItem('kepoin_user', raw); } catch (e) {}
+      try { sessionStorage.setItem('kepoin_user', raw); } catch (e) {}
     }
 
     function clearUserStorage() {
@@ -879,7 +879,7 @@
         try { localStorage.removeItem(key); } catch (e) {}
       });
       // Hapus beberapa kemungkinan key sesi tambahan tanpa mengganggu data aplikasi.
-      ['simpelks_session', 'simpel_ks_session', 'sessionUser'].forEach(key => {
+      ['kepoin_session', 'kepoin_session', 'sessionUser'].forEach(key => {
         try { localStorage.removeItem(key); } catch (e) {}
       });
     }
