@@ -739,17 +739,16 @@
         ].join('');
       }
 
-      // Versi tanpa login: ambil user dari localStorage, parameter URL,
-      // lalu fallback ke akun guru default.
-      currentUser = getUserFromUrl() || getStoredGuruUser() || {
-        nama: 'Sugeng Hidayat',
-        guru_id: 'GURU-001',
-        user_id: 'GURU-001',
-        username: 'sugeng',
-        role: 'GURU',
-        jabatan: 'Guru',
-        email: ''
-      };
+      // Ambil identitas guru dari sesi login KEPO-IN yang aktif.
+      // Prioritas sesi login saat ini, lalu parameter URL hanya sebagai fallback.
+      currentUser = getStoredGuruUser() || getUserFromUrl();
+
+      // Jangan pernah membuka dashboard menggunakan akun guru contoh/default.
+      if (!currentUser) {
+        redirectToLogin('Sesi Guru tidak ditemukan. Silakan login kembali.');
+        return;
+      }
+
       saveUser(currentUser);
 
       renderUser();
@@ -761,11 +760,59 @@
      * SESSION
      ***********************/
     function getStoredUser() {
+      /*
+       * login.html KEPO-IN menyimpan sesi aktif menggunakan prefix "kepoin_"
+       * di sessionStorage. Sesi inilah yang HARUS menjadi sumber utama agar
+       * akun guru yang baru login tidak tertimpa data lama dari localStorage.
+       */
+
+      // 1. Object user dari login.html (sesi browser aktif).
+      try {
+        const raw = sessionStorage.getItem('kepoin_user');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          const user = parsed && parsed.user ? parsed.user : parsed;
+
+          if (user && (user.username || user.user_id || user.nama || user.guru_id)) {
+            // Role resmi juga disimpan terpisah oleh login.html.
+            user.role = sessionStorage.getItem('kepoin_role') || user.role || '';
+            return user;
+          }
+        }
+      } catch (e) {}
+
+      // 2. Key individual yang memang disimpan oleh login.html.
+      try {
+        const loggedIn = sessionStorage.getItem('kepoin_logged_in') || '';
+        const userId = sessionStorage.getItem('kepoin_user_id') || '';
+        const username = sessionStorage.getItem('kepoin_username') || '';
+        const nama = sessionStorage.getItem('kepoin_nama') || '';
+        const role = sessionStorage.getItem('kepoin_role') || '';
+        const email = sessionStorage.getItem('kepoin_email') || '';
+        const guruId = sessionStorage.getItem('kepoin_guru_id') || '';
+        const jabatan = sessionStorage.getItem('kepoin_jabatan') || '';
+
+        if (loggedIn === 'true' && (userId || username || nama || guruId)) {
+          return {
+            user_id: userId,
+            username,
+            nama,
+            role,
+            email,
+            guru_id: guruId,
+            jabatan: jabatan || 'Guru'
+          };
+        }
+      } catch (e) {}
+
+      /*
+       * 3. Kompatibilitas sesi lama.
+       * Hanya dipakai jika sesi KEPO-IN baru tidak ditemukan.
+       */
       const stores = [];
       try { stores.push(sessionStorage); } catch (e) {}
       try { stores.push(localStorage); } catch (e) {}
 
-      // 1. Coba object user yang disimpan login.html.
       for (const store of stores) {
         for (const key of ['simpelks_user', 'simpel_ks_user', 'user', 'currentUser']) {
           try {
@@ -780,30 +827,6 @@
         }
       }
 
-      // 2. Fallback ke key individual yang memang dipakai login.html.
-      for (const store of stores) {
-        try {
-          const userId = store.getItem('simpelks_user_id') || '';
-          const username = store.getItem('simpelks_username') || '';
-          const nama = store.getItem('simpelks_nama') || '';
-          const role = store.getItem('simpelks_role') || '';
-          const email = store.getItem('simpelks_email') || '';
-          const guruId = store.getItem('simpelks_guru_id') || '';
-          const jabatan = store.getItem('simpelks_jabatan') || '';
-
-          if (userId || username || nama || guruId) {
-            return {
-              user_id: userId,
-              username,
-              nama,
-              role: role || 'GURU',
-              email,
-              guru_id: guruId,
-              jabatan: jabatan || 'Guru'
-            };
-          }
-        } catch (e) {}
-      }
       return null;
     }
 
@@ -833,6 +856,20 @@
 
     function saveUser(user) {
       const raw = JSON.stringify(user || {});
+
+      // Sinkronkan sesi aktif KEPO-IN.
+      try {
+        sessionStorage.setItem('kepoin_user', raw);
+        sessionStorage.setItem('kepoin_user_id', user?.user_id || '');
+        sessionStorage.setItem('kepoin_username', user?.username || '');
+        sessionStorage.setItem('kepoin_nama', user?.nama || '');
+        sessionStorage.setItem('kepoin_role', user?.role || 'GURU');
+        sessionStorage.setItem('kepoin_email', user?.email || '');
+        sessionStorage.setItem('kepoin_guru_id', user?.guru_id || '');
+        sessionStorage.setItem('kepoin_jabatan', user?.jabatan || '');
+      } catch (e) {}
+
+      // Pertahankan kompatibilitas dengan modul KEPO-IN lama.
       try { localStorage.setItem('simpelks_user', raw); } catch (e) {}
       try { sessionStorage.setItem('simpelks_user', raw); } catch (e) {}
     }
