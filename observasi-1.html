@@ -315,8 +315,9 @@ function openSpreadsheetPrint(id){
     return;
   }
   const url="https://docs.google.com/spreadsheets/d/"+encodeURIComponent(id)+
-    "/export?format=pdf&portrait=true&fitw=true&sheetnames=false&printtitle=false"+
-    "&pagenumbers=false&gridlines=false&fzr=false";
+    "/export?format=pdf&portrait=false&fitw=true&sheetnames=false&printtitle=false"+
+    "&pagenumbers=true&gridlines=false&fzr=false&top_margin=0.35&bottom_margin=0.35"+
+    "&left_margin=0.30&right_margin=0.30";
   window.open(url,"_blank","noopener");
 }
 
