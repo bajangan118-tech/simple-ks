@@ -1576,7 +1576,7 @@
       {
         key: 'administrasi pembelajaran kelas 4',
         label: 'ADMINISTRASI PEMBELAJARAN',
-        sublabel: 'Kelas 4',
+        showJabatan: true,
         aliases: [
           'administrasi pembelajaran kelas 4',
           'administrasi pembelajaran',
@@ -1586,7 +1586,7 @@
       {
         key: 'administrasi kelas kelas 4',
         label: 'ADMINISTRASI KELAS',
-        sublabel: 'Kelas 4',
+        showJabatan: true,
         aliases: [
           'administrasi kelas kelas 4',
           'administrasi kelas',
@@ -1597,7 +1597,7 @@
       {
         key: 'rekap nilai siswa kelas 4',
         label: 'REKAP NILAI SISWA',
-        sublabel: 'Kelas 4',
+        showJabatan: true,
         aliases: [
           'rekap nilai siswa kelas 4',
           'rekap nilai siswa',
@@ -1765,6 +1765,9 @@
       if (!container) return;
 
       const myRows = filterValidationForUser(allRows);
+      // Label yang terlihat pada kartu mengikuti JABATAN akun guru aktif.
+      // Alias/key lama tetap dipertahankan agar kompatibel dengan data/folder yang sudah ada.
+      const jabatanDokumen = String(currentUser?.jabatan || 'Guru').trim() || 'Guru';
 
       documentFolders = DOCUMENT_TYPE_CARDS.map(card => {
         const row = findValidationDocumentRow(myRows, card.aliases);
@@ -1777,7 +1780,7 @@
         return {
           key: card.key,
           jenis: card.label,
-          sublabel: card.sublabel,
+          sublabel: card.showJabatan ? jabatanDokumen : (card.sublabel || ''),
           idValidasi,
           folderUrl,
           available: Boolean(folderUrl),
@@ -1810,7 +1813,7 @@
                 <div class="text-sm font-extrabold tracking-wide text-slate-800">
                   ${escapeHtml(card.label)}
                 </div>
-                ${card.sublabel ? `<div class="mt-0.5 text-sm font-semibold text-slate-500">${escapeHtml(card.sublabel)}</div>` : ''}
+                ${item.sublabel ? `<div class="mt-0.5 text-sm font-semibold text-slate-500">${escapeHtml(item.sublabel)}</div>` : ''}
                 <div class="mt-1 text-[11px] ${available ? 'text-emerald-600' : 'text-slate-400'}">
                   ${escapeHtml(statusText)}
                 </div>
@@ -1978,6 +1981,10 @@
 
         // Ambil ulang DATA_GURU agar sinkronisasi jabatan langsung terlihat.
         await loadTeacherData().catch(() => {});
+
+        // Render ulang menu Dokumen agar label jabatan langsung berubah
+        // tanpa perlu logout/login atau refresh halaman.
+        await loadDocuments(true).catch(() => {});
 
         showToast(result.message || 'Profil berhasil diperbarui.', 'success');
       } catch (error) {
